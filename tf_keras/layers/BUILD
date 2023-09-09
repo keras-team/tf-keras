@@ -1,0 +1,143 @@
+# Description:
+#   Contains the TF-Keras layers (internal TensorFlow version).
+
+# Placeholder: load unaliased py_library
+load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
+
+package(
+    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    # TODO(scottzhu): Remove non-keras deps from TF.
+    default_visibility = [
+        "//tf_keras:friends",
+        "//third_party/tensorflow/python/distribute:__pkg__",
+        "//third_party/tensorflow/python/feature_column:__pkg__",
+        "//third_party/tensorflow/python/trackable:__pkg__",
+        "//third_party/tensorflow/tools/pip_package:__pkg__",
+    ],
+    licenses = ["notice"],
+)
+
+# A separate build for layers without serialization to avoid circular deps
+# with feature column.
+py_library(
+    name = "layers",
+    srcs = [
+        "__init__.py",
+        "serialization.py",
+    ],
+    srcs_version = "PY3",
+    deps = [
+        ":kernelized",
+        ":noise",
+        "//tf_keras/feature_column",
+        "//tf_keras/layers/activation",
+        "//tf_keras/layers/attention",
+        "//tf_keras/layers/convolutional",
+        "//tf_keras/layers/core",
+        "//tf_keras/layers/locally_connected",
+        "//tf_keras/layers/merging",
+        "//tf_keras/layers/normalization",
+        "//tf_keras/layers/pooling",
+        "//tf_keras/layers/preprocessing",
+        "//tf_keras/layers/regularization",
+        "//tf_keras/layers/reshaping",
+        "//tf_keras/layers/rnn",
+        "//tf_keras/premade_models",
+        "//tf_keras/utils:tf_utils",
+    ],
+)
+
+py_library(
+    name = "kernelized",
+    srcs = ["kernelized.py"],
+    srcs_version = "PY3",
+    deps = [
+        "//:expect_numpy_installed",
+        "//:expect_tensorflow_installed",
+        "//tf_keras:base_layer",
+        "//tf_keras/engine:input_spec",
+        "//tf_keras/initializers",
+    ],
+)
+
+py_library(
+    name = "noise",
+    srcs = ["noise.py"],
+    srcs_version = "PY3",
+    deps = [
+        "//tf_keras/layers/regularization:alpha_dropout",
+        "//tf_keras/layers/regularization:gaussian_dropout",
+        "//tf_keras/layers/regularization:gaussian_noise",
+    ],
+)
+
+tf_py_test(
+    name = "tensorflow_op_layer_test",
+    size = "medium",
+    srcs = ["tensorflow_op_layer_test.py"],
+    python_version = "PY3",
+    shard_count = 3,
+    deps = [
+        "//:expect_absl_installed",  # absl/testing:parameterized
+        "//:expect_tensorflow_installed",
+        "//tf_keras",
+        "//tf_keras/saving",
+        "//tf_keras/testing_infra:test_combinations",
+    ],
+)
+
+tf_py_test(
+    name = "subclassed_layers_test",
+    size = "medium",
+    srcs = ["subclassed_layers_test.py"],
+    python_version = "PY3",
+    shard_count = 3,
+    deps = [
+        "//:expect_absl_installed",  # absl/testing:parameterized
+        "//:expect_numpy_installed",
+        "//:expect_tensorflow_installed",
+        "//tf_keras",
+        "//tf_keras/testing_infra:test_combinations",
+    ],
+)
+
+tf_py_test(
+    name = "serialization_test",
+    size = "small",
+    srcs = ["serialization_test.py"],
+    python_version = "PY3",
+    deps = [
+        "//:expect_absl_installed",  # absl/testing:parameterized
+        "//:expect_tensorflow_installed",
+        "//tf_keras",
+        "//tf_keras/testing_infra:test_combinations",
+    ],
+)
+
+tf_py_test(
+    name = "kernelized_test",
+    size = "small",
+    srcs = ["kernelized_test.py"],
+    python_version = "PY3",
+    deps = [
+        ":layers",
+        "//:expect_absl_installed",  # absl/testing:parameterized
+        "//:expect_numpy_installed",
+        "//:expect_tensorflow_installed",
+        "//tf_keras",
+        "//tf_keras:backend",
+        "//tf_keras/initializers",
+        "//tf_keras/testing_infra:test_combinations",
+    ],
+)
+
+tf_py_test(
+    name = "layers_test",
+    size = "small",
+    srcs = ["layers_test.py"],
+    python_version = "PY3",
+    deps = [
+        ":layers",
+        "//:expect_tensorflow_installed",
+    ],
+)

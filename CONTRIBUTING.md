@@ -56,7 +56,7 @@ pull request. A team member will take care of the merging.
 
 ![Ready to pull](https://i.imgur.com/yCEqJsA.png)
 
-Here is an [example pull request](https://github.com/keras-team/keras/pull/15015)
+Here is an [example pull request](https://github.com/keras-team/tf-keras/pull/15015)
 for your reference.
 
 ## Setup environment
@@ -68,7 +68,7 @@ to setup a local environment by installing the dev tools needed.
 ### Option 1: Use a Docker container
 
 We provide a
-[Dockerfile](https://github.com/keras-team/keras/blob/master/.devcontainer/Dockerfile)
+[Dockerfile](https://github.com/keras-team/tf-keras/blob/master/.devcontainer/Dockerfile)
 to build the dev environment. You can build the Dockerfile into a Docker image
 named `keras-dev` with the following command at the root directory of your
 cloned repo.
@@ -79,18 +79,18 @@ docker build -t keras-dev .devcontainer
 
 You can launch a Docker container from the image with the following command. The
 `-it` option gives you an interactive shell of the container. The `-v
-path/to/repo/:/home/keras/` mounts your cloned repo to the container. Replace
+path/to/repo/:/home/tf_keras/` mounts your cloned repo to the container. Replace
 `path/to/repo` with the path to your cloned repo directory.
 
 ```shell
-docker run -it -v path/to/repo/:/home/keras/ keras-dev
+docker run -it -v path/to/repo/:/home/tf_keras/ keras-dev
 ```
 
 In the container shell, you need to install the latest dependencies with the
 following command.
 
 ```shell
-pip install -r /home/keras/requirements.txt && pip uninstall keras-nightly -y
+pip install -r /home/tf_keras/requirements.txt && pip uninstall keras-nightly -y
 ```
 
 Now, the environment setup is complete. You are ready to run the tests.
@@ -107,14 +107,14 @@ with setup instructions.
 
 To setup your local dev environment, you will need the following tools.
 
-1.  [Bazel](https://bazel.build/) is the tool to build and test Keras. See the
+1.  [Bazel](https://bazel.build/) is the tool to build and test TF-Keras. See the
     [installation guide](https://docs.bazel.build/versions/4.0.0/install.html)
     for how to install and config bazel for your local environment.
 2.  [git](https://github.com/) for code repository management.
-3.  [python](https://www.python.org/) to build and code in Keras.
+3.  [python](https://www.python.org/) to build and code in TF-Keras.
 
 The following commands check the tools above are successfully installed. Note
-that Keras requires at least Python 3.7 to run.
+that TF-Keras requires at least Python 3.7 to run.
 
 ```shell
 bazel --version
@@ -146,7 +146,7 @@ venv_dir\Scripts\activate.bat  # for Windows
 Clone your forked repo to your local machine. Go to the cloned directory to
 install the dependencies into the venv. Since `tf-nightly` uses `keras-nightly`
 as a dependency, we need to uninstall `keras-nightly` so that tests will run
-against Keras code in the local workspace.
+against TF-Keras code in the local workspace.
 
 ```shell
 git clone https://github.com/YOUR_GITHUB_USERNAME/keras.git
@@ -165,9 +165,9 @@ pip install --upgrade tf-nightly
 
 ## Code style
 
-The Keras uses [Black](https://black.readthedocs.io/en/stable/) and
+The TF-Keras uses [Black](https://black.readthedocs.io/en/stable/) and
 [isort](https://pycqa.github.io/isort/) to format the code. Please refer to
-[requirements.txt](https://github.com/keras-team/keras/blob/master/requirements.txt)
+[requirements.txt](https://github.com/keras-team/tf-keras/blob/master/requirements.txt)
 for the required versions. Run the following command **at the root directory of
 the repo** to format your code.
 
@@ -199,7 +199,7 @@ A **class docstring** may contain the following items:
     * Optional `Raises` section for possible errors.
 
 You can check out `MultiHeadAttention` as an example
-[(link)](https://github.com/keras-team/keras/blob/v2.12.0-rc1/keras/layers/attention/multi_head_attention.py#L131).
+[(link)](https://github.com/keras-team/tf-keras/blob/v2.12.0-rc1/tf_keras/layers/attention/multi_head_attention.py#L131).
 
 A **function docstring** may contain the following items:
 
@@ -211,7 +211,7 @@ A **function docstring** may contain the following items:
 * Optional `Raises` section for possible errors.
 
 You can check out `text_dataset_from_directory` as an example
-[(link)](https://github.com/keras-team/keras/blob/v2.12.0-rc1/keras/utils/text_dataset.py#L31).
+[(link)](https://github.com/keras-team/tf-keras/blob/v2.12.0-rc1/tf_keras/utils/text_dataset.py#L31).
 
 
 ## Run tests
@@ -267,22 +267,22 @@ command above.
   However, it may slow down the tests for not running in parallel
   and may cause the test to timeout.
 
-## Contributing to Keras applications
+## Contributing to TF-Keras applications
 
 Contributions to the
 [pre-trained application library](https://keras.io/api/applications/) are
-welcome. Code for Keras applications is located in Keras repository in
-[keras/applications](https://github.com/keras-team/keras/blob/master/keras/applications).
-When contributing to Keras applications, please keep following checklist in
+welcome. Code for TF-Keras applications is located in TF-Keras repository in
+[keras/applications](https://github.com/keras-team/tf-keras/blob/master/tf_keras/applications).
+When contributing to TF-Keras applications, please keep following checklist in
 mind.
 
--   Keras applications must implement an established and widely used model.
+-   TF-Keras applications must implement an established and widely used model.
     Applications should include a link to a paper describing the architecture of
     the model with at least 20 citations.
 -   Applications should be provided with pre-trained weights.
-    -   When submitting a pull request for a Keras application, these weights
+    -   When submitting a pull request for a TF-Keras application, these weights
         can be provided at any publically available URL (e.g. a personal Cloud
-        Storage bucket). The weights will be uploaded to a Keras storage bucket
+        Storage bucket). The weights will be uploaded to a TF-Keras storage bucket
         while merging the pull request.
     -   Weights should be downloaded with the
         [get_file()](https://keras.io/api/utils/python_utils/#getfile-function)
@@ -312,5 +312,5 @@ mind.
 
 ## Security vulnerability reports
 
-Since Keras is the high-level API of TensorFlow 2, Keras follows same security practices as TensorFlow.
+Since TF-Keras is the high-level API of TensorFlow 2, TF-Keras follows same security practices as TensorFlow.
 For details on guidelines on vulnerabilities and reporting them, you can refer [Using TensorFlow Securely](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md). 

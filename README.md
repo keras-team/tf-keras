@@ -2,7 +2,7 @@
 
 ![Keras logo](https://s3.amazonaws.com/keras.io/img/keras-logo-2018-large-1200.png)
 
-This repository hosts the development of the Keras library.
+This repository hosts the development of the TF-Keras library.
 Read the documentation at [keras.io](https://keras.io/).
 
 ## About Keras
@@ -12,26 +12,26 @@ running on top of the machine learning platform [TensorFlow](https://github.com/
 It was developed with a focus on enabling fast experimentation and
 providing a delightful developer experience.
 
-**The purpose of Keras is to give an *unfair advantage* to any developer looking to ship ML-powered apps.**
+**The purpose of TF-Keras is to give an *unfair advantage* to any developer looking to ship ML-powered apps.**
 
 Keras is:
 
--   **Simple** -- but not simplistic. Keras reduces developer *cognitive load*
+-   **Simple** -- but not simplistic. TF-Keras reduces developer *cognitive load*
     to free you to focus on the parts of the problem that really matter.
-    Keras focuses on ease of use, debugging speed, code elegance & conciseness,
+    TF-Keras focuses on ease of use, debugging speed, code elegance & conciseness,
     maintainability, and deployability (via TFServing, TFLite, TF.js).
--   **Flexible** -- Keras adopts the principle of *progressive disclosure of
+-   **Flexible** -- TF-Keras adopts the principle of *progressive disclosure of
     complexity*: simple workflows should be quick and easy, while arbitrarily
     advanced workflows should be *possible* via a clear path that builds upon
     what you've already learned.
--   **Powerful** -- Keras provides industry-strength performance and
+-   **Powerful** -- TF-Keras provides industry-strength performance and
     scalability: it is used by organizations and companies including NASA,
     YouTube, and Waymo. That's right -- your YouTube recommendations are
     powered by Keras, and so is the world's most advanced driverless vehicle.
 
 ---
 
-## Keras & TensorFlow 2
+## TF-Keras & TensorFlow 2
 
 [TensorFlow 2](https://www.tensorflow.org/) is an end-to-end, open-source machine learning platform.
 You can think of it as an infrastructure layer for
@@ -49,14 +49,14 @@ with a focus on modern deep learning. It provides essential abstractions and bui
 and shipping machine learning solutions with high iteration velocity.
 
 Keras empowers engineers and researchers to take full advantage of the scalability
-and cross-platform capabilities of TensorFlow 2: you can run Keras on TPU or on large clusters of GPUs,
-and you can export your Keras models to run in the browser or on a mobile device.
+and cross-platform capabilities of TensorFlow 2: you can run TF-Keras on TPU or on large clusters of GPUs,
+and you can export your TF-Keras models to run in the browser or on a mobile device.
 
 ---
 
 ## First contact with Keras
 
-The core data structures of Keras are __layers__ and __models__.
+The core data structures of TF-Keras are __layers__ and __models__.
 The simplest type of model is the [`Sequential` model](https://keras.io/guides/sequential_model/), a linear stack of layers.
 For more complex architectures, you should use the [Keras functional API](https://keras.io/guides/functional_api/),
 which allows you to build arbitrary graphs of layers or [write models entirely from scratch via subclassing](https://keras.io/guides/making_new_layers_and_models_via_subclassing/).
@@ -86,7 +86,7 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 ```
 
-If you need to, you can further configure your optimizer. The Keras philosophy is to keep simple things simple,
+If you need to, you can further configure your optimizer. The TF-Keras philosophy is to keep simple things simple,
 while allowing the user to be fully in control when they need to be (the ultimate control being the easy extensibility of the source code via subclassing).
 
 ```python
@@ -114,16 +114,16 @@ Or generate predictions on new data:
 classes = model.predict(x_test, batch_size=128)
 ```
 
-What you just saw is the most elementary way to use Keras.
+What you just saw is the most elementary way to use TF-Keras.
 
-However, Keras is also a highly-flexible framework suitable to iterate on state-of-the-art research ideas.
+However, TF-Keras is also a highly-flexible framework suitable to iterate on state-of-the-art research ideas.
 Keras follows the principle of **progressive disclosure of complexity**: it makes it easy to get started,
 yet it makes it possible to handle arbitrarily advanced use cases,
 only requiring incremental learning at each step.
 
 In pretty much the same way that you were able to train & evaluate a simple neural network above in a few lines,
-you can use Keras to quickly develop new training procedures or exotic model architectures.
-Here's a low-level training loop example, combining Keras functionality with the TensorFlow `GradientTape`:
+you can use TF-Keras to quickly develop new training procedures or exotic model architectures.
+Here's a low-level training loop example, combining TF-Keras functionality with the TensorFlow `GradientTape`:
 
 ```python
 import tensorflow as tf
@@ -150,8 +150,8 @@ for inputs, targets in dataset:
 
 For more in-depth tutorials about Keras, you can check out:
 
--   [Introduction to Keras for engineers](https://keras.io/getting_started/intro_to_keras_for_engineers/)
--   [Introduction to Keras for researchers](https://keras.io/getting_started/intro_to_keras_for_researchers/)
+-   [Introduction to TF-Keras for engineers](https://keras.io/getting_started/intro_to_keras_for_engineers/)
+-   [Introduction to TF-Keras for researchers](https://keras.io/getting_started/intro_to_keras_for_researchers/)
 -   [Developer guides](https://keras.io/guides/)
 -   [Other learning resources](https://keras.io/getting_started/learning_resources/)
 
@@ -161,10 +161,10 @@ For more in-depth tutorials about Keras, you can check out:
 
 Keras comes packaged with TensorFlow 2 as `tensorflow.keras`.
 To start using Keras, simply [install TensorFlow 2](https://www.tensorflow.org/install).
-You can then import Keras as follows:
+You can then import TF-Keras as follows:
 
 ```python
-from tensorflow import keras
+from tensorflow import tf_keras as keras
 ```
 
 ---
@@ -173,7 +173,7 @@ from tensorflow import keras
 
 Keras has **nightly releases** (`keras-nightly` on PyPI)
 and **stable releases** (`keras` on PyPI).
-The nightly Keras releases are usually compatible with the corresponding version
+The nightly TF-Keras releases are usually compatible with the corresponding version
 of the `tf-nightly` releases
 (e.g. `keras-nightly==2.7.0.dev2021100607` should be
 used with `tf-nightly==2.7.0.dev2021100607`).
@@ -182,11 +182,11 @@ For stable releases, each Keras
 version maps to a specific stable version of TensorFlow.
 
 The table below shows the compatibility version mapping
-between TensorFlow versions and Keras versions.
+between TensorFlow versions and TF-Keras versions.
 
-All the release branches can be found on [GitHub](https://github.com/keras-team/keras/releases).
+All the release branches can be found on [GitHub](https://github.com/keras-team/tf-keras/releases).
 
-All the release binaries can be found on [Pypi](https://pypi.org/project/keras/#history).
+All the release binaries can be found on [Pypi](https://pypi.org/project/tf_keras/#history).
 
 ---
 ## Support
@@ -201,7 +201,7 @@ You can ask questions and join the development discussion:
 ## Opening an issue
 
 You can also post **bug reports and feature requests** (only)
-in [GitHub issues](https://github.com/keras-team/keras/issues).
+in [GitHub issues](https://github.com/keras-team/tf-keras/issues).
 
 
 ---
@@ -209,5 +209,5 @@ in [GitHub issues](https://github.com/keras-team/keras/issues).
 ## Opening a PR
 
 We welcome contributions! Before opening a PR, please read
-[our contributor guide](https://github.com/keras-team/keras/blob/master/CONTRIBUTING.md),
+[our contributor guide](https://github.com/keras-team/tf-keras/blob/master/CONTRIBUTING.md),
 and the [API design guideline](https://github.com/keras-team/governance/blob/master/keras_api_design_guidelines.md).

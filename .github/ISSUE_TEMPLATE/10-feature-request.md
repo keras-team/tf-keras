@@ -30,8 +30,8 @@ Describe the feature clearly here. Be sure to convey here why the requested feat
 **Who will benefit from this feature?**
 
 
-**[Contributing](https://github.com/keras-team/keras/blob/master/CONTRIBUTING.md)**
+**[Contributing](https://github.com/keras-team/tf-keras/blob/master/CONTRIBUTING.md)**
 
 - Do you want to contribute a PR? (yes/no):
-- If yes, please read [this page](https://github.com/keras-team/keras/blob/master/CONTRIBUTING.md) for instructions
+- If yes, please read [this page](https://github.com/keras-team/tf-keras/blob/master/CONTRIBUTING.md) for instructions
 - Briefly describe your candidate solution(if contributing):

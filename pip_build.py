@@ -1,20 +1,20 @@
-"""Build the Keras pip package.
+"""Build the TF-Keras pip package.
 
 The steps are as follows:
 
-0. Run bazel build in the Keras root directory to obtain protobuf Python files.
+0. Run bazel build in the TF-Keras root directory to obtain protobuf Python files.
 1. Create a temporary build directory (e.g. `/tmp/keras_build`)
-2. Copy the Keras codebase to it (to `/tmp/keras_build/keras/src`)
+2. Copy the TF-Keras codebase to it (to `/tmp/keras_build/tf_keras/src`)
   and rewrite internal imports so that they refer to `keras.src` rather than
   just `keras`.
 3. Also copy `setup.py` to the build directory.
-4. List and import every file in the codebase (in `/tmp/keras_build/keras/src`),
+4. List and import every file in the codebase (in `/tmp/keras_build/tf_keras/src`),
   so we can inspect the symbols the codebase contains.
 5. Use the annotations left by the `keras_export` decorator to filter the
   symbols that should be exported, as well as their export path (default one
   and v1 one).
 6. Use this information to generate `__init__.py` files in
-  `tmp/keras_build/keras/`.
+  `tmp/keras_build/tf_keras/`.
 7. Run the setup script to write out build artifacts to `tmp/keras_build/dist`.
 8. Copy the artifacts out. This is what should be uploaded to PyPI.
 
@@ -22,14 +22,14 @@ This script borrows heavily from Namex (https://github.com/fchollet/namex).
 
 Notes:
 
-* This script should be run on the Keras codebase as obtained from GitHub
+* This script should be run on the TF-Keras codebase as obtained from GitHub
   (OSS-facing), not the Google-internal one. The files are expect to be already
   converted to their public form.
 * This script only targets Linux x86 64. It could be adapted to MacOS
   relatively easily by changing requirements.txt and the bazel build script.
-* This script should be run from an environment that has all Keras dependencies
+* This script should be run from an environment that has all TF-Keras dependencies
   installed. Note that their specific version is not important; the only
-  thing that matters is that we should be able to import the Keras codebase
+  thing that matters is that we should be able to import the TF-Keras codebase
   in its current state (so we can perform step 4). If you install the
   dependencies used by the latest TF-nightly you should be good.
 """
@@ -46,7 +46,7 @@ import subprocess
 import sys
 import tempfile
 
-PACKAGE_NAME = "keras"
+PACKAGE_NAME = "tf_keras"
 DIST_DIRNAME = "dist"
 SRC_DIRNAME = "src"
 TMP_BUILD_DIRNAME = "keras_build"
@@ -77,7 +77,7 @@ def copy_keras_codebase(source_dir, target_dir):
 
 def convert_keras_imports(src_directory):
     def _convert_line(line):
-        if "import keras.protobuf" in line or "from keras.protobuf" in line:
+        if "import tf_keras.protobuf" in line or "from tf_keras.protobuf" in line:
             return line
         # Imports starting from `root_name`.
         if line.strip() == f"import {PACKAGE_NAME}":
@@ -100,7 +100,7 @@ def convert_keras_imports(src_directory):
             f"from {PACKAGE_NAME}.{SRC_DIRNAME} import",
         )
         # A way to catch LazyLoader calls. Hacky.
-        line = line.replace('globals(), "keras.', 'globals(), "keras.src.')
+        line = line.replace('globals(), "tf_keras.', 'globals(), "tf_keras.src.')
         return line
 
     for root, _, files in os.walk(src_directory):
@@ -136,7 +136,7 @@ def generate_keras_api_files(package_directory, src_directory):
     for root, _, files in os.walk(src_directory):
         for fname in files:
             parts = root.split("/")
-            parts = parts[parts.index("keras") :]
+            parts = parts[parts.index("tf_keras") :]
             base_entry_point = ".".join(parts)
             if fname == "__init__.py":
                 codebase_walk_entry_points.append(base_entry_point)
@@ -236,12 +236,12 @@ def generate_keras_api_files(package_directory, src_directory):
     write_out_api_files(
         init_files_content,
         target_dir=v2_path,
-        root_offset=["api", "_v2", "keras"],
+        root_offset=["api", "_v2", "tf_keras"],
     )
     write_out_api_files(
         init_files_content_v1,
         target_dir=v1_path,
-        root_offset=["api", "_v1", "keras"],
+        root_offset=["api", "_v1", "tf_keras"],
     )
     # Add missing __init__ files in api dirs.
     with open(os.path.join(package_directory, "api", "__init__.py"), "w"):
@@ -340,14 +340,14 @@ def build_pip_package(
     is_nightly=False,
     rc=None,
 ):
-    # Build Keras with Bazel to get the protobuf .py files
+    # Build TF-Keras with Bazel to get the protobuf .py files
     os.chdir(keras_root_directory)
     os.system(f"sh {os.path.join('keras', 'tools', 'bazel_build.sh')}")
     os.chdir(build_directory)
 
     # Copy sources (`keras/` directory and setup files) to build directory
     copy_keras_codebase(
-        os.path.join(keras_root_directory, "keras"), src_directory
+        os.path.join(keras_root_directory, "tf_keras"), src_directory
     )
     shutil.copy(
         os.path.join(keras_root_directory, "oss_setup.py"),
@@ -362,7 +362,7 @@ def build_pip_package(
     # Move protobuf .py files to package root.
     shutil.rmtree(os.path.join(src_directory, "protobuf"))
     shutil.move(
-        os.path.join(keras_root_directory, "bazel-bin", "keras", "protobuf"),
+        os.path.join(keras_root_directory, "bazel-bin", "tf_keras", "protobuf"),
         package_directory,
     )
     # Add blank __init__.py file in protobuf dir.

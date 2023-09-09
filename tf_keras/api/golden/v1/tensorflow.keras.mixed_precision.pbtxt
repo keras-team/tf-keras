@@ -1,0 +1,7 @@
+path: "tensorflow.keras.mixed_precision"
+tf_module {
+  member {
+    name: "LossScaleOptimizer"
+    mtype: "<class \'tf_keras.mixed_precision.loss_scale_optimizer.LossScaleOptimizerMetaclass\'>"
+  }
+}

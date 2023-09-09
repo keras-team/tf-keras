@@ -46,7 +46,7 @@ jobs:
             This is a pull request automatically created by a Github Action to format the code.
 
             If there is any conflict, click the run workflow button on
-            [this page](https://github.com/keras-team/keras/actions/workflows/format.yml).
+            [this page](https://github.com/keras-team/tf-keras/actions/workflows/format.yml).
           labels: |
             ready to pull
           draft: false
