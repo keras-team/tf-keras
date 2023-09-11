@@ -280,7 +280,6 @@ class ConcatAggregator(Aggregator):
         self.composite = is_composite_or_composite_value(batch_element)
 
     def aggregate(self, batch_element, batch_start=None, batch_end=None):
-
         # TODO(psv): Add num_samples check here to detect when output batch
         # #samples is < batch size and != input batch #samples.
         if self.batch_size and self.batch_size < batch_element.shape[0]:

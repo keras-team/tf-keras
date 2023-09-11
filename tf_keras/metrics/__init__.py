@@ -64,7 +64,9 @@ from tf_keras.metrics.probabilistic_metrics import binary_crossentropy
 from tf_keras.metrics.probabilistic_metrics import categorical_crossentropy
 from tf_keras.metrics.probabilistic_metrics import poisson
 from tf_keras.metrics.probabilistic_metrics import kullback_leibler_divergence
-from tf_keras.metrics.probabilistic_metrics import sparse_categorical_crossentropy
+from tf_keras.metrics.probabilistic_metrics import (
+    sparse_categorical_crossentropy,
+)
 
 # Regression metrics
 from tf_keras.metrics.regression_metrics import CosineSimilarity

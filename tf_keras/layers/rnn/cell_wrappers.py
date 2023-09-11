@@ -136,7 +136,9 @@ class _RNNCellWrapper(AbstractRNNCell):
     @classmethod
     def from_config(cls, config, custom_objects=None):
         config = config.copy()
-        from tf_keras.layers.serialization import deserialize as deserialize_layer
+        from tf_keras.layers.serialization import (
+            deserialize as deserialize_layer,
+        )
 
         cell = deserialize_layer(
             config.pop("cell"), custom_objects=custom_objects

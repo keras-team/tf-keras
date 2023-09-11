@@ -341,7 +341,6 @@ class SidecarEvaluatorTest(tf.test.TestCase, parameterized.TestCase):
         self.assertGreaterEqual(len(metrics_logging), 1)
 
     def testExperimentalDeprecatedMessage(self):
-
         warning_messages = []
 
         def warning(msg):

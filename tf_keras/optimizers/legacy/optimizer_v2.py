@@ -1350,7 +1350,6 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
         synchronization=tf.VariableSynchronization.AUTO,
         aggregation=tf.VariableAggregation.NONE,
     ):
-
         if dtype is None:
             dtype = tf.float32
         if isinstance(initializer, str) or callable(initializer):

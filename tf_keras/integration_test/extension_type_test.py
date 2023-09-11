@@ -44,7 +44,6 @@ class MaskedTensor(tf.experimental.BatchableExtensionType):
         return self.values.dtype
 
     class Spec:
-
         # Required by KerasTensor.shape in keras/engine/keras_tensor.py
         @property
         def shape(self):

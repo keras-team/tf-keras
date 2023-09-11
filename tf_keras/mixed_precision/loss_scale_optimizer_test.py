@@ -834,7 +834,6 @@ class LossScaleOptimizerTest(tf.test.TestCase, parameterized.TestCase):
         save_with_ls,
         restore_with_ls,
     ):
-
         if not save_with_ls and not restore_with_ls:
             self.skipTest(
                 "Skipping because save_with_ls=False and "

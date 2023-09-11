@@ -167,7 +167,6 @@ class Cropping3D(Layer):
             )
 
     def call(self, inputs):
-
         if self.data_format == "channels_first":
             if (
                 self.cropping[0][1]

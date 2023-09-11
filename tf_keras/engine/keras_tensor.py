@@ -688,7 +688,6 @@ def keras_tensor_from_type_spec(type_spec, name=None):
 def type_spec_with_shape(spec, shape):
     """Returns a copy of TypeSpec `spec` with its shape set to `shape`."""
     if isinstance(spec, tf.TensorSpec):
-
         # TODO(b/203201161) Figure out why mutation is needed here, and remove
         # it. (TensorSpec objects should be immutable; and we should not be
         # modifying private fields.)

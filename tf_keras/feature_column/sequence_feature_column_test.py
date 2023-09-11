@@ -107,7 +107,6 @@ class SequenceFeaturesTest(tf.test.TestCase, parameterized.TestCase):
         expected_input_layer,
         expected_sequence_length,
     ):
-
         sparse_input_a = tf.compat.v1.SparseTensorValue(**sparse_input_args_a)
         sparse_input_b = tf.compat.v1.SparseTensorValue(**sparse_input_args_b)
         vocabulary_size = 3

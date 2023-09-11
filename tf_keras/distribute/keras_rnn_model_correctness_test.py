@@ -24,7 +24,9 @@ from tf_keras.layers.rnn import gru_v1
 from tf_keras.layers.rnn import lstm
 from tf_keras.layers.rnn import lstm_v1
 from tf_keras.mixed_precision import policy
-from tf_keras.optimizers.legacy import gradient_descent as gradient_descent_keras
+from tf_keras.optimizers.legacy import (
+    gradient_descent as gradient_descent_keras,
+)
 from tf_keras.testing_infra import test_utils
 
 

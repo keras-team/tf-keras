@@ -29,7 +29,6 @@ _autocast_dtype = threading.local()
 def numpy_text(tensor, is_repr=False):
     """Human readable representation of a tensor's numpy value."""
     if tensor.dtype.is_numpy_compatible:
-
         text = repr(tensor._numpy()) if is_repr else str(tensor._numpy())
 
     else:
@@ -432,7 +431,9 @@ class AutoCastVariable(tf.Variable, tf.__internal__.types.Tensor):
         # copy of self that wraps the **copy** of `self._variable`.
         # When updating value, only the lowest-level variable will actually
         # update, since `AutoCastVariable` here is like a shell.
-        self._variable._copy_trackable_to_cpu(object_map)  # pylint:disable=protected-access
+        self._variable._copy_trackable_to_cpu(
+            object_map
+        )  # pylint:disable=protected-access
         if self not in object_map:
             # If not populated already, populate self into the object map
             object_map[self] = AutoCastVariable(object_map[self._variable])
@@ -603,7 +604,6 @@ def create_autocast_variable(variable):
         """
 
         def __repr__(self):
-
             return (
                 "<AutoCastDistributedVariable dtype={v.dtype.name} "
                 "dtype_to_cast_to={v._cast_dtype.name} "

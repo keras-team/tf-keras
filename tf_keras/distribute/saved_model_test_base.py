@@ -259,7 +259,6 @@ class TestSavedModelBase(tf.test.TestCase, parameterized.TestCase):
             self._save_model(model, saved_dir)
 
         with distribution_for_restoring.scope():
-
             load_result = self._load_and_run_model(
                 distribution=distribution_for_restoring,
                 saved_dir=saved_dir,

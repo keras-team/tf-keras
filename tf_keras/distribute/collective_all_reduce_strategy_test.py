@@ -19,7 +19,9 @@ from absl.testing import parameterized
 
 from tf_keras import layers
 from tf_keras.engine import training
-from tf_keras.optimizers.legacy import gradient_descent as gradient_descent_keras
+from tf_keras.optimizers.legacy import (
+    gradient_descent as gradient_descent_keras,
+)
 from tf_keras.testing_infra import test_utils
 
 

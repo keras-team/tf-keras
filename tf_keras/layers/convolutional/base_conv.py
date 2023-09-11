@@ -185,7 +185,6 @@ class Conv(Layer):
             )
 
         if self.padding == "causal":
-
             from tf_keras.layers.convolutional.conv1d import Conv1D
             from tf_keras.layers.convolutional.separable_conv1d import (
                 SeparableConv1D,

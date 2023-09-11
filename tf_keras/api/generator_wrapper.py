@@ -14,7 +14,9 @@
 # ==============================================================================
 """Thin wrapper to call TensorFlow's API generator script."""
 from absl import app
-from tensorflow.python.tools.api.generator2.generator import generator
+from tensorflow.python.tools.api.generator2.generator import (
+    generator,
+)
 
 if __name__ == "__main__":
     app.run(generator.main)

@@ -187,7 +187,6 @@ def squeeze_or_expand_dimensions(y_pred, y_true=None, sample_weight=None):
     y_pred_shape = y_pred.shape
     y_pred_rank = y_pred_shape.ndims
     if y_true is not None:
-
         # If sparse matrix is provided as `y_true`, the last dimension in
         # `y_pred` may be > 1. Eg: y_true = [0, 1, 2] (shape=(3,)), y_pred =
         # [[.9, .05, .05], [.5, .89, .6], [.05, .01, .94]] (shape=(3, 3)) In

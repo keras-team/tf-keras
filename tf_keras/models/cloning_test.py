@@ -104,7 +104,6 @@ class TestModelCloning(test_combinations.TestCase):
     def test_clone_sequential_model(
         self, input_shape, add_input_layer, share_weights
     ):
-
         if share_weights:
             clone_fn = functools.partial(
                 keras.models._clone_sequential_model,

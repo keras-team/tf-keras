@@ -1907,7 +1907,6 @@ class Model(training_lib.Model):
                 first_layer
             )
             if static_batch_size is not None:
-
                 # Determine number of times the user-supplied batch size will be
                 # split.
                 if (

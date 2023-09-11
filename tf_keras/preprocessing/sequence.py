@@ -133,7 +133,6 @@ class TimeseriesGenerator(data_utils.Sequence):
         reverse=False,
         batch_size=128,
     ):
-
         if len(data) != len(targets):
             raise ValueError(
                 "Data and targets have to be"

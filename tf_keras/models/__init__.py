@@ -28,7 +28,9 @@ from tf_keras.models.cloning import _clone_sequential_model
 from tf_keras.models.cloning import clone_and_build_model
 from tf_keras.models.cloning import clone_model
 from tf_keras.models.cloning import share_weights
-from tf_keras.models.sharpness_aware_minimization import SharpnessAwareMinimization
+from tf_keras.models.sharpness_aware_minimization import (
+    SharpnessAwareMinimization,
+)
 from tf_keras.saving.legacy.model_config import model_from_config
 from tf_keras.saving.legacy.model_config import model_from_json
 from tf_keras.saving.legacy.model_config import model_from_yaml

@@ -19,7 +19,9 @@ import tensorflow.compat.v2 as tf
 
 import tf_keras as keras
 from tf_keras.distribute import keras_correctness_test_base
-from tf_keras.optimizers.legacy import gradient_descent as gradient_descent_keras
+from tf_keras.optimizers.legacy import (
+    gradient_descent as gradient_descent_keras,
+)
 
 
 def strategies_for_stateful_embedding_model():

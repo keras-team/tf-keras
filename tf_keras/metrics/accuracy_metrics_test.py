@@ -374,7 +374,6 @@ class SparseTopKCategoricalAccuracyTest(tf.test.TestCase):
         self.assertAllClose(1.0, self.evaluate(result), atol=1e-5)
 
     def test_sparse_top_k_categorical_accuracy_mismatched_dims_dynamic(self):
-
         if not tf.compat.v1.executing_eagerly():
             # Test will fail in v1 graph mode since the metric is not a normal
             # layer.  It will aggregate the output by batch dim, which failed on

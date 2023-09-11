@@ -1260,7 +1260,6 @@ class NetworkConstructionTest(test_combinations.TestCase):
 
     @test_combinations.generate(test_combinations.keras_mode_combinations())
     def test_composite_call_kwarg_derived_from_keras_layer(self):
-
         # Create a test layer that accepts composite tensor inputs.
         class MaybeAdd(layers.Layer):
             def call(self, x1, x2=None):
@@ -1513,7 +1512,6 @@ class NetworkConstructionTest(test_combinations.TestCase):
         test_combinations.combine(mode=["graph", "eager"])
     )
     def test_model_construction_in_tf_function(self):
-
         d = {"model": None}
 
         @tf.function
@@ -1986,7 +1984,6 @@ class DefaultShapeInferenceBehaviorTest(test_combinations.TestCase):
 
 class GraphUtilsTest(tf.test.TestCase):
     def testGetReachableFromInputs(self):
-
         with tf.Graph().as_default(), self.cached_session():
             pl_1 = tf.compat.v1.placeholder(shape=None, dtype="float32")
             pl_2 = tf.compat.v1.placeholder(shape=None, dtype="float32")

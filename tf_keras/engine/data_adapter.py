@@ -53,7 +53,9 @@ except ImportError:
     pd = None
 
 keras_data_adapter_gauge = tf.__internal__.monitoring.BoolGauge(
-    "/tensorflow/api/tf_keras/data_adapters", "keras data adapter usage", "method"
+    "/tensorflow/api/tf_keras/data_adapters",
+    "keras data adapter usage",
+    "method",
 )
 
 
@@ -507,6 +509,7 @@ class GenericArrayLikeDataAdapter(TensorLikeDataAdapter):
 
         def grab_batch(indices):
             """Grab a batch of data from the inputs."""
+
             # This uses a py_function to avoid converting the array-like
             # into a Tensor before slicing it, because converting the array-like
             # to a Tensor may force it into memory..
@@ -1549,7 +1552,6 @@ class _ClusterCoordinatorDataHandler(DataHandler):
         if isinstance(x, dataset_creator.DatasetCreator):
 
             def per_worker_dataset_fn():
-
                 return strategy.distribute_datasets_from_function(
                     x, options=x.input_options
                 )

@@ -23,7 +23,9 @@ from tf_keras.utils.generic_utils import LazyLoader
 # with copybara is fixed.
 
 training = LazyLoader("training", globals(), "tf_keras.engine.training")
-training_v1 = LazyLoader("training_v1", globals(), "tf_keras.engine.training_v1")
+training_v1 = LazyLoader(
+    "training_v1", globals(), "tf_keras.engine.training_v1"
+)
 base_layer = LazyLoader("base_layer", globals(), "tf_keras.engine.base_layer")
 base_layer_v1 = LazyLoader(
     "base_layer_v1", globals(), "tf_keras.engine.base_layer_v1"

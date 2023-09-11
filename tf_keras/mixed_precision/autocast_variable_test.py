@@ -20,7 +20,6 @@ import threading
 import numpy as np
 import tensorflow.compat.v2 as tf
 from absl.testing import parameterized
-
 from tensorflow.python.eager import test
 
 from tf_keras.layers import Dense
@@ -56,7 +55,8 @@ def checkpoint_test_helper(test_case, distribution, enable_async_ckpt):
 
         checkpoint = tf.train.Checkpoint(x=x)
         ckpt_options = tf.train.CheckpointOptions(
-                experimental_enable_async_checkpoint=enable_async_ckpt)
+            experimental_enable_async_checkpoint=enable_async_ckpt
+        )
         prefix = os.path.join(test_case.get_temp_dir(), "ckpt")
         save_path = checkpoint.save(prefix, options=ckpt_options)
         test_case.evaluate(x.assign(234.0))

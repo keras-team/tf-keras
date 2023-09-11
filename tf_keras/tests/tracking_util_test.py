@@ -73,7 +73,6 @@ class InterfaceTests(tf.test.TestCase):
         self.assertEqual([layer_one, layer_two], model.layers)
 
     def testSaveWithOnlyKerasSession(self):
-
         with tf.Graph().as_default(), self.cached_session():
             inp = input_layer.Input([1])
             dense = core.Dense(1)(inp)

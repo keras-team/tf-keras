@@ -249,7 +249,6 @@ def serialize_keras_object(obj):
         return obj
 
     if config_with_public_class is not None:
-
         # Special case for non-serializable class modules
         if any(
             mod in config_with_public_class["module"]

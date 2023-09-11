@@ -52,7 +52,9 @@ from tf_keras.utils.generic_utils import LazyLoader
 models_lib = LazyLoader("models_lib", globals(), "tf_keras.models")
 base_layer = LazyLoader("base_layer", globals(), "tf_keras.engine.base_layer")
 layers_module = LazyLoader("layers_module", globals(), "tf_keras.layers")
-input_layer = LazyLoader("input_layer", globals(), "tf_keras.engine.input_layer")
+input_layer = LazyLoader(
+    "input_layer", globals(), "tf_keras.engine.input_layer"
+)
 functional_lib = LazyLoader(
     "functional_lib", globals(), "tf_keras.engine.functional"
 )
@@ -1175,7 +1177,6 @@ class RevivedLayer:
         revived_obj = cls(**init_args)
 
         with utils.no_automatic_dependency_tracking_scope(revived_obj):
-
             revived_obj._call_spec.expects_training_arg = metadata[
                 "expects_training_arg"
             ]
@@ -1220,7 +1221,6 @@ def _revive_setter(layer, name, value):
     # Many attributes in the SavedModel conflict with properties defined in
     # Layer and Model. Save these attributes to a separate dictionary.
     if name in PUBLIC_ATTRIBUTES:
-
         if isinstance(value, tf.__internal__.tracking.Trackable):
             layer._track_trackable(value, name=name)
         layer._serialized_attributes[name] = value
@@ -1341,7 +1341,6 @@ class RevivedNetwork(RevivedLayer):
         # dictionary. The attributes are the ones listed in CommonEndpoints or
         # "keras_api" for keras-specific attributes.
         with utils.no_automatic_dependency_tracking_scope(revived_obj):
-
             revived_obj._call_spec.expects_training_arg = metadata[
                 "expects_training_arg"
             ]
@@ -1362,7 +1361,6 @@ class RevivedNetwork(RevivedLayer):
 def _set_network_attributes_from_metadata(revived_obj):
     """Sets attributes recorded in the metadata."""
     with utils.no_automatic_dependency_tracking_scope(revived_obj):
-
         metadata = revived_obj._serialized_attributes["metadata"]
         if metadata.get("dtype") is not None:
             revived_obj._set_dtype_policy(metadata["dtype"])

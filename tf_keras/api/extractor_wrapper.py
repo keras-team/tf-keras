@@ -14,7 +14,9 @@
 # ==============================================================================
 """Thin wrapper to call TensorFlow's API extractor script."""
 from absl import app
-from tensorflow.python.tools.api.generator2.extractor import extractor
+from tensorflow.python.tools.api.generator2.extractor import (
+    extractor,
+)
 
 if __name__ == "__main__":
     app.run(extractor.main)

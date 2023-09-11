@@ -75,7 +75,6 @@ def assert_like_rnncell(cell_name, cell):
     ]
 
     if not all(conditions):
-
         errors = [error for error, cond in zip(errors, conditions) if not cond]
         raise TypeError(
             "The argument {!r} ({}) is not an RNNCell: {}.".format(

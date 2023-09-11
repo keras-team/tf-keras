@@ -261,7 +261,6 @@ class TextVectorization(base_preprocessing_layer.PreprocessingLayer):
         encoding="utf-8",
         **kwargs,
     ):
-
         # This layer only applies to string processing, and so should only have
         # a dtype of 'string'.
         if "dtype" in kwargs and kwargs["dtype"] != tf.string:

@@ -45,7 +45,6 @@ _config = tf.compat.v1.ConfigProto(graph_options=_graph_options)
 
 @test_combinations.run_all_keras_modes(config=_config)
 class LSTMGraphRewriteTest(test_combinations.TestCase):
-
     input_shape = 10
     output_shape = 8
     rnn_state_size = 8
@@ -790,7 +789,6 @@ class LSTMGraphRewriteTest(test_combinations.TestCase):
         )
 
     def _test_runtime_with_model(self, model):
-
         (x_train, y_train), _ = test_utils.get_test_data(
             train_samples=self.batch,
             test_samples=0,

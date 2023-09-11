@@ -72,7 +72,6 @@ class _ObjectIdentityWrapper:
 
 
 class _WeakObjectIdentityWrapper(_ObjectIdentityWrapper):
-
     __slots__ = ()
 
     def __init__(self, wrapped):

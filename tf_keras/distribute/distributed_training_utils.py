@@ -131,7 +131,6 @@ def get_strategy():
 
 
 def maybe_preemption_handler_scope(model):
-
     if getattr(model, "_preemption_handler", None):
         preemption_checkpoint_scope = (
             model._preemption_handler.watch_preemption_scope()

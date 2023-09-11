@@ -14,8 +14,12 @@
 # ==============================================================================
 """Learning rate schedule API."""
 
-from tf_keras.optimizers.schedules.learning_rate_schedule import ExponentialDecay
-from tf_keras.optimizers.schedules.learning_rate_schedule import InverseTimeDecay
+from tf_keras.optimizers.schedules.learning_rate_schedule import (
+    ExponentialDecay,
+)
+from tf_keras.optimizers.schedules.learning_rate_schedule import (
+    InverseTimeDecay,
+)
 from tf_keras.optimizers.schedules.learning_rate_schedule import (
     PiecewiseConstantDecay,
 )

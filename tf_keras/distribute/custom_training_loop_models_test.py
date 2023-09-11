@@ -205,7 +205,6 @@ class KerasModelsTest(tf.test.TestCase, parameterized.TestCase):
         train_step(input_iterator)
 
     def test_lstm(self, distribution):
-
         batch_size = 32
 
         def create_lstm_model():
@@ -481,7 +480,6 @@ class KerasModelsTest(tf.test.TestCase, parameterized.TestCase):
         dataset = dataset.batch(2, drop_remainder=True)
 
         def replica_step(trainable_variables, features):
-
             with tf.GradientTape() as tape:
                 net_out = net(features[0], training=True)
                 loss = (net_out - 1.0) * (net_out - 1.0)

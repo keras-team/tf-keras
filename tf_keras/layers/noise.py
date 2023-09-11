@@ -15,7 +15,9 @@
 """Layers that operate regularization via the addition of noise."""
 
 
-from tf_keras.layers.regularization.alpha_dropout import AlphaDropout  # noqa: F401
+from tf_keras.layers.regularization.alpha_dropout import (  # noqa: F401
+    AlphaDropout,
+)
 
 # Regularization layers imported for backwards namespace compatibility
 from tf_keras.layers.regularization.gaussian_dropout import (  # noqa: F401,E501

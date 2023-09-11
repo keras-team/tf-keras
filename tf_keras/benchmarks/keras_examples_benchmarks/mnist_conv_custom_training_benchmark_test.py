@@ -172,7 +172,6 @@ class CustomMnistBenchmark(tf.test.Benchmark):
         for _ in range(epochs):
             # Iterate over the batches of the dataset.
             for batch_dataset in train_dataset:
-
                 start_time = timer()
 
                 if distribution_strategy is not None:

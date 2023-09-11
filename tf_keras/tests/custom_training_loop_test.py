@@ -154,7 +154,6 @@ class CustomTrainingLoopTest(test_combinations.TestCase):
 
     @parameterized.named_parameters(("eager", False), ("defun", True))
     def test_training_arg_propagation(self, defun):
-
         model = test_utils.get_model_from_layers(
             [LayerWithTrainingArg()], input_shape=(1,)
         )

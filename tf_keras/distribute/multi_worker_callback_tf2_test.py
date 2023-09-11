@@ -103,7 +103,6 @@ class KerasCallbackMultiProcessTest(parameterized.TestCase, tf.test.TestCase):
         def proc_model_checkpoint_saves_on_chief_but_not_otherwise(
             test_obj, file_format
         ):
-
             model, saving_filepath, train_ds, steps = _model_setup(
                 test_obj, file_format
             )

@@ -20,21 +20,31 @@
 from tf_keras.layers.convolutional.conv1d import Conv1D
 from tf_keras.layers.convolutional.conv1d import Convolution1D
 from tf_keras.layers.convolutional.conv1d_transpose import Conv1DTranspose
-from tf_keras.layers.convolutional.conv1d_transpose import Convolution1DTranspose
+from tf_keras.layers.convolutional.conv1d_transpose import (
+    Convolution1DTranspose,
+)
 from tf_keras.layers.convolutional.conv2d import Conv2D
 from tf_keras.layers.convolutional.conv2d import Convolution2D
 from tf_keras.layers.convolutional.conv2d_transpose import Conv2DTranspose
-from tf_keras.layers.convolutional.conv2d_transpose import Convolution2DTranspose
+from tf_keras.layers.convolutional.conv2d_transpose import (
+    Convolution2DTranspose,
+)
 from tf_keras.layers.convolutional.conv3d import Conv3D
 from tf_keras.layers.convolutional.conv3d import Convolution3D
 from tf_keras.layers.convolutional.conv3d_transpose import Conv3DTranspose
-from tf_keras.layers.convolutional.conv3d_transpose import Convolution3DTranspose
+from tf_keras.layers.convolutional.conv3d_transpose import (
+    Convolution3DTranspose,
+)
 from tf_keras.layers.convolutional.depthwise_conv1d import DepthwiseConv1D
 from tf_keras.layers.convolutional.depthwise_conv2d import DepthwiseConv2D
 from tf_keras.layers.convolutional.separable_conv1d import SeparableConv1D
-from tf_keras.layers.convolutional.separable_conv1d import SeparableConvolution1D
+from tf_keras.layers.convolutional.separable_conv1d import (
+    SeparableConvolution1D,
+)
 from tf_keras.layers.convolutional.separable_conv2d import SeparableConv2D
-from tf_keras.layers.convolutional.separable_conv2d import SeparableConvolution2D
+from tf_keras.layers.convolutional.separable_conv2d import (
+    SeparableConvolution2D,
+)
 
 # Pooling layers imported for backwards namespace compatibility.
 from tf_keras.layers.pooling.average_pooling1d import AveragePooling1D

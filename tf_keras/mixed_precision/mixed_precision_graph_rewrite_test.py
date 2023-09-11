@@ -28,7 +28,6 @@ from tf_keras.testing_infra import test_utils
 
 
 class MixedPrecisionTest(test_combinations.TestCase):
-
     IGNORE_PERF_VAR = "TF_AUTO_MIXED_PRECISION_GRAPH_REWRITE_IGNORE_PERFORMANCE"
 
     def setUp(self):
@@ -105,7 +104,6 @@ class MixedPrecisionTest(test_combinations.TestCase):
         test_combinations.combine(mode=["graph", "eager"])
     )
     def test_wrap_optimizer_dynamic_loss_scale_errors(self):
-
         opt = gradient_descent_v2.SGD(1.0)
         with self.assertRaisesRegex(
             ValueError,

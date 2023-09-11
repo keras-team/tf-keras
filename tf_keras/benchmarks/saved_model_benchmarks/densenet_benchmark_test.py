@@ -20,7 +20,9 @@ from __future__ import print_function
 
 import tensorflow.compat.v2 as tf
 
-from tf_keras.benchmarks.saved_model_benchmarks import saved_model_benchmark_util
+from tf_keras.benchmarks.saved_model_benchmarks import (
+    saved_model_benchmark_util,
+)
 
 
 class BenchmarkSaveApplications(tf.test.Benchmark):

@@ -130,7 +130,6 @@ class TestObjectRegistration(tf.test.TestCase):
         self.assertEqual(42, fn_2())
 
     def test_serialize_custom_class_without_get_config_fails(self):
-
         with self.assertRaisesRegex(
             ValueError,
             "Cannot register a class that does not have a get_config.*",

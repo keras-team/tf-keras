@@ -77,7 +77,10 @@ def copy_keras_codebase(source_dir, target_dir):
 
 def convert_keras_imports(src_directory):
     def _convert_line(line):
-        if "import tf_keras.protobuf" in line or "from tf_keras.protobuf" in line:
+        if (
+            "import tf_keras.protobuf" in line
+            or "from tf_keras.protobuf" in line
+        ):
             return line
         # Imports starting from `root_name`.
         if line.strip() == f"import {PACKAGE_NAME}":
@@ -100,7 +103,9 @@ def convert_keras_imports(src_directory):
             f"from {PACKAGE_NAME}.{SRC_DIRNAME} import",
         )
         # A way to catch LazyLoader calls. Hacky.
-        line = line.replace('globals(), "tf_keras.', 'globals(), "tf_keras.src.')
+        line = line.replace(
+            'globals(), "tf_keras.', 'globals(), "tf_keras.src.'
+        )
         return line
 
     for root, _, files in os.walk(src_directory):

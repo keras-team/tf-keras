@@ -216,7 +216,6 @@ class KerasLoadTest(tf.test.TestCase, parameterized.TestCase):
         loaded.signatures["serving_default"](**model_input)
 
     def test_multi_output_layer(self, cycles):
-
         inp = tf.keras.Input(name="inp", shape=(None,), dtype=tf.float32)
 
         class _MultiOutput(tf.keras.layers.Layer):

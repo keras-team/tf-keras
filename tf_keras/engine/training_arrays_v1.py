@@ -448,7 +448,6 @@ def model_iteration(
             and training_utils_v1.should_run_validation(validation_freq, epoch)
             and not callbacks.model.stop_training
         ):
-
             if model._compile_distribution:
                 # Since we create a new clone from the original model we need to
                 # copy the weights back to the original model before we can run

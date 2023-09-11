@@ -1142,7 +1142,6 @@ class LSTMCell(LayerRNNCell):
             ) * self._activation(j)
 
         if self._cell_clip is not None:
-
             c = tf.clip_by_value(c, -self._cell_clip, self._cell_clip)
 
         if self._use_peepholes:
@@ -1154,7 +1153,6 @@ class LSTMCell(LayerRNNCell):
             m = tf.matmul(m, self._proj_kernel)
 
             if self._proj_clip is not None:
-
                 m = tf.clip_by_value(m, -self._proj_clip, self._proj_clip)
 
         new_state = (

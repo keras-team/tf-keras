@@ -47,7 +47,6 @@ def nadam_update_numpy(
     beta2=0.999,
     epsilon=1e-8,
 ):
-
     mu_t = beta1 * (1 - 0.5 * 0.96 ** (0.004 * (t + 1)))
     mu_t_1 = beta1 * (1 - 0.5 * 0.96 ** (0.004 * (t + 2)))
     m_cache_t_1 = m_cache * mu_t_1

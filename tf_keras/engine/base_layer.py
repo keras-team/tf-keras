@@ -85,7 +85,9 @@ keras_api_gauge = tf.__internal__.monitoring.BoolGauge(
     "/tensorflow/api/keras", "keras api usage", "method"
 )
 keras_premade_model_gauge = tf.__internal__.monitoring.BoolGauge(
-    "/tensorflow/api/tf_keras/premade_models", "premade keras model usage", "type"
+    "/tensorflow/api/tf_keras/premade_models",
+    "premade keras model usage",
+    "type",
 )
 
 _is_name_scope_on_model_declaration_enabled = False

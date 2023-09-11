@@ -400,7 +400,6 @@ class TestDistributionStrategyErrorCases(
 class TestDistributionStrategyWithLossMasking(
     tf.test.TestCase, parameterized.TestCase
 ):
-
     # TODO(priyag): Enable all strategies for this test. Currently it does not
     # work for TPU due to some invalid datatype.
     @tf.__internal__.distribute.combinations.generate(

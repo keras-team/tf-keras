@@ -292,7 +292,6 @@ class ShardedVariableTest(tf.test.TestCase, parameterized.TestCase):
             )
 
     def test_slot_variable_checkpointing(self):
-
         with self.strategy.scope():
             # Set a name so the ShardedVariable is well-named for slot var
             # keying
@@ -351,7 +350,6 @@ class ShardedVariableTest(tf.test.TestCase, parameterized.TestCase):
         self.assertAllClose(pre_ckpt_slots, post_ckpt_slots)
 
     def test_slot_variable_checkpoint_load_with_diff_shards(self):
-
         with self.strategy.scope():
             # Set a name so the ShardedVariable is well-named for slot var
             # keying
@@ -412,7 +410,6 @@ class ShardedVariableTest(tf.test.TestCase, parameterized.TestCase):
 
 class ShardedVariableMixedPartitioningTest(tf.test.TestCase):
     def test_saved_model_min_size_partitioner(self):
-
         # set min_shard_bytes such that Dense kernel is split into 2 and bias
         # into 1
         partitioner = (

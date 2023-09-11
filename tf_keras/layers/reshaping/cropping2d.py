@@ -137,7 +137,6 @@ class Cropping2D(Layer):
             )
 
     def call(self, inputs):
-
         if self.data_format == "channels_first":
             if (
                 inputs.shape[2] is not None

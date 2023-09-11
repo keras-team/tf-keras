@@ -43,21 +43,31 @@ from tf_keras.layers.attention.multi_head_attention import MultiHeadAttention
 from tf_keras.layers.convolutional.conv1d import Conv1D
 from tf_keras.layers.convolutional.conv1d import Convolution1D
 from tf_keras.layers.convolutional.conv1d_transpose import Conv1DTranspose
-from tf_keras.layers.convolutional.conv1d_transpose import Convolution1DTranspose
+from tf_keras.layers.convolutional.conv1d_transpose import (
+    Convolution1DTranspose,
+)
 from tf_keras.layers.convolutional.conv2d import Conv2D
 from tf_keras.layers.convolutional.conv2d import Convolution2D
 from tf_keras.layers.convolutional.conv2d_transpose import Conv2DTranspose
-from tf_keras.layers.convolutional.conv2d_transpose import Convolution2DTranspose
+from tf_keras.layers.convolutional.conv2d_transpose import (
+    Convolution2DTranspose,
+)
 from tf_keras.layers.convolutional.conv3d import Conv3D
 from tf_keras.layers.convolutional.conv3d import Convolution3D
 from tf_keras.layers.convolutional.conv3d_transpose import Conv3DTranspose
-from tf_keras.layers.convolutional.conv3d_transpose import Convolution3DTranspose
+from tf_keras.layers.convolutional.conv3d_transpose import (
+    Convolution3DTranspose,
+)
 from tf_keras.layers.convolutional.depthwise_conv1d import DepthwiseConv1D
 from tf_keras.layers.convolutional.depthwise_conv2d import DepthwiseConv2D
 from tf_keras.layers.convolutional.separable_conv1d import SeparableConv1D
-from tf_keras.layers.convolutional.separable_conv1d import SeparableConvolution1D
+from tf_keras.layers.convolutional.separable_conv1d import (
+    SeparableConvolution1D,
+)
 from tf_keras.layers.convolutional.separable_conv2d import SeparableConv2D
-from tf_keras.layers.convolutional.separable_conv2d import SeparableConvolution2D
+from tf_keras.layers.convolutional.separable_conv2d import (
+    SeparableConvolution2D,
+)
 
 # Core layers.
 from tf_keras.layers.core.activation import Activation
@@ -192,11 +202,17 @@ from tf_keras.layers.pooling.average_pooling2d import AveragePooling2D
 from tf_keras.layers.pooling.average_pooling2d import AvgPool2D
 from tf_keras.layers.pooling.average_pooling3d import AveragePooling3D
 from tf_keras.layers.pooling.average_pooling3d import AvgPool3D
-from tf_keras.layers.pooling.global_average_pooling1d import GlobalAveragePooling1D
+from tf_keras.layers.pooling.global_average_pooling1d import (
+    GlobalAveragePooling1D,
+)
 from tf_keras.layers.pooling.global_average_pooling1d import GlobalAvgPool1D
-from tf_keras.layers.pooling.global_average_pooling2d import GlobalAveragePooling2D
+from tf_keras.layers.pooling.global_average_pooling2d import (
+    GlobalAveragePooling2D,
+)
 from tf_keras.layers.pooling.global_average_pooling2d import GlobalAvgPool2D
-from tf_keras.layers.pooling.global_average_pooling3d import GlobalAveragePooling3D
+from tf_keras.layers.pooling.global_average_pooling3d import (
+    GlobalAveragePooling3D,
+)
 from tf_keras.layers.pooling.global_average_pooling3d import GlobalAvgPool3D
 from tf_keras.layers.pooling.global_max_pooling1d import GlobalMaxPool1D
 from tf_keras.layers.pooling.global_max_pooling1d import GlobalMaxPooling1D

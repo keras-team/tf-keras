@@ -700,7 +700,6 @@ class DenseFeaturesTest(test_combinations.TestCase):
         )
         self.assertEqual(1 + 3 + 5, net.shape[1])
         with _initialized_session() as sess:
-
             # Each row is formed by concatenating `embedded_body_style`,
             # `one_hot_body_style`, and `price` in order.
             self.assertAllEqual(
@@ -762,7 +761,6 @@ class DenseFeaturesTest(test_combinations.TestCase):
         )
         self.assertEqual(1 + 3 + 2, net.shape[1])
         with _initialized_session() as sess:
-
             # Each row is formed by concatenating `embedded_body_style`,
             # `one_hot_body_style`, and `price` in order.
             self.assertAllEqual(

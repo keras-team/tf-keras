@@ -554,7 +554,6 @@ class SplitDatasetTest(tf.test.TestCase):
 @test_utils.run_v2_only
 class IndexDirectoryStructureTest(tf.test.TestCase):
     def test_explicit_labels_and_unnested_files(self):
-
         # Get a unique temp directory
         temp_dir = os.path.join(
             self.get_temp_dir(), str(np.random.randint(1e6))

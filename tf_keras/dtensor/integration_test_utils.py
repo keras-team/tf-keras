@@ -134,7 +134,6 @@ def get_mnist_datasets(num_class, batch_size):
 def train_mnist_model_batch_sharded(
     model, optimizer, mesh, num_epochs, steps_per_epoch, global_batch_size
 ):
-
     dataset, _ = get_mnist_datasets(NUM_CLASS, global_batch_size)
 
     input_image_layout = dtensor.Layout.batch_sharded(mesh, "batch", rank=4)
@@ -167,7 +166,6 @@ def train_mnist_model_batch_sharded(
 # in the iterator, which is the long term solution
 @tf.function
 def train_step(model, feature, label, loss_obj, optimizer):
-
     with tf.GradientTape() as tape:
         predict = model(feature, training=True)
         loss = loss_obj(label, predict)

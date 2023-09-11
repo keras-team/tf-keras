@@ -83,7 +83,6 @@ class ParameterServerCustomTrainingLoopTest(tf.test.TestCase):
         )
 
     def testCustomTrainingLoop(self):
-
         coordinator, strategy = self.coordinator, self.strategy
 
         def per_worker_dataset_fn():
@@ -129,7 +128,6 @@ class ParameterServerCustomTrainingLoopTest(tf.test.TestCase):
                 strategy.run(replica_fn, args=(next(iterator),))
 
         for epoch in range(NUM_EPOCHS):
-
             distributed_iterator = iter(per_worker_dataset)
 
             for step in range(0, NUM_STEPS, STEPS_PER_EXECUTION):

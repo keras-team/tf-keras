@@ -137,7 +137,10 @@ def trace_model_call(model, input_signature=None):
     @tf.function
     def _wrapped_model(*args, **kwargs):
         """A concrete tf.function that wraps the model's call function."""
-        (args, kwargs,) = model._call_spec.set_arg_value(
+        (
+            args,
+            kwargs,
+        ) = model._call_spec.set_arg_value(
             "training", False, args, kwargs, inputs_in_args=True
         )
 

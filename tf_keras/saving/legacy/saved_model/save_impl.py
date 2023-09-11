@@ -48,7 +48,9 @@ from tf_keras.utils.generic_utils import LazyLoader
 
 base_layer = LazyLoader("base_layer", globals(), "tf_keras.engine.base_layer")
 metrics = LazyLoader("metrics", globals(), "tf_keras.metrics")
-input_layer = LazyLoader("input_layer", globals(), "tf_keras.engine.input_layer")
+input_layer = LazyLoader(
+    "input_layer", globals(), "tf_keras.engine.input_layer"
+)
 training_lib = LazyLoader("training_lib", globals(), "tf_keras.engine.training")
 sequential_lib = LazyLoader(
     "sequential_lib", globals(), "tf_keras.engine.sequential"
@@ -502,7 +504,10 @@ class LayerCallCollection:
 
                 def trace_with_training(value, fn=fn):
                     nonlocal args, kwargs
-                    (args, kwargs,) = self._call_spec.set_arg_value(
+                    (
+                        args,
+                        kwargs,
+                    ) = self._call_spec.set_arg_value(
                         "training", value, args, kwargs, inputs_in_args=True
                     )
                     add_trace_to_queue(fn, args, kwargs, value)
@@ -542,7 +547,10 @@ class LayerCallCollection:
                     # LayerCall.
                     args = list(args)
                     kwargs = kwargs.copy()
-                    (args, kwargs,) = self._call_spec.set_arg_value(
+                    (
+                        args,
+                        kwargs,
+                    ) = self._call_spec.set_arg_value(
                         "training",
                         None,
                         args,

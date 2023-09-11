@@ -321,7 +321,6 @@ class DiscretizationAdaptTest(
         num_bins=5,
         epsilon=0.01,
     ):
-
         input_shape = tuple(list(test_data.shape)[1:])
         np.random.shuffle(adapt_data)
         if use_dataset:

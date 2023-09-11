@@ -134,6 +134,7 @@ def run_with_all_saved_model_formats(test_or_class=None, exclude_formats=None):
 
     def single_method_decorator(f):
         """Decorator that constructs the test cases."""
+
         # Use named_parameters so it can be individually run from the command
         # line
         @parameterized.named_parameters(*params)
@@ -277,6 +278,7 @@ def run_with_all_model_types(test_or_class=None, exclude_models=None):
 
     def single_method_decorator(f):
         """Decorator that constructs the test cases."""
+
         # Use named_parameters so it can be individually run from the command
         # line
         @parameterized.named_parameters(*params)

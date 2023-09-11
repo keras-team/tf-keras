@@ -21,7 +21,9 @@ import tf_keras as keras
 from tf_keras import backend
 from tf_keras.distribute import keras_correctness_test_base
 from tf_keras.distribute import strategy_combinations
-from tf_keras.optimizers.legacy import gradient_descent as gradient_descent_keras
+from tf_keras.optimizers.legacy import (
+    gradient_descent as gradient_descent_keras,
+)
 from tf_keras.testing_infra import test_utils
 
 

@@ -60,7 +60,6 @@ class PreprocessingStageTest(
     test_combinations.TestCase, preprocessing_test_utils.PreprocessingLayerTest
 ):
     def test_adapt_preprocessing_stage_with_single_input_output(self):
-
         x = Input(shape=(3,))
 
         l0 = PL()
@@ -101,7 +100,6 @@ class PreprocessingStageTest(
             stage.fit(None)
 
     def test_adapt_preprocessing_stage_with_list_input(self):
-
         x0 = Input(shape=(3,))
         x1 = Input(shape=(3,))
         x2 = Input(shape=(3,))

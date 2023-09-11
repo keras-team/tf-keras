@@ -24,7 +24,6 @@ except ImportError:
 
 
 class KerasMetricMemoryBenchmark(tf.test.Benchmark):
-
     # This test is added to measure the memory footprint for
     # metrics_utils._update_confusion_matrix_variables_optimized().
 

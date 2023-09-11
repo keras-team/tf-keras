@@ -172,7 +172,6 @@ class KerasSumTest(tf.test.TestCase, parameterized.TestCase):
 
 
 class MeanTest(test_combinations.TestCase):
-
     # TODO(b/120949004): Re-enable garbage collection check
     # @tf_test_util.run_in_graph_and_eager_modes(assert_no_eager_garbage=True)
     @test_combinations.run_all_keras_modes

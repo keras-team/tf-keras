@@ -161,7 +161,6 @@ class KPLTest(tf.test.TestCase, parameterized.TestCase):
         test_training_with_loaded,
         load_for_serving_under_strategy,
     ):
-
         # test_training_with_loaded=False tests distributed training with newly
         # constructed KPL, while test_training_with_loaded=True tests
         # distributed training with a loaded KPL which was created under
@@ -171,7 +170,6 @@ class KPLTest(tf.test.TestCase, parameterized.TestCase):
         # under distribution strategy or not.
 
         with self.coordinator.strategy.scope():
-
             feature_ps, label_ps = self.define_kpls_for_training(use_adapt)
 
             if test_training_with_loaded:
@@ -296,7 +294,6 @@ class KPLTest(tf.test.TestCase, parameterized.TestCase):
 
         if load_for_serving_under_strategy:
             with self.coordinator.strategy.scope():
-
                 loaded_serving_fn = tf.keras.models.load_model(
                     saved_model_dir
                 ).signatures["serving_default"]
@@ -352,7 +349,6 @@ class KPLCreatedInDatasetsFromFunctionTest(
         )
 
     def testKPLCreatedInDatasetsFromFunction(self):
-
         filepath = os.path.join(self.get_temp_dir(), "vocab")
         with open(filepath, "w") as f:
             f.write("\n".join(["earth", "wind", "and", "fire"]))

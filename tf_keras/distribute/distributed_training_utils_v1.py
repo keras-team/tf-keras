@@ -264,7 +264,6 @@ def validate_callbacks(input_callbacks, optimizer):
                 callback,
                 (callbacks.LearningRateScheduler, callbacks.ReduceLROnPlateau),
             ):
-
                 if not isinstance(optimizer, optimizer_v2.OptimizerV2):
                     raise ValueError(
                         "You must specify a TF-Keras Optimizer V2 when using "

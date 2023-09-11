@@ -137,7 +137,6 @@ class _WorkerContext:
     def __exit__(
         self, unused_exception_type, unused_exception_value, unused_traceback
     ):
-
         _worker_context.current = None
 
     def _get_master_target(self):
@@ -465,7 +464,6 @@ def _run_std_server(
 def _configure_session_config_for_std_servers(
     strategy, eval_strategy, session_config, cluster_spec, task_type, task_id
 ):
-
     """Call strategy's `configure` to mutate the session_config.
 
     The session_config is currently needed as default config for a TensorFlow

@@ -378,7 +378,6 @@ class TestGeneratorMethods(test_combinations.TestCase):
     @test_combinations.run_all_keras_modes
     @data_utils.dont_use_multiprocessing_pool
     def test_generator_dynamic_shapes(self):
-
         x = [
             "I think juice is great",
             "unknown is the best language since slicedbread",

@@ -46,7 +46,6 @@ _config = tf.compat.v1.ConfigProto(graph_options=_graph_options)
 @test_utils.run_all_without_tensor_float_32("RNN GRU can use TF32 on GPU")
 @test_combinations.run_all_keras_modes(config=_config)
 class GRUGraphRewriteTest(test_combinations.TestCase):
-
     input_shape = 10
     output_shape = 8
     rnn_state_size = 8

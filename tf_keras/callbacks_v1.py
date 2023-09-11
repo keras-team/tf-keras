@@ -420,7 +420,6 @@ class TensorBoard(callbacks.TensorBoard):
 
         # check if histogram summary should be run for this epoch
         if self.histogram_freq and epoch % self.histogram_freq == 0:
-
             # add the histogram summary op if it should run this epoch
             self.model._make_test_function()
             if self.merged not in self.model.test_function.fetches:
@@ -448,7 +447,6 @@ class TensorBoard(callbacks.TensorBoard):
 
         # pop the histogram summary op after each epoch
         if self.histogram_freq:
-
             if self.merged in self.model.test_function.fetches:
                 self.model.test_function.fetches.remove(self.merged)
             if self.merged in self.model.test_function.fetch_callbacks:

@@ -216,7 +216,6 @@ class AttrsTest(tf.test.TestCase):
 
         @attr.s(frozen=True)
         class Foo:
-
             bar = attr.ib()
 
         self.assertEqual(

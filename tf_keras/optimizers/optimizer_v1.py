@@ -652,7 +652,6 @@ class Adamax(Optimizer):
         self.initial_decay = decay
 
     def _create_all_weights(self, params):
-
         shapes = [backend.int_shape(p) for p in params]
         # zero init of 1st moment
         ms = [backend.zeros(shape) for shape in shapes]
@@ -685,7 +684,6 @@ class Adamax(Optimizer):
         ms, us = self._create_all_weights(params)
 
         for p, g, m, u in zip(params, grads, ms, us):
-
             m_t = (self.beta_1 * m) + (1.0 - self.beta_1) * g
             u_t = tf.maximum(self.beta_2 * u, tf.abs(g))
             p_t = p - lr_t * m_t / (u_t + self.epsilon)

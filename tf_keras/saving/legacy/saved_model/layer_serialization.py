@@ -143,7 +143,6 @@ class InputLayerSavedModelSaver(base_serialization.SavedModelSaver):
 
     @property
     def python_properties(self):
-
         return dict(
             class_name=type(self.obj).__name__,
             name=self.obj.name,

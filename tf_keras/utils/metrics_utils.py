@@ -784,7 +784,6 @@ def update_confusion_matrix_variables(
             )
 
     for matrix_cond, (label, pred) in loop_vars.items():
-
         if matrix_cond in variables_to_update:
             update_ops.append(
                 weighted_assign_add(

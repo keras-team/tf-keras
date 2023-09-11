@@ -43,7 +43,9 @@ from tf_keras.optimizers.legacy import adagrad as adagrad_legacy
 from tf_keras.optimizers.legacy import adam as adam_legacy
 from tf_keras.optimizers.legacy import adamax as adamax_legacy
 from tf_keras.optimizers.legacy import ftrl as ftrl_legacy
-from tf_keras.optimizers.legacy import gradient_descent as gradient_descent_legacy
+from tf_keras.optimizers.legacy import (
+    gradient_descent as gradient_descent_legacy,
+)
 from tf_keras.optimizers.legacy import nadam as nadam_legacy
 from tf_keras.optimizers.legacy import optimizer_v2 as base_optimizer_legacy
 from tf_keras.optimizers.legacy import rmsprop as rmsprop_legacy
@@ -79,7 +81,8 @@ def serialize(optimizer, use_legacy_format=False):
     `Optimizer` instance again.
 
     >>> tf.keras.optimizers.serialize(tf.keras.optimizers.legacy.SGD())
-    {'module': 'keras.optimizers.legacy', 'class_name': 'SGD', 'config': {'name': 'SGD', 'learning_rate': 0.01, 'decay': 0.0, 'momentum': 0.0, 'nesterov': False}, 'registered_name': None}"""  # noqa: E501
+    {'module': 'keras.optimizers.legacy', 'class_name': 'SGD', 'config': {'name': 'SGD', 'learning_rate': 0.01, 'decay': 0.0, 'momentum': 0.0, 'nesterov': False}, 'registered_name': None}
+    """  # noqa: E501
     """
     Args:
       optimizer: An `Optimizer` instance to serialize.

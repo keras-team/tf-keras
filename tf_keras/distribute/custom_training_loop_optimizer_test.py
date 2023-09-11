@@ -46,7 +46,6 @@ class OptimizerTest(tf.test.TestCase, parameterized.TestCase):
     def test_custom_aggregation(
         self, distribution, experimental_aggregate_gradients, expected
     ):
-
         with distribution.scope():
             v = tf.Variable([0.0, 0.0])
             optimizer = gradient_descent.SGD(0.1)
@@ -90,7 +89,6 @@ class OptimizerTest(tf.test.TestCase, parameterized.TestCase):
     def test_custom_aggregation_one_device(
         self, distribution, experimental_aggregate_gradients
     ):
-
         with distribution.scope():
             v = tf.Variable([0.0, 0.0])
             optimizer = gradient_descent.SGD(0.1)

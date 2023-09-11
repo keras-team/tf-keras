@@ -290,7 +290,6 @@ class MultiWorkerTutorialTest(parameterized.TestCase, tf.test.TestCase):
             global_batch_size = PER_WORKER_BATCH_SIZE * NUM_WORKERS
             strategy = tf.distribute.experimental.MultiWorkerMirroredStrategy()
             try:
-
                 with strategy.scope():
                     multi_worker_model = self.build_cnn_model()
 

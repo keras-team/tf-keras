@@ -23,11 +23,17 @@ from tf_keras.layers.pooling.average_pooling2d import AveragePooling2D
 from tf_keras.layers.pooling.average_pooling2d import AvgPool2D
 from tf_keras.layers.pooling.average_pooling3d import AveragePooling3D
 from tf_keras.layers.pooling.average_pooling3d import AvgPool3D
-from tf_keras.layers.pooling.global_average_pooling1d import GlobalAveragePooling1D
+from tf_keras.layers.pooling.global_average_pooling1d import (
+    GlobalAveragePooling1D,
+)
 from tf_keras.layers.pooling.global_average_pooling1d import GlobalAvgPool1D
-from tf_keras.layers.pooling.global_average_pooling2d import GlobalAveragePooling2D
+from tf_keras.layers.pooling.global_average_pooling2d import (
+    GlobalAveragePooling2D,
+)
 from tf_keras.layers.pooling.global_average_pooling2d import GlobalAvgPool2D
-from tf_keras.layers.pooling.global_average_pooling3d import GlobalAveragePooling3D
+from tf_keras.layers.pooling.global_average_pooling3d import (
+    GlobalAveragePooling3D,
+)
 from tf_keras.layers.pooling.global_average_pooling3d import GlobalAvgPool3D
 from tf_keras.layers.pooling.global_max_pooling1d import GlobalMaxPool1D
 from tf_keras.layers.pooling.global_max_pooling1d import GlobalMaxPooling1D

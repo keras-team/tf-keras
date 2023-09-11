@@ -38,7 +38,9 @@ from tf_keras.distribute.strategy_combinations import tpu_strategies
 from tf_keras.engine import base_layer_utils
 from tf_keras.mixed_precision import policy
 from tf_keras.optimizers import optimizer as optimizer_base
-from tf_keras.optimizers.legacy import gradient_descent as gradient_descent_keras
+from tf_keras.optimizers.legacy import (
+    gradient_descent as gradient_descent_keras,
+)
 from tf_keras.testing_infra import test_utils
 from tf_keras.utils import losses_utils
 from tf_keras.utils import np_utils
@@ -657,7 +659,6 @@ class TestDistributionStrategyWithNumpyArrays(
     def test_optimizer_in_cross_replica_context_raises_error(
         self, distribution
     ):
-
         with self.cached_session(), distribution.scope():
             model = keras.models.Sequential([keras.layers.Dense(1)])
             x = np.array([[1.0]])
@@ -949,7 +950,6 @@ class TestDistributionStrategyWithNumpyArrays(
         all_strategy_combinations()
     )
     def test_gradients_are_none(self, distribution):
-
         if not tf.executing_eagerly():
             self.skipTest("None gradients are not supported in graph mode")
 
@@ -1127,7 +1127,6 @@ class TestDistributionStrategyWithDatasets(
         all_strategy_combinations()
     )
     def test_fit_with_dictionary_in_the_dataset_b135161171(self, distribution):
-
         if backend.is_tpu_strategy(distribution):
             self.skipTest("b/142805125")
 
@@ -1228,7 +1227,6 @@ class TestDistributionStrategyWithDatasets(
     def test_predict_on_dataset_with_unknown_cardinality_without_steps(
         self, distribution, mode
     ):
-
         if mode == "graph" and backend.is_tpu_strategy(distribution):
             self.skipTest("partial batch not supported with TPU in graph mode.")
 
@@ -1419,9 +1417,7 @@ class TestDistributionStrategyWithDatasets(
     )
     def test_fit_eval_and_predict_with_optimizer(self, distribution, optimizer):
         with self.cached_session():
-
             with distribution.scope():
-
                 model = get_model()
                 loss = "mse"
                 model.compile(optimizer(), loss)

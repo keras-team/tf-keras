@@ -36,9 +36,7 @@ class DatasetCreatorModelFitTestBase(tf.test.TestCase, parameterized.TestCase):
     """The base class for DatasetCreator with Model.fit tests."""
 
     def _get_dataset_fn(self, use_lookup_layer):
-
         if use_lookup_layer:
-
             filepath = os.path.join(self.get_temp_dir(), "vocab")
             with open(filepath, "w") as f:
                 f.write("\n".join(["earth", "wind", "and", "fire"]))

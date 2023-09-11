@@ -94,7 +94,6 @@ def make_gradient_clipnorm_fn(clipnorm):
         return lambda grads_and_vars: grads_and_vars
 
     def gradient_clipnorm_fn(grads_and_vars):
-
         if isinstance(
             tf.distribute.get_strategy(),
             (
@@ -121,7 +120,6 @@ def make_global_gradient_clipnorm_fn(clipnorm):
         return lambda grads_and_vars: grads_and_vars
 
     def gradient_clipnorm_fn(grads_and_vars):
-
         if isinstance(
             tf.distribute.get_strategy(),
             (
@@ -149,7 +147,6 @@ def make_gradient_clipvalue_fn(clipvalue):
         return lambda grads_and_vars: grads_and_vars
 
     def gradient_clipvalue_fn(grads_and_vars):
-
         if isinstance(
             tf.distribute.get_strategy(),
             (

@@ -19,7 +19,9 @@ import tensorflow.compat.v2 as tf
 from absl.testing import parameterized
 
 from tf_keras.layers.attention.base_dense_attention import BaseDenseAttention
-from tf_keras.layers.attention.base_dense_attention import _lower_triangular_mask
+from tf_keras.layers.attention.base_dense_attention import (
+    _lower_triangular_mask,
+)
 from tf_keras.testing_infra import test_combinations
 
 

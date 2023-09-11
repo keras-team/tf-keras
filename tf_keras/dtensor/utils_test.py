@@ -75,7 +75,6 @@ class UtilsTest(test_util.DTensorBaseTest):
         # TODO(scottzhu): Probably add more coverage for all the layers.
     )
     def test_all_layout_decorator(self, layer_cls, init_args, layout_args):
-
         layer_cls.__init__ = utils.allow_initializer_layout(layer_cls.__init__)
 
         # Make sure we don't set the layout attribute if the init kwargs is not

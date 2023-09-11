@@ -86,7 +86,6 @@ class MirroredVariableCreationTest(tf.test.TestCase):
 
     def testWithLayers(self, distribution):
         def model_fn(features):
-
             layer1 = core.Dense(1)
             layer1(features)
             layer2 = core.Dense(1)

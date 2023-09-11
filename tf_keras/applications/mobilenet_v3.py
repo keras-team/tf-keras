@@ -247,7 +247,6 @@ def MobileNetV3(
 
     # If input_shape is None, infer shape from input_tensor
     if input_shape is None and input_tensor is not None:
-
         try:
             backend.is_keras_tensor(input_tensor)
         except ValueError:

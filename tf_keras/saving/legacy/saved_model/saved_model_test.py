@@ -1533,7 +1533,6 @@ class MetricTest(tf.test.TestCase, parameterized.TestCase):
                 )
 
     def test_registered_custom_metric(self):
-
         with self.cached_session():
             metric = CustomMeanMetric()
             save_dir = self._save_model_dir("first_save")
