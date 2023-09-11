@@ -505,10 +505,7 @@ class LayerCallCollection:
 
                 def trace_with_training(value, fn=fn):
                     nonlocal args, kwargs
-                    (
-                        args,
-                        kwargs,
-                    ) = self._call_spec.set_arg_value(
+                    (args, kwargs,) = self._call_spec.set_arg_value(
                         "training", value, args, kwargs, inputs_in_args=True
                     )
                     add_trace_to_queue(fn, args, kwargs, value)
@@ -548,10 +545,7 @@ class LayerCallCollection:
                     # LayerCall.
                     args = list(args)
                     kwargs = kwargs.copy()
-                    (
-                        args,
-                        kwargs,
-                    ) = self._call_spec.set_arg_value(
+                    (args, kwargs,) = self._call_spec.set_arg_value(
                         "training",
                         None,
                         args,
