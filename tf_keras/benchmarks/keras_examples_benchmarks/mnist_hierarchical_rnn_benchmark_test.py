@@ -37,9 +37,9 @@ class HierarchicalRNNBenchmark(tf.test.Benchmark):
         )
 
     def _build_model(self):
-        """Model from https://github.com/keras-team/tf-keras/blob/master/examples
+        """Model from https://github.com/keras-team/tf-keras/blob/master/
 
-        /mnist_hierarchical_rnn.py.
+        examples/mnist_hierarchical_rnn.py.
         """
         row, col, pixel = self.x_train.shape[1:]
         inputs = tf.keras.layers.Input(shape=(row, col, pixel))

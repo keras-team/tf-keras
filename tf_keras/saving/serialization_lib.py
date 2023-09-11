@@ -39,7 +39,7 @@ SAFE_MODE = threading.local()
 # to allow for serialization of custom_gradient.
 NON_SERIALIZABLE_CLASS_MODULES = ("tensorflow.python.ops.custom_gradient",)
 
-# List of TF-Keras modules with built-in string representations for TF-Keras defaults
+# List of TF-Keras modules with built-in string representations for defaults
 BUILTIN_MODULES = (
     "activations",
     "constraints",
@@ -131,8 +131,8 @@ def record_object_after_deserialization(obj, obj_id):
 def serialize_keras_object(obj):
     """Retrieve the config dict by serializing the TF-Keras object.
 
-    `serialize_keras_object()` serializes a TF-Keras object to a python dictionary
-    that represents the object, and is a reciprocal function of
+    `serialize_keras_object()` serializes a TF-Keras object to a python
+    dictionary that represents the object, and is a reciprocal function of
     `deserialize_keras_object()`. See `deserialize_keras_object()` for more
     information about the config format.
 
@@ -326,7 +326,7 @@ def serialize_with_public_class(cls, inner_config=None):
             "registered_name": registered_name,
         }
 
-    # Split the canonical TF-Keras API name into a TF-Keras module and class name.
+    # Split canonical TF-Keras API name into a TF-Keras module and class name.
     parts = keras_api_name.split(".")
     return {
         "module": ".".join(parts[:-1]),
@@ -455,8 +455,8 @@ def deserialize_keras_object(
     deserialize_keras_object(dict_structure)
     ```
 
-    If the class does not have an exported TF-Keras namespace, the library tracks
-    it by its `module` and `class_name`. For example:
+    If the class does not have an exported TF-Keras namespace, the library
+    tracks it by its `module` and `class_name`. For example:
 
     ```python
     dict_structure = {

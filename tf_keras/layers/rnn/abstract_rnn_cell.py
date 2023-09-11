@@ -26,7 +26,8 @@ from tensorflow.python.util.tf_export import keras_export
 class AbstractRNNCell(base_layer.Layer):
     """Abstract object representing an RNN cell.
 
-    See [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
+    See
+    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
     for details about the usage of RNN API.
 
     This is the base class for implementing RNN cells with custom behavior.

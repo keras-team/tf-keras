@@ -14,7 +14,7 @@
 # ==============================================================================
 """Thin wrapper to call TensorFlow's API extractor script."""
 from absl import app
-from tensorflow.python.tools.api.generator2.extractor import (
+from tensorflow.python.tools.api.generator2.extractor import (  # noqa: E501
     extractor,
 )
 

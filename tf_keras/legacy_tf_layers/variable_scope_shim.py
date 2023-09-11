@@ -750,10 +750,10 @@ def track_tf1_style_variables(method):
       decorated method and the method belongs to a
       `tf.keras.Layer`/`tf.keras.Module`. Regularization losses
       are accessible in `layer.losses` after a call just like in a standard
-      TF-Keras layer, and will be captured by any model that includes this layer.
-      Regularization losses attached to TF-Keras layers/models set as attributes
-      of your layer will also get captured in the standard TF-Keras regularization
-      loss tracking.
+      TF-Keras layer, and will be captured by any model that includes this
+      layer. Regularization losses attached to TF-Keras layers/models set as
+      attributes of your layer will also get captured in the standard TF-Keras
+      regularization loss tracking.
 
       (While Modules have no `losses` property, no-arg callables to compute
        the regularization losses may be tracked as dict values in a private
@@ -974,8 +974,8 @@ class VariableScopeLayer(base_layer.Layer):
       created by `tf.Variable` may change when going to eager execution.
 
     Training Arg in `forward_pass`:
-      TF-Keras will pass a `training` arg to this layer if `forward_pass` contains
-      a `training` arg or a `**kwargs` varargs in its call signature,
+      TF-Keras will pass a `training` arg to this layer if `forward_pass`
+      contains a `training` arg or a `**kwargs` varargs in its call signature,
       similarly to how keras passes `training` to other layers in TF2 that have
       similar signatures in their `call` implementations.
       See more details in the docs

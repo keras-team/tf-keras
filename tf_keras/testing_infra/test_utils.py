@@ -604,8 +604,8 @@ class _SubclassModel(models.Model):
         return x
 
     def get_config(self):
-        # This test model relies on the default TF-Keras serialization of a model,
-        # rather than providing the details of `model_layers`.
+        # This test model relies on the default TF-Keras serialization of a
+        # model, rather than providing the details of `model_layers`.
         raise NotImplementedError
 
 
@@ -820,8 +820,8 @@ def get_multi_io_model(
       shared input branch or shared output branch. The resulting model will
       apply each branch to a different input, to produce two outputs.
 
-      The first value in branch_a must be the TF-Keras 'Input' layer for branch a,
-      and the first value in branch_b must be the TF-Keras 'Input' layer for
+      The first value in branch_a must be the TF-Keras 'Input' layer for branch
+      a, and the first value in branch_b must be the TF-Keras 'Input' layer for
       branch b.
 
       example usage:
@@ -840,8 +840,8 @@ def get_multi_io_model(
       to produce a single output. The first layer in the shared_output_branch
       must be able to merge a tuple of two tensors.
 
-      The first value in branch_a must be the TF-Keras 'Input' layer for branch a,
-      and the first value in branch_b must be the TF-Keras 'Input' layer for
+      The first value in branch_a must be the TF-Keras 'Input' layer for branch
+      a, and the first value in branch_b must be the TF-Keras 'Input' layer for
       branch b.
 
       example usage:
@@ -859,9 +859,9 @@ def get_multi_io_model(
       the shared input branch to it. It will then respectively apply each branch
       to that intermediate result in parallel, to produce two outputs.
 
-      The first value in the shared_input_branch must be the TF-Keras 'Input' layer
-      for the whole model. Branch a and branch b should not contain any Input
-      layers.
+      The first value in the shared_input_branch must be the TF-Keras 'Input'
+      layer for the whole model. Branch a and branch b should not contain any
+      Input layers.
 
       example usage:
       ```

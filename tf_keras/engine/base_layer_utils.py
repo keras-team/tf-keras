@@ -192,9 +192,9 @@ def generate_placeholders_from_shape(shape):
 def create_keras_history(tensors):
     """Wraps TensorFlow Operations for compatibility with the Functional API.
 
-    This method checks to see if a Tensor in `tensors` is missing TF-Keras metadata
-    and has its origin in a TF-Keras `Input` Layer. If so, this method will replace
-    the raw TensorFlow Operations that created this tensor with
+    This method checks to see if a Tensor in `tensors` is missing TF-Keras
+    metadata and has its origin in a TF-Keras `Input` Layer. If so, this method
+    will replace the raw TensorFlow Operations that created this tensor with
     `TensorFlowOpLayer` instances that create identical operations.
 
     Any Tensors not originating from a TF-Keras `Input` Layer will be treated as
@@ -553,8 +553,8 @@ class CallContext:
 
     @property
     def in_keras_graph(self):
-        # Returns True even if in a subgraph of the TF-Keras graph, such as those
-        # created by control flow ops.
+        # Returns True even if in a subgraph of the TF-Keras graph, such as
+        # those created by control flow ops.
         if tf.executing_eagerly():
             return False
         return (

@@ -424,7 +424,8 @@ def deserialize_keras_object(
     custom_objects=None,
     printable_module_name="object",
 ):
-    """Turns the serialized form of a TF-Keras object back into an actual object.
+    """Turns the serialized form of a TF-Keras object back into an actual
+    object.
 
     This function is for mid-level library implementers rather than end users.
 
@@ -539,8 +540,9 @@ def deserialize_keras_object(
                     "Please ensure you are using a "
                     "`keras.utils.custom_object_scope` "
                     "and that this object is included in the scope. See "
-                    "https://www.tensorflow.org/guide/tf_keras/save_and_serialize"
-                    "#registering_the_custom_object for details."
+                    "https://www.tensorflow.org/guide/tf_keras/"
+                    "save_and_serialize#registering_the_custom_object "
+                    "for details."
                 )
 
         # Classes passed by name are instantiated with no args, functions are

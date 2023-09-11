@@ -129,7 +129,7 @@ def model_to_estimator(
         names to custom names. This can be used to override the default Keras
         model output metrics names in a multi IO model use case and provide
         custom names for the `eval_metric_ops` in Estimator.
-        The TF-Keras model metric names can be obtained using `model.metrics_names`
+        TF-Keras model metric names can be obtained using `model.metrics_names`
         excluding any loss metrics such as total loss and output losses.
         For example, if your TF-Keras model has two outputs `out_1` and `out_2`,
         with `mse` loss and `acc` metric, then `model.metrics_names` will be
@@ -326,7 +326,7 @@ def model_to_estimator_v2(
         names to custom names. This can be used to override the default Keras
         model output metrics names in a multi IO model use case and provide
         custom names for the `eval_metric_ops` in Estimator.
-        The TF-Keras model metric names can be obtained using `model.metrics_names`
+        TF-Keras model metric names can be obtained using `model.metrics_names`
         excluding any loss metrics such as total loss and output losses.
         For example, if your TF-Keras model has two outputs `out_1` and `out_2`,
         with `mse` loss and `acc` metric, then `model.metrics_names` will be

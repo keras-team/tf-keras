@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Part of the TF-Keras training engine related to Python generators of array data.
+"""Part of TF-Keras training engine related to Python generators of array data.
 """
 
 import functools

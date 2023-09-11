@@ -72,8 +72,8 @@ def allow_initializer_layout(init_method):
       not passed to `BaseLayer.__init__`, which will raise error about unexpect
       keyword args.
     2. Set the self.kernel/bias_layout attribute after the `__init__` method is
-       called. TF-Keras framework will use those fields to create weights down the
-       stream.
+       called. TF-Keras framework will use those fields to create weights down
+       the stream.
 
     Args:
       init_method: the `__init__` method of the TF-Keras layer to annotate.

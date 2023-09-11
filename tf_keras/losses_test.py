@@ -241,10 +241,10 @@ class KerasLossesTest(tf.test.TestCase, parameterized.TestCase):
 
     @test_combinations.generate(test_combinations.combine(mode=["eager"]))
     def test_sparse_categorical_crossentropy_with_float16(self):
-        # See https://github.com/keras-team/tf-keras/issues/15012 for more details.
-        # we don't cast y_true to have same dtype as y_pred, since y_pred could
-        # be float16 which has a small upbound, and the casting could cause an
-        # underflow. The y_true will be used as int64 anyway.
+        # See https://github.com/keras-team/tf-keras/issues/15012 for more
+        # details. we don't cast y_true to have same dtype as y_pred, since
+        # y_pred could be float16 which has a small upbound, and the casting
+        # could cause an underflow. The y_true will be used as int64 anyway.
 
         # create 2 observations with 2049 labels, since 2048 is the largest
         # number for float16

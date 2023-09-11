@@ -234,8 +234,8 @@ def get_file(
             md5 hash of the file for verification
         file_hash: The expected hash string of the file after download.
             The sha256 and md5 hash algorithms are both supported.
-        cache_subdir: Subdirectory under the TF-Keras cache dir where the file is
-            saved. If an absolute path `/path/to/folder` is
+        cache_subdir: Subdirectory under the TF-Keras cache dir where the file
+            is saved. If an absolute path `/path/to/folder` is
             specified the file will be saved at that location.
         hash_algorithm: Select the hash algorithm to verify the file.
             options are `'md5'`, `'sha256'`, and `'auto'`.
@@ -878,8 +878,8 @@ def init_pool_generator(gens, random_seed=None, id_queue=None):
       gens: State which should be made available to worker processes.
       random_seed: An optional value with which to seed child processes.
       id_queue: A multiprocessing Queue of worker ids. This is used to indicate
-        that a worker process was created by TF-Keras and can be terminated using
-        the cleanup_all_keras_forkpools utility.
+        that a worker process was created by TF-Keras and can be terminated
+        using the cleanup_all_keras_forkpools utility.
     """
     global _SHARED_SEQUENCES
     _SHARED_SEQUENCES = gens

@@ -731,8 +731,8 @@ class TestSavedModelFormatAllModes(test_combinations.TestCase):
                 loaded_without_scope.predict(np.ones([1, 3]).astype("float32"))
 
     def testFeatureColumns(self):
-        # TODO(b/120099662): Error with table initialization with TF-Keras models
-        # in graph mode.
+        # TODO(b/120099662): Error with table initialization with TF-Keras
+        # models in graph mode.
         if tf.executing_eagerly():
             numeric = tf.feature_column.numeric_column("a")
             bucketized = tf.feature_column.bucketized_column(

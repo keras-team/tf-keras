@@ -194,8 +194,8 @@ def run_with_all_model_types(test_or_class=None, exclude_models=None):
     decorators, those should be at the bottom of the stack.
 
     Various methods in `testing_utils` to get models will auto-generate a model
-    of the currently active TF-Keras model type. This allows unittests to confirm
-    the equivalence between different TF-Keras models.
+    of the currently active TF-Keras model type. This allows unittests to
+    confirm the equivalence between different TF-Keras models.
 
     For example, consider the following unittest:
 
@@ -562,8 +562,8 @@ class KerasModelTypeCombination(
     It by default includes 'functional', 'subclass', 'sequential'.
 
     Various methods in `testing_utils` to get models will auto-generate a model
-    of the currently active TF-Keras model type. This allows unittests to confirm
-    the equivalence between different TF-Keras models.
+    of the currently active TF-Keras model type. This allows unittests to
+    confirm the equivalence between different TF-Keras models.
     """
 
     def context_managers(self, kwargs):

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Lazily initialized variables, useful for creating a symbolic TF-Keras model."""
+"""Lazily initialized variables, useful for creating symbolic TF-Keras model."""
 
 import threading
 

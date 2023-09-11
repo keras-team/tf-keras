@@ -109,14 +109,14 @@ BASE_DOCSTRING = """Instantiates the {name} architecture.
   ImageNet-21k dataset and then fine-tuned on the ImageNet-1k dataset. The
   pre-trained parameters of the models were assembled from the
   [official repository](https://github.com/facebookresearch/ConvNeXt). To get a
-  sense of how these parameters were converted to TF-Keras compatible parameters,
-  please refer to
+  sense of how these parameters were converted to TF-Keras compatible
+  parameters, please refer to
   [this repository](https://github.com/sayakpaul/keras-convnext-conversion).
 
-  Note: Each TF-Keras Application expects a specific kind of input preprocessing.
-  For ConvNeXt, preprocessing is included in the model using a `Normalization`
-  layer.  ConvNeXt models expect their inputs to be float or uint8 tensors of
-  pixels with values in the [0-255] range.
+  Note: Each TF-Keras Application expects a specific kind of input
+  preprocessing. For ConvNeXt, preprocessing is included in the model using a
+  `Normalization` layer. ConvNeXt models expect their inputs to be float or
+  uint8 tensors of pixels with values in the [0-255] range.
 
   When calling the `summary()` method after instantiating a ConvNeXt model,
   prefer setting the `expand_nested` argument `summary()` to `True` to better
@@ -393,8 +393,8 @@ def ConvNeXt(
         the model.
       weights: one of `None` (random initialization), `"imagenet"` (pre-training
         on ImageNet-1k), or the path to the weights file to be loaded.
-      input_tensor: optional TF-Keras tensor (i.e. output of `layers.Input()`) to
-        use as image input for the model.
+      input_tensor: optional TF-Keras tensor (i.e. output of `layers.Input()`)
+        to use as image input for the model.
       input_shape: optional shape tuple, only to be specified if `include_top`
         is False. It should have exactly 3 inputs channels.
       pooling: optional pooling mode for feature extraction when `include_top`

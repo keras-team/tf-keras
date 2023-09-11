@@ -884,7 +884,8 @@ class Layer(base_layer.Layer):
                         # set by a call to self._set_inputs().
                         # TODO(b/120997007): This should be done in Eager as
                         # well, but causes garbage collection issues because of
-                        # the placeholders created on the default TF-Keras graph.
+                        # the placeholders created on the default TF-Keras
+                        # graph.
                         self._set_save_spec(inputs, args, kwargs)
                         self._set_inputs(inputs, outputs)
             else:

@@ -30,7 +30,9 @@ from tensorflow.python.distribute import (
 
 
 class ParameterServerTrainingMetricTest(test_combinations.TestCase):
-    """Test Parameter Server Distribution strategy with TF-Keras Model Training"""
+    """Test Parameter Server Distribution strategy with TF-Keras Model
+    Training.
+    """
 
     @classmethod
     def setUpClass(cls):

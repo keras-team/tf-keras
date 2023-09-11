@@ -14,8 +14,8 @@
 # ==============================================================================
 """TensorFlow TF-Keras.
 
-TensorFlow TF-Keras is an implementation of the TF-Keras API that uses TensorFlow as
-a backend.
+TensorFlow TF-Keras is an implementation of the TF-Keras API that uses
+TensorFlow as a backend.
 """
 
 from __future__ import absolute_import

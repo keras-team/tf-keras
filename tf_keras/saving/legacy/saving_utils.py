@@ -107,7 +107,8 @@ def raise_model_input_error(model):
 
 
 def trace_model_call(model, input_signature=None):
-    """Trace the model call to create a tf.function for exporting a TF-Keras model.
+    """Trace the model call to create a tf.function for exporting a TF-Keras
+    model.
 
     Args:
       model: A TF-Keras model.

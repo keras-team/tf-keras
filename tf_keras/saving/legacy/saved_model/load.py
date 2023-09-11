@@ -79,8 +79,8 @@ def load(path, compile=True, options=None):
     as TF-Keras objects. Other objects are loaded as regular trackable objects
     (same as `tf.saved_model.load`).
 
-    Currently, TF-Keras saving/loading only retains the TF-Keras object's weights,
-    losses, and call function.
+    Currently, TF-Keras saving/loading only retains the TF-Keras object's
+    weights, losses, and call function.
 
     The loaded model can be re-compiled, but the original optimizer, compiled
     loss functions, and metrics are not retained. This is temporary, and
@@ -226,9 +226,9 @@ def _read_legacy_metadata(object_graph_def, metadata, path):
                 raise ValueError(
                     "Unable to create a TF-Keras model from SavedModel at "
                     f"{path}. This SavedModel was exported with "
-                    "`tf.saved_model.save`, and lacks the TF-Keras metadata file. "
-                    "Please save your TF-Keras model by calling `model.save` "
-                    "or `tf.keras.models.save_model`. Note that "
+                    "`tf.saved_model.save`, and lacks the TF-Keras metadata "
+                    "file. Please save your TF-Keras model by calling "
+                    "`model.save` or `tf.keras.models.save_model`. Note that "
                     "you can still load this SavedModel with "
                     "`tf.saved_model.load`."
                 )

@@ -330,10 +330,10 @@ BASE_DOCSTRING = """Instantiates the {name} architecture.
   [guide to transfer learning & fine-tuning](
     https://keras.io/guides/transfer_learning/).
 
-  Note: Each TF-Keras Application expects a specific kind of input preprocessing.
-  For Regnets, preprocessing is included in the model using a `Rescaling` layer.
-  RegNet models expect their inputs to be float or uint8 tensors of pixels with
-  values in the [0-255] range.
+  Note: Each TF-Keras Application expects a specific kind of input
+   preprocessing. For Regnets, preprocessing is included in the model using a
+  `Rescaling` layer. RegNet models expect their inputs to be float or uint8
+  tensors of pixels with values in the [0-255] range.
 
   The naming of models is as follows: `RegNet<block_type><flops>` where
   `block_type` is one of `(X, Y)` and `flops` signifies hundred million
@@ -889,8 +889,8 @@ def RegNet(
         the model.
       weights: one of `None` (random initialization), "imagenet" (pre-training
         on ImageNet), or the path to the weights file to be loaded.
-      input_tensor: optional TF-Keras tensor (i.e. output of `layers.Input()`) to
-        use as image input for the model.
+      input_tensor: optional TF-Keras tensor (i.e. output of `layers.Input()`)
+        to use as image input for the model.
       input_shape: optional shape tuple, only to be specified if `include_top`
         is False. It should have exactly 3 inputs channels.
       pooling: optional pooling mode for feature extraction when `include_top`

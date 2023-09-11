@@ -210,9 +210,9 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
 
     ### Variable Constraints
 
-    All TF-Keras optimizers respect variable constraints. If constraint function is
-    passed to any variable, the constraint will be applied to the variable after
-    the gradient has been applied to the variable.
+    All TF-Keras optimizers respect variable constraints. If constraint function
+    is passed to any variable, the constraint will be applied to the variable
+    after the gradient has been applied to the variable.
     Important: If gradient is sparse tensor, variable constraint is not
     supported.
 

@@ -14,7 +14,7 @@
 # ==============================================================================
 """Thin wrapper to call TensorFlow's API generator script."""
 from absl import app
-from tensorflow.python.tools.api.generator2.generator import (
+from tensorflow.python.tools.api.generator2.generator import (  # noqa: E501
     generator,
 )
 

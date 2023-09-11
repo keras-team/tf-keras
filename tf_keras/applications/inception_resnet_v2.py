@@ -74,8 +74,8 @@ def InceptionResNetV2(
     [guide to transfer learning & fine-tuning](
       https://keras.io/guides/transfer_learning/).
 
-    Note: each TF-Keras Application expects a specific kind of input preprocessing.
-    For InceptionResNetV2, call
+    Note: each TF-Keras Application expects a specific kind of input
+    preprocessing. For InceptionResNetV2, call
     `tf.keras.applications.inception_resnet_v2.preprocess_input`
     on your inputs before passing them to the model.
     `inception_resnet_v2.preprocess_input`

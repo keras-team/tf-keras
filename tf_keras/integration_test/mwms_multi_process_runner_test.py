@@ -28,7 +28,7 @@ NUM_STEPS_PER_EPOCH = 50
 
 
 class MwmsMultiProcessRunnerTest(tf.test.TestCase):
-    """Test to demonstrate TF-Keras training with MultiWorkerMirroredStrategy."""
+    """Test demonstrates TF-Keras training with MultiWorkerMirroredStrategy."""
 
     def testMwmsWithModelFit(self):
         def worker_fn():

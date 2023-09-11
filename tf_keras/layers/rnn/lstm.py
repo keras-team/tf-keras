@@ -46,7 +46,8 @@ RECURRENT_DROPOUT_WARNING_MSG = (
 class LSTMCell(DropoutRNNCellMixin, base_layer.BaseRandomLayer):
     """Cell class for the LSTM layer.
 
-    See [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
+    See
+    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
     for details about the usage of RNN API.
 
     This class processes one step within the whole time sequence input, whereas
@@ -383,7 +384,8 @@ class LSTMCell(DropoutRNNCellMixin, base_layer.BaseRandomLayer):
 class LSTM(DropoutRNNCellMixin, RNN, base_layer.BaseRandomLayer):
     """Long Short-Term Memory layer - Hochreiter 1997.
 
-    See [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
+    See
+    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
     for details about the usage of RNN API.
 
     Based on available runtime hardware and constraints, this layer

@@ -91,7 +91,8 @@ class SavedModelSaver(object, metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def functions_to_serialize(self, serialization_cache):
-        """Returns extra functions to include when serializing a TF-Keras object.
+        """Returns extra functions to include when serializing a TF-Keras
+        object.
 
         Normally, when calling exporting an object to SavedModel, only the
         functions and objects defined by the user are saved. For example:

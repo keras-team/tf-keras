@@ -478,8 +478,8 @@ class TestWholeModelSaving(test_combinations.TestCase):
 
         if loaded_model.optimizer:
             if test_utils.get_save_format() == "tf":
-                # TODO(b/153110928): TF-Keras TF format doesn't restore optimizer
-                # weights currently.
+                # TODO(b/153110928): TF-Keras TF format doesn't restore
+                # optimizer weights currently.
                 return
             if isinstance(
                 loaded_model.optimizer,

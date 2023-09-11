@@ -709,8 +709,8 @@ class BatchNormalizationBase(Layer):
                     new_mean, new_variance = mean, variance
 
             if self._support_zero_size_input():
-                # TF-Keras assumes that batch dimension is the first dimension for
-                # Batch Normalization.
+                # TF-Keras assumes that batch dimension is the first dimension
+                # for Batch Normalization.
                 input_batch_size = tf.shape(inputs)[0]
             else:
                 input_batch_size = None

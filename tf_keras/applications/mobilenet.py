@@ -113,10 +113,11 @@ def MobileNet(
     [guide to transfer learning & fine-tuning](
       https://keras.io/guides/transfer_learning/).
 
-    Note: each TF-Keras Application expects a specific kind of input preprocessing.
-    For MobileNet, call `tf.keras.applications.mobilenet.preprocess_input`
-    on your inputs before passing them to the model.
-    `mobilenet.preprocess_input` will scale input pixels between -1 and 1.
+    Note: each TF-Keras Application expects a specific kind of input
+    preprocessing. For MobileNet, call
+    `tf.keras.applications.mobilenet.preprocess_input` on your inputs before
+    passing them to the model. `mobilenet.preprocess_input` will scale input
+    pixels between -1 and 1.
 
     Args:
       input_shape: Optional shape tuple, only to be specified if `include_top`
@@ -141,9 +142,9 @@ def MobileNet(
       weights: One of `None` (random initialization), 'imagenet' (pre-training
         on ImageNet), or the path to the weights file to be loaded. Defaults to
         `imagenet`.
-      input_tensor: Optional TF-Keras tensor (i.e. output of `layers.Input()`) to
-        use as image input for the model. `input_tensor` is useful for sharing
-        inputs between multiple different networks. Defaults to `None`.
+      input_tensor: Optional TF-Keras tensor (i.e. output of `layers.Input()`)
+        to use as image input for the model. `input_tensor` is useful for
+        sharing inputs between multiple different networks. Defaults to `None`.
       pooling: Optional pooling mode for feature extraction when `include_top`
         is `False`.
         - `None` (default) means that the output of the model will be

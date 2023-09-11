@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Benchmark for TF-Keras text vectorization preprocessing layer's adapt method."""
+"""Benchmark for TF-Keras text vectorization preprocessing layer's adapt method.
+"""
 
 import time
 

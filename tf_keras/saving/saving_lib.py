@@ -17,7 +17,6 @@
 import datetime
 import io
 import json
-import os
 import re
 import tempfile
 import threading
@@ -118,12 +117,12 @@ def save_model(model, filepath, weights_format="h5"):
         model/states.npz, model/dense_layer/states.npz, etc.
     - Metadata file.
 
-    The states of TF-Keras trackables (layers, optimizers, loss, and metrics) are
-    automatically saved as long as they can be discovered through the attributes
-    returned by `dir(Model)`. Typically, the state includes the variables
-    associated with the trackable, but some specially purposed layers may
-    contain more such as the vocabularies stored in the hashmaps. The trackables
-    define how their states are saved by exposing `save_state()` and
+    The states of TF-Keras trackables (layers, optimizers, loss, and metrics)
+    are automatically saved as long as they can be discovered through the
+    attributes returned by `dir(Model)`. Typically, the state includes the
+    variables associated with the trackable, but some specially purposed layers
+    may contain more such as the vocabularies stored in the hashmaps. The
+    trackables define how their states are saved by exposing `save_state()` and
     `load_state()` APIs.
 
     For the case of layer states, the variables will be visited as long as

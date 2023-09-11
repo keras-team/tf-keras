@@ -53,8 +53,8 @@ py_any = any
 
 # INTERNAL UTILS
 
-# The internal graph maintained by TF-Keras and used by the symbolic TF-Keras APIs
-# while executing eagerly (such as the functional API for model-building).
+# The internal graph maintained by TF-Keras and used by the symbolic TF-Keras
+# APIs while executing eagerly (such as the functional API for model-building).
 # This is thread-local to allow building separate models in different threads
 # concurrently, but comes at the cost of not being able to build one model
 # across threads.
@@ -694,7 +694,7 @@ def _current_graph(op_input_list, graph=None):
     def _is_symbolic_tensor(tensor):
         if hasattr(tf, "is_symbolic_tensor"):
             return tf.is_symbolic_tensor(tensor)
-        return type(tensor) == tf.Tensor
+        return type(tensor) == tf.Tensor  # noqa: E721
 
     # 1. We validate that all of the inputs are from the same graph. This is
     #    either the supplied graph parameter, or the first one selected from one

@@ -349,7 +349,7 @@ class Sequential(functional.Functional):
                     self._created_nodes = created_nodes
                     try:
                         # Initialize a graph Network. This call will never fail
-                        # for a stack of valid TF-Keras layers. However some users
+                        # for stack of valid TF-Keras layers. However some users
                         # have layers that are fundamentally incompatible with
                         # the Functional API, which do not return tensors. In
                         # this case, we fall back to the legacy deferred

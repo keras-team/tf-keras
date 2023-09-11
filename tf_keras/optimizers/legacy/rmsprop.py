@@ -322,9 +322,9 @@ class RMSprop(optimizer_v2.OptimizerV2):
 
     def set_weights(self, weights):
         params = self.weights
-        # Override set_weights for backward compatibility of TF-Keras V1 optimizer
-        # since it does not include iteration at head of the weight list. Set
-        # iteration to 0.
+        # Override set_weights for backward compatibility of TF-Keras V1
+        # optimizer since it does not include iteration at head of the weight
+        # list. Set iteration to 0.
         if len(params) == len(weights) + 1:
             weights = [np.array(0)] + weights
         super().set_weights(weights)

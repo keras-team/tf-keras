@@ -738,10 +738,11 @@ def _custom_compile_for_predict(model):
 def _build_network_on_replica(model, mode, inputs=None, targets=None):
     """Build an updated model on replicas.
 
-    We create a new TF-Keras model while sharing the variables from the old graph.
-    Building a new sub-graph is required since the original keras model creates
-    placeholders for the input and the output that are not accessible till we
-    call iterator.get_next() inside the step_fn for `fit`/`evaluate`/`predict`.
+    We create a new TF-Keras model while sharing the variables from the old
+    graph. Building a new sub-graph is required since the original keras model
+    creates placeholders for the input and the output that are not accessible
+    till we call iterator.get_next() inside the step_fn for
+    `fit`/`evaluate`/`predict`.
 
     The sharing of weights and layers between the old and the new model
     guarantee that we're using Strategy variables and any updates on either
@@ -1099,8 +1100,8 @@ def _make_eager_execution_function(model, mode):
                 with_loss_tensor=(mode != ModeKeys.PREDICT),
             )
 
-        # Finally, a joint TF-Keras function is created; this one will be created
-        # in a separate FuncGraph.
+        # Finally, a joint TF-Keras function is created; this one will be
+        # created in a separate FuncGraph.
         return backend.function(
             all_inputs,
             all_outputs,
@@ -1206,8 +1207,8 @@ def filter_distributed_callbacks(callbacks_list, model):
 
     if not model._in_multi_worker_mode():
         raise ValueError(
-            "filter_distributed_callbacks() should only be called when TF-Keras "
-            "is in multi worker mode."
+            "filter_distributed_callbacks() should only be called when "
+            "TF-Keras is in multi worker mode."
         )
 
     callbacks_list = callbacks_list or []

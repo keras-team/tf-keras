@@ -1676,8 +1676,9 @@ class Model(base_layer.Layer, version_utils.ModelVersionSelector):
           a length one tuple, effectively treating everything as 'x'. When
           yielding dicts, they should still adhere to the top-level tuple
           structure.
-          e.g. `({"x0": x0, "x1": x1}, y)`. TF-Keras will not attempt to separate
-          features, targets, and weights from the keys of a single dict.
+          e.g. `({"x0": x0, "x1": x1}, y)`. TF-Keras will not attempt to
+          separate features, targets, and weights from the keys of a single
+          dict.
             A notable unsupported data type is the namedtuple. The reason is
           that it behaves like both an ordered datatype (tuple) and a mapping
           datatype (dict). So given a namedtuple of the form:

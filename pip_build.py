@@ -2,13 +2,13 @@
 
 The steps are as follows:
 
-0. Run bazel build in the TF-Keras root directory to obtain protobuf Python files.
+0. Run bazel build in TF-Keras root directory to obtain protobuf Python files.
 1. Create a temporary build directory (e.g. `/tmp/keras_build`)
 2. Copy the TF-Keras codebase to it (to `/tmp/keras_build/tf_keras/src`)
   and rewrite internal imports so that they refer to `keras.src` rather than
   just `keras`.
 3. Also copy `setup.py` to the build directory.
-4. List and import every file in the codebase (in `/tmp/keras_build/tf_keras/src`),
+4. List and import every file in codebase (in `/tmp/keras_build/tf_keras/src`),
   so we can inspect the symbols the codebase contains.
 5. Use the annotations left by the `keras_export` decorator to filter the
   symbols that should be exported, as well as their export path (default one
@@ -27,10 +27,10 @@ Notes:
   converted to their public form.
 * This script only targets Linux x86 64. It could be adapted to MacOS
   relatively easily by changing requirements.txt and the bazel build script.
-* This script should be run from an environment that has all TF-Keras dependencies
-  installed. Note that their specific version is not important; the only
-  thing that matters is that we should be able to import the TF-Keras codebase
-  in its current state (so we can perform step 4). If you install the
+* This script should be run from an environment that has all TF-Keras
+  dependencies installed. Note that their specific version is not important; the
+  only thing that matters is that we should be able to import the TF-Keras
+  codebase in its current state (so we can perform step 4). If you install the
   dependencies used by the latest TF-nightly you should be good.
 """
 

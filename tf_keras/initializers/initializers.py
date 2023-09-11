@@ -34,7 +34,8 @@ _ALLOWED_INITIALIZER_KWARGS = [_PARTITION_SHAPE, _PARTITION_OFFSET, _LAYOUT]
 
 @keras_export("keras.initializers.Initializer")
 class Initializer:
-    """Initializer base class: all TF-Keras initializers inherit from this class.
+    """Initializer base class: all TF-Keras initializers inherit from this
+    class.
 
     Initializers should implement a `__call__()` method with the following
     signature:

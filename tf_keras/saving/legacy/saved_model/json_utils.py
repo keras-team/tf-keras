@@ -76,7 +76,9 @@ def decode(json_string):
 def decode_and_deserialize(
     json_string, module_objects=None, custom_objects=None
 ):
-    """Decodes the JSON and deserializes any TF-Keras objects found in the dict."""
+    """Decodes the JSON and deserializes any TF-Keras objects found in the
+    dict.
+    """
     return json.loads(
         json_string,
         object_hook=functools.partial(

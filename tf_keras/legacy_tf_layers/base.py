@@ -201,8 +201,8 @@ class Layer(base_layer.Layer):
 
         if dtype is None:
             # Indicates to infer dtype from inputs. When the V2 dtype behavior
-            # is enabled, TF-Keras layers default their dtype to floatx instead, so
-            # we pass an "_infer" policy to keep the old V1 behavior.
+            # is enabled, TF-Keras layers default their dtype to floatx instead,
+            # so we pass an "_infer" policy to keep the old V1 behavior.
             dtype = policy.Policy("_infer")
 
         if "autocast" not in kwargs:

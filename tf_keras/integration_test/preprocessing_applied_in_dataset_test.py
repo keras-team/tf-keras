@@ -45,7 +45,9 @@ STRATEGIES = [
     test_combinations.combine(strategy=STRATEGIES, mode="eager")
 )
 class PreprocessingAppliedInDatasetTest(tf.test.TestCase):
-    """Demonstrate TF-Keras preprocessing layers applied in tf.data.Dataset.map."""
+    """Demonstrate TF-Keras preprocessing layers applied in
+    tf.data.Dataset.map.
+    """
 
     def testDistributedModelFit(self, strategy):
         with strategy.scope():

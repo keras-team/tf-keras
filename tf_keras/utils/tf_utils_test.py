@@ -171,7 +171,7 @@ class TestIsSymbolicTensor(tf.test.TestCase, parameterized.TestCase):
                 PlumbingLayer(Foo),  # Makes a `Foo` object.
             ]
         )
-        # Let's ensure TF-Keras graph history is preserved by composing the models.
+        # Let's ensure TF-Keras graph history is preserved by composing models.
         model = keras.Model(model.inputs, model(model.outputs))
         # Now we instantiate the model and verify we have a `Foo` object, not a
         # `Tensor`.

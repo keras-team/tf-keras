@@ -383,8 +383,8 @@ def _map_functional_model_variable(model, layout_map):
 
     for layer in model.layers:
         # Note that layer name is unique among the functional/sequential model
-        # when the layer name is not provided, TF-Keras will auto generate a layer
-        # name based on the class name.
+        # when the layer name is not provided, TF-Keras will auto generate a
+        # layer name based on the class name.
         layer_name = layer.name
         for path, variable in layer._flatten(
             predicate=_is_lazy_init_variable,

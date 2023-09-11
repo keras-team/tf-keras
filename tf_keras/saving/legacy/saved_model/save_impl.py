@@ -120,8 +120,9 @@ def wrap_layer_objects(layer, serialization_cache):
     # Avoid duplicate creation of shard Variables on loading.
     # `layer.variables` will return the shard Variables rather than the
     # ShardedVariables (b/224541446), but TF-Keras loading will create new
-    # ShardedVariables (and thus shard Variables) from TF-Keras metadata if needed.
-    # There's no need to also save the shard Variables here, so filter them out.
+    # ShardedVariables (and thus shard Variables) from TF-Keras metadata if
+    # needed. There's no need to also save the shard Variables here, so filter
+    # them out.
     variables = _filter_shards(layer.variables)
     trainable_variables = _filter_shards(layer.trainable_variables)
     non_trainable_variables = _filter_shards(layer.non_trainable_variables)

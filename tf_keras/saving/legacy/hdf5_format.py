@@ -269,8 +269,8 @@ def preprocess_weights_for_loading(
 ):
     """Preprocess layer weights between different TF-Keras formats.
 
-    Converts layers weights from TF-Keras 1 format to TF-Keras 2 and also weights of
-    cuDNN layers in TF-Keras 2.
+    Converts layers weights from TF-Keras 1 format to TF-Keras 2 and also
+    weights of cuDNN layers in TF-Keras 2.
 
     Args:
         layer: Layer instance.

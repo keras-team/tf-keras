@@ -3067,8 +3067,8 @@ def list_summaries(logdir):
                 for value in event.summary.value:
                     tag = value.tag
                     # Case on the `value` rather than the summary metadata
-                    # because the TF-Keras callback uses `summary_ops_v2` to emit
-                    # old-style summaries. See b/124535134.
+                    # because the TF-Keras callback uses `summary_ops_v2` to
+                    # emit old-style summaries. See b/124535134.
                     kind = value.WhichOneof("value")
                     container = {
                         "simple_value": result.scalars,

@@ -165,10 +165,11 @@ DOC = """
   [guide to transfer learning & fine-tuning](
     https://keras.io/guides/transfer_learning/).
 
-  Note: each TF-Keras Application expects a specific kind of input preprocessing.
-  For ResNetV2, call `tf.keras.applications.resnet_v2.preprocess_input` on your
-  inputs before passing them to the model.
-  `resnet_v2.preprocess_input` will scale input pixels between -1 and 1.
+  Note: each TF-Keras Application expects a specific kind of input
+  preprocessing. For ResNetV2, call
+  `tf.keras.applications.resnet_v2.preprocess_input` on your inputs before
+  passing them to the model. `resnet_v2.preprocess_input` will scale input
+  pixels between -1 and 1.
 
   Args:
     include_top: whether to include the fully-connected

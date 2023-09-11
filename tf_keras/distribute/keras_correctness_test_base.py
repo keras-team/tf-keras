@@ -206,7 +206,7 @@ def get_correctness_test_inputs(
     x_predict,
     training_epochs,
 ):
-    """Generates the inputs for correctness check when enable TF-Keras with DS."""
+    """Generates inputs for correctness check when enable TF-Keras with DS."""
     global_batch_size = _GLOBAL_BATCH_SIZE
     batch_size = get_batch_size(global_batch_size, with_distribution)
 
@@ -340,9 +340,9 @@ def compare_results(
         # We relax the tolerance a lot in the partial last batch case as
         #   1. the examples in uneven batches may have different weights when
         #      applying the gradients in the distributed case.
-        #   2. TF TF-Keras and TF TF-Keras DS have different ways to handle the case
-        #      when training with epochs > 1 with numpy inputs. In TF Keras,
-        #      every epoch may have a partial batch. While in TF TF-Keras DS, as we
+        #   2. TF-Keras and TF-Keras DS have different ways to handle the case
+        #      when training with epochs > 1 with numpy inputs. In TF-Keras,
+        #      every epoch may have a partial batch. While in TF-Keras DS, as we
         #      convert numpy inputs into dataset, it will do a repeat() first
         #      and calculate steps_per_epoch, so it will at most have one
         #      partial batch. This makes the 1-CPU result even different.
@@ -671,7 +671,9 @@ class TestDistributionStrategyCorrectnessBase(
 class TestDistributionStrategyEmbeddingModelCorrectnessBase(
     TestDistributionStrategyCorrectnessBase
 ):
-    """Base class to test correctness of TF-Keras models with embedding layers."""
+    """Base class to test correctness of TF-Keras models with embedding
+    layers.
+    """
 
     def get_data(
         self,

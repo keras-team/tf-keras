@@ -118,10 +118,10 @@ class RandomFourierFeatures(base_layer.Layer):
         the number of random features used to approximate the kernel.
       kernel_initializer: Determines the distribution of the parameters of the
         random features map (and therefore the kernel approximated by the
-        layer).  It can be either a string identifier or a TF-Keras `Initializer`
-        instance.  Currently only 'gaussian' and 'laplacian' are supported
-        string identifiers (case insensitive). Note that the kernel matrix is
-        not trainable.
+        layer).  It can be either a string identifier or a TF-Keras
+        `Initializer` instance.  Currently only 'gaussian' and 'laplacian' are
+        supported string identifiers (case insensitive). Note that the kernel
+        matrix is not trainable.
       scale: For Gaussian and Laplacian kernels, this corresponds to a scaling
         factor of the corresponding kernel approximated by the layer (see
         concrete definitions above). When provided, it should be a positive

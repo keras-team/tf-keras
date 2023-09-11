@@ -275,9 +275,9 @@ class Model(training_lib.Model):
                 dictionary or a list of modes. Defaults to `None`.
             weighted_metrics: List of metrics to be evaluated and weighted
                 by sample_weight or class_weight during training and testing.
-            target_tensors: By default, TF-Keras will create placeholders for the
-                model's target, which will be fed with the target data during
-                training. If instead you would like to use your own
+            target_tensors: By default, TF-Keras will create placeholders for
+                the model's target, which will be fed with the target data
+                during training. If instead you would like to use your own
                 target tensors (in turn, TF-Keras will not expect external
                 Numpy data for these targets at training time), you
                 can specify them via the `target_tensors` argument. It can be
@@ -1663,8 +1663,8 @@ class Model(training_lib.Model):
 
         This may be used to set graph tensors as sample weights (instead of
         creating placeholders). This functionality is necessary for
-        `tf.keras.estimator.model_to_estimator`, which calls TF-Keras models in a
-        v1 graph, and creates iterator tensors for inputs, targets, and sample
+        `tf.keras.estimator.model_to_estimator`, which calls TF-Keras models in
+        a v1 graph, and creates iterator tensors for inputs, targets, and sample
         weights.
 
         Args:

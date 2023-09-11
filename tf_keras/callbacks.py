@@ -76,7 +76,8 @@ def configure_callbacks(
         epochs: Number of epoch to train.
         steps_per_epoch: Number of batches to run per training epoch.
         samples: Number of training samples.
-        verbose: int, 0 or 1. TF-Keras logging verbosity to pass to ProgbarLogger.
+        verbose: int, 0 or 1. TF-Keras logging verbosity to pass to
+          ProgbarLogger.
         count_mode: One of 'steps' or 'samples'. Per-batch or per-sample count.
         mode: String. One of ModeKeys.TRAIN, ModeKeys.TEST, or ModeKeys.PREDICT.
           Which loop mode to configure callbacks for.
@@ -140,7 +141,8 @@ def set_callback_parameters(
         epochs: Number of epoch to train.
         steps_per_epoch: Number of batches to run per training epoch.
         samples: Number of training samples.
-        verbose: int, 0 or 1. TF-Keras logging verbosity to pass to ProgbarLogger.
+        verbose: int, 0 or 1. TF-Keras logging verbosity to pass to
+          ProgbarLogger.
         mode: String. One of ModeKeys.TRAIN, ModeKeys.TEST, or ModeKeys.PREDICT.
           Which loop mode to configure callbacks for.
     """
@@ -628,7 +630,8 @@ class Callback:
 
     To create a custom callback, subclass `keras.callbacks.Callback` and
     override the method associated with the stage of interest. See
-    https://www.tensorflow.org/guide/tf_keras/custom_callback for more information.
+    https://www.tensorflow.org/guide/tf_keras/custom_callback for more
+    information.
 
     Example:
 
@@ -2292,8 +2295,8 @@ class LearningRateScheduler(Callback):
 def keras_model_summary(name, data, step=None):
     """Writes a TF-Keras model as JSON to as a Summary.
 
-    Writing the TF-Keras model configuration allows the TensorBoard graph plugin to
-    render a conceptual graph, as opposed to graph of ops. In case the model
+    Writing the TF-Keras model configuration allows the TensorBoard graph plugin
+    to render a conceptual graph, as opposed to graph of ops. In case the model
     fails to serialize as JSON, it ignores and returns False.
 
     Args:

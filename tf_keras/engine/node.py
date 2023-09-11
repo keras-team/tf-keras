@@ -319,9 +319,9 @@ class KerasHistory(
 
     During construction of TF-Keras Graph Networks, this metadata is added to
     each Tensor produced as the output of a Layer, starting with an
-    `InputLayer`. This allows TF-Keras to track how each Tensor was produced, and
-    this information is later retraced by the `keras.engine.Network` class to
-    reconstruct the TF-Keras Graph Network.
+    `InputLayer`. This allows TF-Keras to track how each Tensor was produced,
+    and this information is later retraced by the `keras.engine.Network` class
+    to reconstruct the TF-Keras Graph Network.
 
     Attributes:
       layer: The Layer that produced the Tensor.

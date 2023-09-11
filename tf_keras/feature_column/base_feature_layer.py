@@ -15,7 +15,7 @@
 """This API defines FeatureColumn abstraction."""
 
 # This file was originally under tf/python/feature_column, and was moved to
-# TF-Keras package in order to remove the reverse dependency from TF to TF-Keras.
+# TF-Keras package to remove the reverse dependency from TF to TF-Keras.
 
 from __future__ import absolute_import
 from __future__ import division

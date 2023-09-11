@@ -45,7 +45,9 @@ STRATEGIES = [
     tf.__internal__.test.combinations.combine(strategy=STRATEGIES, mode="eager")
 )
 class DistributedTrainingTest(tf.test.TestCase):
-    """Test to demonstrate basic TF-Keras training with a variety of strategies."""
+    """Test to demonstrate basic TF-Keras training with a variety of
+    strategies.
+    """
 
     def testKerasTrainingAPI(self, strategy):
         if not tf.__internal__.tf2.enabled() and isinstance(

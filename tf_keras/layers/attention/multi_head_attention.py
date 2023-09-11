@@ -304,8 +304,8 @@ class MultiHeadAttention(Layer):
 
     @classmethod
     def from_config(cls, config):
-        # If the layer has a different build() function from the TF-Keras default,
-        # we need to trigger the customized build to create weights.
+        # If the layer has a different build() function from the TF-Keras
+        # default, we need to trigger the customized build to create weights.
         query_shape = config.pop("query_shape")
         key_shape = config.pop("key_shape")
         value_shape = config.pop("value_shape")
@@ -640,9 +640,9 @@ class MultiHeadAttention(Layer):
 
         Returns:
             attention_mask: a boolean mask of shape `(B, T, S)`, that prevents
-                attention to certain positions, based on the TF-Keras masks of the
-                `query`, `key`, `value`, and `attention_mask` tensors, and the
-                causal mask if `use_causal_mask=True`.
+                attention to certain positions, based on the TF-Keras masks of
+                the `query`, `key`, `value`, and `attention_mask` tensors, and
+                the causal mask if `use_causal_mask=True`.
         """
         query_mask = getattr(query, "_keras_mask", None)
         value_mask = getattr(value, "_keras_mask", None)

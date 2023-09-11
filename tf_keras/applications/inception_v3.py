@@ -74,8 +74,8 @@ def InceptionV3(
     [guide to transfer learning & fine-tuning](
       https://keras.io/guides/transfer_learning/).
 
-    Note: each TF-Keras Application expects a specific kind of input preprocessing.
-    For `InceptionV3`, call
+    Note: each TF-Keras Application expects a specific kind of input
+    preprocessing. For `InceptionV3`, call
     `tf.keras.applications.inception_v3.preprocess_input` on your inputs before
     passing them to the model. `inception_v3.preprocess_input` will scale input
     pixels between -1 and 1.

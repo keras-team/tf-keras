@@ -90,9 +90,9 @@ BASE_DOCSTRING = """Instantiates the {name} architecture.
   [guide to transfer learning & fine-tuning](
     https://keras.io/guides/transfer_learning/).
 
-  Note: each TF-Keras Application expects a specific kind of input preprocessing.
-  For MobileNetV3, by default input preprocessing is included as a part of the
-  model (as a `Rescaling` layer), and thus
+  Note: each TF-Keras Application expects a specific kind of input
+  preprocessing. For MobileNetV3, by default input preprocessing is included as
+  a part of the model (as a `Rescaling` layer), and thus
   `tf.keras.applications.mobilenet_v3.preprocess_input` is actually a
   pass-through function. In this use case, MobileNetV3 models expect their
   inputs to be float tensors of pixels with values in the [0-255] range.

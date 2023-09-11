@@ -183,9 +183,9 @@ BASE_DOCSTRING = """Instantiates the {name} architecture.
   [guide to transfer learning & fine-tuning](
     https://keras.io/guides/transfer_learning/).
 
-  Note: each TF-Keras Application expects a specific kind of input preprocessing.
-  For EfficientNet, input preprocessing is included as part of the model
-  (as a `Rescaling` layer), and thus
+  Note: each TF-Keras Application expects a specific kind of input
+  preprocessing. For EfficientNet, input preprocessing is included as part of
+  the model (as a `Rescaling` layer), and thus
   `tf.keras.applications.efficientnet.preprocess_input` is actually a
   pass-through function. EfficientNet models expect their inputs to be float
   tensors of pixels with values in the [0-255] range.

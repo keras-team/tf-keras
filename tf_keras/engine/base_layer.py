@@ -3564,8 +3564,8 @@ class TensorFlowOpLayer(Layer):
       name: String, the name of the Layer.
       constants: Dict of NumPy arrays, the values of any Tensors needed for this
         Operation that do not originate from a TF-Keras `Input` Layer. Since all
-        placeholders must come from TF-Keras `Input` Layers, these Tensors must be
-        treated as constant in the Functional API.
+        placeholders must come from TF-Keras `Input` Layers, these Tensors must
+        be treated as constant in the Functional API.
       trainable: Bool, whether this Layer is trainable. Currently Variables are
         not supported, and so this parameter has no effect.
       dtype: The default dtype of this Layer. Inherited from `Layer` and has no
@@ -3838,9 +3838,9 @@ class BaseRandomLayer(Layer):
         return children
 
     def _lookup_dependency(self, name, cached_dependencies=None):
-        # When loading from a TF-Keras SavedModel load, make sure that the loader
-        # can find the random generator, otherwise the loader will assume that
-        # it does not exist, and will try to create a new generator.
+        # When loading from a TF-Keras SavedModel load, make sure that the
+        # loader can find the random generator, otherwise the loader will assume
+        # that it does not exist, and will try to create a new generator.
         if name == "_random_generator":
             return self._random_generator
         elif cached_dependencies is not None:

@@ -71,12 +71,12 @@ def VGG16(
 
     The default input size for this model is 224x224.
 
-    Note: each TF-Keras Application expects a specific kind of input preprocessing.
-    For VGG16, call `tf.keras.applications.vgg16.preprocess_input` on your
-    inputs before passing them to the model.
-    `vgg16.preprocess_input` will convert the input images from RGB to BGR,
-    then will zero-center each color channel with respect to the ImageNet
-    dataset, without scaling.
+    Note: each TF-Keras Application expects a specific kind of input
+    preprocessing. For VGG16, call
+    `tf.keras.applications.vgg16.preprocess_input` on your inputs before passing
+    them to the model. `vgg16.preprocess_input` will convert the input images
+    from RGB to BGR, then will zero-center each color channel with respect to
+    the ImageNet dataset, without scaling.
 
     Args:
         include_top: whether to include the 3 fully-connected

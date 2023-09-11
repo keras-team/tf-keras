@@ -32,11 +32,12 @@ _MAX_TENSOR_RANK = 254
 
 @keras_export("keras.__internal__.KerasTensor", v1=[])
 class KerasTensor:
-    """A representation of a TF-Keras in/output during Functional API construction.
+    """A representation of a TF-Keras in/output during Functional API
+    construction.
 
     `KerasTensor`s are tensor-like objects that represent the symbolic inputs
-    and outputs of TF-Keras layers during Functional model construction. They are
-    comprised of the `tf.TypeSpec` of the (Composite)Tensor that will be
+    and outputs of TF-Keras layers during Functional model construction. They
+    are comprised of the `tf.TypeSpec` of the (Composite)Tensor that will be
     consumed/produced in the corresponding location of the Functional model.
 
     KerasTensors are intended as a private API, so users should never need to
@@ -140,12 +141,16 @@ class KerasTensor:
 
     @property
     def type_spec(self):
-        """Returns the `tf.TypeSpec` symbolically inferred for TF-Keras output."""
+        """Returns the `tf.TypeSpec` symbolically inferred for TF-Keras
+        output.
+        """
         return self._type_spec
 
     @property
     def shape(self):
-        """Returns the `TensorShape` symbolically inferred for TF-Keras output."""
+        """Returns the `TensorShape` symbolically inferred for TF-Keras
+        output.
+        """
         return self._type_spec.shape
 
     @classmethod
@@ -286,13 +291,13 @@ class KerasTensor:
             f"You are passing {self}, an intermediate TF-Keras symbolic "
             "input/output, to a TF API that does not allow registering custom "
             "dispatchers, such as `tf.cond`, `tf.function`, gradient tapes, "
-            "or `tf.map_fn`. TF-Keras Functional model construction only supports "
-            "TF API calls that *do* support dispatching, such as `tf.math.add` "
-            "or `tf.reshape`. "
+            "or `tf.map_fn`. TF-Keras Functional model construction only "
+            "supports TF API calls that *do* support dispatching, such as "
+            "`tf.math.add` or `tf.reshape`. "
             "Other APIs cannot be called directly on symbolic Keras"
             "inputs/outputs. You can work around "
-            "this limitation by putting the operation in a custom TF-Keras layer "
-            "`call` and calling that layer "
+            "this limitation by putting the operation in a custom TF-Keras "
+            "layer `call` and calling that layer "
             "on this symbolic input/output."
         )
 
@@ -356,7 +361,9 @@ class KerasTensor:
 
     @property
     def dtype(self):
-        """Returns the `dtype` symbolically inferred for this TF-Keras output."""
+        """Returns the `dtype` symbolically inferred for this TF-Keras
+        output.
+        """
         type_spec = self._type_spec
         if not hasattr(type_spec, "dtype"):
             raise AttributeError(
@@ -388,9 +395,10 @@ class KerasTensor:
     def node(self):
         """Find the corresponding `Node` that produce this keras_tensor.
 
-        During functional model construction, TF-Keras will attach `KerasHistory`
-        to keras tensor to track the connectivity between calls of layers.
-        Return None if there isn't any KerasHistory attached to this tensor.
+        During functional model construction, TF-Keras will attach
+        `KerasHistory` to keras tensor to track the connectivity between calls
+        of layers. Return None if there isn't any KerasHistory attached to this
+        tensor.
         """
         if hasattr(self, "_keras_history"):
             layer, node_index, _ = self._keras_history

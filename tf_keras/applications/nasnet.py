@@ -90,10 +90,11 @@ def NASNet(
     [guide to transfer learning & fine-tuning](
       https://keras.io/guides/transfer_learning/).
 
-    Note: each TF-Keras Application expects a specific kind of input preprocessing.
-    For NasNet, call `tf.keras.applications.nasnet.preprocess_input`
-    on your inputs before passing them to the model.
-    `nasnet.preprocess_input` will scale input pixels between -1 and 1.
+    Note: each TF-Keras Application expects a specific kind of input
+    preprocessing. For NasNet, call
+    `tf.keras.applications.nasnet.preprocess_input` on your inputs before
+    passing them to the model. `nasnet.preprocess_input` will scale input pixels
+    between -1 and 1.
 
     Args:
       input_shape: Optional shape tuple, the input shape
@@ -375,9 +376,10 @@ def NASNetMobile(
     Note that the data format convention used by the model is
     the one specified in your TF-Keras config at `~/.keras/keras.json`.
 
-    Note: each TF-Keras Application expects a specific kind of input preprocessing.
-    For NASNet, call `tf.keras.applications.nasnet.preprocess_input` on your
-    inputs before passing them to the model.
+    Note: each TF-Keras Application expects a specific kind of input
+    preprocessing. For NASNet, call
+    `tf.keras.applications.nasnet.preprocess_input` on your inputs before
+    passing them to the model.
 
     Args:
         input_shape: Optional shape tuple, only to be specified
@@ -463,9 +465,10 @@ def NASNetLarge(
     Note that the data format convention used by the model is
     the one specified in your TF-Keras config at `~/.keras/keras.json`.
 
-    Note: each TF-Keras Application expects a specific kind of input preprocessing.
-    For NASNet, call `tf.keras.applications.nasnet.preprocess_input` on your
-    inputs before passing them to the model.
+    Note: each TF-Keras Application expects a specific kind of input
+    preprocessing. For NASNet, call
+    `tf.keras.applications.nasnet.preprocess_input` on your inputs before
+    passing them to the model.
 
     Args:
         input_shape: Optional shape tuple, only to be specified

@@ -51,8 +51,8 @@ class InputLayer(base_layer.Layer):
     It is generally recommend to use the TF-Keras Functional model via `Input`,
     (which creates an `InputLayer`) without directly using `InputLayer`.
 
-    When using `InputLayer` with the TF-Keras Sequential model, it can be skipped
-    by moving the `input_shape` parameter to the first layer after the
+    When using `InputLayer` with the TF-Keras Sequential model, it can be
+    skipped by moving the `input_shape` parameter to the first layer after the
     `InputLayer`.
 
     This class can create placeholders for `tf.Tensors`, `tf.SparseTensors`, and
@@ -308,8 +308,8 @@ def Input(
     """`Input()` is used to instantiate a TF-Keras tensor.
 
     A TF-Keras tensor is a symbolic tensor-like object, which we augment with
-    certain attributes that allow us to build a TF-Keras model just by knowing the
-    inputs and outputs of the model.
+    certain attributes that allow us to build a TF-Keras model just by knowing
+    the inputs and outputs of the model.
 
     For instance, if `a`, `b` and `c` are TF-Keras tensors,
     it becomes possible to do:

@@ -178,8 +178,8 @@ class Regularizer:
         dictionary.
 
         This method is used by TF-Keras `model_to_estimator`, saving and
-        loading models to HDF5 formats, TF-Keras model cloning, some visualization
-        utilities, and exporting models to and from JSON.
+        loading models to HDF5 formats, TF-Keras model cloning, some
+        visualization utilities, and exporting models to and from JSON.
 
         Args:
             config: A Python dictionary, typically the output of get_config.
@@ -201,8 +201,8 @@ class Regularizer:
         exporting to and from SavedModels, or using weight checkpoints.
 
         This method is required for TF-Keras `model_to_estimator`, saving and
-        loading models to HDF5 formats, TF-Keras model cloning, some visualization
-        utilities, and exporting models to and from JSON.
+        loading models to HDF5 formats, TF-Keras model cloning, some
+        visualization utilities, and exporting models to and from JSON.
 
         Returns:
             Python dictionary.

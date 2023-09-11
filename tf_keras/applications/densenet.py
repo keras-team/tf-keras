@@ -159,11 +159,12 @@ def DenseNet(
     [guide to transfer learning & fine-tuning](
       https://keras.io/guides/transfer_learning/).
 
-    Note: each TF-Keras Application expects a specific kind of input preprocessing.
-    For DenseNet, call `tf.keras.applications.densenet.preprocess_input` on your
-    inputs before passing them to the model.
-    `densenet.preprocess_input` will scale pixels between 0 and 1 and then
-    will normalize each channel with respect to the ImageNet dataset statistics.
+    Note: each TF-Keras Application expects a specific kind of input
+    preprocessing. For DenseNet, call
+    `tf.keras.applications.densenet.preprocess_input` on your inputs before
+    passing them to the model. `densenet.preprocess_input` will scale pixels
+    between 0 and 1 and then will normalize each channel with respect to the
+    ImageNet dataset statistics.
 
     Args:
       blocks: numbers of building blocks for the four dense layers.
@@ -446,9 +447,10 @@ DOC = """
   Note that the data format convention used by the model is
   the one specified in your TF-Keras config at `~/.keras/keras.json`.
 
-  Note: each TF-Keras Application expects a specific kind of input preprocessing.
-  For DenseNet, call `tf.keras.applications.densenet.preprocess_input` on your
-  inputs before passing them to the model.
+  Note: each TF-Keras Application expects a specific kind of input
+   preprocessing. For DenseNet, call
+  `tf.keras.applications.densenet.preprocess_input` on your inputs before
+  passing them to the model.
 
   Args:
     include_top: whether to include the fully-connected

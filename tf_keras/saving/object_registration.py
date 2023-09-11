@@ -34,8 +34,8 @@ _THREAD_LOCAL_CUSTOM_OBJECTS = threading.local()
 class CustomObjectScope:
     """Exposes custom classes/functions to TF-Keras deserialization internals.
 
-    Under a scope `with custom_object_scope(objects_dict)`, TF-Keras methods such
-    as `tf.keras.models.load_model` or `tf.keras.models.model_from_config`
+    Under a scope `with custom_object_scope(objects_dict)`, TF-Keras methods
+    such as `tf.keras.models.load_model` or `tf.keras.models.model_from_config`
     will be able to deserialize any custom object referenced by a
     saved config (e.g. a custom layer or metric).
 
@@ -102,10 +102,11 @@ def get_custom_objects():
 def register_keras_serializable(package="Custom", name=None):
     """Registers an object with the TF-Keras serialization framework.
 
-    This decorator injects the decorated class or function into the TF-Keras custom
-    object dictionary, so that it can be serialized and deserialized without
-    needing an entry in the user-provided custom object dict. It also injects a
-    function that TF-Keras will call to get the object's serializable string key.
+    This decorator injects the decorated class or function into the TF-Keras
+    custom object dictionary, so that it can be serialized and deserialized
+    without needing an entry in the user-provided custom object dict. It also
+    injects a function that TF-Keras will call to get the object's serializable
+    string key.
 
     Note that to be serialized and deserialized, classes must implement the
     `get_config()` method. Functions do not have this requirement.
@@ -185,7 +186,8 @@ def get_registered_name(obj):
     "keras.saving.get_registered_object", "keras.utils.get_registered_object"
 )
 def get_registered_object(name, custom_objects=None, module_objects=None):
-    """Returns the class associated with `name` if it is registered with TF-Keras.
+    """Returns the class associated with `name` if it is registered with
+    TF-Keras.
 
     This function is part of the TF-Keras serialization and deserialization
     framework. It maps strings to the objects associated with them for

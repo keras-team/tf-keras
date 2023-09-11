@@ -561,9 +561,9 @@ BASE_DOCSTRING = """Instantiates the {name} architecture.
   [guide to transfer learning & fine-tuning](
     https://keras.io/guides/transfer_learning/).
 
-  Note: each TF-Keras Application expects a specific kind of input preprocessing.
-  For EfficientNetV2, by default input preprocessing is included as a part of
-  the model (as a `Rescaling` layer), and thus
+  Note: each TF-Keras Application expects a specific kind of input
+  preprocessing. For EfficientNetV2, by default input preprocessing is included
+  as a part of the model (as a `Rescaling` layer), and thus
   `tf.keras.applications.efficientnet_v2.preprocess_input` is actually a
   pass-through function. In this use case, EfficientNetV2 models expect their
   inputs to be float tensors of pixels with values in the [0-255] range.
@@ -887,8 +887,8 @@ def EfficientNetV2(
         the network.
       weights: one of `None` (random initialization), `"imagenet"` (pre-training
         on ImageNet), or the path to the weights file to be loaded.
-      input_tensor: optional TF-Keras tensor (i.e. output of `layers.Input()`) or
-        numpy array to use as image input for the model.
+      input_tensor: optional TF-Keras tensor (i.e. output of `layers.Input()`)
+        or numpy array to use as image input for the model.
       input_shape: optional shape tuple, only to be specified if `include_top`
         is False. It should have exactly 3 inputs channels.
       pooling: optional pooling mode for feature extraction when `include_top`

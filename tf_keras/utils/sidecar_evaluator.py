@@ -60,8 +60,8 @@ class SidecarEvaluator:
     or more workers performing the training, and saving checkpoints.
 
     The `SidecarEvaluator` API is compatible with both Custom Training Loop
-    (CTL), and TF-Keras `Model.fit` to be used in the training cluster. Using the
-    model (with compiled metrics) provided at `__init__`, `SidecarEvaluator`
+    (CTL), and TF-Keras `Model.fit` to be used in the training cluster. Using
+    the model (with compiled metrics) provided at `__init__`, `SidecarEvaluator`
     repeatedly performs evaluation "epochs" when it finds a checkpoint that has
     not yet been used. Depending on the `steps` argument, an eval epoch is
     evaluation over all eval data, or up to certain number of steps (batches).
@@ -69,8 +69,8 @@ class SidecarEvaluator:
     in order to be recognized by `SidecarEvaluator`.
 
     Since under the hood, `SidecarEvaluator` uses `model.evaluate` for
-    evaluation, it also supports arbitrary TF-Keras callbacks. That is, if one or
-    more callbacks are provided, their `on_test_batch_begin` and
+    evaluation, it also supports arbitrary TF-Keras callbacks. That is, if one
+    or more callbacks are provided, their `on_test_batch_begin` and
     `on_test_batch_end` methods are called at the start and end of a batch, and
     their `on_test_begin` and `on_test_end` are called at the start and end of
     an evaluation epoch. Note that `SidecarEvaluator` may skip some checkpoints

@@ -171,10 +171,10 @@ class RNNCell(base_layer.Layer):
     def __init__(self, trainable=True, name=None, dtype=None, **kwargs):
         super().__init__(trainable=trainable, name=name, dtype=dtype, **kwargs)
         # Attribute that indicates whether the cell is a TF RNN cell, due the
-        # slight difference between TF and TF-Keras RNN cell. Notably the state is
-        # not wrapped in a list for TF cell where they are single tensor state,
-        # whereas keras cell will wrap the state into a list, and call() will
-        # have to unwrap them.
+        # slight difference between TF and TF-Keras RNN cell. Notably the state
+        # is not wrapped in a list for TF cell where they are single tensor
+        # state, whereas keras cell will wrap the state into a list, and call()
+        # will have to unwrap them.
         self._is_tf_rnn_cell = True
 
     def __call__(self, inputs, state, scope=None):

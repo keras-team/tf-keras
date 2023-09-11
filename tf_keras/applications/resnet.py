@@ -642,12 +642,12 @@ DOC = """
   [guide to transfer learning & fine-tuning](
     https://keras.io/guides/transfer_learning/).
 
-  Note: each TF-Keras Application expects a specific kind of input preprocessing.
-  For ResNet, call `tf.keras.applications.resnet.preprocess_input` on your
-  inputs before passing them to the model.
-  `resnet.preprocess_input` will convert the input images from RGB to BGR,
-  then will zero-center each color channel with respect to the ImageNet dataset,
-  without scaling.
+  Note: each TF-Keras Application expects a specific kind of input
+  preprocessing. For ResNet, call
+  `tf.keras.applications.resnet.preprocess_input` on your inputs before passing
+  them to the model. `resnet.preprocess_input` will convert the input images
+  from RGB to BGR, then will zero-center each color channel with respect to the
+  ImageNet dataset, without scaling.
 
   Args:
     include_top: whether to include the fully-connected
