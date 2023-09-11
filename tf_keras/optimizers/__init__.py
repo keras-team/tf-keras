@@ -270,7 +270,11 @@ def convert_to_legacy_optimizer(optimizer):
         "class_name": optimizer_name,
         "config": config,
     }
-    return deserialize(legacy_optimizer_config, use_legacy_optimizer=True)
+    return deserialize(
+        legacy_optimizer_config,
+        use_legacy_optimizer=True,
+        use_legacy_format=True,
+    )
 
 
 @keras_export("keras.optimizers.get")
@@ -279,9 +283,9 @@ def get(identifier, **kwargs):
 
     Args:
         identifier: Optimizer identifier, one of - String: name of an optimizer
-          - Dictionary: configuration dictionary. - TF-Keras Optimizer instance (it
-          will be returned unchanged). - TensorFlow Optimizer instance (it will
-          be wrapped as a TF-Keras Optimizer).
+          - Dictionary: configuration dictionary. - TF-Keras Optimizer instance
+          (it will be returned unchanged). - TensorFlow Optimizer instance (it
+          will be wrapped as a TF-Keras Optimizer).
 
     Returns:
         A TF-Keras Optimizer instance.
