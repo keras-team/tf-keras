@@ -384,6 +384,7 @@ class ExportArchive(tf.__internal__.tracking.AutoTrackable):
         # Next, track lookup tables.
         # Hopefully, one day this will be automated at the tf.function level.
         self._misc_assets = []
+        # isort: off
         from tensorflow.python.ops.lookup_ops import (
             LookupInterface,
         )

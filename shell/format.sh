@@ -1,4 +1,4 @@
 #!/bin/bash
-isort --sl keras
-black --line-length 80 keras
-flake8 keras
+isort --sl tf_keras
+black --line-length 80 tf_keras
+flake8 tf_keras
