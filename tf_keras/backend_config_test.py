@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Tests for backend_config."""
+"""Test for backend_config."""
 
 import tensorflow.compat.v2 as tf
 
