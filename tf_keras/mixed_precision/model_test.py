@@ -904,7 +904,8 @@ class KerasModelTest(test_combinations.TestCase):
         self.assertEqual(self.evaluate(opt.loss_scale), 32768)
         self.assertEqual(self.evaluate(opt.dynamic_counter), 1)
 
-    def test_restore_old_saved_model(self):
+    # TODO(keras-team): Requires `tensorsflow` SWAP CL
+    def DISABLED_test_restore_old_saved_model(self):
         saved_model_dir = os.path.join(
             flags.FLAGS["test_srcdir"].value,
             "org_keras/tf_keras",
@@ -940,7 +941,10 @@ class KerasModelTest(test_combinations.TestCase):
             "h5": True,
         },
     )
-    def test_save_model_with_dynamic_loss_scaling(self, strategy_fn, h5=False):
+    def DISABLED_test_save_model_with_dynamic_loss_scaling(
+        self, strategy_fn, h5=False
+    ):
+        # TODO(keras-team): restore test after Keras swap is complete.
         # TODO(reedwm): Support and test saving model with a mixed_[b]float16
         # policy as well.
         strategy = strategy_fn()

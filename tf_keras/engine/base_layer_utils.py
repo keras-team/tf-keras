@@ -608,14 +608,14 @@ def training_arg_passed_to_call(argspec, args, kwargs):
 def is_subclassed(layer):
     """Returns True if the object is a subclassed layer or subclassed model."""
     return (
-        layer.__module__.find("keras.engine") == -1
-        and layer.__module__.find("keras.layers") == -1
+        "keras.engine" not in layer.__module__
+        and "keras.layers" not in layer.__module__
     )
 
 
 def from_saved_model(layer):
     """Returns whether the layer is loaded from a SavedModel."""
-    return layer.__module__.find("keras.saving.legacy.saved_model") != -1
+    return "legacy.saved_model" in layer.__module__
 
 
 def check_graph_consistency(tensor=None, method="add_loss", force_raise=False):

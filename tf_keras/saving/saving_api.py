@@ -58,7 +58,7 @@ def save_model(model, filepath, overwrite=True, save_format=None, **kwargs):
         filepath: `str` or `pathlib.Path` object. Path where to save the model.
         overwrite: Whether we should overwrite any existing model at the target
             location, or instead ask the user via an interactive prompt.
-        save_format: Either `"tf_keras"`, `"tf"`, `"h5"`,
+        save_format: Either `"keras"`, `"tf"`, `"h5"`,
             indicating whether to save the model
             in the native TF-Keras format (`.keras`),
             in the TensorFlow SavedModel format (referred to as "SavedModel"
@@ -146,7 +146,7 @@ def save_model(model, filepath, overwrite=True, save_format=None, **kwargs):
             stacklevel=2,
         )
 
-    if save_format == "tf_keras":
+    if save_format == "keras":
         # If file exists and should not be overwritten.
         try:
             exists = os.path.exists(filepath)
@@ -310,10 +310,10 @@ def load_weights(model, filepath, skip_mismatch=False, **kwargs):
 def get_save_format(filepath, save_format):
     if save_format:
         if save_format == "keras_v3":
-            return "tf_keras"
-        if save_format == "tf_keras":
+            return "keras"
+        if save_format == "keras":
             if saving_lib.saving_v3_enabled():
-                return "tf_keras"
+                return "keras"
             else:
                 return "h5"
         if save_format in ("h5", "hdf5"):
@@ -324,14 +324,14 @@ def get_save_format(filepath, save_format):
         raise ValueError(
             "Unknown `save_format` argument. Expected one of "
             "'keras', 'tf', or 'h5'. "
-            f"Received: save_format{save_format}"
+            f"Received: save_format={save_format}"
         )
 
     # No save format specified: infer from filepath.
 
     if str(filepath).endswith(".keras"):
         if saving_lib.saving_v3_enabled():
-            return "tf_keras"
+            return "keras"
         else:
             return "h5"
 

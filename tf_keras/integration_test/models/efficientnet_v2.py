@@ -4,7 +4,7 @@ Adapted from the EfficientNetV2 TF-Keras Application.
 """
 import math
 
-from tensorflow import tf_keras as keras
+from tensorflow import keras
 
 from tf_keras.integration_test.models.input_spec import InputSpec
 

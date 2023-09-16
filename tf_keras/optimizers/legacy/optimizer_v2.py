@@ -1711,8 +1711,9 @@ class RestoredOptimizer(OptimizerV2):
         )
 
 
+# TODO(keras-team) Rename to `optimizer` in the SWAP CL
 tf.__internal__.saved_model.load.register_revived_type(
-    "optimizer",
+    "tf_keras_optimizer",
     lambda obj: isinstance(obj, OptimizerV2),
     versions=[
         tf.__internal__.saved_model.load.VersionedTypeRegistration(

@@ -337,7 +337,7 @@ def save_weights(
         user_format = save_format.lower().strip()
         if user_format in ("tensorflow", "tf"):
             save_format = "tf"
-        elif user_format in ("hdf5", "h5", "tf_keras"):
+        elif user_format in ("hdf5", "h5", "keras"):
             save_format = "h5"
         else:
             raise ValueError(

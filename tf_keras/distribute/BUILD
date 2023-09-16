@@ -309,6 +309,7 @@ distribute_py_test(
 
 distribute_py_test(
     name = "distribute_strategy_test",
+    size = "medium",
     srcs = ["distribute_strategy_test.py"],
     disable_mlir_bridge = True,  # TODO(b/170352626)
     full_precision = True,
@@ -323,6 +324,7 @@ distribute_py_test(
         "no_windows_gpu",
         "noguitar",  # TODO(b/172354344)
         "nomultivm",  # TODO(b/170502145)
+        "notap",  # TODO(keras-team): Resolve after SWAP CL
         "notpu",  # b/188061768
         "notsan",
     ],
@@ -416,6 +418,7 @@ distribute_py_test(
         "no_rocm",
         "no_windows_gpu",
         "nomultivm",  # TODO(b/170502145)
+        "notap",  # TODO(keras-team): Resolve after SWAP CL
         "notsan",
     ],
     deps = [

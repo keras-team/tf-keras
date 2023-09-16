@@ -2627,7 +2627,7 @@ class TensorBoard(Callback, version_utils.TensorBoardVersionSelector):
                     or self.model.__class__.__name__ == "Sequential"
                 )
                 if summary_writable:
-                    keras_model_summary("tf_keras", self.model, step=0)
+                    keras_model_summary("keras", self.model, step=0)
 
     def _configure_embeddings(self):
         """Configure the Projector for embeddings."""

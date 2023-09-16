@@ -20,6 +20,14 @@ import tf_keras as keras
 from tf_keras import backend
 from tf_keras.engine import base_layer_utils
 from tf_keras.testing_infra import test_combinations
+from tf_keras.testing_infra import test_utils
+
+
+class BaseLayerUtilsTest(test_combinations.TestCase):
+    def test_is_subclassed(self):
+        self.assertFalse(base_layer_utils.is_subclassed(keras.layers.Dense(3)))
+        subclass = test_utils.get_small_subclass_mlp(3, 2)
+        self.assertTrue(base_layer_utils.is_subclassed(subclass))
 
 
 @test_combinations.generate(test_combinations.combine(mode=["graph", "eager"]))

@@ -4,7 +4,7 @@ Adapted from https://keras.io/examples/generative/vae/
 """
 
 import tensorflow as tf
-from tensorflow import tf_keras as keras
+from tensorflow import keras
 
 from tf_keras.integration_test.models.input_spec import InputSpec
 from tf_keras.saving import serialization_lib

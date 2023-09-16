@@ -164,7 +164,7 @@ To start using Keras, simply [install TensorFlow 2](https://www.tensorflow.org/i
 You can then import TF-Keras as follows:
 
 ```python
-from tensorflow import tf_keras as keras
+from tensorflow import keras
 ```
 
 ---

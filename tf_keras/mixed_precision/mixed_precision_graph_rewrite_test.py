@@ -158,7 +158,7 @@ class MixedPrecisionTest(test_combinations.TestCase):
     def test_error_if_policy_is_set(self):
         with policy.policy_scope("mixed_float16"):
             with self.assertRaisesRegex(
-                ValueError, "the global TF-Keras dtype Policy has been set"
+                ValueError, "the global Keras dtype Policy has been set"
             ):
                 tf.compat.v1.mixed_precision.enable_mixed_precision_graph_rewrite(  # noqa: E501
                     gradient_descent_v2.SGD(1.0)

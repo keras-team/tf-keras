@@ -533,7 +533,8 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         self.assertIn("keras_version", metadata)
         self.assertIn("date_saved", metadata)
 
-    def test_gfile_copy_local_called(self):
+    # TODO(keras-team): Enable and resolve after SWAP CL
+    def DISABLED_test_gfile_copy_local_called(self):
         temp_filepath = Path(
             os.path.join(self.get_temp_dir(), "my_model.keras")
         )

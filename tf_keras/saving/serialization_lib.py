@@ -760,7 +760,12 @@ def _retrieve_class_or_fn(
         # we cannot always use direct import, because the exported
         # module name might not match the package structure
         # (e.g. experimental symbols).
-        if module == "tf_keras" or module.startswith("keras."):
+        if (
+            module == "tf_keras"
+            or module == "keras"
+            or module.startswith("keras.")
+            or module.startswith("tf_keras.")
+        ):
             api_name = module + "." + name
 
             # Legacy internal APIs are stored in TF API naming dict
@@ -796,6 +801,9 @@ def _retrieve_class_or_fn(
         # Otherwise, attempt to retrieve the class object given the `module`
         # and `class_name`. Import the module, find the class.
         try:
+            # Change module name from `keras.` to `tf_keras.`
+            if module.startswith("keras"):
+                module = "tf_" + module
             mod = importlib.import_module(module)
         except ModuleNotFoundError:
             raise TypeError(

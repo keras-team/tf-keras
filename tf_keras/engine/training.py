@@ -3061,7 +3061,7 @@ class Model(base_layer.Layer, version_utils.ModelVersionSelector):
             overwrite: Whether we should overwrite any existing model at the
                 target location, or instead ask the user via an interactive
                 prompt.
-            save_format: Either `"tf_keras"`, `"tf"`, `"h5"`,
+            save_format: Either `"keras"`, `"tf"`, `"h5"`,
                 indicating whether to save the model
                 in the native TF-Keras format (`.keras`),
                 in the TensorFlow SavedModel format

@@ -3081,7 +3081,7 @@ def list_summaries(logdir):
                             "Unexpected summary kind %r in event file %s:\n%r"
                             % (kind, path, event)
                         )
-                    elif kind == "tensor" and tag != "tf_keras":
+                    elif kind == "tensor" and tag != "keras":
                         # Convert the tf2 summary proto to old style for type
                         # checking.
                         plugin_name = value.metadata.plugin_data.plugin_name
@@ -3624,7 +3624,7 @@ class TestTensorBoardV2NonParameterizedTest(test_combinations.TestCase):
         self.assertEqual(
             summary_file.tensors,
             {
-                _ObservedSummary(logdir=self.train_dir, tag="tf_keras"),
+                _ObservedSummary(logdir=self.train_dir, tag="keras"),
             },
         )
         if not model.run_eagerly:

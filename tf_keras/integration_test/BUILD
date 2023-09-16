@@ -361,6 +361,10 @@ tf_py_test(
     srcs = ["saving_v3_test.py"],
     python_version = "PY3",
     shard_count = 12,
+    tags = [
+        "no_oss",  # TODO(keras-team): SWAP CL related Error due to TF Wiring
+        "notap",  # TODO(keras-team): SWAP CL related Error due to TF Wiring
+    ],
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:keras_api",

@@ -41,7 +41,7 @@ py_library(
     srcs_version = "PY3",
     visibility = [
         "//learning/brain/contrib:__subpackages__",
-        "//third_party/py/keras:friends",
+        "//tf_keras:friends",
         "//third_party/tensorflow:__subpackages__",
         "//third_party/tf_seq2seq:__pkg__",
     ],

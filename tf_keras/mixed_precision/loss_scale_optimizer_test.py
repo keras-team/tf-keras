@@ -1363,10 +1363,7 @@ class LossScaleOptimizerTest(tf.test.TestCase, parameterized.TestCase):
     def testErrorWhenV3LsoWrapsV2Optimizer(self):
         sgd = gradient_descent.SGD()
         with self.assertRaisesRegex(
-            TypeError,
-            "only the new experimental optimizer "
-            "defined in keras/optimizer_expeirmental/optimizer.py can be "
-            "passed",
+            TypeError, "only the new experimental optimizer"
         ):
             loss_scale_optimizer.LossScaleOptimizerV3(sgd)
 

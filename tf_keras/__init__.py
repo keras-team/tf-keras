@@ -17,11 +17,13 @@
 Detailed documentation and user guides are available at
 [keras.io](https://keras.io).
 """
+from tf_keras import applications
 from tf_keras import distribute
 from tf_keras import models
 from tf_keras.engine.input_layer import Input
 from tf_keras.engine.sequential import Sequential
 from tf_keras.engine.training import Model
+from tf_keras.testing_infra import test_utils
 
 # isort: off
 

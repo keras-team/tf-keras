@@ -28,6 +28,7 @@ py_library(
         ":layer_utils",
         ":np_utils",
         ":sidecar_evaluator",
+        ":steps_per_execution_tuning",
         ":text_dataset",
         ":timed_threads",
         ":timeseries_dataset",

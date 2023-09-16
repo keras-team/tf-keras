@@ -2,7 +2,7 @@
 
 Adapted from https://keras.io/examples/vision/image_classification_from_scratch/
 """
-from tensorflow import tf_keras as keras
+from tensorflow import keras
 
 from tf_keras.integration_test.models.input_spec import InputSpec
 
