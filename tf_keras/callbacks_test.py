@@ -1310,7 +1310,7 @@ class KerasCallbacksTest(test_combinations.TestCase):
         assert os.path.exists(filepath)
         os.remove(filepath)
 
-        # Case 14: ModelCheckpoint doesnt save model if loss was minimum earlier
+        # Case 14: ModelCkpt doesn't save model if loss was minimum earlier
         mode = "min"
         monitor = "val_loss"
         initial_value_threshold = 0
@@ -1335,7 +1335,7 @@ class KerasCallbacksTest(test_combinations.TestCase):
         )
         assert not os.path.exists(filepath)
 
-        # Case 15: ModelCheckpoint doesnt save model if loss was min earlier in
+        # Case 15: ModelCheckpoint doesn't save model if loss was min earlier in
         # auto mode
         mode = "auto"
         monitor = "val_loss"

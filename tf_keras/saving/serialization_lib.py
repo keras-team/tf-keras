@@ -760,12 +760,10 @@ def _retrieve_class_or_fn(
         # we cannot always use direct import, because the exported
         # module name might not match the package structure
         # (e.g. experimental symbols).
-        if (
-            module == "tf_keras"
+        if (module == "tf_keras"
             or module == "keras"
             or module.startswith("keras.")
-            or module.startswith("tf_keras.")
-        ):
+            or module.startswith("tf_keras.")):
             api_name = module + "." + name
 
             # Legacy internal APIs are stored in TF API naming dict

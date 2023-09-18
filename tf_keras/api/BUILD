@@ -17,11 +17,11 @@ package(
 
 # The target used by PIP package which need to generate API init files during OSS build.
 py_library(
-    name = "keras_api",
+    name = "tf_keras_api",
     srcs = [
-        ":keras_python_api_gen",
-        ":keras_python_api_gen_compat_v1",
-        ":keras_python_api_gen_compat_v2",
+        ":tf_keras_python_api_gen",
+        ":tf_keras_python_api_gen_compat_v1",
+        ":tf_keras_python_api_gen_compat_v2",
     ],
     srcs_version = "PY3",
     deps = [
@@ -51,7 +51,7 @@ py_binary(
 )
 
 generate_apis(
-    name = "keras_python_api_gen",
+    name = "tf_keras_python_api_gen",
     api_version = 1,
     output_files = KERAS_API_INIT_FILES_V1,
     output_package = "tf_keras.api",
@@ -65,7 +65,7 @@ generate_apis(
 )
 
 generate_apis(
-    name = "keras_python_api_gen_compat_v1",
+    name = "tf_keras_python_api_gen_compat_v1",
     api_version = 1,
     output_dir = "_v1/",
     output_files = KERAS_API_INIT_FILES_V1,
@@ -80,7 +80,7 @@ generate_apis(
 )
 
 generate_apis(
-    name = "keras_python_api_gen_compat_v2",
+    name = "tf_keras_python_api_gen_compat_v2",
     api_version = 2,
     output_dir = "_v2/",
     output_files = KERAS_API_INIT_FILES,

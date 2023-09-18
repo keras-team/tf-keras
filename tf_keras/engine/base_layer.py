@@ -2441,6 +2441,13 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
             return self._infer_output_signature(
                 inputs, args, kwargs, input_masks
             )
+            
+    def _should_use_autograph(self):
+        if base_layer_utils.from_saved_model(self):
+            return False
+        if base_layer_utils.is_subclassed(self):
+            return True
+        return False
 
     def _infer_output_signature(self, inputs, args, kwargs, input_masks):
         """Call the layer on input KerasTensors, returns output KerasTensors."""
@@ -2453,9 +2460,7 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         # subclassed layers and models.
         # tf_convert will respect the value of autograph setting in the
         # enclosing tf.function, if any.
-        if base_layer_utils.is_subclassed(
-            self
-        ) and not base_layer_utils.from_saved_model(self):
+        if self._should_use_autograph():
             call_fn = tf.__internal__.autograph.tf_convert(
                 self.call, tf.__internal__.autograph.control_status_ctx()
             )
@@ -2679,14 +2684,11 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         # subclassed layers and models.
         # tf_convert will respect the value of autograph setting in the
         # enclosing tf.function, if any.
-        if base_layer_utils.is_subclassed(
-            self
-        ) and not base_layer_utils.from_saved_model(self):
+        if self._should_use_autograph():
             return tf.__internal__.autograph.tf_convert(
                 self.call, tf.__internal__.autograph.control_status_ctx()
             )
-        else:
-            return self.call
+        return self.call
 
     @property
     def _inbound_nodes(self):

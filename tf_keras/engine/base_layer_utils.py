@@ -607,10 +607,8 @@ def training_arg_passed_to_call(argspec, args, kwargs):
 
 def is_subclassed(layer):
     """Returns True if the object is a subclassed layer or subclassed model."""
-    return (
-        "keras.engine" not in layer.__module__
-        and "keras.layers" not in layer.__module__
-    )
+    return ("keras.engine" not in layer.__module__ and
+            "keras.layers" not in layer.__module__)
 
 
 def from_saved_model(layer):

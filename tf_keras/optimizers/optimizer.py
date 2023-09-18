@@ -1387,7 +1387,7 @@ class CallableList(list):
 # Register the optimizer for loading from saved_model purpose.
 # TODO(keras-team) Rename to `experimentalOptimizer` in the SWAP CL
 tf.__internal__.saved_model.load.register_revived_type(
-    "tf_keras_experimentalOptimizer",
+    "experimentalOptimizer",
     lambda obj: isinstance(obj, Optimizer),
     versions=[
         tf.__internal__.saved_model.load.VersionedTypeRegistration(
