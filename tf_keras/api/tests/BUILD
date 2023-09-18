@@ -29,7 +29,6 @@ tf_py_test(
         "no_pip",
         "no_rocm",
         "no_windows",  # Bugs due to some paths.
-        "notap",  # TODO(keras-team): Remove once API is fixed in SWAP CL
     ],
     deps = [
         "//:expect_six_installed",

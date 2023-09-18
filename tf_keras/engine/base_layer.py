@@ -2441,7 +2441,7 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
             return self._infer_output_signature(
                 inputs, args, kwargs, input_masks
             )
-            
+
     def _should_use_autograph(self):
         if base_layer_utils.from_saved_model(self):
             return False

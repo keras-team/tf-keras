@@ -2388,9 +2388,7 @@ class TestDistributionStrategyWithKerasModels(
     @tf.__internal__.distribute.combinations.generate(
         all_strategy_minus_default_and_tpu_combinations()
     )
-    def DISABLED_test_distribution_strategy_with_callable_add_loss(
-        self, distribution
-    ):
+    def test_distribution_strategy_with_callable_add_loss(self, distribution):
         def _make_model():
             inputs = keras.Input((10,))
             x1 = keras.layers.Dense(10, kernel_initializer="zeros")(inputs)

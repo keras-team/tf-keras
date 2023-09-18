@@ -3,9 +3,9 @@
 #   related to dist-strat used by TF-Keras..
 
 # Placeholder: load unaliased py_library
-load("@org_keras//tf_keras:tf_keras.bzl", "distribute_py_test")
 load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")  # buildifier: disable=same-origin-load
+load("@org_keras//tf_keras:tf_keras.bzl", "distribute_py_test")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
@@ -324,7 +324,6 @@ distribute_py_test(
         "no_windows_gpu",
         "noguitar",  # TODO(b/172354344)
         "nomultivm",  # TODO(b/170502145)
-        "notap",  # TODO(keras-team): Resolve after SWAP CL
         "notpu",  # b/188061768
         "notsan",
     ],
@@ -418,7 +417,6 @@ distribute_py_test(
         "no_rocm",
         "no_windows_gpu",
         "nomultivm",  # TODO(b/170502145)
-        "notap",  # TODO(keras-team): Resolve after SWAP CL
         "notsan",
     ],
     deps = [

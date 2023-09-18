@@ -365,7 +365,7 @@ tf_py_test(
 
 tf_py_test(
     name = "training_test",
-    size = "large",  # TODO(keras-team): set back to medium after SWAP CL and investigate Timeouts
+    size = "medium",
     srcs = ["training_test.py"],
     python_version = "PY3",
     shard_count = 20,
