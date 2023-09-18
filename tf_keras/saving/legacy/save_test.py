@@ -247,8 +247,7 @@ class TestSaveModel(tf.test.TestCase, parameterized.TestCase):
             # Make sure the model can be correctly load back.
             _ = save.load_model(filepath, compile=True)
 
-    # TODO(keras-team): Enable and resolve after SWAP CL
-    def DISABLED_test_saving_model_with_name_conflict(self):
+    def test_saving_model_with_name_conflict(self):
         class Sequential(keras.Model):
             def __init__(self):
                 super().__init__()
@@ -266,7 +265,7 @@ class TestSaveModel(tf.test.TestCase, parameterized.TestCase):
             model.save(filepath, save_format="tf")
 
         expected_substring = (
-            "has the same name 'Sequential' as a built-in Keras"
+            "has the same name 'Sequential' as a built-in TF-Keras"
         )
         matched = [log for log in logs.output if expected_substring in log]
         self.assertNotEmpty(matched)
@@ -280,7 +279,7 @@ class TestSaveModel(tf.test.TestCase, parameterized.TestCase):
             model.save(filepath, save_format="tf")
 
         expected_substring = (
-            "has the same name 'LinearModel' as a built-in Keras"
+            "has the same name 'LinearModel' as a built-in TF-Keras"
         )
         matched = [log for log in logs.output if expected_substring in log]
         # Check that a warning is *not* logged for a premade model.
