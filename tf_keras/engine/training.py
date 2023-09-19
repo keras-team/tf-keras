@@ -4091,9 +4091,6 @@ class Model(base_layer.Layer, version_utils.ModelVersionSelector):
     def _compile_was_called(self):
         return self._is_compiled
 
-    def _save_experimental(self, filepath):
-        return saving_lib.save_model(self, filepath)
-
 
 class _TestFunction:
     def __init__(self, function, callbacks):

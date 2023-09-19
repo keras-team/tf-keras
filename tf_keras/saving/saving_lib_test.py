@@ -197,7 +197,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
     def test_saving_after_compile_but_before_fit(self):
         temp_filepath = os.path.join(self.get_temp_dir(), "my_model.keras")
         subclassed_model = self._get_subclassed_model()
-        subclassed_model._save_experimental(temp_filepath)
+        subclassed_model.save(temp_filepath, save_format="keras_v3")
 
         # This is so that we can register another function with the same custom
         # object key, and make sure the newly registered function is used while
@@ -260,7 +260,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         x = np.random.random((100, 32))
         y = np.random.random((100, 1))
         subclassed_model.fit(x, y, epochs=1)
-        subclassed_model._save_experimental(temp_filepath)
+        subclassed_model.save(temp_filepath, save_format="keras_v3")
         loaded_model = saving_lib.load_model(temp_filepath)
         self.assertEqual(
             subclassed_model._is_compiled, loaded_model._is_compiled
@@ -315,7 +315,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
     def test_saving_preserve_unbuilt_state(self):
         temp_filepath = os.path.join(self.get_temp_dir(), "my_model.keras")
         subclassed_model = CustomModelX()
-        subclassed_model._save_experimental(temp_filepath)
+        subclassed_model.save(temp_filepath, save_format="keras_v3")
         loaded_model = saving_lib.load_model(temp_filepath)
         self.assertEqual(
             subclassed_model._is_compiled, loaded_model._is_compiled
@@ -329,7 +329,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         x = np.random.random((100, 32))
         y = np.random.random((100, 1))
         model.fit(x, y, epochs=1)
-        model._save_experimental(temp_filepath)
+        model.save(temp_filepath, save_format="keras_v3")
         loaded_model = saving_lib.load_model(temp_filepath)
         self.assertEqual(model._is_compiled, loaded_model._is_compiled)
         self.assertTrue(model.built)
@@ -347,7 +347,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         x = np.random.random((100, 32))
         y = np.random.random((100, 1))
         subclassed_model.fit(x, y, epochs=1)
-        subclassed_model._save_experimental(temp_filepath)
+        subclassed_model.save(temp_filepath, save_format="keras_v3")
 
         with zipfile.ZipFile(temp_filepath, "r") as z:
             with z.open(saving_lib._CONFIG_FILENAME, "r") as c:
@@ -406,7 +406,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         x = np.random.random((1000, 32))
         y = np.random.random((1000, 1))
         functional_model.fit(x, y, epochs=3)
-        functional_model._save_experimental(temp_filepath)
+        functional_model.save(temp_filepath, save_format="keras_v3")
         loaded_model = saving_lib.load_model(temp_filepath, safe_mode=False)
         self.assertEqual(
             functional_model._is_compiled, loaded_model._is_compiled
@@ -442,7 +442,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         model.layers[1].weights_in_dict["my_weight"].assign(2)
         model.layers[1].nested_layer.kernel.assign([[1]])
 
-        model._save_experimental(temp_filepath)
+        model.save(temp_filepath, save_format="keras_v3")
 
         # Assert that the archive has been saved.
         self.assertTrue(os.path.exists(temp_filepath))
@@ -482,7 +482,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         # Assert that the archive has not been saved.
         self.assertFalse(os.path.exists(temp_filepath))
 
-        model._save_experimental(temp_filepath)
+        model.save(temp_filepath, save_format="keras_v3")
 
         loaded_model = saving_lib.load_model(temp_filepath)
         self.assertEqual(loaded_model.custom_dense.assets, assets_data)
@@ -508,7 +508,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
             )
         )
         model.compile("rmsprop", "mse")
-        model._save_experimental(temp_filepath)
+        model.save(temp_filepath, save_format="keras_v3")
 
         with mock.patch.object(logging, "warning") as mock_warn:
             saving_lib.load_model(temp_filepath)
@@ -525,7 +525,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
             os.path.join(self.get_temp_dir(), "my_model.keras")
         )
         model = CompileOverridingModel()
-        model._save_experimental(temp_filepath)
+        model.save(temp_filepath, save_format="keras_v3")
         with zipfile.ZipFile(temp_filepath, "r") as z:
             with z.open(saving_lib._METADATA_FILENAME, "r") as c:
                 metadata_json = c.read()
@@ -545,7 +545,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         ) as mock_gfile:
             # Check regex matching
             mock_re_match.return_value = True
-            model._save_experimental(temp_filepath)
+            model.save(temp_filepath, save_format="keras_v3")
             mock_re_match.assert_called()
             self.assertIn(str(temp_filepath), mock_re_match.call_args.args)
 
