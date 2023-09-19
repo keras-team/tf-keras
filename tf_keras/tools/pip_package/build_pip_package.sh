@@ -29,17 +29,17 @@ function prepare_src() {
   mkdir -p "$TMPDIR"
   echo $(date) : "=== Preparing sources in dir: ${TMPDIR}"
 
-  if [ ! -d bazel-bin/keras ]; then
+  if [ ! -d bazel-bin/tf_keras ]; then
     echo "Could not find bazel-bin.  Did you run from the root of the build tree?"
     exit 1
   fi
-  cp -r "bazel-bin/keras/tools/pip_package/build_pip_package.runfiles/org_keras/keras" "$TMPDIR"
-  cp keras/tools/pip_package/setup.py "$TMPDIR"
+  cp -r "bazel-bin/tf_keras/tools/pip_package/build_pip_package.runfiles/org_keras/tf_keras" "$TMPDIR"
+  cp tf_keras/tools/pip_package/setup.py "$TMPDIR"
   cp LICENSE "$TMPDIR"
 
   # Verifies all expected files are in pip.
   # Creates init files in all directory in pip.
-  python keras/tools/pip_package/create_pip_helper.py --pip-root "${TMPDIR}/keras/" --bazel-root "./keras"
+  python tf_keras/tools/pip_package/create_pip_helper.py --pip-root "${TMPDIR}/tf_keras/" --bazel-root "./tf_keras"
 }
 
 function build_wheel() {
@@ -120,9 +120,9 @@ function main() {
   done
 
   if [[ -z ${PROJECT_NAME} ]]; then
-    PROJECT_NAME="keras"
+    PROJECT_NAME="tf-keras"
     if [[ ${NIGHTLY_BUILD} == "1" ]]; then
-      PROJECT_NAME="keras-nightly"
+      PROJECT_NAME="tf-keras-nightly"
     fi
   fi
 

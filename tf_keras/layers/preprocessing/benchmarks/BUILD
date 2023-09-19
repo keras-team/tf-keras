@@ -21,7 +21,7 @@ tf_py_test(
     python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:category_encoding",
     ],
 )
@@ -32,7 +32,7 @@ tf_py_test(
     python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:hashing",
     ],
 )
@@ -43,7 +43,7 @@ tf_py_test(
     python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:index_lookup",
     ],
 )
@@ -54,7 +54,7 @@ tf_py_test(
     python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:index_lookup",
     ],
 )
@@ -65,7 +65,7 @@ tf_py_test(
     python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:normalization",
     ],
 )
@@ -76,7 +76,7 @@ tf_py_test(
     python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:discretization",
     ],
 )
@@ -87,7 +87,7 @@ cuda_py_test(
     python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:image_preprocessing",
     ],
 )
@@ -99,7 +99,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -110,7 +110,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -121,7 +121,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -132,7 +132,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -144,7 +144,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -156,7 +156,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -168,7 +168,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -180,7 +180,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -192,7 +192,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -204,7 +204,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -215,7 +215,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -226,7 +226,7 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -245,6 +245,6 @@ tf_py_test(
     deps = [
         ":feature_column_benchmark",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )

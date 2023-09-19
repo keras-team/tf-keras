@@ -34,7 +34,7 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -47,7 +47,7 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -60,7 +60,7 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -74,7 +74,7 @@ cuda_py_test(
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -87,7 +87,7 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -100,7 +100,7 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -114,7 +114,7 @@ cuda_py_test(
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -127,7 +127,7 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -140,7 +140,7 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:distribution_util",
         "//tf_keras/benchmarks:profiler_lib",

@@ -60,7 +60,7 @@ tf_py_test(
     deps = [
         ":layer_benchmarks_test_base",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
     ],
 )

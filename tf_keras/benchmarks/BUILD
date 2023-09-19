@@ -62,7 +62,7 @@ py_test(
         ":profiler_lib",
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -77,7 +77,7 @@ cuda_py_test(
     deps = [
         ":profiler_lib",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/utils:tf_inspect",
     ],
 )
@@ -89,7 +89,7 @@ cuda_py_test(
     deps = [
         ":profiler_lib",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -101,7 +101,7 @@ py_library(
         ":distribution_util",
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -113,7 +113,7 @@ py_test(
     deps = [
         ":benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -137,7 +137,7 @@ py_test(
         ":benchmark_util",
         ":profiler_lib",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/optimizers/legacy:optimizers",
     ],
 )
@@ -165,6 +165,6 @@ py_test(
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )

@@ -4,7 +4,8 @@
 # Placeholder: load unaliased py_library
 
 # buildifier: disable=same-origin-load
-load("@org_tensorflow//tensorflow:tensorflow.bzl", "cuda_py_test", "tf_py_test")
+load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
+load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],

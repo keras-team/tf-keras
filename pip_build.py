@@ -46,7 +46,7 @@ import subprocess
 import sys
 import tempfile
 
-PACKAGE_NAME = "tf_keras"
+PACKAGE_NAME = "tf-keras"
 DIST_DIRNAME = "dist"
 SRC_DIRNAME = "src"
 TMP_BUILD_DIRNAME = "keras_build"
@@ -347,7 +347,7 @@ def build_pip_package(
 ):
     # Build TF-Keras with Bazel to get the protobuf .py files
     os.chdir(keras_root_directory)
-    os.system(f"sh {os.path.join('keras', 'tools', 'bazel_build.sh')}")
+    os.system(f"sh {os.path.join('tf_keras', 'tools', 'bazel_build.sh')}")
     os.chdir(build_directory)
 
     # Copy sources (`keras/` directory and setup files) to build directory
@@ -376,15 +376,15 @@ def build_pip_package(
     ) as f:
         pass
 
-    # Convert imports from `keras.xyz` to `keras.src.xyz`.
+    # Convert imports from `tf_keras.xyz` to `tf_keras.src.xyz`.
     convert_keras_imports(src_directory)
 
-    # Generate API __init__.py files in `keras/`
+    # Generate API __init__.py files in `tf_keras/`
     generate_keras_api_files(package_directory, src_directory)
 
     # Make sure to export the __version__ string
     version = getattr(
-        importlib.import_module("keras.src", package="."), "__version__"
+        importlib.import_module("tf_keras.src", package="."), "__version__"
     )
     if is_nightly:
         date = datetime.datetime.now()
@@ -428,10 +428,10 @@ def test_wheel(wheel_path, expected_version, requirements_path):
     os.mkdir(test_directory)
     os.chdir(test_directory)
     symbols_to_check = [
-        "keras.layers",
-        "keras.Input",
-        "keras.__internal__",
-        "keras.experimental",
+        "tf_keras.layers",
+        "tf_keras.Input",
+        "tf_keras.__internal__",
+        "tf_keras.experimental",
     ]
     checks = ";".join(symbols_to_check)
     script = (
@@ -440,7 +440,7 @@ def test_wheel(wheel_path, expected_version, requirements_path):
         f"source {os.path.join('kenv', 'bin', 'activate')}\n"
         f"pip3 install -r {requirements_path}\n"
         f"pip3 install {wheel_path} --force-reinstall\n"
-        f"python3 -c 'import keras;{checks};print(keras.__version__)'\n"
+        f"python3 -c 'import tf_keras;{checks};print(tf_keras.__version__)'\n"
         f"python3 -c 'import tensorflow as tf;tf.compat.v1.layers.Dense'\n"
     )
     try:

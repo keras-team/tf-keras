@@ -177,7 +177,6 @@ py_library(
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/utils:object_identity",
-        "//third_party/tensorflow/python/framework:none_tensor",
     ],
 )
 

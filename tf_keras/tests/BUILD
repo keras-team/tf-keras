@@ -33,7 +33,7 @@ tf_py_test(
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -48,7 +48,7 @@ tf_py_test(
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -66,7 +66,7 @@ tpu_py_test(
         "//:expect_tensorboard_installed",
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/distribute:distribute_strategy_test_lib",
     ],
 )
@@ -79,7 +79,7 @@ tf_py_test(
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_utils",
     ],
 )
@@ -95,7 +95,7 @@ tf_py_test(
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -107,7 +107,7 @@ tf_py_test(
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -125,7 +125,7 @@ tf_py_test(
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/rnn:legacy_cells",
         "//tf_keras/legacy_tf_layers:layers_base",
         "//tf_keras/testing_infra:test_combinations",
@@ -153,7 +153,7 @@ tf_py_test(
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_numpy_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -183,7 +183,7 @@ tf_py_test(
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -203,7 +203,7 @@ tf_py_test(
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -221,7 +221,7 @@ cuda_py_test(
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//third_party/tensorflow/python/eager/memory_tests:memory_test_util",
     ],
 )
@@ -242,7 +242,7 @@ tf_py_test(
     ],
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -257,7 +257,7 @@ tf_py_test(
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/core",
         "//tf_keras/metrics",
         "//tf_keras/optimizers/legacy:optimizers",
@@ -271,7 +271,7 @@ cuda_py_test(
     python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/engine",
         "//tf_keras/layers/core",
     ],
@@ -285,7 +285,7 @@ tf_py_test(
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/engine",
         "//tf_keras/layers/core",
         "//tf_keras/testing_infra:test_combinations",
@@ -301,7 +301,7 @@ tf_py_test(
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -318,7 +318,7 @@ tf_py_test(
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/engine",
         "//tf_keras/layers/core",
         "//tf_keras/layers/normalization",
@@ -335,7 +335,7 @@ tf_py_test(
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/engine",
         "//tf_keras/layers/core",
         "//tf_keras/optimizers/legacy:optimizers",
@@ -353,7 +353,7 @@ tf_py_test(
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/engine",
         "//tf_keras/layers/core",
         "//tf_keras/testing_infra:test_combinations",

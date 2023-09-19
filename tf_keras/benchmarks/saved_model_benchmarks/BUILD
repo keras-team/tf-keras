@@ -43,7 +43,7 @@ cuda_py_test(
     deps = [
         ":saved_model_benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -58,7 +58,7 @@ cuda_py_test(
     deps = [
         ":saved_model_benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -73,7 +73,7 @@ cuda_py_test(
     deps = [
         ":saved_model_benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -88,7 +88,7 @@ cuda_py_test(
     deps = [
         ":saved_model_benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -103,7 +103,7 @@ cuda_py_test(
     deps = [
         ":saved_model_benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -118,7 +118,7 @@ cuda_py_test(
     deps = [
         ":saved_model_benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -133,7 +133,7 @@ cuda_py_test(
     deps = [
         ":saved_model_benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -148,7 +148,7 @@ cuda_py_test(
     deps = [
         ":saved_model_benchmark_util",
         "//:expect_tensorflow_installed",
-        "//tf_keras/api:keras_api",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
