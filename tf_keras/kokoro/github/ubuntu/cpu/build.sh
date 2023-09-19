@@ -29,13 +29,15 @@ source venv/bin/activate
 python --version
 python3 --version
 
-cd "src/github/keras"
+cd "src/github/tf-keras"
 
 # Keep pip version at 20.1.1 to avoid the slow resolver issue.
 pip install -U pip==20.1.1 setuptools
 pip install -r requirements.txt
 # Uninstall the keras-nightly package so that we will only test the version of
 # keras code from local workspace.
+# TODO(keras-team): `tf-nightly` currently installs `keras-nightly`.
+# Update this once we switch to `tf_keras-nightly` in TensorFlow.
 pip uninstall -y keras-nightly
 
 # TODO(scottzhu): Using --define=use_fast_cpp_protos=false to suppress the
@@ -45,4 +47,4 @@ bazel test --test_timeout 300,450,1200,3600 --test_output=errors --keep_going \
    --build_tests_only \
    --build_tag_filters="-no_oss,-oss_excluded" \
    --test_tag_filters="-no_oss,-oss_excluded" \
-   -- //keras/...
+   -- //tf_keras/...

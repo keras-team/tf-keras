@@ -29,13 +29,15 @@ source venv/bin/activate
 python --version
 python3 --version
 
-cd "src/github/keras"
+cd "src/github/tf-keras"
 
 # Keep pip version at 20.1.1 to avoid the slow resolver issue.
 pip install -U pip==20.1.1 setuptools
 pip install -r requirements.txt
 # Uninstall the keras-nightly package so that we will only test the version of
 # keras code from local workspace.
+# TODO(keras-team): `tf-nightly` currently installs `keras-nightly`.
+# Update this once we switch to `tf_keras-nightly` in TensorFlow.
 pip uninstall -y keras-nightly
 
 # LD Library Path needs to be same as TensorFlow Ubuntu Docker build -
@@ -65,6 +67,6 @@ bazel test --test_timeout 300,600,1200,3600 --test_output=errors --keep_going \
    --test_env=TF_TESTS_PER_GPU=${TF_TESTS_PER_GPU} \
    --build_tag_filters="${tag_filters}" \
    --test_tag_filters="${tag_filters}" \
-   --run_under=@org_keras//keras/tools/gpu_build:parallel_gpu_execute \
+   --run_under=@org_keras//tf_keras/tools/gpu_build:parallel_gpu_execute \
    --local_test_jobs=${LOCAL_TEST_JOBS} \
-   -- //keras/...
+   -- //tf_keras/...
