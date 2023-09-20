@@ -17,6 +17,8 @@
 import numpy as np
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
+
 try:
     import memory_profiler
 except ImportError:
@@ -54,7 +56,7 @@ class KerasMetricMemoryBenchmark(tf.test.Benchmark):
             self.report_benchmark(iters=1, metrics=metrics)
 
     def even_thresholds_auc(self):
-        auc = tf.keras.metrics.AUC(num_thresholds=200)
+        auc = keras.metrics.AUC(num_thresholds=200)
         self.assertTrue(auc._thresholds_distributed_evenly)
 
         auc(self.y_true, self.y_pred)
@@ -65,7 +67,7 @@ class KerasMetricMemoryBenchmark(tf.test.Benchmark):
         thresholds[100] += 1 / 200
         thresholds = thresholds[1:-1]
 
-        auc = tf.keras.metrics.AUC(thresholds=thresholds)
+        auc = keras.metrics.AUC(thresholds=thresholds)
         self.assertFalse(auc._thresholds_distributed_evenly)
         self.assertEqual(auc.num_thresholds, num_thresholds)
 

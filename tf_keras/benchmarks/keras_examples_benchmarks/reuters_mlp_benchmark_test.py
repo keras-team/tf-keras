@@ -20,6 +20,7 @@ from __future__ import print_function
 import numpy as np
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -29,17 +30,15 @@ class MLPReutersBenchmark(tf.test.Benchmark):
     def __init__(self):
         super().__init__()
         self.max_words = 1000
-        (self.x_train, self.y_train), _ = tf.keras.datasets.reuters.load_data(
+        (self.x_train, self.y_train), _ = keras.datasets.reuters.load_data(
             num_words=self.max_words
         )
         self.num_classes = np.max(self.y_train) + 1
-        tokenizer = tf.keras.preprocessing.text.Tokenizer(
-            num_words=self.max_words
-        )
+        tokenizer = keras.preprocessing.text.Tokenizer(num_words=self.max_words)
         self.x_train = tokenizer.sequences_to_matrix(
             self.x_train, mode="binary"
         )
-        self.y_train = tf.keras.utils.to_categorical(
+        self.y_train = keras.utils.to_categorical(
             self.y_train, self.num_classes
         )
         self.epochs = 5
@@ -49,12 +48,12 @@ class MLPReutersBenchmark(tf.test.Benchmark):
 
         examples/reuters_mlp.py.
         """
-        model = tf.keras.Sequential()
-        model.add(tf.keras.layers.Dense(512, input_shape=(self.max_words,)))
-        model.add(tf.keras.layers.Activation("relu"))
-        model.add(tf.keras.layers.Dropout(0.5))
-        model.add(tf.keras.layers.Dense(self.num_classes))
-        model.add(tf.keras.layers.Activation("softmax"))
+        model = keras.Sequential()
+        model.add(keras.layers.Dense(512, input_shape=(self.max_words,)))
+        model.add(keras.layers.Activation("relu"))
+        model.add(keras.layers.Dropout(0.5))
+        model.add(keras.layers.Dense(self.num_classes))
+        model.add(keras.layers.Activation("softmax"))
         return model
 
     # In each benchmark test, the required arguments for the

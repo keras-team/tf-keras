@@ -17,6 +17,7 @@
 import numpy as np
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 # Loss function and optimizer.
@@ -57,44 +58,44 @@ class KerasModelCPUBenchmark(
 
     def _mnist_mlp(self):
         """Simple MLP model."""
-        model = tf.keras.Sequential()
+        model = keras.Sequential()
         model.add(
-            tf.keras.layers.Dense(512, activation="relu", input_shape=(784,))
+            keras.layers.Dense(512, activation="relu", input_shape=(784,))
         )
-        model.add(tf.keras.layers.Dropout(0.2))
-        model.add(tf.keras.layers.Dense(512, activation="relu"))
-        model.add(tf.keras.layers.Dropout(0.2))
-        model.add(tf.keras.layers.Dense(10, activation="softmax"))
+        model.add(keras.layers.Dropout(0.2))
+        model.add(keras.layers.Dense(512, activation="relu"))
+        model.add(keras.layers.Dropout(0.2))
+        model.add(keras.layers.Dense(10, activation="softmax"))
 
         return model
 
     def _mnist_convnet(self):
         """Simple Convnet model."""
-        model = tf.keras.Sequential()
+        model = keras.Sequential()
         model.add(
-            tf.keras.layers.Conv2D(
+            keras.layers.Conv2D(
                 32,
                 kernel_size=(3, 3),
                 activation="relu",
                 input_shape=(28, 28, 1),
             )
         )
-        model.add(tf.keras.layers.Conv2D(64, (3, 3), activation="relu"))
-        model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-        model.add(tf.keras.layers.Dropout(0.25))
-        model.add(tf.keras.layers.Flatten())
-        model.add(tf.keras.layers.Dense(128, activation="relu"))
-        model.add(tf.keras.layers.Dropout(0.5))
-        model.add(tf.keras.layers.Dense(10, activation="softmax"))
+        model.add(keras.layers.Conv2D(64, (3, 3), activation="relu"))
+        model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
+        model.add(keras.layers.Dropout(0.25))
+        model.add(keras.layers.Flatten())
+        model.add(keras.layers.Dense(128, activation="relu"))
+        model.add(keras.layers.Dropout(0.5))
+        model.add(keras.layers.Dense(10, activation="softmax"))
 
         return model
 
     def _imdb_lstm(self):
         """Simple LSTM model."""
-        model = tf.keras.Sequential()
-        model.add(tf.keras.layers.Embedding(20000, 128))
-        model.add(tf.keras.layers.LSTM(128, dropout=0.2, recurrent_dropout=0.2))
-        model.add(tf.keras.layers.Dense(1, activation="sigmoid"))
+        model = keras.Sequential()
+        model.add(keras.layers.Embedding(20000, 128))
+        model.add(keras.layers.LSTM(128, dropout=0.2, recurrent_dropout=0.2))
+        model.add(keras.layers.Dense(1, activation="sigmoid"))
 
         return model
 

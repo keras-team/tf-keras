@@ -19,6 +19,7 @@ from __future__ import print_function
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -29,23 +30,23 @@ class BidirectionalLSTMBenchmark(tf.test.Benchmark):
         super().__init__()
         self.max_feature = 20000
         self.max_len = 200
-        (self.imdb_x, self.imdb_y), _ = tf.keras.datasets.imdb.load_data(
+        (self.imdb_x, self.imdb_y), _ = keras.datasets.imdb.load_data(
             num_words=self.max_feature
         )
-        self.imdb_x = tf.keras.preprocessing.sequence.pad_sequences(
+        self.imdb_x = keras.preprocessing.sequence.pad_sequences(
             self.imdb_x, maxlen=self.max_len
         )
 
     def _build_model(self):
         """Model from https://keras.io/examples/nlp/bidirectional_lstm_imdb/."""
-        inputs = tf.keras.Input(shape=(None,), dtype="int32")
-        x = tf.keras.layers.Embedding(self.max_feature, 128)(inputs)
-        x = tf.keras.layers.Bidirectional(
-            tf.keras.layers.LSTM(64, return_sequences=True)
+        inputs = keras.Input(shape=(None,), dtype="int32")
+        x = keras.layers.Embedding(self.max_feature, 128)(inputs)
+        x = keras.layers.Bidirectional(
+            keras.layers.LSTM(64, return_sequences=True)
         )(x)
-        x = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64))(x)
-        outputs = tf.keras.layers.Dense(1, activation="sigmoid")(x)
-        model = tf.keras.Model(inputs, outputs)
+        x = keras.layers.Bidirectional(keras.layers.LSTM(64))(x)
+        outputs = keras.layers.Dense(1, activation="sigmoid")(x)
+        model = keras.Model(inputs, outputs)
         return model
 
     # In each benchmark test, the required arguments for the

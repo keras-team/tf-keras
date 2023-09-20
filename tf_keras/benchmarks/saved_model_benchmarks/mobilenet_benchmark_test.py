@@ -20,6 +20,7 @@ from __future__ import print_function
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks.saved_model_benchmarks import (
     saved_model_benchmark_util,
 )
@@ -27,7 +28,7 @@ from tf_keras.benchmarks.saved_model_benchmarks import (
 
 class BenchmarkSaveApplications(tf.test.Benchmark):
     def benchmark_save_and_load_mobilenet_v2(self):
-        app = tf.keras.applications.MobileNetV2
+        app = keras.applications.MobileNetV2
         (
             save_result,
             load_result,

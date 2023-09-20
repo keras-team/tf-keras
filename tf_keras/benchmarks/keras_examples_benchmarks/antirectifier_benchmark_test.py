@@ -19,6 +19,7 @@ from __future__ import print_function
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -27,21 +28,21 @@ class AntirectifierBenchmark(tf.test.Benchmark):
 
     def __init__(self):
         super().__init__()
-        (self.x_train, self.y_train), _ = tf.keras.datasets.mnist.load_data()
+        (self.x_train, self.y_train), _ = keras.datasets.mnist.load_data()
         self.x_train = self.x_train.reshape(-1, 784)
         self.x_train = self.x_train.astype("float32") / 255
 
     def _build_model(self):
         """Model from https://keras.io/examples/keras_recipes/antirectifier/."""
-        model = tf.keras.Sequential(
+        model = keras.Sequential(
             [
-                tf.keras.Input(shape=(784,)),
-                tf.keras.layers.Dense(256),
+                keras.Input(shape=(784,)),
+                keras.layers.Dense(256),
                 Antirectifier(),
-                tf.keras.layers.Dense(256),
+                keras.layers.Dense(256),
                 Antirectifier(),
-                tf.keras.layers.Dropout(0.5),
-                tf.keras.layers.Dense(10),
+                keras.layers.Dropout(0.5),
+                keras.layers.Dense(10),
             ]
         )
         return model
@@ -64,9 +65,7 @@ class AntirectifierBenchmark(tf.test.Benchmark):
             y=self.y_train,
             batch_size=batch_size,
             optimizer="rmsprop",
-            loss=tf.keras.losses.SparseCategoricalCrossentropy(
-                from_logits=True
-            ),
+            loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
             metrics=["sparse_categorical_accuracy"],
         )
 
@@ -87,9 +86,7 @@ class AntirectifierBenchmark(tf.test.Benchmark):
             y=self.y_train,
             batch_size=batch_size,
             optimizer="rmsprop",
-            loss=tf.keras.losses.SparseCategoricalCrossentropy(
-                from_logits=True
-            ),
+            loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
             metrics=["sparse_categorical_accuracy"],
         )
 
@@ -110,9 +107,7 @@ class AntirectifierBenchmark(tf.test.Benchmark):
             y=self.y_train,
             batch_size=batch_size,
             optimizer="rmsprop",
-            loss=tf.keras.losses.SparseCategoricalCrossentropy(
-                from_logits=True
-            ),
+            loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
             metrics=["sparse_categorical_accuracy"],
         )
 
@@ -138,9 +133,7 @@ class AntirectifierBenchmark(tf.test.Benchmark):
             num_gpus=2,
             distribution_strategy="mirrored",
             optimizer="rmsprop",
-            loss=tf.keras.losses.SparseCategoricalCrossentropy(
-                from_logits=True
-            ),
+            loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
             metrics=["sparse_categorical_accuracy"],
         )
 
@@ -153,12 +146,12 @@ class AntirectifierBenchmark(tf.test.Benchmark):
         )
 
 
-class Antirectifier(tf.keras.layers.Layer):
+class Antirectifier(keras.layers.Layer):
     """Build simple custom layer."""
 
     def __init__(self, initializer="he_normal", **kwargs):
         super().__init__(**kwargs)
-        self.initializer = tf.keras.initializers.get(initializer)
+        self.initializer = keras.initializers.get(initializer)
 
     def build(self, input_shape):
         output_dim = input_shape[-1]
@@ -180,9 +173,7 @@ class Antirectifier(tf.keras.layers.Layer):
     def get_config(self):
         # Implement get_config to enable serialization. This is optional.
         base_config = super().get_config()
-        config = {
-            "initializer": tf.keras.initializers.serialize(self.initializer)
-        }
+        config = {"initializer": keras.initializers.serialize(self.initializer)}
         return dict(list(base_config.items()) + list(config.items()))
 
 

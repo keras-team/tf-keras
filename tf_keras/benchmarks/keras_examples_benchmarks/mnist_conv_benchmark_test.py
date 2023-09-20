@@ -20,6 +20,7 @@ from __future__ import print_function
 import numpy as np
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -30,30 +31,26 @@ class ConvMnistBenchmark(tf.test.Benchmark):
         super().__init__()
         self.num_classes = 10
         self.input_shape = (28, 28, 1)
-        (self.x_train, self.y_train), _ = tf.keras.datasets.mnist.load_data()
+        (self.x_train, self.y_train), _ = keras.datasets.mnist.load_data()
         self.x_train = self.x_train.astype("float32") / 255
         self.x_train = np.expand_dims(self.x_train, -1)
-        self.y_train = tf.keras.utils.to_categorical(
+        self.y_train = keras.utils.to_categorical(
             self.y_train, self.num_classes
         )
         self.epochs = 15
 
     def _build_model(self):
         """Model from https://keras.io/examples/vision/mnist_convnet/."""
-        model = tf.keras.Sequential(
+        model = keras.Sequential(
             [
-                tf.keras.Input(shape=self.input_shape),
-                tf.keras.layers.Conv2D(
-                    32, kernel_size=(3, 3), activation="relu"
-                ),
-                tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-                tf.keras.layers.Conv2D(
-                    64, kernel_size=(3, 3), activation="relu"
-                ),
-                tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-                tf.keras.layers.Flatten(),
-                tf.keras.layers.Dropout(0.5),
-                tf.keras.layers.Dense(self.num_classes, activation="softmax"),
+                keras.Input(shape=self.input_shape),
+                keras.layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+                keras.layers.MaxPooling2D(pool_size=(2, 2)),
+                keras.layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
+                keras.layers.MaxPooling2D(pool_size=(2, 2)),
+                keras.layers.Flatten(),
+                keras.layers.Dropout(0.5),
+                keras.layers.Dense(self.num_classes, activation="softmax"),
             ]
         )
         return model

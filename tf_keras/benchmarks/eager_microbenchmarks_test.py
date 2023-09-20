@@ -18,6 +18,7 @@ import time
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.utils import tf_inspect
 
 # isort: off
@@ -94,7 +95,7 @@ class MicroBenchmarksBase(tf.test.Benchmark):
         self.run_report(_run_benchmark, func, num_iters, execution_mode)
 
     def benchmark_layers_call_overhead(self):
-        class OnlyOverheadLayer(tf.keras.layers.Layer):
+        class OnlyOverheadLayer(keras.layers.Layer):
             def call(self, x):
                 return x
 
@@ -107,13 +108,13 @@ class MicroBenchmarksBase(tf.test.Benchmark):
         self._run(fn, 10000)
 
     def benchmark_op_layer_call_overhead(self):
-        model_input = tf.keras.Input(shape=(1,))
+        model_input = keras.Input(shape=(1,))
         model_output = model_input
         x = tf.convert_to_tensor([[1.1]])
 
         for _ in range(20):
             model_output = tf.multiply(model_output, x)
-        model = tf.keras.Model(inputs=model_input, outputs=model_output)
+        model = keras.Model(inputs=model_input, outputs=model_output)
 
         def fn():
             model(x)
@@ -122,11 +123,11 @@ class MicroBenchmarksBase(tf.test.Benchmark):
         self._run(fn, 100)
 
     def benchmark_model_predict_tensorlike_overhead(self):
-        class OnlyOverheadLayer(tf.keras.layers.Layer):
+        class OnlyOverheadLayer(keras.layers.Layer):
             def call(self, x):
                 return x
 
-        model = tf.keras.Sequential([OnlyOverheadLayer()])
+        model = keras.Sequential([OnlyOverheadLayer()])
         x = tf.convert_to_tensor([[1.0]])
 
         def fn():
@@ -135,7 +136,7 @@ class MicroBenchmarksBase(tf.test.Benchmark):
         self._run(fn, 20)
 
     def benchmark_layers_embeddings_embedding_overhead(self):
-        layer = tf.keras.layers.Embedding(1, 1)
+        layer = keras.layers.Embedding(1, 1)
         x = tf.zeros((1, 1), dtype="int32")
 
         def fn():
@@ -160,63 +161,63 @@ class KerasLayerCallOverheadBenchmarks(
     _benchmark_parameters = [
         (
             "advanced_activations_leaky_relu",
-            tf.keras.layers.LeakyReLU(),
+            keras.layers.LeakyReLU(),
             (1, 1),
         ),
-        ("advanced_activations_prelu", tf.keras.layers.PReLU(), (1, 1)),
-        ("advanced_activations_elu", tf.keras.layers.ELU(), (1, 1)),
+        ("advanced_activations_prelu", keras.layers.PReLU(), (1, 1)),
+        ("advanced_activations_elu", keras.layers.ELU(), (1, 1)),
         (
             "advanced_activations_thresholded_relu",
-            tf.keras.layers.ThresholdedReLU(),
+            keras.layers.ThresholdedReLU(),
             (1, 1),
         ),
-        ("advanced_activations_softmax", tf.keras.layers.Softmax(), (1, 1)),
-        ("advanced_activations_relu", tf.keras.layers.ReLU(), (1, 1)),
-        ("core_masking", tf.keras.layers.Masking(), (1, 1)),
+        ("advanced_activations_softmax", keras.layers.Softmax(), (1, 1)),
+        ("advanced_activations_relu", keras.layers.ReLU(), (1, 1)),
+        ("core_masking", keras.layers.Masking(), (1, 1)),
         (
             "core_dropout",
-            tf.keras.layers.Dropout(0.5),
+            keras.layers.Dropout(0.5),
             (1, 1),
             {"training": True},
         ),
-        ("core_flatten", tf.keras.layers.Flatten(), (1, 1, 1)),
-        ("core_dense", tf.keras.layers.Dense(1), (1, 1)),
-        ("convolutional_conv1d", tf.keras.layers.Conv1D(1, (1,)), (1, 1, 1)),
+        ("core_flatten", keras.layers.Flatten(), (1, 1, 1)),
+        ("core_dense", keras.layers.Dense(1), (1, 1)),
+        ("convolutional_conv1d", keras.layers.Conv1D(1, (1,)), (1, 1, 1)),
         (
             "convolutional_conv2d",
-            tf.keras.layers.Conv2D(1, (1, 1)),
+            keras.layers.Conv2D(1, (1, 1)),
             (1, 1, 1, 1),
         ),
         (
             "convolutional_conv3d",
-            tf.keras.layers.Conv3D(1, (1, 1, 1)),
+            keras.layers.Conv3D(1, (1, 1, 1)),
             (1, 1, 1, 1, 1),
         ),
         (
             "batch_norm_fused_inf",
-            tf.keras.layers.BatchNormalization(fused=True),
+            keras.layers.BatchNormalization(fused=True),
             (1, 1, 1, 1),
         ),
         (
             "batch_norm_fused_train",
-            tf.keras.layers.BatchNormalization(fused=True),
+            keras.layers.BatchNormalization(fused=True),
             (1, 1, 1, 1),
             {"training": True},
         ),
         (
             "batch_norm_nonfused_inf",
-            tf.keras.layers.BatchNormalization(fused=False),
+            keras.layers.BatchNormalization(fused=False),
             (1, 1, 1, 1),
         ),
         (
             "batch_norm_nonfused_train",
-            tf.keras.layers.BatchNormalization(fused=False),
+            keras.layers.BatchNormalization(fused=False),
             (1, 1, 1, 1),
             {"training": True},
         ),
         (
             "normalization_layer_normalization",
-            tf.keras.layers.LayerNormalization(),
+            keras.layers.LayerNormalization(),
             (1, 1),
             {"iters": 100, "training": True},
         ),

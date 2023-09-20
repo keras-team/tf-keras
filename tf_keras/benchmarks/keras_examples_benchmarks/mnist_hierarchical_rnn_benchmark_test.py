@@ -19,6 +19,7 @@ from __future__ import print_function
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -29,10 +30,10 @@ class HierarchicalRNNBenchmark(tf.test.Benchmark):
         super().__init__()
         self.num_classes = 10
         self.row_hidden, self.col_hidden = 128, 128
-        (self.x_train, self.y_train), _ = tf.keras.datasets.mnist.load_data()
+        (self.x_train, self.y_train), _ = keras.datasets.mnist.load_data()
         self.x_train = self.x_train.reshape(self.x_train.shape[0], 28, 28, 1)
         self.x_train = self.x_train.astype("float32") / 255
-        self.y_train = tf.keras.utils.to_categorical(
+        self.y_train = keras.utils.to_categorical(
             self.y_train, self.num_classes
         )
 
@@ -42,15 +43,15 @@ class HierarchicalRNNBenchmark(tf.test.Benchmark):
         examples/mnist_hierarchical_rnn.py.
         """
         row, col, pixel = self.x_train.shape[1:]
-        inputs = tf.keras.layers.Input(shape=(row, col, pixel))
-        encoded_rows = tf.keras.layers.TimeDistributed(
-            tf.keras.layers.LSTM(self.row_hidden)
+        inputs = keras.layers.Input(shape=(row, col, pixel))
+        encoded_rows = keras.layers.TimeDistributed(
+            keras.layers.LSTM(self.row_hidden)
         )(inputs)
-        encoded_cols = tf.keras.layers.LSTM(self.col_hidden)(encoded_rows)
-        outputs = tf.keras.layers.Dense(self.num_classes, activation="softmax")(
+        encoded_cols = keras.layers.LSTM(self.col_hidden)(encoded_rows)
+        outputs = keras.layers.Dense(self.num_classes, activation="softmax")(
             encoded_cols
         )
-        model = tf.keras.Model(inputs, outputs)
+        model = keras.Model(inputs, outputs)
 
         return model
 

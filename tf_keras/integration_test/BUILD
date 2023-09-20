@@ -51,6 +51,9 @@ cuda_py_test(
     name = "saved_model_test",
     srcs = ["saved_model_test.py"],
     python_version = "PY3",
+    tags = [
+        "no_oss",  # TODO(keras-team): Fails in OSS due to reference to `tf.keras`
+    ],
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",
@@ -154,6 +157,7 @@ distribute_py_test(
     shard_count = 5,
     tags = [
         "multi_and_single_gpu",
+        "no_oss",  # TODO(keras-team): Fails in OSS due to references to `tf.keras`
         "nomultivm",  # TODO(b/170502145)
     ],
     deps = [

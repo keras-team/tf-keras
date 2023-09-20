@@ -19,6 +19,7 @@ from __future__ import print_function
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -30,10 +31,10 @@ class IRNNMnistBenchmark(tf.test.Benchmark):
         self.num_classes = 10
         self.hidden_units = 100
         self.learning_rate = 1e-6
-        (self.x_train, self.y_train), _ = tf.keras.datasets.mnist.load_data()
+        (self.x_train, self.y_train), _ = keras.datasets.mnist.load_data()
         self.x_train = self.x_train.reshape(self.x_train.shape[0], -1, 1)
         self.x_train = self.x_train.astype("float32") / 255
-        self.y_train = tf.keras.utils.to_categorical(
+        self.y_train = keras.utils.to_categorical(
             self.y_train, self.num_classes
         )
 
@@ -42,20 +43,20 @@ class IRNNMnistBenchmark(tf.test.Benchmark):
 
         blob/master/examples/mnist_irnn.py.
         """
-        model = tf.keras.Sequential()
+        model = keras.Sequential()
         model.add(
-            tf.keras.layers.SimpleRNN(
+            keras.layers.SimpleRNN(
                 self.hidden_units,
-                kernel_initializer=tf.keras.initializers.RandomNormal(
+                kernel_initializer=keras.initializers.RandomNormal(
                     stddev=0.001
                 ),
-                recurrent_initializer=tf.keras.initializers.Identity(gain=1.0),
+                recurrent_initializer=keras.initializers.Identity(gain=1.0),
                 activation="relu",
                 input_shape=self.x_train.shape[1:],
             )
         )
-        model.add(tf.keras.layers.Dense(self.num_classes))
-        model.add(tf.keras.layers.Activation("softmax"))
+        model.add(keras.layers.Dense(self.num_classes))
+        model.add(keras.layers.Activation("softmax"))
         return model
 
     # In each benchmark test, the required arguments for the
@@ -75,7 +76,7 @@ class IRNNMnistBenchmark(tf.test.Benchmark):
             x=self.x_train,
             y=self.y_train,
             batch_size=batch_size,
-            optimizer=tf.keras.optimizers.RMSprop(
+            optimizer=keras.optimizers.RMSprop(
                 learning_rate=self.learning_rate
             ),
             loss="categorical_crossentropy",
@@ -98,7 +99,7 @@ class IRNNMnistBenchmark(tf.test.Benchmark):
             x=self.x_train,
             y=self.y_train,
             batch_size=batch_size,
-            optimizer=tf.keras.optimizers.RMSprop(
+            optimizer=keras.optimizers.RMSprop(
                 learning_rate=self.learning_rate
             ),
             loss="categorical_crossentropy",
@@ -121,7 +122,7 @@ class IRNNMnistBenchmark(tf.test.Benchmark):
             x=self.x_train,
             y=self.y_train,
             batch_size=batch_size,
-            optimizer=tf.keras.optimizers.RMSprop(
+            optimizer=keras.optimizers.RMSprop(
                 learning_rate=self.learning_rate
             ),
             loss="categorical_crossentropy",
@@ -149,7 +150,7 @@ class IRNNMnistBenchmark(tf.test.Benchmark):
             batch_size=batch_size,
             num_gpus=2,
             distribution_strategy="mirrored",
-            optimizer=tf.keras.optimizers.RMSprop(
+            optimizer=keras.optimizers.RMSprop(
                 learning_rate=self.learning_rate
             ),
             loss="categorical_crossentropy",

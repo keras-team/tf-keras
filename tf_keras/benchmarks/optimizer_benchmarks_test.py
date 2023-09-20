@@ -16,6 +16,7 @@
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 from tf_keras.optimizers.legacy import adam
 
@@ -29,18 +30,18 @@ def bidirect_imdb_lstm_config():
     """Bidirectional LSTM model and IMDB data."""
 
     def model_fn():
-        inputs = tf.keras.Input(shape=(None,), dtype="int32")
-        x = tf.keras.layers.Embedding(20000, 128)(inputs)
-        x = tf.keras.layers.Bidirectional(
-            tf.keras.layers.LSTM(64, return_sequences=True)
+        inputs = keras.Input(shape=(None,), dtype="int32")
+        x = keras.layers.Embedding(20000, 128)(inputs)
+        x = keras.layers.Bidirectional(
+            keras.layers.LSTM(64, return_sequences=True)
         )(x)
-        x = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64))(x)
-        outputs = tf.keras.layers.Dense(1, activation="sigmoid")(x)
-        model = tf.keras.Model(inputs, outputs)
+        x = keras.layers.Bidirectional(keras.layers.LSTM(64))(x)
+        outputs = keras.layers.Dense(1, activation="sigmoid")(x)
+        model = keras.Model(inputs, outputs)
         return model
 
-    (x_train, y_train), _ = tf.keras.datasets.imdb.load_data(num_words=20000)
-    x_train = tf.keras.preprocessing.sequence.pad_sequences(x_train, maxlen=200)
+    (x_train, y_train), _ = keras.datasets.imdb.load_data(num_words=20000)
+    x_train = keras.preprocessing.sequence.pad_sequences(x_train, maxlen=200)
 
     return model_fn, x_train, y_train
 
@@ -54,7 +55,7 @@ class KerasOptimizerBenchmark(
     # the optimizer name.
     _benchmark_parameters = benchmark_util.generate_benchmark_params_cpu_gpu(
         [
-            ("Adam", tf.keras.optimizers.Adam(), 10),
+            ("Adam", keras.optimizers.Adam(), 10),
             ("NonFusedAdam", adam.NonFusedAdam(), 10),
         ]
     )

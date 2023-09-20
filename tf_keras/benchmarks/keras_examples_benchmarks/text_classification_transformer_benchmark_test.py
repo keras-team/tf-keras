@@ -19,6 +19,7 @@ from __future__ import print_function
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -31,10 +32,10 @@ class TextWithTransformerBenchmark(tf.test.Benchmark):
         super().__init__()
         self.max_feature = 20000
         self.max_len = 200
-        (self.imdb_x, self.imdb_y), _ = tf.keras.datasets.imdb.load_data(
+        (self.imdb_x, self.imdb_y), _ = keras.datasets.imdb.load_data(
             num_words=self.max_feature
         )
-        self.imdb_x = tf.keras.preprocessing.sequence.pad_sequences(
+        self.imdb_x = keras.preprocessing.sequence.pad_sequences(
             self.imdb_x, maxlen=self.max_len
         )
 
@@ -44,20 +45,20 @@ class TextWithTransformerBenchmark(tf.test.Benchmark):
         embed_dim = 32
         num_heads = 2
         ff_dim = 32
-        inputs = tf.keras.layers.Input(shape=(self.max_len,))
+        inputs = keras.layers.Input(shape=(self.max_len,))
         embedding_layer = TokenAndPositionEmbedding(
             self.max_len, self.max_feature, embed_dim
         )
         x = embedding_layer(inputs)
         transformer_block = TransformerBlock(embed_dim, num_heads, ff_dim)
         x = transformer_block(x)
-        x = tf.keras.layers.GlobalAvgPool1D()(x)
-        x = tf.keras.layers.Dropout(0.1)(x)
-        x = tf.keras.layers.Dense(20, activation="relu")(x)
-        x = tf.keras.layers.Dropout(0.1)(x)
-        outputs = tf.keras.layers.Dense(2, activation="softmax")(x)
+        x = keras.layers.GlobalAvgPool1D()(x)
+        x = keras.layers.Dropout(0.1)(x)
+        x = keras.layers.Dense(20, activation="relu")(x)
+        x = keras.layers.Dropout(0.1)(x)
+        outputs = keras.layers.Dense(2, activation="softmax")(x)
 
-        model = tf.keras.Model(inputs=inputs, outputs=outputs)
+        model = keras.Model(inputs=inputs, outputs=outputs)
         return model
 
     # In each benchmark test, the required arguments for the
@@ -159,7 +160,7 @@ class TextWithTransformerBenchmark(tf.test.Benchmark):
         )
 
 
-class MultiHeadSelfAttention(tf.keras.layers.Layer):
+class MultiHeadSelfAttention(keras.layers.Layer):
     """Implement multi head self attention as a TF-Keras layer."""
 
     def __init__(self, embed_dim, num_heads=8):
@@ -172,10 +173,10 @@ class MultiHeadSelfAttention(tf.keras.layers.Layer):
                 f"by number of heads = {num_heads}"
             )
         self.projection_dim = embed_dim // num_heads
-        self.query_dense = tf.keras.layers.Dense(embed_dim)
-        self.key_dense = tf.keras.layers.Dense(embed_dim)
-        self.value_dense = tf.keras.layers.Dense(embed_dim)
-        self.combine_heads = tf.keras.layers.Dense(embed_dim)
+        self.query_dense = keras.layers.Dense(embed_dim)
+        self.key_dense = keras.layers.Dense(embed_dim)
+        self.value_dense = keras.layers.Dense(embed_dim)
+        self.combine_heads = keras.layers.Dense(embed_dim)
 
     def attention(self, query, key, value):
         score = tf.matmul(query, key, transpose_b=True)
@@ -217,22 +218,22 @@ class MultiHeadSelfAttention(tf.keras.layers.Layer):
         return output
 
 
-class TransformerBlock(tf.keras.layers.Layer):
+class TransformerBlock(keras.layers.Layer):
     """Implement a Transformer block as a layer."""
 
     def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1):
         super().__init__()
         self.att = MultiHeadSelfAttention(embed_dim, num_heads)
-        self.ffn = tf.keras.Sequential(
+        self.ffn = keras.Sequential(
             [
-                tf.keras.layers.Dense(ff_dim, activation="relu"),
-                tf.keras.layers.Dense(embed_dim),
+                keras.layers.Dense(ff_dim, activation="relu"),
+                keras.layers.Dense(embed_dim),
             ]
         )
-        self.layernorm1 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
-        self.layernorm2 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
-        self.dropout1 = tf.keras.layers.Dropout(rate)
-        self.dropout2 = tf.keras.layers.Dropout(rate)
+        self.layernorm1 = keras.layers.LayerNormalization(epsilon=1e-6)
+        self.layernorm2 = keras.layers.LayerNormalization(epsilon=1e-6)
+        self.dropout1 = keras.layers.Dropout(rate)
+        self.dropout2 = keras.layers.Dropout(rate)
 
     def call(self, inputs, training):
         attn_output = self.att(inputs)
@@ -243,15 +244,15 @@ class TransformerBlock(tf.keras.layers.Layer):
         return self.layernorm2(out1 + ffn_output)
 
 
-class TokenAndPositionEmbedding(tf.keras.layers.Layer):
+class TokenAndPositionEmbedding(keras.layers.Layer):
     """Implement embedding layer."""
 
     def __init__(self, maxlen, vocab_size, embed_dim):
         super().__init__()
-        self.token_emb = tf.keras.layers.Embedding(
+        self.token_emb = keras.layers.Embedding(
             input_dim=vocab_size, output_dim=embed_dim
         )
-        self.pos_emb = tf.keras.layers.Embedding(
+        self.pos_emb = keras.layers.Embedding(
             input_dim=maxlen, output_dim=embed_dim
         )
 

@@ -16,6 +16,7 @@
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -27,8 +28,8 @@ class BenchmarkUtilTest(tf.test.TestCase):
         self.assertAllEqual(out, expected)
 
     def test_generate_benchmark_params_cpu_gpu(self):
-        adam_opt = tf.keras.optimizers.Adam()
-        sgd_opt = tf.keras.optimizers.SGD()
+        adam_opt = keras.optimizers.Adam()
+        sgd_opt = keras.optimizers.SGD()
         params = [
             ("Adam", adam_opt, 10),
             ("SGD", sgd_opt, 10),

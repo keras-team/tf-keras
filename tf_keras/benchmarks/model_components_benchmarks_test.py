@@ -19,27 +19,29 @@ import time
 import numpy as np
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
+
 # isort: off
 from tensorflow.python.eager import context
 from tensorflow.python.eager.context import get_executor
 
 
-class SubclassedKerasModel(tf.keras.Model):
+class SubclassedKerasModel(keras.Model):
     def __init__(self, initializer="ones"):
         super().__init__()
-        self.layer_a = tf.keras.layers.Dense(
+        self.layer_a = keras.layers.Dense(
             64, kernel_initializer=initializer, bias_initializer="zeros"
         )
-        self.layer_b = tf.keras.layers.Dense(
+        self.layer_b = keras.layers.Dense(
             128, kernel_initializer=initializer, bias_initializer="zeros"
         )
-        self.layer_c = tf.keras.layers.Dense(
+        self.layer_c = keras.layers.Dense(
             256, kernel_initializer=initializer, bias_initializer="zeros"
         )
-        self.layer_d = tf.keras.layers.Dense(
+        self.layer_d = keras.layers.Dense(
             256, kernel_initializer=initializer, bias_initializer="zeros"
         )
-        self.layer_e = tf.keras.layers.Dense(
+        self.layer_e = keras.layers.Dense(
             10, kernel_initializer=initializer, bias_initializer="zeros"
         )
 
@@ -52,29 +54,29 @@ class SubclassedKerasModel(tf.keras.Model):
 
 
 def make_keras_model(initializer="ones"):
-    model_input = tf.keras.Input(shape=(10,))
-    x = tf.keras.layers.Dense(
+    model_input = keras.Input(shape=(10,))
+    x = keras.layers.Dense(
         64, kernel_initializer=initializer, bias_initializer="zeros"
     )(model_input)
-    x = tf.keras.layers.Dense(
+    x = keras.layers.Dense(
         128, kernel_initializer=initializer, bias_initializer="zeros"
     )(x)
-    x = tf.keras.layers.Dense(
+    x = keras.layers.Dense(
         256, kernel_initializer=initializer, bias_initializer="zeros"
     )(x)
-    x = tf.keras.layers.Dense(
+    x = keras.layers.Dense(
         256, kernel_initializer=initializer, bias_initializer="zeros"
     )(x)
-    x = tf.keras.layers.Dense(
+    x = keras.layers.Dense(
         10, kernel_initializer=initializer, bias_initializer="zeros"
     )(x)
-    return tf.keras.Model(inputs=model_input, outputs=x)
+    return keras.Model(inputs=model_input, outputs=x)
 
 
 def make_sequential_keras_model(initializer="ones"):
-    model = tf.keras.models.Sequential()
+    model = keras.models.Sequential()
     model.add(
-        tf.keras.layers.Dense(
+        keras.layers.Dense(
             64,
             kernel_initializer=initializer,
             bias_initializer="zeros",
@@ -82,22 +84,22 @@ def make_sequential_keras_model(initializer="ones"):
         )
     )
     model.add(
-        tf.keras.layers.Dense(
+        keras.layers.Dense(
             128, kernel_initializer=initializer, bias_initializer="zeros"
         )
     )
     model.add(
-        tf.keras.layers.Dense(
+        keras.layers.Dense(
             256, kernel_initializer=initializer, bias_initializer="zeros"
         )
     )
     model.add(
-        tf.keras.layers.Dense(
+        keras.layers.Dense(
             256, kernel_initializer=initializer, bias_initializer="zeros"
         )
     )
     model.add(
-        tf.keras.layers.Dense(
+        keras.layers.Dense(
             10, kernel_initializer=initializer, bias_initializer="zeros"
         )
     )

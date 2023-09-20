@@ -22,6 +22,7 @@ import timeit
 import numpy as np
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 from tf_keras.benchmarks import distribution_util
 
@@ -34,10 +35,10 @@ class CustomMnistBenchmark(tf.test.Benchmark):
         self.num_classes = 10
         self.input_shape = (28, 28, 1)
         self.epochs = 15
-        (x_train, y_train), _ = tf.keras.datasets.mnist.load_data()
+        (x_train, y_train), _ = keras.datasets.mnist.load_data()
         x_train = x_train.astype("float32") / 255
         x_train = np.expand_dims(x_train, -1)
-        y_train = tf.keras.utils.to_categorical(y_train, self.num_classes)
+        y_train = keras.utils.to_categorical(y_train, self.num_classes)
         self.num_examples = x_train.shape[0]
         #  Use `tf.data.Dataset` for custom training loop.
         self.train_dataset = tf.data.Dataset.from_tensor_slices(
@@ -46,20 +47,16 @@ class CustomMnistBenchmark(tf.test.Benchmark):
 
     def _build_model(self):
         """Model from https://keras.io/examples/vision/mnist_convnet/."""
-        model = tf.keras.Sequential(
+        model = keras.Sequential(
             [
-                tf.keras.Input(shape=self.input_shape),
-                tf.keras.layers.Conv2D(
-                    32, kernel_size=(3, 3), activation="relu"
-                ),
-                tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-                tf.keras.layers.Conv2D(
-                    64, kernel_size=(3, 3), activation="relu"
-                ),
-                tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-                tf.keras.layers.Flatten(),
-                tf.keras.layers.Dropout(0.5),
-                tf.keras.layers.Dense(self.num_classes, activation="softmax"),
+                keras.Input(shape=self.input_shape),
+                keras.layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+                keras.layers.MaxPooling2D(pool_size=(2, 2)),
+                keras.layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
+                keras.layers.MaxPooling2D(pool_size=(2, 2)),
+                keras.layers.Flatten(),
+                keras.layers.Dropout(0.5),
+                keras.layers.Dense(self.num_classes, activation="softmax"),
             ]
         )
 
@@ -150,8 +147,8 @@ class CustomMnistBenchmark(tf.test.Benchmark):
           model: Model function to be benchmarked.
           train_dataset: `tf.data` dataset. Should return a tuple of either
             (inputs, targets) or (inputs, targets, sample_weights).
-          loss_fn: `tf.keras.losses.Loss` instance.
-          optimizer: `tf.keras.optimizers` instance.
+          loss_fn: `keras.losses.Loss` instance.
+          optimizer: `keras.optimizers` instance.
           epochs: Integer. Number of epochs to train the model. If unspecified,
             `epochs` will default to 2.
           distribution_strategy: Distribution strategies. It could be
@@ -211,8 +208,8 @@ class CustomMnistBenchmark(tf.test.Benchmark):
           model_fn: Model function to be benchmarked.
           dataset: `tf.data` dataset. Should return a tuple of either (inputs,
             targets) or (inputs, targets, sample_weights).
-          loss_fn: `tf.keras.losses.Loss` instance.
-          optimizer: `tf.keras.optimizers` instance.
+          loss_fn: `keras.losses.Loss` instance.
+          optimizer: `keras.optimizers` instance.
           batch_size: Integer. Number of samples per gradient update. If
             unspecified, `batch_size` will default to 32.
           run_iters: Integer. Number of iterations to run the performance
@@ -245,14 +242,14 @@ class CustomMnistBenchmark(tf.test.Benchmark):
         ):
             raise ValueError("`tf.data` is required.")
 
-        if not isinstance(loss_fn, tf.keras.losses.Loss):
+        if not isinstance(loss_fn, keras.losses.Loss):
             raise ValueError(
-                "`tf.keras.losses.Loss` instance for loss_fn is required."
+                "`keras.losses.Loss` instance for loss_fn is required."
             )
 
-        if not isinstance(optimizer, tf.keras.optimizers.Optimizer):
+        if not isinstance(optimizer, keras.optimizers.Optimizer):
             raise ValueError(
-                "`tf.keras.optimizers` instance for optimizer is required."
+                "`keras.optimizers` instance for optimizer is required."
             )
 
         avg_epoch_time_list, train_step_time_list = [], []
@@ -321,11 +318,11 @@ class CustomMnistBenchmark(tf.test.Benchmark):
         )
 
         # Instantiate a loss function.
-        loss_fn = tf.keras.losses.CategoricalCrossentropy(
-            reduction=tf.keras.losses.Reduction.NONE
+        loss_fn = keras.losses.CategoricalCrossentropy(
+            reduction=keras.losses.Reduction.NONE
         )
         # Instantiate an optimizer to train the model.
-        optimizer = tf.keras.optimizers.Adam()
+        optimizer = keras.optimizers.Adam()
         model = self._build_model()
 
         metrics, wall_time = self.measure_performance(
@@ -353,11 +350,11 @@ class CustomMnistBenchmark(tf.test.Benchmark):
         )
 
         # Instantiate a loss function.
-        loss_fn = tf.keras.losses.CategoricalCrossentropy(
-            reduction=tf.keras.losses.Reduction.NONE
+        loss_fn = keras.losses.CategoricalCrossentropy(
+            reduction=keras.losses.Reduction.NONE
         )
         # Instantiate an optimizer to train the model.
-        optimizer = tf.keras.optimizers.Adam()
+        optimizer = keras.optimizers.Adam()
         model = self._build_model()
 
         metrics, wall_time = self.measure_performance(
@@ -385,11 +382,11 @@ class CustomMnistBenchmark(tf.test.Benchmark):
         )
 
         # Instantiate a loss function.
-        loss_fn = tf.keras.losses.CategoricalCrossentropy(
-            reduction=tf.keras.losses.Reduction.NONE
+        loss_fn = keras.losses.CategoricalCrossentropy(
+            reduction=keras.losses.Reduction.NONE
         )
         # Instantiate an optimizer to train the model.
-        optimizer = tf.keras.optimizers.Adam()
+        optimizer = keras.optimizers.Adam()
         model = self._build_model()
 
         metrics, wall_time = self.measure_performance(
@@ -434,11 +431,11 @@ class CustomMnistBenchmark(tf.test.Benchmark):
 
         with strategy_scope:
             # Instantiate a loss function.
-            loss_fn = tf.keras.losses.CategoricalCrossentropy(
-                reduction=tf.keras.losses.Reduction.NONE
+            loss_fn = keras.losses.CategoricalCrossentropy(
+                reduction=keras.losses.Reduction.NONE
             )
             # Instantiate an optimizer to train the model.
-            optimizer = tf.keras.optimizers.Adam()
+            optimizer = keras.optimizers.Adam()
             model = self._build_model()
 
         metrics, wall_time = self.measure_performance(

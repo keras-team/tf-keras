@@ -120,9 +120,9 @@ def measure_performance(
       run_iters: Integer. Number of iterations to run the performance
         measurement.  If unspecified, `run_iters` will default to 4.
       optimizer: String (name of optimizer) or optimizer instance. See
-        `tf.keras.optimizers`.
+        `keras.optimizers`.
       loss: String (name of objective function), objective function or
-        `tf.keras.losses.Loss` instance. See `tf.keras.losses`.
+        `keras.losses.Loss` instance. See `keras.losses`.
       metrics: Lists of metrics to be evaluated by the model during training.
         See `metrics` in the `compile()` method of  `keras.Model`.
       verbose: 0, 1, 2. Verbosity mode. See `verbose` in the `fit()` method of

@@ -19,6 +19,7 @@ from __future__ import print_function
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 from tf_keras.benchmarks import benchmark_util
 
 
@@ -28,9 +29,9 @@ class Cifar10CNNBenchmark(tf.test.Benchmark):
     def __init__(self):
         super().__init__()
         self.num_classes = 10
-        (self.x_train, self.y_train), _ = tf.keras.datasets.cifar10.load_data()
+        (self.x_train, self.y_train), _ = keras.datasets.cifar10.load_data()
         self.x_train = self.x_train.astype("float32") / 255
-        self.y_train = tf.keras.utils.to_categorical(
+        self.y_train = keras.utils.to_categorical(
             self.y_train, self.num_classes
         )
         self.epochs = 5
@@ -39,31 +40,31 @@ class Cifar10CNNBenchmark(tf.test.Benchmark):
         """Model from
         https://github.com/keras-team/tf-keras/blob/master/examples/cifar10_cnn.py.
         """
-        model = tf.keras.Sequential()
+        model = keras.Sequential()
         model.add(
-            tf.keras.layers.Conv2D(
+            keras.layers.Conv2D(
                 32, (3, 3), padding="same", input_shape=self.x_train.shape[1:]
             )
         )
-        model.add(tf.keras.layers.Activation("relu"))
-        model.add(tf.keras.layers.Conv2D(32, (3, 3)))
-        model.add(tf.keras.layers.Activation("relu"))
-        model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-        model.add(tf.keras.layers.Dropout(0.25))
+        model.add(keras.layers.Activation("relu"))
+        model.add(keras.layers.Conv2D(32, (3, 3)))
+        model.add(keras.layers.Activation("relu"))
+        model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
+        model.add(keras.layers.Dropout(0.25))
 
-        model.add(tf.keras.layers.Conv2D(64, (3, 3), padding="same"))
-        model.add(tf.keras.layers.Activation("relu"))
-        model.add(tf.keras.layers.Conv2D(64, (3, 3)))
-        model.add(tf.keras.layers.Activation("relu"))
-        model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-        model.add(tf.keras.layers.Dropout(0.25))
+        model.add(keras.layers.Conv2D(64, (3, 3), padding="same"))
+        model.add(keras.layers.Activation("relu"))
+        model.add(keras.layers.Conv2D(64, (3, 3)))
+        model.add(keras.layers.Activation("relu"))
+        model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
+        model.add(keras.layers.Dropout(0.25))
 
-        model.add(tf.keras.layers.Flatten())
-        model.add(tf.keras.layers.Dense(512))
-        model.add(tf.keras.layers.Activation("relu"))
-        model.add(tf.keras.layers.Dropout(0.5))
-        model.add(tf.keras.layers.Dense(self.num_classes))
-        model.add(tf.keras.layers.Activation("softmax"))
+        model.add(keras.layers.Flatten())
+        model.add(keras.layers.Dense(512))
+        model.add(keras.layers.Activation("relu"))
+        model.add(keras.layers.Dropout(0.5))
+        model.add(keras.layers.Dense(self.num_classes))
+        model.add(keras.layers.Activation("softmax"))
         return model
 
     # In each benchmark test, the required arguments for the
@@ -84,7 +85,7 @@ class Cifar10CNNBenchmark(tf.test.Benchmark):
             y=self.y_train,
             batch_size=batch_size,
             epochs=self.epochs,
-            optimizer=tf.keras.optimizers.RMSprop(
+            optimizer=keras.optimizers.RMSprop(
                 learning_rate=0.0001, decay=1e-6
             ),
             loss="categorical_crossentropy",
@@ -106,7 +107,7 @@ class Cifar10CNNBenchmark(tf.test.Benchmark):
             y=self.y_train,
             batch_size=batch_size,
             epochs=self.epochs,
-            optimizer=tf.keras.optimizers.RMSprop(
+            optimizer=keras.optimizers.RMSprop(
                 learning_rate=0.0001, decay=1e-6
             ),
             loss="categorical_crossentropy",
@@ -128,7 +129,7 @@ class Cifar10CNNBenchmark(tf.test.Benchmark):
             y=self.y_train,
             batch_size=batch_size,
             epochs=self.epochs,
-            optimizer=tf.keras.optimizers.RMSprop(
+            optimizer=keras.optimizers.RMSprop(
                 learning_rate=0.0001, decay=1e-6
             ),
             loss="categorical_crossentropy",
@@ -155,7 +156,7 @@ class Cifar10CNNBenchmark(tf.test.Benchmark):
             num_gpus=2,
             distribution_strategy="mirrored",
             epochs=self.epochs,
-            optimizer=tf.keras.optimizers.RMSprop(
+            optimizer=keras.optimizers.RMSprop(
                 learning_rate=0.0001, decay=1e-6
             ),
             loss="categorical_crossentropy",
