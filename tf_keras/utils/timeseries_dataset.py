@@ -118,7 +118,8 @@ def timeseries_dataset_from_array(
         input_data, targets, sequence_length=sequence_length)
     for batch in dataset:
       inputs, targets = batch
-      assert np.array_equal(inputs[0], data[:sequence_length])  # First sequence: steps [0-9]
+      # First sequence: steps [0-9]
+      assert np.array_equal(inputs[0], data[:sequence_length])
       # Corresponding target: step 10
       assert np.array_equal(targets[0], data[sequence_length])
       break
@@ -126,7 +127,6 @@ def timeseries_dataset_from_array(
     for batch in dataset.as_numpy_iterator():
       input, label  = batch
       print(f"Input:{input}, target:{label}")
-    
     ```
 
     Example 3: Temporal regression for many-to-many architectures.
