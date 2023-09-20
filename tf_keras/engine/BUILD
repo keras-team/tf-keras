@@ -364,7 +364,7 @@ tf_py_test(
 
 tf_py_test(
     name = "training_test",
-    size = "medium",
+    size = "large",  # Resolves timeout in OSS build.
     srcs = ["training_test.py"],
     python_version = "PY3",
     shard_count = 20,

@@ -878,15 +878,18 @@ class EmbeddingColumnTest(tf.test.TestCase, parameterized.TestCase):
             self.assertEqual(tf.float32, dtype)
             if partition_variables:
                 assert partition_info is not None
-                self.assertEqual([vocabulary_size, embedding_dimension],
-                                 partition_info.full_shape)
+                self.assertEqual(
+                    [vocabulary_size, embedding_dimension],
+                    partition_info.full_shape,
+                )
                 self.assertAllEqual((2, embedding_dimension), shape)
                 return tf.slice(
                     embedding_values, partition_info.var_offset, shape
                 )
             else:
-                self.assertAllEqual((vocabulary_size, embedding_dimension),
-                                    shape)
+                self.assertAllEqual(
+                    (vocabulary_size, embedding_dimension), shape
+                )
                 self.assertIsNone(partition_info)
                 return embedding_values
 
@@ -967,11 +970,13 @@ class EmbeddingColumnTest(tf.test.TestCase, parameterized.TestCase):
 
         if partition_variables:
             self.assertAllEqual(
-                    embedding_values,
-                    self.evaluate(tf.concat(trainable_vars, axis=0)))
+                embedding_values,
+                self.evaluate(tf.concat(trainable_vars, axis=0)),
+            )
         else:
-            self.assertAllEqual(embedding_values,
-                                self.evaluate(trainable_vars[0]))
+            self.assertAllEqual(
+                embedding_values, self.evaluate(trainable_vars[0])
+            )
         self.assertAllEqual(expected_lookups, self.evaluate(dense_features))
 
         if use_safe_embedding_lookup:

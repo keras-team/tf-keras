@@ -49,6 +49,7 @@ py_library(
 COMMON_TAGS = [
     "no_pip",  # b/161253163
     "no_windows",  # b/160628318
+    "no_oss",  # TODO(keras-team): Change all usages to `tf_keras` instead of `tf.keras`.
 ]
 
 py_test(
@@ -86,6 +87,7 @@ cuda_py_test(
     name = "model_components_benchmarks_test",
     srcs = ["model_components_benchmarks_test.py"],
     python_version = "PY3",
+    tags = COMMON_TAGS,
     deps = [
         ":profiler_lib",
         "//:expect_tensorflow_installed",

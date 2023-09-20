@@ -609,7 +609,9 @@ def is_subclassed(layer):
     """Returns True if the object is a subclassed layer or subclassed model."""
     return (
         "keras.engine" not in layer.__module__
+        and "keras.src.engine" not in layer.__module__
         and "keras.layers" not in layer.__module__
+        and "keras.src.layers" not in layer.__module__
     )
 
 
