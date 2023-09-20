@@ -110,16 +110,23 @@ def timeseries_dataset_from_array(
     timesteps to predict the next timestep, you would use:
 
     ```python
-    input_data = data[:-10]
-    targets = data[10:]
+    data = tf.range(15)
+    sequence_length =10
+    input_data = data[:]
+    targets = data[sequence_length:]
     dataset = tf.keras.utils.timeseries_dataset_from_array(
-        input_data, targets, sequence_length=10)
+        input_data, targets, sequence_length=sequence_length)
     for batch in dataset:
       inputs, targets = batch
-      assert np.array_equal(inputs[0], data[:10])  # First sequence: steps [0-9]
+      assert np.array_equal(inputs[0], data[:sequence_length])  # First sequence: steps [0-9]
       # Corresponding target: step 10
-      assert np.array_equal(targets[0], data[10])
+      assert np.array_equal(targets[0], data[sequence_length])
       break
+    # To view the generated dataset
+    for batch in dataset.as_numpy_iterator():
+      input, label  = batch
+      print(f"Input:{input}, target:{label}")
+    
     ```
 
     Example 3: Temporal regression for many-to-many architectures.
