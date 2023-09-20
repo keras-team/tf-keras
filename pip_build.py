@@ -46,7 +46,7 @@ import subprocess
 import sys
 import tempfile
 
-PACKAGE_NAME = "tf-keras"
+PACKAGE_NAME = "tf_keras"
 DIST_DIRNAME = "dist"
 SRC_DIRNAME = "src"
 TMP_BUILD_DIRNAME = "keras_build"
