@@ -15,18 +15,20 @@
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
+
 
 class ModuleTest(tf.test.TestCase):
     def test_module_discover_layer_variable(self):
         m = tf.Module()
-        m.a = tf.keras.layers.Dense(1)
-        m.b = tf.keras.layers.Dense(2)
+        m.a = keras.layers.Dense(1)
+        m.b = keras.layers.Dense(2)
 
         # The weights of the layer has not been created yet.
         self.assertEmpty(m.variables)
         self.assertLen(m.submodules, 2)
 
-        inputs = tf.keras.layers.Input((1,))
+        inputs = keras.layers.Input((1,))
         m.a(inputs)
         m.b(inputs)
 
@@ -38,17 +40,17 @@ class ModuleTest(tf.test.TestCase):
         self.assertIs(variable_list[3], m.b.bias)
 
     def test_model_discover_submodule(self):
-        m = tf.keras.models.Sequential(
-            layers=[tf.keras.layers.Dense(1), tf.keras.layers.Dense(2)]
+        m = keras.models.Sequential(
+            layers=[keras.layers.Dense(1), keras.layers.Dense(2)]
         )
 
         self.assertEqual(m.submodules, (m.layers[0], m.layers[1]))
-        m(tf.keras.layers.Input((1,)))
+        m(keras.layers.Input((1,)))
         self.assertLen(m.variables, 4)
 
     def test_model_wrapped_in_module_discovers_submodules(self):
-        linear = tf.keras.models.Sequential(
-            [tf.keras.layers.Dense(units=1, input_shape=[1])]
+        linear = keras.models.Sequential(
+            [keras.layers.Dense(units=1, input_shape=[1])]
         )
         linear.compile(optimizer="sgd", loss="mean_squared_error")
         m = tf.Module()
@@ -57,10 +59,10 @@ class ModuleTest(tf.test.TestCase):
         self.assertLen(m.variables, 2)
 
     def test_subclass_model(self):
-        class Model(tf.keras.Model):
+        class Model(keras.Model):
             def __init__(self):
                 super().__init__()
-                self.dense = tf.keras.layers.Dense(units=1)
+                self.dense = keras.layers.Dense(units=1)
 
             def call(self, inputs, training=None, mask=None):
                 return self.dense(inputs)

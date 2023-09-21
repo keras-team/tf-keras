@@ -24,6 +24,7 @@ import numpy as np
 import tensorflow.compat.v2 as tf
 from absl.testing import parameterized
 
+import tf_keras as keras
 from tf_keras.testing_infra import test_utils
 from tf_keras.utils import get_custom_objects
 
@@ -42,8 +43,8 @@ class CustomObjectSavingTest(tf.test.TestCase, parameterized.TestCase):
         train_step_message = "This is my training step"
         temp_dir = os.path.join(self.get_temp_dir(), "my_model")
 
-        @tf.keras.utils.register_keras_serializable("CustomModelX")
-        class CustomModelX(tf.keras.Model):
+        @keras.utils.register_keras_serializable("CustomModelX")
+        class CustomModelX(keras.Model):
             def __init__(self, *args, **kwargs):
                 super().__init__(*args, **kwargs)
                 self.dense1 = MyDense(
@@ -71,32 +72,32 @@ class CustomObjectSavingTest(tf.test.TestCase, parameterized.TestCase):
             def one(self):
                 return 1
 
-        @tf.keras.utils.register_keras_serializable("MyDense")
-        class MyDense(tf.keras.layers.Dense):
+        @keras.utils.register_keras_serializable("MyDense")
+        class MyDense(keras.layers.Dense):
             def two(self):
                 return 2
 
-        @tf.keras.utils.register_keras_serializable("MyAdam")
-        class MyAdam(tf.keras.optimizers.Adam):
+        @keras.utils.register_keras_serializable("MyAdam")
+        class MyAdam(keras.optimizers.Adam):
             def three(self):
                 return 3
 
-        @tf.keras.utils.register_keras_serializable("MyLoss")
-        class MyLoss(tf.keras.losses.MeanSquaredError):
+        @keras.utils.register_keras_serializable("MyLoss")
+        class MyLoss(keras.losses.MeanSquaredError):
             def four(self):
                 return 4
 
-        @tf.keras.utils.register_keras_serializable("MyMetric")
-        class MyMetric(tf.keras.metrics.MeanAbsoluteError):
+        @keras.utils.register_keras_serializable("MyMetric")
+        class MyMetric(keras.metrics.MeanAbsoluteError):
             def five(self):
                 return 5
 
-        @tf.keras.utils.register_keras_serializable("MyRegularizer")
-        class MyRegularizer(tf.keras.regularizers.L2):
+        @keras.utils.register_keras_serializable("MyRegularizer")
+        class MyRegularizer(keras.regularizers.L2):
             def six(self):
                 return 6
 
-        @tf.keras.utils.register_keras_serializable("my_sq_diff")
+        @keras.utils.register_keras_serializable("my_sq_diff")
         def my_sq_diff(y_true, y_pred):
             y_pred = tf.convert_to_tensor(y_pred)
             y_true = tf.cast(y_true, y_pred.dtype)
@@ -113,7 +114,7 @@ class CustomObjectSavingTest(tf.test.TestCase, parameterized.TestCase):
         subclassed_model.fit(x, y, epochs=1)
         subclassed_model.save(temp_dir, save_format="tf")
 
-        loaded_model = tf.keras.models.load_model(temp_dir)
+        loaded_model = keras.models.load_model(temp_dir)
 
         # `tf.print` writes to stderr.
         with self.captureWritesToStream(sys.stderr) as printed:
