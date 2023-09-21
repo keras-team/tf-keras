@@ -18,8 +18,8 @@
 
 # buildifier: disable=same-origin-load
 
-# Placeholder: load unaliased py_library
 # Placeholder: load unaliased py_binary
+# Placeholder: load unaliased py_library
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 
 package(
@@ -117,6 +117,7 @@ tf_py_test(
     python_version = "PY3",
     shard_count = 4,
     tags = [
+        "no_oss",  # TODO(keras-team): Fails in OSS.
         "no_pip",  # TODO(b/202022379)
         "no_rocm",
         "no_windows",

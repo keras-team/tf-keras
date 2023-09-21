@@ -19,6 +19,8 @@ import numpy as np
 import tensorflow.compat.v2 as tf
 from absl.testing import parameterized
 
+import tf_keras as keras
+
 
 def _jvp(f, primals, tangents):
     """Compute the jacobian of `f` at `primals` multiplied by `tangents`."""
@@ -157,14 +159,14 @@ def _test_gradients(
 class ForwardpropTest(tf.test.TestCase, parameterized.TestCase):
     @parameterized.named_parameters(
         [
-            ("Dense", [[0.1]], functools.partial(tf.keras.layers.Dense, 5)),
+            ("Dense", [[0.1]], functools.partial(keras.layers.Dense, 5)),
             (
                 "Conv2D",
                 np.reshape(
                     np.arange(start=-1.0, stop=1.0, step=2.0 / (1 * 2 * 4 * 4)),
                     [1, 2, 4, 4],
                 ),
-                functools.partial(tf.keras.layers.Conv2D, 2, 2),
+                functools.partial(keras.layers.Conv2D, 2, 2),
                 1e-3,
             ),
         ]
@@ -201,16 +203,12 @@ class ForwardpropTest(tf.test.TestCase, parameterized.TestCase):
             (
                 "NonFused",
                 [[0.1], [0.2], [-0.3]],
-                functools.partial(
-                    tf.keras.layers.BatchNormalization, fused=False
-                ),
+                functools.partial(keras.layers.BatchNormalization, fused=False),
             ),
             (
                 "Fused",
                 [[[[0.1, 2.0]]], [[[0.2, -3.0]]], [[[-0.3, 4.0]]]],
-                functools.partial(
-                    tf.keras.layers.BatchNormalization, fused=True
-                ),
+                functools.partial(keras.layers.BatchNormalization, fused=True),
             ),
         ]
     )
@@ -232,16 +230,12 @@ class ForwardpropTest(tf.test.TestCase, parameterized.TestCase):
             (
                 "NonFused",
                 [[0.1], [0.2], [-0.3]],
-                functools.partial(
-                    tf.keras.layers.BatchNormalization, fused=False
-                ),
+                functools.partial(keras.layers.BatchNormalization, fused=False),
             ),
             (
                 "Fused",
                 [[[[0.1, 2.0]]], [[[0.2, -3.0]]], [[[-0.3, 4.0]]]],
-                functools.partial(
-                    tf.keras.layers.BatchNormalization, fused=True
-                ),
+                functools.partial(keras.layers.BatchNormalization, fused=True),
             ),
         ]
     )
@@ -269,10 +263,10 @@ class ForwardpropTest(tf.test.TestCase, parameterized.TestCase):
     def testVariablesHVP(self, decorator):
         class _Model(tf.Module):
             def __init__(self):
-                self._first_dense = tf.keras.layers.Dense(18)
-                self._conv = tf.keras.layers.Conv2D(2, 2)
-                self._norm = tf.keras.layers.BatchNormalization()
-                self._second_dense = tf.keras.layers.Dense(1)
+                self._first_dense = keras.layers.Dense(18)
+                self._conv = keras.layers.Conv2D(2, 2)
+                self._norm = keras.layers.BatchNormalization()
+                self._second_dense = keras.layers.Dense(1)
 
             def __call__(self, x):
                 x = self._first_dense(x)
@@ -309,11 +303,11 @@ class ForwardpropTest(tf.test.TestCase, parameterized.TestCase):
         self.assertAllClose(*_compute_hvps(), rtol=1e-5, atol=1e-5)
 
     def testEmbeddingLayerInFunction(self):
-        class M(tf.keras.Model):
+        class M(keras.Model):
             def __init__(self):
                 super().__init__()
-                self.embed = tf.keras.layers.Embedding(5, 1)
-                self.proj = tf.keras.layers.Dense(1)
+                self.embed = keras.layers.Embedding(5, 1)
+                self.proj = keras.layers.Dense(1)
 
             @tf.function
             def call(self, x):
@@ -333,7 +327,7 @@ class ForwardpropTest(tf.test.TestCase, parameterized.TestCase):
 class HessianTests(tf.test.TestCase, parameterized.TestCase):
     @parameterized.named_parameters([("PFor", True), ("MapFn", False)])
     def testHessianOfVariables(self, use_pfor):
-        model = tf.keras.layers.Dense(1)
+        model = keras.layers.Dense(1)
         model.build([None, 2])
 
         def _loss(*unused_args):

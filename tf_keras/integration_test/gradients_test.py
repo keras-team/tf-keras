@@ -16,8 +16,10 @@
 import numpy as np
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 
-class TestKerasModelClass(tf.keras.Model):
+
+class TestKerasModelClass(keras.Model):
     """A simple tensorflow keras Model class definition."""
 
     def __init__(self, width):
@@ -78,11 +80,11 @@ class GradientsTest(tf.test.TestCase):
             self.assertAllClose(g, g_re)
 
     def testLSTMBatchJacobian(self):
-        class HasLSTM(tf.keras.Model):
+        class HasLSTM(keras.Model):
             def __init__(self):
                 super().__init__()
-                self.lstm = tf.keras.layers.LSTM(units=5)
-                self.dense = tf.keras.layers.Dense(1, activation=tf.nn.sigmoid)
+                self.lstm = keras.layers.LSTM(units=5)
+                self.dense = keras.layers.Dense(1, activation=tf.nn.sigmoid)
 
             def call(self, x):
                 return self.dense(self.lstm(x))
@@ -110,7 +112,7 @@ class GradientsTest(tf.test.TestCase):
         )
 
     def testEmbeddingLookupGradientsHaveKnownShape(self):
-        class MyLayer(tf.keras.layers.Layer):
+        class MyLayer(keras.layers.Layer):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.embedding = None

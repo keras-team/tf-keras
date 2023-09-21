@@ -15,12 +15,14 @@
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
+
 
 class VectorizedMapTest(tf.test.TestCase):
     def test_vectorized_map(self):
         batch_size = 10
         num_features = 32
-        layer = tf.keras.layers.Dense(1)
+        layer = keras.layers.Dense(1)
 
         def model_fn(arg):
             with tf.GradientTape() as g:

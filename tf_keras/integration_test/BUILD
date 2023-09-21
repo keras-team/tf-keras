@@ -65,6 +65,9 @@ tf_py_test(
     name = "legacy_rnn_test",  # Remove this target in when TF 1 is deprecated.
     srcs = ["legacy_rnn_test.py"],
     python_version = "PY3",
+    tags = [
+        "no_oss",  # TODO(keras-team): Fails in OSS cpu tests due to lazy loading of `keras` module.
+    ],
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:tf_keras_api",
@@ -136,6 +139,7 @@ tf_py_test(
     python_version = "PY3",
     shard_count = 6,
     tags = [
+        "no_oss",  # TODO(keras-team): Fails in OSS cpu tests due to reference to `tf.keras`.
         "no_windows",  # TODO(b/183102726)
         "noasan",  # TODO(b/156029134)
         "nomac",  # TODO(b/182567880)
@@ -351,6 +355,9 @@ tf_py_test(
     srcs = ["fit_test.py"],
     python_version = "PY3",
     shard_count = 28,
+    tags = [
+        "no_oss",  # TODO(keras-team): Fails in OSS due to reference to `tf.keras`
+    ],
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:tf_keras_api",
@@ -365,6 +372,9 @@ tf_py_test(
     srcs = ["saving_v3_test.py"],
     python_version = "PY3",
     shard_count = 12,
+    tags = [
+        "no_oss",  # TODO(keras-team): Fails in OSS.
+    ],
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:tf_keras_api",

@@ -17,8 +17,10 @@ import sys
 
 import tensorflow.compat.v2 as tf
 
+import tf_keras as keras
 
-class MiniModel(tf.keras.Model):
+
+class MiniModel(keras.Model):
     """Minimal model for mnist.
 
     Useful for testing and debugging on slow TPU simulators.
@@ -26,7 +28,7 @@ class MiniModel(tf.keras.Model):
 
     def __init__(self):
         super().__init__(name="")
-        self.fc = tf.keras.layers.Dense(
+        self.fc = keras.layers.Dense(
             1, name="fc", kernel_initializer="ones", bias_initializer="ones"
         )
 
@@ -40,11 +42,11 @@ class DefunnedMiniModel(MiniModel):
         return super(DefunnedMiniModel, self).call(inputs, training=training)
 
 
-class ModelWithOptimizer(tf.keras.Model):
+class ModelWithOptimizer(keras.Model):
     def __init__(self):
         super().__init__()
-        self.dense = tf.keras.layers.Dense(1)
-        self.optimizer = tf.keras.optimizers.Adam(0.01)
+        self.dense = keras.layers.Dense(1)
+        self.optimizer = keras.optimizers.Adam(0.01)
 
     @tf.function(
         input_signature=(
@@ -63,7 +65,7 @@ class ModelWithOptimizer(tf.keras.Model):
 
 class FunctionTest(tf.test.TestCase):
     def testFunctionRelaxationLosesInnerDimWithKerasLayer(self):
-        layer = tf.keras.layers.Dense(1)
+        layer = keras.layers.Dense(1)
         fn = tf.function(reduce_retracing=True)(layer)
 
         with self.captureWritesToStream(sys.stderr) as printed:
@@ -161,7 +163,7 @@ class FunctionTest(tf.test.TestCase):
         self.assertEqual(sys.getrefcount(variable_refs[1].deref()), 2)
 
     def testStandardTrainingLoopInFunction(self):
-        layer = tf.keras.layers.Dense(2)
+        layer = keras.layers.Dense(2)
         dataset = (
             tf.data.Dataset.from_tensors(
                 (tf.ones([784]), tf.ones([], tf.int32))
@@ -170,7 +172,7 @@ class FunctionTest(tf.test.TestCase):
             .repeat(10)
             .batch(32)
         )
-        optimizer = tf.keras.optimizers.Adam()
+        optimizer = keras.optimizers.Adam()
 
         @tf.function
         def train():
@@ -189,7 +191,7 @@ class FunctionTest(tf.test.TestCase):
         train()
 
     def testEarlyStoppingTrainingLoopInFunction(self):
-        layer = tf.keras.layers.Dense(2)
+        layer = keras.layers.Dense(2)
         dataset = (
             tf.data.Dataset.from_tensors(
                 (tf.ones([784]), tf.ones([], tf.int32))
@@ -198,7 +200,7 @@ class FunctionTest(tf.test.TestCase):
             .repeat(10)
             .batch(32)
         )
-        optimizer = tf.keras.optimizers.Adam()
+        optimizer = keras.optimizers.Adam()
 
         @tf.function
         def train():
@@ -230,7 +232,7 @@ class AutomaticControlDependenciesTest(tf.test.TestCase):
         # The initializer is a stateful op, but using it inside a function
         # should *not* create additional dependencies.  That's what we're
         # testing.
-        layer = tf.keras.layers.Dense(1, kernel_initializer="glorot_uniform")
+        layer = keras.layers.Dense(1, kernel_initializer="glorot_uniform")
 
         @tf.function
         def fn(x):
