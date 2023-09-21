@@ -57,6 +57,11 @@ class BaseLayerTest(test_combinations.TestCase):
     @test_combinations.generate(test_combinations.keras_mode_combinations())
     def test_layer_instrumentation(self):
         layer = layers.Add()
+        self.assertTrue(
+            base_layer.keras_framework_gauge.get_cell(
+                "keras_framework_usage"
+            ).value()
+        )
         self.assertTrue(layer._instrumented_keras_api)
         self.assertTrue(layer._instrumented_keras_layer_class)
         self.assertFalse(layer._instrumented_keras_model_class)

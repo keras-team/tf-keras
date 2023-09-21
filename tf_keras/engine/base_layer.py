@@ -90,6 +90,10 @@ keras_premade_model_gauge = tf.__internal__.monitoring.BoolGauge(
     "type",
 )
 
+keras_framework_gauge = tf.__internal__.monitoring.BoolGauge(
+    "/tensorflow/api/keras", "keras framework usage", "method"
+)
+
 _is_name_scope_on_model_declaration_enabled = False
 
 _name_scope_unnester_stack = threading.local()
@@ -479,6 +483,9 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         # DVariable with proper layout afterward. For the weights regularization
         # loss, we have to create against the DVariable as well.
         self._captured_weight_regularizer = []
+
+        # Set Keras framework gauge to True value
+        keras_framework_gauge.get_cell("keras_framework_usage").set(True)
 
     @tf.__internal__.tracking.no_automatic_dependency_tracking
     @generic_utils.default
