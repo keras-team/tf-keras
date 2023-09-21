@@ -594,9 +594,10 @@ class CosineDecay(LearningRateSchedule):
     `warmup_steps`. Afterwards, it applies a cosine decay function taking our
     learning rate from `warmup_target` to `alpha` for a duration of
     `decay_steps`. If `warmup_target` is None we skip warmup and our decay
-    will take our learning rate from `initial_learning_rate` to `alpha`.
-    It requires a `step` value to  compute the learning rate. You can
-    just pass a TensorFlow variable that you increment at each training step.
+    will take our learning rate from `initial_learning_rate` to
+    `alpha x initial_learning_rate`. It requires a `step` value to  compute
+    the learning rate. You can just pass a TensorFlow variable that you
+    increment at each training step.
 
     The schedule is a 1-arg callable that produces a warmup followed by a
     decayed learning rate when passed the current optimizer step. This can be
@@ -609,7 +610,7 @@ class CosineDecay(LearningRateSchedule):
     def warmup_learning_rate(step):
         completed_fraction = step / warmup_steps
         total_delta = target_warmup - initial_learning_rate
-        return completed_fraction * total_delta
+        return completed_fraction * total_delta + initial_learning_rate
     ```
 
     And our decay is computed as:
