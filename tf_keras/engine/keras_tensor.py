@@ -19,7 +19,7 @@ import tensorflow.compat.v2 as tf
 from tf_keras.utils import object_identity
 
 # isort: off
-from tensorflow.python.framework import none_tensor
+from tensorflow.python.data.util import structure
 from tensorflow.python.util.tf_export import keras_export
 
 
@@ -124,7 +124,7 @@ class KerasTensor:
         self._inferred_value = inferred_value
         self._name = name
 
-        if not isinstance(type_spec, none_tensor.NoneTensorSpec):
+        if not isinstance(type_spec, structure.NoneTensorSpec):
             if not hasattr(type_spec, "shape"):
                 raise ValueError(
                     "KerasTensor only supports TypeSpecs that have a shape "
