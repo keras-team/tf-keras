@@ -1385,19 +1385,34 @@ class CallableList(list):
 
 
 # Register the optimizer for loading from saved_model purpose.
-# TODO(keras-team) Rename to `experimentalOptimizer` in the SWAP CL
-tf.__internal__.saved_model.load.register_revived_type(
-    "experimentalOptimizer",
-    lambda obj: isinstance(obj, Optimizer),
-    versions=[
-        tf.__internal__.saved_model.load.VersionedTypeRegistration(
-            object_factory=lambda proto: RestoredOptimizer(),
-            version=2,
-            min_producer_version=1,
-            min_consumer_version=1,
-        )
-    ],
-)
+# When `keras_2` is installed in same env, it raises assertion for duplicate
+# registration with same name. Rename the symbol in this case.
+try:
+    tf.__internal__.saved_model.load.register_revived_type(
+        "experimentalOptimizer",
+        lambda obj: isinstance(obj, Optimizer),
+        versions=[
+            tf.__internal__.saved_model.load.VersionedTypeRegistration(
+                object_factory=lambda proto: RestoredOptimizer(),
+                version=2,
+                min_producer_version=1,
+                min_consumer_version=1,
+            )
+        ],
+    )
+except AssertionError:
+    tf.__internal__.saved_model.load.register_revived_type(
+        "tf_keras_experimentalOptimizer",
+        lambda obj: isinstance(obj, Optimizer),
+        versions=[
+            tf.__internal__.saved_model.load.VersionedTypeRegistration(
+                object_factory=lambda proto: RestoredOptimizer(),
+                version=2,
+                min_producer_version=1,
+                min_consumer_version=1,
+            )
+        ],
+    )
 
 Optimizer.__doc__ = Optimizer.__doc__.replace(
     "{{base_optimizer_keyword_args}}", base_optimizer_keyword_args

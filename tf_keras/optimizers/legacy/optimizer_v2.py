@@ -1711,17 +1711,33 @@ class RestoredOptimizer(OptimizerV2):
         )
 
 
-# TODO(keras-team) Rename to `optimizer` in the SWAP CL
-tf.__internal__.saved_model.load.register_revived_type(
-    "optimizer",
-    lambda obj: isinstance(obj, OptimizerV2),
-    versions=[
-        tf.__internal__.saved_model.load.VersionedTypeRegistration(
-            object_factory=lambda proto: RestoredOptimizer(),
-            version=2,
-            min_producer_version=1,
-            min_consumer_version=1,
-            setter=RestoredOptimizer._set_hyper,
-        )
-    ],
-)
+# When `keras_2` is installed in same env, it raises assertion for duplicate
+# registration with same name. Rename the symbol in this case.
+try:
+    tf.__internal__.saved_model.load.register_revived_type(
+        "optimizer",
+        lambda obj: isinstance(obj, OptimizerV2),
+        versions=[
+            tf.__internal__.saved_model.load.VersionedTypeRegistration(
+                object_factory=lambda proto: RestoredOptimizer(),
+                version=2,
+                min_producer_version=1,
+                min_consumer_version=1,
+                setter=RestoredOptimizer._set_hyper,
+            )
+        ],
+    )
+except AttributeError:
+    tf.__internal__.saved_model.load.register_revived_type(
+        "tf_keras_optimizer",
+        lambda obj: isinstance(obj, OptimizerV2),
+        versions=[
+            tf.__internal__.saved_model.load.VersionedTypeRegistration(
+                object_factory=lambda proto: RestoredOptimizer(),
+                version=2,
+                min_producer_version=1,
+                min_consumer_version=1,
+                setter=RestoredOptimizer._set_hyper,
+            )
+        ],
+    )
