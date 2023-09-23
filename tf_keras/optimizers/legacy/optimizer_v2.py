@@ -1727,7 +1727,7 @@ try:
             )
         ],
     )
-except AttributeError:
+except AssertionError:
     tf.__internal__.saved_model.load.register_revived_type(
         "tf_keras_optimizer",
         lambda obj: isinstance(obj, OptimizerV2),
