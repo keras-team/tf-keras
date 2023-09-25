@@ -240,9 +240,6 @@ class Discretization(base_preprocessing_layer.PreprocessingLayer):
             kwargs["dtype"] = tf.int64
 
         super().__init__(**kwargs)
-        base_preprocessing_layer.keras_kpl_gauge.get_cell("Discretization").set(
-            True
-        )
 
         # Check dtype only after base layer parses it; dtype parsing is complex.
         if (

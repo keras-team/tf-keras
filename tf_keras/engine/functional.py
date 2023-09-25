@@ -170,7 +170,6 @@ class Functional(training_lib.Model):
         # This method is needed for Sequential to reinitialize graph network
         # when layer is added or removed.
 
-        base_layer.keras_api_gauge.get_cell("Functional").set(True)
         self._is_graph_network = True
 
         # Normalize and set self.inputs, self.outputs.

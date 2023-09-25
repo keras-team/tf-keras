@@ -36,10 +36,6 @@ from tf_keras.utils import tf_utils
 # isort: off
 from tensorflow.python.util.tf_export import keras_export
 
-keras_optimizers_gauge = tf.__internal__.monitoring.BoolGauge(
-    "/tensorflow/api/tf_keras/optimizers", "keras optimizer usage", "method"
-)
-
 _DEFAULT_VALID_DTYPES = frozenset(
     [
         tf.float16,
@@ -365,9 +361,6 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
         Raises:
           ValueError: in case of any invalid argument.
         """
-        # Instrument optimizer usages
-        keras_optimizers_gauge.get_cell(self.__class__.__name__).set(True)
-
         allowed_kwargs = {
             "clipnorm",
             "clipvalue",

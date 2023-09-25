@@ -52,12 +52,6 @@ try:
 except ImportError:
     pd = None
 
-keras_data_adapter_gauge = tf.__internal__.monitoring.BoolGauge(
-    "/tensorflow/api/tf_keras/data_adapters",
-    "keras data adapter usage",
-    "method",
-)
-
 
 class DataAdapter(object, metaclass=abc.ABCMeta):
     """Base class for input data adapter.
@@ -1116,8 +1110,6 @@ def select_data_adapter(x, y):
             "handling inputs. Found multiple adapters {} to handle "
             "input: {}, {}".format(adapter_cls, _type_name(x), _type_name(y))
         )
-    # Instrument the data adapter usage before returning it
-    keras_data_adapter_gauge.get_cell(adapter_cls[0].__name__).set(True)
     return adapter_cls[0]
 
 

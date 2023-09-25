@@ -381,9 +381,6 @@ class TextVectorization(base_preprocessing_layer.PreprocessingLayer):
         vocabulary_size = kwargs.pop("vocabulary_size", None)
 
         super().__init__(**kwargs)
-        base_preprocessing_layer.keras_kpl_gauge.get_cell(
-            "TextVectorization"
-        ).set(True)
 
         self._lookup_layer = string_lookup.StringLookup(
             max_tokens=max_tokens,

@@ -75,21 +75,6 @@ _TF_OP_LAYER_NAME_PREFIX = "tf_op_layer_"
 # to tf.cast?
 _AUTOCAST_TYPES = (tf.Tensor, tf.SparseTensor, tf.RaggedTensor)
 
-keras_layers_gauge = tf.__internal__.monitoring.BoolGauge(
-    "/tensorflow/api/tf_keras/layers", "keras layers usage", "method"
-)
-keras_models_gauge = tf.__internal__.monitoring.BoolGauge(
-    "/tensorflow/api/tf_keras/models", "keras model usage", "method"
-)
-keras_api_gauge = tf.__internal__.monitoring.BoolGauge(
-    "/tensorflow/api/keras", "keras api usage", "method"
-)
-keras_premade_model_gauge = tf.__internal__.monitoring.BoolGauge(
-    "/tensorflow/api/tf_keras/premade_models",
-    "premade keras model usage",
-    "type",
-)
-
 _is_name_scope_on_model_declaration_enabled = False
 
 _name_scope_unnester_stack = threading.local()
@@ -2372,19 +2357,11 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         self._instrumented_keras_layer_class = False
         self._instrumented_keras_model_class = False
         if not getattr(self, "_disable_keras_instrumentation", False):
-            keras_api_gauge.get_cell("layer").set(True)
             self._instrumented_keras_api = True
             if getattr(self, "_is_model_for_instrumentation", False):
-                keras_models_gauge.get_cell(self._get_cell_name()).set(True)
                 self._instrumented_keras_model_class = True
             else:
-                keras_layers_gauge.get_cell(self._get_cell_name()).set(True)
                 self._instrumented_keras_layer_class = True
-        else:
-            # This is a legacy layer that has disabled instrumentation
-            # as a native keras object. We still instrument this as
-            # legacy usage.
-            keras_api_gauge.get_cell("legacy_layer").set(True)
 
     @doc_controls.for_subclass_implementers
     def _add_trackable(self, trackable_object, trainable):

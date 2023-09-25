@@ -52,12 +52,6 @@ class BaseLayerTest(tf.test.TestCase, parameterized.TestCase):
         # Assert that the layer was not instrumented as a TF-Keras layer
         self.assertFalse(layer._instrumented_keras_api)
 
-        # Assert this was instrumented as a legacy layer
-        self.assertTrue(
-            keras_base_layer.keras_api_gauge.get_cell("legacy_layer").value()
-        )
-        keras_base_layer.keras_api_gauge.get_cell("legacy_layer").set(False)
-
     @test_combinations.generate(
         test_combinations.combine(mode=["graph", "eager"])
     )
