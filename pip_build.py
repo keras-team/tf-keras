@@ -246,12 +246,12 @@ def generate_keras_api_files(package_directory, src_directory):
     write_out_api_files(
         init_files_content,
         target_dir=v2_path,
-        root_offset=["api", "_v2", "tf_keras"],
+        root_offset=["api", "_v2", "keras"],
     )
     write_out_api_files(
         init_files_content_v1,
         target_dir=v1_path,
-        root_offset=["api", "_v1", "tf_keras"],
+        root_offset=["api", "_v1", "keras"],
     )
     # Add missing __init__ files in api dirs.
     with open(os.path.join(package_directory, "api", "__init__.py"), "w"):
@@ -301,9 +301,9 @@ def write_out_api_files(init_files_content, target_dir, root_offset=None):
     # create __init__.py file, populate file with public symbol imports.
     root_offset = root_offset or []
     for path, contents in init_files_content.items():
-        # Change pathnames from keras/layers -> tf_keras/layers so that
-        # APIs are created for `tf_keras`.
-        if path.startswith("keras"):
+        # Change pathnames from keras/layers -> tf_keras/layers unless
+        # root_offset is explitly provided for API generation.
+        if path.startswith("keras") and not root_offset:
             path = "tf_" + path
         os.makedirs(os.path.join(target_dir, path), exist_ok=True)
         init_file_lines = []

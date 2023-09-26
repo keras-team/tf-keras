@@ -110,6 +110,7 @@ cuda_py_test(
     python_version = "PY3",
     tags = [
         "multi_and_single_gpu",
+        "no_oss",  # TODO(keras-team): Fails in OSS due to reference to `tf.keras`.
         "no_windows_gpu",  # TODO(b/130551176)
     ],
     deps = [
