@@ -301,6 +301,10 @@ def write_out_api_files(init_files_content, target_dir, root_offset=None):
     # create __init__.py file, populate file with public symbol imports.
     root_offset = root_offset or []
     for path, contents in init_files_content.items():
+        # Use`tf_keras.<module>` format.
+        module_path = path
+        if path.startswith("keras"):
+            module_path = "tf_" + module_path
         # Change pathnames from keras/layers -> tf_keras/layers unless
         # root_offset is explitly provided for API generation.
         if path.startswith("keras") and not root_offset:
@@ -323,7 +327,7 @@ def write_out_api_files(init_files_content, target_dir, root_offset=None):
                     )
             elif "module" in symbol_metadata:
                 if symbol_metadata["module"] not in modules_included:
-                    parts = path.split("/")
+                    parts = module_path.split("/")
                     parts = [parts[0]] + root_offset + parts[1:]
                     module_location = ".".join(parts)
                     init_file_lines.append(
