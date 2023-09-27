@@ -17,6 +17,7 @@
 import numpy as np
 import tensorflow.compat.v2 as tf
 
+from tf_keras.engine import base_preprocessing_layer
 from tf_keras.layers.preprocessing import index_lookup
 
 # isort: off
@@ -343,6 +344,9 @@ class StringLookup(index_lookup.IndexLookup):
             sparse=sparse,
             pad_to_max_tokens=pad_to_max_tokens,
             **kwargs
+        )
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("StringLookup").set(
+            True
         )
 
     def get_config(self):

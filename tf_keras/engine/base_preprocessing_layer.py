@@ -27,6 +27,12 @@ from tensorflow.python.eager import context
 from tensorflow.python.util.tf_export import keras_export
 from tensorflow.tools.docs import doc_controls
 
+keras_kpl_gauge = tf.__internal__.monitoring.BoolGauge(
+    "/tensorflow/api/tf_keras/layers/preprocessing",
+    "keras preprocessing layers usage",
+    "method",
+)
+
 
 @keras_export("keras.layers.experimental.preprocessing.PreprocessingLayer")
 class PreprocessingLayer(Layer, metaclass=abc.ABCMeta):

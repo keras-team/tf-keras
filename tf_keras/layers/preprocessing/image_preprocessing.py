@@ -20,6 +20,7 @@ from tensorflow.python.util.tf_export import keras_export
 
 from tf_keras import backend
 from tf_keras.engine import base_layer
+from tf_keras.engine import base_preprocessing_layer
 from tf_keras.layers.preprocessing import preprocessing_utils as utils
 from tf_keras.utils import image_utils
 from tf_keras.utils import tf_utils
@@ -92,6 +93,7 @@ class Resizing(base_layer.Layer):
             interpolation
         )
         super().__init__(**kwargs)
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("Resizing").set(True)
 
     def call(self, inputs):
         # tf.image.resize will always output float32
@@ -184,6 +186,9 @@ class CenterCrop(base_layer.Layer):
         self.height = height
         self.width = width
         super().__init__(**kwargs, autocast=False)
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("CenterCrop").set(
+            True
+        )
 
     def call(self, inputs):
         inputs = convert_inputs(inputs, self.compute_dtype)
@@ -264,6 +269,9 @@ class RandomCrop(base_layer.BaseRandomLayer):
     """
 
     def __init__(self, height, width, seed=None, **kwargs):
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("RandomCrop").set(
+            True
+        )
         super().__init__(
             **kwargs, autocast=False, seed=seed, force_generator=True
         )
@@ -357,6 +365,7 @@ class Rescaling(base_layer.Layer):
         self.scale = scale
         self.offset = offset
         super().__init__(**kwargs)
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("Rescaling").set(True)
 
     def call(self, inputs):
         dtype = self.compute_dtype
@@ -419,6 +428,9 @@ class RandomFlip(base_layer.BaseRandomLayer):
 
     def __init__(self, mode=HORIZONTAL_AND_VERTICAL, seed=None, **kwargs):
         super().__init__(seed=seed, force_generator=True, **kwargs)
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("RandomFlip").set(
+            True
+        )
         self.mode = mode
         if mode == HORIZONTAL:
             self.horizontal = True
@@ -556,6 +568,9 @@ class RandomTranslation(base_layer.BaseRandomLayer):
         fill_value=0.0,
         **kwargs,
     ):
+        base_preprocessing_layer.keras_kpl_gauge.get_cell(
+            "RandomTranslation"
+        ).set(True)
         super().__init__(seed=seed, force_generator=True, **kwargs)
         self.height_factor = height_factor
         if isinstance(height_factor, (tuple, list)):
@@ -926,6 +941,9 @@ class RandomRotation(base_layer.BaseRandomLayer):
         fill_value=0.0,
         **kwargs,
     ):
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("RandomRotation").set(
+            True
+        )
         super().__init__(seed=seed, force_generator=True, **kwargs)
         self.factor = factor
         if isinstance(factor, (tuple, list)):
@@ -1086,6 +1104,9 @@ class RandomZoom(base_layer.BaseRandomLayer):
         fill_value=0.0,
         **kwargs,
     ):
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("RandomZoom").set(
+            True
+        )
         super().__init__(seed=seed, force_generator=True, **kwargs)
         self.height_factor = height_factor
         if isinstance(height_factor, (tuple, list)):
@@ -1276,6 +1297,9 @@ class RandomContrast(base_layer.BaseRandomLayer):
     """
 
     def __init__(self, factor, seed=None, **kwargs):
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("RandomContrast").set(
+            True
+        )
         super().__init__(seed=seed, force_generator=True, **kwargs)
         self.factor = factor
         if isinstance(factor, (tuple, list)):
@@ -1399,6 +1423,9 @@ class RandomBrightness(base_layer.BaseRandomLayer):
     )
 
     def __init__(self, factor, value_range=(0, 255), seed=None, **kwargs):
+        base_preprocessing_layer.keras_kpl_gauge.get_cell(
+            "RandomBrightness"
+        ).set(True)
         super().__init__(seed=seed, force_generator=True, **kwargs)
         self._set_factor(factor)
         self._set_value_range(value_range)
@@ -1527,6 +1554,9 @@ class RandomHeight(base_layer.BaseRandomLayer):
     """
 
     def __init__(self, factor, interpolation="bilinear", seed=None, **kwargs):
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("RandomHeight").set(
+            True
+        )
         super().__init__(seed=seed, force_generator=True, **kwargs)
         self.factor = factor
         if isinstance(factor, (tuple, list)):
@@ -1646,6 +1676,9 @@ class RandomWidth(base_layer.BaseRandomLayer):
     """
 
     def __init__(self, factor, interpolation="bilinear", seed=None, **kwargs):
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("RandomWidth").set(
+            True
+        )
         super().__init__(seed=seed, force_generator=True, **kwargs)
         self.factor = factor
         if isinstance(factor, (tuple, list)):

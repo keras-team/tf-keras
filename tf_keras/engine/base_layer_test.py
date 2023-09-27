@@ -60,6 +60,15 @@ class BaseLayerTest(test_combinations.TestCase):
         self.assertTrue(layer._instrumented_keras_api)
         self.assertTrue(layer._instrumented_keras_layer_class)
         self.assertFalse(layer._instrumented_keras_model_class)
+        self.assertTrue(
+            base_layer.keras_api_gauge.get_cell("tf.keras.layers.Add")
+        )
+
+        # Verify this was not instrumented as a legacy layer
+        self.assertFalse(
+            base_layer.keras_api_gauge.get_cell("legacy_layer").value()
+        )
+        base_layer.keras_api_gauge.get_cell("tf.keras.layers.Add").set(False)
 
     @test_combinations.generate(
         test_combinations.keras_model_type_combinations()

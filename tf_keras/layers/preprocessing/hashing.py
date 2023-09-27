@@ -19,6 +19,7 @@ import tensorflow.compat.v2 as tf
 
 from tf_keras import backend
 from tf_keras.engine import base_layer
+from tf_keras.engine import base_preprocessing_layer
 from tf_keras.layers.preprocessing import preprocessing_utils as utils
 from tf_keras.utils import layer_utils
 
@@ -181,6 +182,7 @@ class Hashing(base_layer.Layer):
             kwargs["dtype"] = tf.int64
 
         super().__init__(**kwargs)
+        base_preprocessing_layer.keras_kpl_gauge.get_cell("Hashing").set(True)
 
         # Check dtype only after base layer parses it; dtype parsing is complex.
         if (
