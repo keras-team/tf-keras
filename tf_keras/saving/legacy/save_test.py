@@ -931,7 +931,7 @@ class TestWholeModelSaving(test_combinations.TestCase):
             model.add(keras.layers.RepeatVector(3))
             model.add(keras.layers.TimeDistributed(keras.layers.Dense(3)))
 
-            with self.assertRaisesRegex(OSError, "Unable to create file"):
+            with self.assertRaisesRegex(OSError, "Unable to.* create file"):
                 with h5py.File(saved_model_path, "w"):
                     keras.models.save_model(model, saved_model_path)
 
