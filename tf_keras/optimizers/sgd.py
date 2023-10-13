@@ -25,8 +25,8 @@ from tensorflow.python.util.tf_export import keras_export
 
 @register_keras_serializable()
 @keras_export(
-    "keras.optimizers.experimental.SGD",
     "keras.optimizers.SGD",
+    "keras.optimizers.experimental.SGD",
     "keras.dtensor.experimental.optimizers.SGD",
     v1=[],
 )

@@ -26,8 +26,8 @@ from tensorflow.python.util.tf_export import keras_export
 
 @register_keras_serializable()
 @keras_export(
-    "keras.optimizers.experimental.Adagrad",
     "keras.optimizers.Adagrad",
+    "keras.optimizers.experimental.Adagrad",
     "keras.dtensor.experimental.optimizers.Adagrad",
     v1=[],
 )
