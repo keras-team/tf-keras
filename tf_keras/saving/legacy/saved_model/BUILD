@@ -37,12 +37,6 @@ py_library(
 )
 
 py_library(
-    name = "load_context",
-    srcs = ["load_context.py"],
-    visibility = ["//visibility:private"],
-)
-
-py_library(
     name = "utils",
     srcs = ["utils.py"],
     deps = [
@@ -60,7 +54,6 @@ py_library(
         "json_utils.py",
         "layer_serialization.py",
         "load.py",
-        "load_context.py",
         "metric_serialization.py",
         "model_serialization.py",
         "network_serialization.py",

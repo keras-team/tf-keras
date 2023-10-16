@@ -24,7 +24,6 @@ from tf_keras.saving.legacy import hdf5_format
 from tf_keras.saving.legacy import saving_utils
 from tf_keras.saving.legacy import serialization
 from tf_keras.saving.legacy.saved_model import load as saved_model_load
-from tf_keras.saving.legacy.saved_model import load_context
 from tf_keras.saving.legacy.saved_model import save as saved_model_save
 from tf_keras.saving.legacy.saved_model.utils import keras_option_scope
 from tf_keras.utils import io_utils
@@ -227,7 +226,7 @@ def load_model(filepath, custom_objects=None, compile=True, options=None):
             with keras_option_scope(
                 save_traces=False, in_tf_saved_model_scope=True
             ):
-                with load_context.load_context(options):
+                with tf.__internal__.load_context(options):
                     filepath_str = io_utils.path_to_string(filepath)
                     if isinstance(filepath_str, str):
                         if not tf.io.gfile.exists(filepath_str):
