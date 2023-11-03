@@ -630,8 +630,8 @@ class Callback:
 
     To create a custom callback, subclass `keras.callbacks.Callback` and
     override the method associated with the stage of interest. See the 
-    [Custom callback](https://www.tensorflow.org/guide/tf_keras/custom_callback) for more
-    information.
+    [Custom callback](https://www.tensorflow.org/guide/keras/custom_callback)
+    for more information.
 
     Example:
 
