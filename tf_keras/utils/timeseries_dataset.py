@@ -111,11 +111,12 @@ def timeseries_dataset_from_array(
 
     ```python
     data = tf.range(15)
-    sequence_length =10
+    sequence_length = 10
     input_data = data[:]
     targets = data[sequence_length:]
     dataset = tf.keras.utils.timeseries_dataset_from_array(
-        input_data, targets, sequence_length=sequence_length)
+        input_data, targets, sequence_length=sequence_length
+    )
     for batch in dataset:
       inputs, targets = batch
       # First sequence: steps [0-9]
@@ -125,7 +126,7 @@ def timeseries_dataset_from_array(
       break
     # To view the generated dataset
     for batch in dataset.as_numpy_iterator():
-      input, label  = batch
+      input, label = batch
       print(f"Input:{input}, target:{label}")
     ```
 
