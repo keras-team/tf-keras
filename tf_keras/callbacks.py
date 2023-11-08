@@ -3165,6 +3165,7 @@ class CSVLogger(Callback):
     Args:
         filename: Filename of the CSV file, e.g. `'run/log.csv'`.
         separator: String used to separate elements in the CSV file.
+            Separator string ("delimiter") must be a 1-character string.
         append: Boolean. True: append if file exists (useful for continuing
             training). False: overwrite existing file.
     """
