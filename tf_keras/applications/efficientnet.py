@@ -364,15 +364,17 @@ def EfficientNet(
         # original implementation.
         # See https://github.com/tensorflow/tensorflow/issues/49930 for more
         # details
-        if backend.image_data_format() == 'channels_first':
+        if backend.image_data_format() == "channels_first":
             shape_for_multiply = [1, 3, 1, 1]
         else:
             shape_for_multiply = [1, 1, 1, 3]
-        x = tf.math.multiply(x,
-                             tf.reshape(
-                                 [1.0 / math.sqrt(stddev) for stddev in IMAGENET_STDDEV_RGB],
-                                 shape_for_multiply
-                             ))
+        x = tf.math.multiply(
+            x,
+            tf.reshape(
+                [1.0 / math.sqrt(stddev) for stddev in IMAGENET_STDDEV_RGB],
+                shape_for_multiply,
+            ),
+        )
 
     x = layers.ZeroPadding2D(
         padding=imagenet_utils.correct_pad(x, 3), name="stem_conv_pad"

@@ -122,7 +122,11 @@ MODEL_LIST = MODEL_LIST_NO_NASNET + NASNET_LIST
 MODELS_UNSUPPORTED_CHANNELS_FIRST = ["ConvNeXt", "NASNet", "RegNetX", "RegNetY"]
 # Add each data format for each model
 test_parameters_with_image_data_format = [
-    ('{}_{}'.format(model[0].__name__, image_data_format), *model, image_data_format)
+    (
+        "{}_{}".format(model[0].__name__, image_data_format),
+        *model,
+        image_data_format,
+    )
     for image_data_format in ["channels_first", "channels_last"]
     for model in MODEL_LIST
 ]
@@ -164,11 +168,19 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
             if v1 != v2:
                 raise AssertionError(f"Shapes differ: {shape1} vs {shape2}")
 
-    def skip_if_invalid_image_data_format_for_model(self, app, image_data_format):
+    def skip_if_invalid_image_data_format_for_model(
+        self, app, image_data_format
+    ):
         does_not_support_channels_first = any(
-            [unsupported_name.lower() in app.__name__.lower() for unsupported_name in
-             MODELS_UNSUPPORTED_CHANNELS_FIRST])
-        if image_data_format == "channels_first" and does_not_support_channels_first:
+            [
+                unsupported_name.lower() in app.__name__.lower()
+                for unsupported_name in MODELS_UNSUPPORTED_CHANNELS_FIRST
+            ]
+        )
+        if (
+            image_data_format == "channels_first"
+            and does_not_support_channels_first
+        ):
             self.skipTest(
                 "{} does not support channels first".format(app.__name__)
             )
@@ -207,7 +219,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
             only_check_last_dim = True
         else:
             only_check_last_dim = False
-        output_shape = app(weights=None, include_top=False, input_shape=input_shape).output_shape
+        output_shape = app(
+            weights=None, include_top=False, input_shape=input_shape
+        ).output_shape
         if only_check_last_dim:
             self.assertEqual(output_shape[channels_axis], last_dim)
         else:
@@ -215,7 +229,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
         backend.clear_session()
 
     @parameterized.named_parameters(test_parameters_with_image_data_format)
-    def test_application_notop_custom_input_shape(self, app, last_dim, image_data_format):
+    def test_application_notop_custom_input_shape(
+        self, app, last_dim, image_data_format
+    ):
         self.skip_if_invalid_image_data_format_for_model(app, image_data_format)
         backend.set_image_data_format(image_data_format)
         if image_data_format == "channels_first":
@@ -224,13 +240,17 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
         else:
             input_shape = (224, 224, 3)
             channels_axis = -1
-        output_shape = app(weights="imagenet", include_top=False, input_shape=input_shape).output_shape
+        output_shape = app(
+            weights="imagenet", include_top=False, input_shape=input_shape
+        ).output_shape
 
         self.assertEqual(output_shape[channels_axis], last_dim)
 
     @parameterized.parameters(MODEL_LIST)
     def test_application_pooling(self, app, last_dim):
-        output_shape = app(weights=None, include_top=False, pooling="avg").output_shape
+        output_shape = app(
+            weights=None, include_top=False, pooling="avg"
+        ).output_shape
         self.assertShapeEqual(output_shape, (None, last_dim))
 
     @parameterized.parameters(MODEL_LIST)
@@ -244,7 +264,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
         self.assertEqual(last_layer_act, "softmax")
 
     @parameterized.named_parameters(test_parameters_with_image_data_format)
-    def test_application_variable_input_channels(self, app, last_dim, image_data_format):
+    def test_application_variable_input_channels(
+        self, app, last_dim, image_data_format
+    ):
         self.skip_if_invalid_image_data_format_for_model(app, image_data_format)
         backend.set_image_data_format(image_data_format)
         if backend.image_data_format() == "channels_first":
@@ -253,7 +275,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
         else:
             input_shape = (None, None, 1)
             correct_output_shape = (None, None, None, last_dim)
-        output_shape = app(weights=None, include_top=False, input_shape=input_shape).output_shape
+        output_shape = app(
+            weights=None, include_top=False, input_shape=input_shape
+        ).output_shape
 
         self.assertShapeEqual(output_shape, correct_output_shape)
         backend.clear_session()
@@ -262,7 +286,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
             input_shape = (4, None, None)
         else:
             input_shape = (None, None, 4)
-        output_shape = app(weights=None, include_top=False, input_shape=input_shape).output_shape
+        output_shape = app(
+            weights=None, include_top=False, input_shape=input_shape
+        ).output_shape
 
         self.assertShapeEqual(output_shape, correct_output_shape)
         backend.clear_session()
