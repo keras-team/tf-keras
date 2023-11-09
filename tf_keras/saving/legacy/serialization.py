@@ -298,7 +298,7 @@ def serialize_keras_object(instance):
     if instance is None:
         return None
 
-    if hasattr(instance, "get_config"):
+    if hasattr(instance, "get_config") and not isinstance(instance, type):
         name = object_registration.get_registered_name(instance.__class__)
         try:
             config = instance.get_config()
