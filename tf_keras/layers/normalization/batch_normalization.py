@@ -1198,10 +1198,12 @@ class BatchNormalizationBase(Layer):
                 tf.distribute.ReduceOp.SUM, local_count
             )
 
-            mean = y_sum / count_sum
-            y_squared_mean = y_squared_sum / count_sum
+            mean = tf.math.divide_no_nan(y_sum, count_sum)
+            y_squared_mean = tf.math.divide_no_nan(y_squared_sum, count_sum)
             # var = E(x^2) - E(x)^2
-            variance = y_squared_mean - tf.square(mean)
+            # The substraction operation does not guarantee a non-negative
+            # result given float precision operations.
+            variance = tf.maximum(y_squared_mean - tf.square(mean), 0.0)
             if not keep_dims:
                 mean = tf.squeeze(mean, reduction_axes)
                 variance = tf.squeeze(variance, reduction_axes)

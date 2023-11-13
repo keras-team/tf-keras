@@ -361,6 +361,20 @@ class BatchNormalizationTest(test_combinations.TestCase):
         expected_y = np.array([-0.9995, 0.9995]).reshape((2, 1, 1, 1))
         self.assertAllClose(keras.backend.eval(y), expected_y)
 
+    @test_combinations.run_all_keras_modes(always_skip_v1=True)
+    @test_combinations.generate(
+        test_combinations.combine(synchronized=[True, False])
+    )
+    def test_input_fully_masked(self, synchronized):
+        norm = keras.layers.BatchNormalization(
+            scale=False, center=False, synchronized=synchronized
+        )
+        x = tf.zeros((4, 5), dtype=tf.float32)
+        mask = tf.zeros((4,), dtype=tf.float32)
+
+        y = norm(x, mask=mask, training=True)
+        self.assertAllClose(y, tf.zeros_like(x, dtype=tf.float32))
+
 
 class BatchNormalizationV1Test(test_combinations.TestCase):
     @test_combinations.generate(
