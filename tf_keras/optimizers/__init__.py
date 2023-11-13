@@ -155,6 +155,7 @@ def deserialize(config, custom_objects=None, use_legacy_format=False, **kwargs):
             "adadelta": adadelta.Adadelta,
             "adagrad": adagrad.Adagrad,
             "adam": adam.Adam,
+            "adamw": adamw.AdamW,
             "adamax": adamax.Adamax,
             "experimentaladadelta": adadelta.Adadelta,
             "experimentaladagrad": adagrad.Adagrad,
