@@ -137,6 +137,7 @@ py_binary(
         "//tf_keras:regularizers",
         "//tf_keras/testing_infra:test_utils",
         "//third_party/py/absl/flags",
+        "//third_party/py/google/protobuf:use_fast_cpp_protos",  # Automatically added go/proto_python_upb_flip
     ],
 )
 

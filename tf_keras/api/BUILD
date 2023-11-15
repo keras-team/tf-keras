@@ -36,6 +36,7 @@ py_binary(
     visibility = ["//visibility:public"],
     deps = [
         "//:expect_absl_installed",  # absl:app
+        "//third_party/py/google/protobuf:use_fast_cpp_protos",  # Automatically added go/proto_python_upb_flip
         # "//third_party/tensorflow/python/tools/api/generator2/extractor",
     ],
 )
@@ -46,6 +47,7 @@ py_binary(
     visibility = ["//visibility:public"],
     deps = [
         "//:expect_absl_installed",  # absl:app
+        "//third_party/py/google/protobuf:use_fast_cpp_protos",  # Automatically added go/proto_python_upb_flip
         # "//third_party/tensorflow/python/tools/api/generator2/generator",
     ],
 )
