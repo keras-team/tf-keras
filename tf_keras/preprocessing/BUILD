@@ -34,7 +34,6 @@ py_library(
     srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
-        "//:expect_pandas_installed",
         "//:expect_pillow_installed",
         "//:expect_scipy_installed",
         "//:expect_tensorflow_installed",
@@ -76,6 +75,7 @@ tf_py_test(
     deps = [
         ":image",
         "//:expect_numpy_installed",
+        "//:expect_pandas_installed",
         "//:expect_tensorflow_installed",
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
