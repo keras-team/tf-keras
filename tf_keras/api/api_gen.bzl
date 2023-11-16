@@ -1,5 +1,6 @@
 """Rules to generate the TensorFlow public API from annotated files."""
 
+# Placeholder: load unaliased PyInfo
 # Placeholder: load if_indexing_source_code
 
 _TARGET_PATTERNS = [
