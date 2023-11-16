@@ -189,33 +189,32 @@ class Metric(base_layer.Layer, metaclass=abc.ABCMeta):
             if update_op is not None:
                 update_ops.append(update_op)
             with tf.control_dependencies(update_ops):
-                result_t = self.result()
-
-                # If the metric object return a dictionary as a result, wrap it
-                # with our custom dict object so we can attach the metric object
-                # to it.
-                if isinstance(result_t, dict):
-                    result_t = _MetricDict(**result_t)
-
-                # We are adding the metric object as metadata on the result
-                # tensor.  This is required when we want to use a metric with
-                # `add_metric` API on a Model/Layer in graph mode. This metric
-                # instance will later be used to reset variable state after each
-                # epoch of training.
-                # Example:
-                #   model = Model()
-                #   mean = Mean()
-                #   model.add_metric(mean(values), name='mean')
-                result_t._metric_obj = self
-                return result_t
+                return self.result()
 
         from tf_keras.distribute import (
             distributed_training_utils,
         )
 
-        return distributed_training_utils.call_replica_local_fn(
+        result_t = distributed_training_utils.call_replica_local_fn(
             replica_local_fn, *args, **kwargs
         )
+        # If the metric object return a dictionary as a result, wrap it
+        # with our custom dict object so we can attach the metric object
+        # to it.
+        if isinstance(result_t, dict):
+            result_t = _MetricDict(**result_t)
+
+        # We are adding the metric object as metadata on the result
+        # tensor.  This is required when we want to use a metric with
+        # `add_metric` API on a Model/Layer in graph mode. This metric
+        # instance will later be used to reset variable state after each
+        # epoch of training.
+        # Example:
+        #   model = Model()
+        #   mean = Mean()
+        #   model.add_metric(mean(values), name='mean')
+        result_t._metric_obj = self
+        return result_t
 
     def __str__(self):
         args = ",".join(f"{k}={v}" for k, v in self.get_config().items())
