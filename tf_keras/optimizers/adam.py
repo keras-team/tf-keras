@@ -58,8 +58,11 @@ class Adam(optimizer.Optimizer):
             Defaults to `0.999`.
         epsilon: A small constant for numerical stability. This epsilon is
             "epsilon hat" in the Kingma and Ba paper (in the formula just before
-            Section 2.1), not the epsilon in Algorithm 1 of the paper.
-            Defaults to `1e-7`.
+            Section 2.1) if `adaptive_epsilon` is `False`, not the epsilon in
+            Algorithm 1 of the paper. Defaults to `1e-7`.
+        adaptive_epsilon: If `True` the epsilon hat is computed adaptively
+            from the given epsilon (Algorithm 1 on the paper). If `False`, the
+            epsilon given will be "epsilon hat". Default to `False`.
         amsgrad: Boolean. Whether to apply AMSGrad variant of this algorithm
             from the paper "On the Convergence of Adam and beyond".
             Defaults to `False`.
@@ -95,6 +98,7 @@ class Adam(optimizer.Optimizer):
         beta_1=0.9,
         beta_2=0.999,
         epsilon=1e-7,
+        adaptive_epsilon=False,
         amsgrad=False,
         weight_decay=None,
         clipnorm=None,
@@ -123,6 +127,7 @@ class Adam(optimizer.Optimizer):
         self.beta_1 = beta_1
         self.beta_2 = beta_2
         self.epsilon = epsilon
+        self.adaptive_epsilon = adaptive_epsilon
         self.amsgrad = amsgrad
 
     def build(self, var_list):
@@ -172,6 +177,10 @@ class Adam(optimizer.Optimizer):
         v = self._velocities[self._index_dict[var_key]]
 
         alpha = lr * tf.sqrt(1 - beta_2_power) / (1 - beta_1_power)
+        if self.adaptive_epsilon:
+            epsilon_hat = self.epsilon * tf.sqrt(1 - beta_2_power)
+        else:
+            epsilon_hat = self.epsilon
 
         if isinstance(gradient, tf.IndexedSlices):
             # Sparse gradients.
@@ -201,7 +210,7 @@ class Adam(optimizer.Optimizer):
                 v_hat = self._velocity_hats[self._index_dict[var_key]]
                 v_hat.assign(tf.maximum(v_hat, v))
                 v = v_hat
-            variable.assign_sub((m * alpha) / (tf.sqrt(v) + self.epsilon))
+            variable.assign_sub((m * alpha) / (tf.sqrt(v) + epsilon_hat))
 
     def get_config(self):
         config = super().get_config()
