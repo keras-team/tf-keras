@@ -91,7 +91,7 @@ class DenseTest(tf.test.TestCase, parameterized.TestCase):
         self.assertEqual(dense.kernel.name, "my_dense/kernel:0")
         self.assertEqual(dense.bias.name, "my_dense/bias:0")
 
-    @tf_test_utils.assert_no_new_pyobjects_executing_eagerly
+    @tf_test_utils.assert_no_new_pyobjects_executing_eagerly()
     def testNoEagerLeak(self):
         self.skipTest("b/301158510")
         # Tests that repeatedly constructing and building a Layer does not leak

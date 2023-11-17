@@ -148,7 +148,7 @@ class RandomFourierFeaturesTest(tf.test.TestCase, parameterized.TestCase):
             rff_layer.non_trainable_variables, 3 - num_trainable_vars
         )
 
-    @tf_test_utils.assert_no_new_pyobjects_executing_eagerly
+    @tf_test_utils.assert_no_new_pyobjects_executing_eagerly()
     def test_no_eager_Leak(self):
         self.skipTest("b/301158510")
         # Tests that repeatedly constructing and building a Layer does not leak
