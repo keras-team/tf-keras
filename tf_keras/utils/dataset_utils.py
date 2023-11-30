@@ -14,7 +14,7 @@
 # ==============================================================================
 """Keras image dataset loading utilities."""
 
-import multiprocessing
+import multiprocessing.pool
 import os
 import random
 import time
