@@ -2076,6 +2076,7 @@ class KerasCallbacksTest(test_combinations.TestCase, parameterized.TestCase):
             early_stop.on_epoch_end(epoch, logs={"val_loss": losses[epoch]})
             if early_stop.model.stop_training:
                 break
+        early_stop.on_train_end()
         # The best configuration is in epoch 2 (loss = 0.1000),
         # and while patience = 2, we're restoring the best weights,
         # so we end up at the epoch with the best weights, i.e. epoch 2
@@ -2099,6 +2100,7 @@ class KerasCallbacksTest(test_combinations.TestCase, parameterized.TestCase):
             early_stop.on_epoch_end(epoch, logs={"val_loss": losses[epoch]})
             if early_stop.model.stop_training:
                 break
+        early_stop.on_train_end()
         # No epoch improves on the baseline, so we should train for only 5
         # epochs, and restore the second model.
         self.assertEqual(epochs_trained, 5)
