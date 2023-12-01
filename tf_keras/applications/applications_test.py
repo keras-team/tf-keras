@@ -150,13 +150,11 @@ MOBILENET_V3_FOR_WEIGHTS = [
 
 
 class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.original_image_data_format = backend.image_data_format()
+    def setUp(self):
+        self.original_image_data_format = backend.image_data_format()
 
-    @classmethod
-    def tearDownClass(cls):
-        backend.set_image_data_format(cls.original_image_data_format)
+    def tearDown(self):
+        backend.set_image_data_format(self.original_image_data_format)
 
     @classmethod
     def assertShapeEqual(cls, shape1, shape2):
