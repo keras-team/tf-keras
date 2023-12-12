@@ -102,6 +102,10 @@ class _BaseOptimizer(tf.__internal__.tracking.AutoTrackable):
             )
 
         self._variables = []
+        # A dict mapping a model ShardedVariable id to an object that builds a
+        # ShardedVariable from the corresponding optimizer variables. See
+        # `add_variable_from_reference`.
+        self._sharded_variable_builders = self._no_dependency({})
         self._create_iteration_variable()
         self._process_kwargs(kwargs)
 
@@ -516,8 +520,75 @@ class _BaseOptimizer(tf.__internal__.tracking.AutoTrackable):
             dtype=model_variable.dtype,
             trainable=False,
         )
-        self._variables.append(variable)
+        # If model_variable is a shard of a ShardedVariable, we should add a
+        # ShardedVariable for all related optimizer variables so that
+        # checkpointing is robust to different partitionings. Use unique_id to
+        # dedup ShardedVariables.
+        if hasattr(model_variable, "_sharded_container"):
+            sharded_variable = model_variable._sharded_container()
+            # Get or create builder object
+            sv_builder = self._sharded_variable_builders.setdefault(
+                (sharded_variable._unique_id, variable_name),
+                _ShardedVariableBuilder(len(sharded_variable.variables)),
+            )
+            sv_builder.add_shard(variable)
+            if sv_builder.has_all_shards():
+                self._variables.append(sv_builder.build())
+        else:
+            self._variables.append(variable)
         return variable
+
+    def _trackable_children(self, save_type="checkpoint", **kwargs):
+        """Override in order to coalesce and track `ShardedVariable`s.
+
+        If an optimizer variable's corresponding model variable is a shard of a
+        larger `ShardedVariable`, then we track the optimizer variable in
+        `self._variables` as a `ShardedVariable` via the logic in
+        `add_variable_from_reference`. However, most optimizer implementations
+        additionally keep their variables as attributes, which will be tracked
+        via `AutoTrackable` functionality and not accumulated into
+        `ShardedVariable`s.
+
+        So, to enable restoration of these attributes in possibly different
+        sharding configurations, we should save them as `ShardedVariable`s.
+        Here, any optimizer attributes that are variable shards of a larger
+        `ShardedVariable` are here replaced by the `ShardedVariable` itself,
+        which was created in `add_variable_from_reference`.
+
+        All non-sharded variables are kept as-is. If none of the model variables
+        are sharded, this reduces to `AutoTrackable._trackable_children()`.
+        """
+        # Due to object-identity based matching logic in checkpointing, new
+        # python objects should not be created on each call to
+        # `_trackable_children`.  So instead, only coalesce if not done before.
+        if not hasattr(self, "_coalesced_children"):
+            # This new attribute should not be tracked to avoid infinite
+            # recursion, so wrap in NoDependency
+            self._coalesced_children = self._no_dependency({})
+            children = super()._trackable_children(save_type, **kwargs)
+            for key, val in children.items():
+                if key not in [
+                    "_variables",
+                    "_index_dict",
+                    "_learning_rate",
+                    "_iterations",
+                ]:
+                    new_val = val
+                    if isinstance(val, list):
+                        # TODO(jmullenbach): handle arbitrary nesting
+                        sv_vals = []
+                        for var in val:
+                            if hasattr(var, "_sharded_container"):
+                                sv = var._sharded_container()
+                                if sv not in sv_vals:
+                                    sv_vals.append(sv)
+                            else:
+                                sv_vals.append(var)
+                        new_val = tf.__internal__.tracking.wrap(sv_vals)
+                    self._coalesced_children[key] = new_val
+                else:
+                    self._coalesced_children[key] = val
+        return self._coalesced_children
 
     def minimize(self, loss, var_list, tape=None):
         """Minimize `loss` by updating `var_list`.
@@ -1382,6 +1453,30 @@ class CallableList(list):
 
     def __call__(self):
         return self
+
+
+class _ShardedVariableBuilder:
+    """Accumulate variable shards into a `ShardedVariable`."""
+
+    def __init__(self, num_shards):
+        self.shards = [None] * num_shards
+
+    def add_shard(self, shard):
+        # Get shard index from name
+        shard_idx = int(shard.name.split("part_")[-1].split(":")[0])
+        if self.shards[shard_idx] is None:
+            self.shards[shard_idx] = shard
+        else:
+            raise ValueError(
+                "Cannot add duplicate optimizer variable from "
+                f"shard variable {shard.name}"
+            )
+
+    def has_all_shards(self):
+        return all([shard is not None for shard in self.shards])
+
+    def build(self):
+        return tf.__internal__.distribute.ShardedVariable(self.shards)
 
 
 # Register the optimizer for loading from saved_model purpose.
