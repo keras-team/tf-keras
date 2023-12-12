@@ -201,7 +201,7 @@ class Adam(optimizer.Optimizer):
                 v_hat = self._velocity_hats[self._index_dict[var_key]]
                 v_hat.assign(tf.maximum(v_hat, v))
                 v = v_hat
-            variable.assign_sub((m * alpha) / (tf.sqrt(v) + self.epsilon))
+            variable.assign_sub((m * alpha) / (tf.sqrt(v) + epsilon_hat))
         else:
             # Dense gradients.
             m.assign_add((gradient - m) * (1 - self.beta_1))
