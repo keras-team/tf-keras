@@ -580,7 +580,13 @@ class _BaseOptimizer(tf.__internal__.tracking.AutoTrackable):
                         for var in val:
                             if hasattr(var, "_sharded_container"):
                                 sv = var._sharded_container()
-                                if sv not in sv_vals:
+                                # Use unique id to check existence. `in` would
+                                # attempt element-wise variable value
+                                # comparison.
+                                if not any(
+                                    sv._unique_id == other_sv._unique_id
+                                    for other_sv in sv_vals
+                                ):
                                     sv_vals.append(sv)
                             else:
                                 sv_vals.append(var)
