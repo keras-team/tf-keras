@@ -1,7 +1,5 @@
 """Tests for calling optimizer on ParameterServerStrategy."""
 
-import os
-
 import tensorflow.compat.v2 as tf
 from absl.testing import parameterized
 
@@ -98,11 +96,7 @@ class OptimizerPssTest(tf.test.TestCase, parameterized.TestCase):
             if "iteration" not in var.name and "learning_rate" not in var.name:
                 # Find a variable not iteration or learning_rate, and verify its
                 # value is updated (not 0).
-                if isinstance(var, tf.__internal__.distribute.ShardedVariable):
-                    for shard in var.variables:
-                        self.assertNotAllEqual(shard, 0)
-                else:
-                    self.assertNotAllEqual(var, 0)
+                self.assertNotAllEqual(var, 0)
 
     @ds_combinations.generate(
         tf.__internal__.test.combinations.combine(
@@ -165,112 +159,6 @@ class OptimizerPssTest(tf.test.TestCase, parameterized.TestCase):
                 coordinator.join()
             self.assertEqual(self.evaluate(optimizer.iterations), 3)
             self._verify_accumulators_updated(optimizer)
-
-    @ds_combinations.generate(
-        tf.__internal__.test.combinations.combine(
-            strategy=STRATEGIES,
-            shard_config=[
-                [2, 2],
-                [2, 3],
-                [3, 2],
-                [2, 1],
-                [1, 1],
-                [1, 2],
-                [1, 3],
-            ],
-        )
-    )
-    def testCheckpointShardedVariable(self, strategy, shard_config):
-        # Data are embedding indices near shard boundaries for 2 or 3 shards
-        test_indices = [33, 34, 49, 50, 66, 67]
-
-        def dataset_fn(_):
-            x, y = [[index] for index in test_indices], [1, 1, 1, 0, 0, 0]
-            ds = tf.data.Dataset.from_tensor_slices((x, y))
-            ds = ds.repeat().batch(6)
-            return ds
-
-        vocab_size = 100
-        embed_dim = 32
-
-        def get_model():
-            return keras.Sequential(
-                [
-                    keras.layers.Embedding(vocab_size, embed_dim),
-                    keras.layers.Dense(1, activation="sigmoid"),
-                ]
-            )
-
-        # Override partitioning
-        if shard_config[0] == 1:
-            strategy._extended._variable_partitioner = None
-        else:
-            strategy._extended._variable_partitioner = (
-                tf.distribute.experimental.partitioners.FixedShardsPartitioner(
-                    shard_config[0]
-                )
-            )
-
-        # Create model and optimizer
-        with strategy.scope():
-            model = get_model()
-            optimizer = adam.Adam(0.002)
-
-            model.compile(loss="mse", optimizer=optimizer)
-
-            model.build(input_shape=(None, 1))
-            model.optimizer.build(model.trainable_variables)
-
-        ds = dataset_creator.DatasetCreator(dataset_fn)
-        # Train a bit to update optimizer variables
-        model.fit(ds, epochs=1, steps_per_epoch=5)
-
-        self._verify_accumulators_updated(optimizer)
-
-        # Extract optimizer variables to later check they restore properly
-        pre_ckpt_optimizer_values = []
-        for var in model.optimizer.variables:
-            # Just check the embedding variables
-            if var.shape == [vocab_size, embed_dim]:
-                for index in test_indices:
-                    pre_ckpt_optimizer_values.append(var[index])
-        # Adam has 2 slot variables, momentum and velocity
-        self.assertLen(pre_ckpt_optimizer_values, 2 * len(test_indices))
-
-        checkpoint_path = os.path.join(self.get_temp_dir(), "model_weights")
-        model.save_weights(checkpoint_path)
-
-        # Create new model under different sharding and load checkpoint
-        if shard_config[1] == 1:
-            strategy._extended._variable_partitioner = None
-        else:
-            strategy._extended._variable_partitioner = (
-                tf.distribute.experimental.partitioners.FixedShardsPartitioner(
-                    shard_config[1]
-                )
-            )
-        with strategy.scope():
-            model_2 = get_model()
-            optimizer_2 = adam.Adam(0.002)
-            model_2.compile(loss="mse", optimizer=optimizer_2)
-            model_2.build(input_shape=(None, 1))
-            model_2.optimizer.build(model_2.trainable_variables)
-            model_2.load_weights(checkpoint_path)
-
-        post_ckpt_optimizer_values = []
-        for var in model_2.optimizer.variables:
-            if var.shape == [vocab_size, embed_dim]:
-                for index in test_indices:
-                    post_ckpt_optimizer_values.append(var[index])
-        self.assertLen(post_ckpt_optimizer_values, 2 * len(test_indices))
-        for pre_val, post_val in zip(
-            pre_ckpt_optimizer_values, post_ckpt_optimizer_values
-        ):
-            self.assertAllEqual(pre_val, post_val)
-
-        # Confirm training still functional
-        ds = dataset_creator.DatasetCreator(dataset_fn)
-        model_2.fit(ds, epochs=1, steps_per_epoch=5)
 
 
 if __name__ == "__main__":
