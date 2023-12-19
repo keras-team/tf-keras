@@ -366,7 +366,7 @@ def class_and_config_for_serialized_keras_object(
             f"Unknown {printable_module_name}: '{class_name}'. "
             "Please ensure you are using a `keras.utils.custom_object_scope` "
             "and that this object is included in the scope. See "
-            "https://www.tensorflow.org/guide/tf_keras/save_and_serialize"
+            "https://www.tensorflow.org/guide/keras/save_and_serialize"
             "#registering_the_custom_object for details."
         )
 
@@ -540,7 +540,7 @@ def deserialize_keras_object(
                     "Please ensure you are using a "
                     "`keras.utils.custom_object_scope` "
                     "and that this object is included in the scope. See "
-                    "https://www.tensorflow.org/guide/tf_keras/"
+                    "https://www.tensorflow.org/guide/keras/"
                     "save_and_serialize#registering_the_custom_object "
                     "for details."
                 )

@@ -190,11 +190,11 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
       Two reserved keyword arguments you can optionally use in `call()` are:
         - `training` (boolean, whether the call is in inference mode or training
           mode). See more details in [the layer/model subclassing guide](
-          https://www.tensorflow.org/guide/tf_keras/custom_layers_and_models#privileged_training_argument_in_the_call_method)
+          https://www.tensorflow.org/guide/keras/custom_layers_and_models#privileged_training_argument_in_the_call_method)
         - `mask` (boolean tensor encoding masked timesteps in the input, used
           in RNN layers). See more details in
           [the layer/model subclassing guide](
-          https://www.tensorflow.org/guide/tf_keras/custom_layers_and_models#privileged_mask_argument_in_the_call_method)
+          https://www.tensorflow.org/guide/keras/custom_layers_and_models#privileged_mask_argument_in_the_call_method)
       A typical signature for this method is `call(self, inputs)`, and user
       could optionally add `training` and `mask` if the layer need them. `*args`
       and `**kwargs` is only useful for future extension when more input
@@ -300,7 +300,7 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
 
     For more information about creating layers, see the guide
     [Making new Layers and Models via subclassing](
-      https://www.tensorflow.org/guide/tf_keras/custom_layers_and_models)
+      https://www.tensorflow.org/guide/keras/custom_layers_and_models)
     """
 
     @tf.__internal__.tracking.no_automatic_dependency_tracking

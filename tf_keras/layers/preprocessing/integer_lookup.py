@@ -63,7 +63,7 @@ class IntegerLookup(index_lookup.IndexLookup):
     begin with OOV indices and instances of the mask token will be dropped.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
       max_tokens: Maximum size of the vocabulary for this layer. This should

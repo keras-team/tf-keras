@@ -46,7 +46,7 @@ class CategoryEncoding(base_layer.Layer):
     use `tf.keras.layers.IntegerLookup` instead.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Examples:
 

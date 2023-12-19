@@ -263,7 +263,7 @@ def conv1d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -551,7 +551,7 @@ def conv2d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -841,7 +841,7 @@ def conv3d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -1304,7 +1304,7 @@ def separable_conv1d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -1475,7 +1475,7 @@ def separable_conv2d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -1746,7 +1746,7 @@ def conv2d_transpose(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -2002,7 +2002,7 @@ def conv3d_transpose(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))

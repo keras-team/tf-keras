@@ -21,7 +21,7 @@ for preprocessing text input. For an introduction to these APIs, see
 the [text loading tutorial]
 (https://www.tensorflow.org/tutorials/load_data/text)
 and [preprocessing layer guide]
-(https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+(https://www.tensorflow.org/guide/keras/preprocessing_layers).
 """
 
 
@@ -97,7 +97,7 @@ def one_hot(
     `tf.keras.layers.Hashing` with `output_mode='one_hot'` which provides
     equivalent functionality through a layer which accepts `tf.Tensor` input.
     See the [preprocessing layer guide]
-    (https://www.tensorflow.org/guide/tf_keras/preprocessing_layers) for an
+    (https://www.tensorflow.org/guide/keras/preprocessing_layers) for an
     overview of preprocessing layers.
 
     This function receives as input a string of text and returns a
@@ -148,7 +148,7 @@ def hashing_trick(
     tensors and is not recommended for new code. Prefer
     `tf.keras.layers.Hashing` which provides equivalent functionality through a
     layer which accepts `tf.Tensor` input. See the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers) for an
+    https://www.tensorflow.org/guide/keras/preprocessing_layers) for an
     overview of preprocessing layers.
 
     Args:

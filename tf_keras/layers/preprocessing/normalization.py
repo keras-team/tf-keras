@@ -44,7 +44,7 @@ class Normalization(base_preprocessing_layer.PreprocessingLayer):
     be called before `fit()`, `evaluate()`, or `predict()`.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         axis: Integer, tuple of integers, or None. The axis or axes that should

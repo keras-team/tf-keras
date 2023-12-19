@@ -42,7 +42,7 @@ class Lambda(Layer):
     and Functional API models. `Lambda` layers are best suited for simple
     operations or quick experimentation. For more advanced use cases, follow
     [this guide](
-    https://www.tensorflow.org/guide/tf_keras/custom_layers_and_models)
+    https://www.tensorflow.org/guide/keras/custom_layers_and_models)
     for subclassing `tf.keras.layers.Layer`.
 
     WARNING: `tf.keras.layers.Lambda` layers have (de)serialization limitations!

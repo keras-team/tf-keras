@@ -71,7 +71,7 @@ def smart_resize(x, size, interpolation="bilinear"):
     new code. Prefer `tf.keras.layers.Resizing`, which provides the same
     functionality as a preprocessing layer and adds `tf.RaggedTensor` support.
     See the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers)
+    https://www.tensorflow.org/guide/keras/preprocessing_layers)
     for an overview of preprocessing layers.
 
     TensorFlow image datasets typically yield images that have each a different

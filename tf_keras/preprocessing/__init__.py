@@ -25,7 +25,7 @@ https://www.tensorflow.org/tutorials/load_data/text), [loading images](
 https://www.tensorflow.org/tutorials/load_data/images), and [augmenting images](
 https://www.tensorflow.org/tutorials/images/data_augmentation), as well as the
 [preprocessing layer guide](
-https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+https://www.tensorflow.org/guide/keras/preprocessing_layers).
 """
 from tf_keras import backend
 from tf_keras.preprocessing import image

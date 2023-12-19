@@ -404,7 +404,7 @@ class BaseLossScaleOptimizer(metaclass=LossScaleOptimizerMetaclass):
     When mixed precision with float16 is used, there is typically no risk of
     underflow affecting model quality if loss scaling is properly used. See
     [the mixed precision guide](
-    https://www.tensorflow.org/guide/tf_keras/mixed_precision) for more
+    https://www.tensorflow.org/guide/keras/mixed_precision) for more
     information on how to use mixed precision.
 
     Args:

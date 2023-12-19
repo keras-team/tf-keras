@@ -15,7 +15,7 @@
 """Keras mixed precision API.
 
 See [the mixed precision guide](
-  https://www.tensorflow.org/guide/tf_keras/mixed_precision) to learn how to
+  https://www.tensorflow.org/guide/keras/mixed_precision) to learn how to
 use the API.
 """
 

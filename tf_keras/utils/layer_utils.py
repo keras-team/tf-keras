@@ -93,7 +93,7 @@ def validate_string_arg(
                 f"If restoring a model and `{arg_name}` is a custom callable, "
                 "please ensure the callable is registered as a custom object. "
                 "See "
-                "https://www.tensorflow.org/guide/tf_keras/save_and_serialize"
+                "https://www.tensorflow.org/guide/keras/save_and_serialize"
                 "#registering_the_custom_object for details. "
             )
         else:

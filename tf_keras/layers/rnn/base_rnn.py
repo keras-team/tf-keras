@@ -40,7 +40,7 @@ class RNN(base_layer.Layer):
     """Base class for recurrent layers.
 
     See
-    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
+    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/keras/rnn)
     for details about the usage of RNN API.
 
     Args:

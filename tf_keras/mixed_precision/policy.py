@@ -50,7 +50,7 @@ class Policy:
     API name. Mixed precision can be enabled by passing `'mixed_float16'` or
     `'mixed_bfloat16'` to `tf.keras.mixed_precision.set_global_policy`. See [the
     mixed precision
-    guide](https://www.tensorflow.org/guide/tf_keras/mixed_precision) for more
+    guide](https://www.tensorflow.org/guide/keras/mixed_precision) for more
     information on how to use mixed precision.
 
     >>> tf.keras.mixed_precision.set_global_policy('mixed_float16')

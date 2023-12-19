@@ -88,7 +88,7 @@ def set_floatx(value):
     is using a mix of float16 and float32, can be used by calling
     `tf.keras.mixed_precision.set_global_policy('mixed_float16')`. See the
     [mixed precision guide](
-      https://www.tensorflow.org/guide/tf_keras/mixed_precision) for details.
+      https://www.tensorflow.org/guide/keras/mixed_precision) for details.
 
     Args:
         value: String; `'float16'`, `'float32'`, or `'float64'`.

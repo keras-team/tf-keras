@@ -60,7 +60,7 @@ class Masking(Layer):
     ```
 
     See [the masking and padding guide](
-      https://www.tensorflow.org/guide/tf_keras/masking_and_padding)
+      https://www.tensorflow.org/guide/keras/masking_and_padding)
     for more details.
     """
 

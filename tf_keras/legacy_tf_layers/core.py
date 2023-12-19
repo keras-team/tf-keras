@@ -236,7 +236,7 @@ def dense(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28,))
@@ -403,7 +403,7 @@ def dropout(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -531,7 +531,7 @@ def flatten(inputs, name=None, data_format="channels_last"):
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))

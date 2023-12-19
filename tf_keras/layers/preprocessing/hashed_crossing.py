@@ -46,7 +46,7 @@ class HashedCrossing(base_layer.Layer):
     `()`.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         num_bins: Number of hash bins.

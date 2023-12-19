@@ -39,7 +39,7 @@ class SimpleRNNCell(DropoutRNNCellMixin, base_layer.BaseRandomLayer):
     """Cell class for SimpleRNN.
 
     See
-    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
+    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/keras/rnn)
     for details about the usage of RNN API.
 
     This class processes one step within the whole time sequence input, whereas
@@ -256,7 +256,7 @@ class SimpleRNN(RNN):
     """Fully-connected RNN where the output is to be fed back to input.
 
     See
-    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/tf_keras/rnn)
+    [the TF-Keras RNN API guide](https://www.tensorflow.org/guide/keras/rnn)
     for details about the usage of RNN API.
 
     Args:

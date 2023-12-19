@@ -606,7 +606,7 @@ class Model(base_layer.Layer, version_utils.ModelVersionSelector):
               run the `Network` in training mode or inference mode.
             mask: A mask or list of masks. A mask can be either a boolean tensor
               or None (no mask). For more details, check the guide
-              [here](https://www.tensorflow.org/guide/tf_keras/masking_and_padding).
+              [here](https://www.tensorflow.org/guide/keras/masking_and_padding).
 
         Returns:
             A tensor if there is a single output, or
@@ -1121,7 +1121,7 @@ class Model(base_layer.Layer, version_utils.ModelVersionSelector):
         This method can be overridden to support custom training logic.
         For concrete examples of how to override this method see
         [Customizing what happens in fit](
-        https://www.tensorflow.org/guide/tf_keras/customizing_what_happens_in_fit).
+        https://www.tensorflow.org/guide/keras/customizing_what_happens_in_fit).
         This method is called by `Model.make_train_function`.
 
         This method should contain the mathematical logic for one step of

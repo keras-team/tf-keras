@@ -101,7 +101,7 @@ class TextVectorization(base_preprocessing_layer.PreprocessingLayer):
        site natively compatible with `tf.strings.split()`.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
       max_tokens: Maximum size of the vocabulary for this layer. This should

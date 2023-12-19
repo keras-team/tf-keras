@@ -58,7 +58,7 @@ class Resizing(base_layer.Layer):
     size.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         height: Integer, the height of the output shape.
@@ -162,7 +162,7 @@ class CenterCrop(base_layer.Layer):
     By default, the layer will output floats.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Input shape:
         3D (unbatched) or 4D (batched) tensor with shape:
@@ -247,7 +247,7 @@ class RandomCrop(base_layer.BaseRandomLayer):
     floats.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Input shape:
         3D (unbatched) or 4D (batched) tensor with shape:
@@ -340,7 +340,7 @@ class Rescaling(base_layer.Layer):
     floats.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Input shape:
         Arbitrary.
@@ -399,7 +399,7 @@ class RandomFlip(base_layer.BaseRandomLayer):
     By default, the layer will output floats.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Input shape:
         3D (unbatched) or 4D (batched) tensor with shape:
@@ -500,7 +500,7 @@ class RandomTranslation(base_layer.BaseRandomLayer):
     floats.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
       height_factor: a float represented as fraction of value, or a tuple of
@@ -872,7 +872,7 @@ class RandomRotation(base_layer.BaseRandomLayer):
     By default, the layer will output floats.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Input shape:
         3D (unbatched) or 4D (batched) tensor with shape:
@@ -1014,7 +1014,7 @@ class RandomZoom(base_layer.BaseRandomLayer):
     By default, the layer will output floats.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         height_factor: a float represented as fraction of value,
@@ -1254,7 +1254,7 @@ class RandomContrast(base_layer.BaseRandomLayer):
     range of RGB colors.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Input shape:
         3D (unbatched) or 4D (batched) tensor with shape:
@@ -1340,7 +1340,7 @@ class RandomBrightness(base_layer.BaseRandomLayer):
     will be apply to each the images in the batch.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         factor: Float or a list/tuple of 2 floats between -1.0 and 1.0. The
@@ -1497,7 +1497,7 @@ class RandomHeight(base_layer.BaseRandomLayer):
     By default, this layer is inactive during inference.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         factor: A positive float (fraction of original height),
@@ -1616,7 +1616,7 @@ class RandomWidth(base_layer.BaseRandomLayer):
     By default, this layer is inactive during inference.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         factor: A positive float (fraction of original width),

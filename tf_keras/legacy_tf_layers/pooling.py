@@ -157,7 +157,7 @@ def average_pooling1d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -312,7 +312,7 @@ def max_pooling1d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -475,7 +475,7 @@ def average_pooling2d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -638,7 +638,7 @@ def max_pooling2d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -805,7 +805,7 @@ def average_pooling3d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))
@@ -971,7 +971,7 @@ def max_pooling3d(
     After:
 
     To migrate code using TF1 functional layers use the [Keras Functional API]
-    (https://www.tensorflow.org/guide/tf_keras/functional):
+    (https://www.tensorflow.org/guide/keras/functional):
 
     ```python
      x = tf.keras.Input((28, 28, 1))

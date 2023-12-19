@@ -53,7 +53,7 @@ class Hashing(base_layer.Layer):
     the `salt` value serving as additional input to the hash function.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     **Example (FarmHash64)**
 

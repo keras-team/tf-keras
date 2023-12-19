@@ -145,7 +145,7 @@ class Discretization(base_preprocessing_layer.PreprocessingLayer):
     element was placed in.
 
     For an overview and full list of preprocessing layers, see the preprocessing
-    [guide](https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    [guide](https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Input shape:
       Any `tf.Tensor` or `tf.RaggedTensor` of dimension 2 or higher.

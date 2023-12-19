@@ -24,7 +24,7 @@ tutorials for [loading images](
 https://www.tensorflow.org/tutorials/load_data/images) and [augmenting images](
 https://www.tensorflow.org/tutorials/images/data_augmentation), as well as the
 [preprocessing layer guide](
-https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+https://www.tensorflow.org/guide/keras/preprocessing_layers).
 """
 
 import collections
@@ -68,7 +68,7 @@ class Iterator(data_utils.Sequence):
     [augmenting images](
     https://www.tensorflow.org/tutorials/images/data_augmentation), as well as
     the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Every `Iterator` must implement the `_get_batches_of_transformed_samples`
     method.
@@ -459,7 +459,7 @@ class DirectoryIterator(BatchFromFilesMixin, Iterator):
     [augmenting images](
     https://www.tensorflow.org/tutorials/images/data_augmentation), as well as
     the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         directory: Path to the directory to read images from. Each subdirectory
@@ -635,7 +635,7 @@ class NumpyArrayIterator(Iterator):
     [augmenting images](
     https://www.tensorflow.org/tutorials/images/data_augmentation), as well as
     the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         x: Numpy array of input data or tuple. If tuple, the second elements is
@@ -1176,7 +1176,7 @@ class ImageDataGenerator:
     [augmenting images](
     https://www.tensorflow.org/tutorials/images/data_augmentation), as well as
     the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
      The data will be looped over (in batches).
 
@@ -2165,7 +2165,7 @@ def random_rotation(
     [augmenting images](
     https://www.tensorflow.org/tutorials/images/data_augmentation), as well as
     the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         x: Input tensor. Must be 3D.
@@ -2219,7 +2219,7 @@ def random_shift(
     [augmenting images](
     https://www.tensorflow.org/tutorials/images/data_augmentation), as well as
     the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         x: Input tensor. Must be 3D.
@@ -2320,7 +2320,7 @@ def random_zoom(
     [augmenting images](
     https://www.tensorflow.org/tutorials/images/data_augmentation), as well as
     the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         x: Input tensor. Must be 3D.
@@ -2446,7 +2446,7 @@ def random_brightness(x, brightness_range, scale=True):
     [augmenting images](
     https://www.tensorflow.org/tutorials/images/data_augmentation), as well as
     the [preprocessing layer guide](
-    https://www.tensorflow.org/guide/tf_keras/preprocessing_layers).
+    https://www.tensorflow.org/guide/keras/preprocessing_layers).
 
     Args:
         x: Input tensor. Must be 3D.
