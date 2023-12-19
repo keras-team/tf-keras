@@ -656,7 +656,7 @@ def MBConvBlock(
                 strides=1,
                 kernel_initializer=CONV_KERNEL_INITIALIZER,
                 padding="same",
-                data_format="channels_last",
+                data_format=backend.image_data_format(),
                 use_bias=False,
                 name=name + "expand_conv",
             )(inputs)
@@ -677,7 +677,7 @@ def MBConvBlock(
             strides=strides,
             depthwise_initializer=CONV_KERNEL_INITIALIZER,
             padding="same",
-            data_format="channels_last",
+            data_format=backend.image_data_format(),
             use_bias=False,
             name=name + "dwconv2",
         )(x)
@@ -722,7 +722,7 @@ def MBConvBlock(
             strides=1,
             kernel_initializer=CONV_KERNEL_INITIALIZER,
             padding="same",
-            data_format="channels_last",
+            data_format=backend.image_data_format(),
             use_bias=False,
             name=name + "project_conv",
         )(x)
@@ -771,7 +771,7 @@ def FusedMBConvBlock(
                 kernel_size=kernel_size,
                 strides=strides,
                 kernel_initializer=CONV_KERNEL_INITIALIZER,
-                data_format="channels_last",
+                data_format=backend.image_data_format(),
                 padding="same",
                 use_bias=False,
                 name=name + "expand_conv",
@@ -1052,7 +1052,7 @@ def EfficientNetV2(
         strides=1,
         kernel_initializer=CONV_KERNEL_INITIALIZER,
         padding="same",
-        data_format="channels_last",
+        data_format=backend.image_data_format(),
         use_bias=False,
         name="top_conv",
     )(x)
