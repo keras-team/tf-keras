@@ -93,7 +93,6 @@ class DenseTest(tf.test.TestCase, parameterized.TestCase):
 
     @tf_test_utils.assert_no_new_pyobjects_executing_eagerly()
     def testNoEagerLeak(self):
-        self.skipTest("b/301158510")
         # Tests that repeatedly constructing and building a Layer does not leak
         # Python objects.
         inputs = tf.random.uniform((5, 4), seed=1)
