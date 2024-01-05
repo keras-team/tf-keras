@@ -53,7 +53,7 @@ py_library(
 
 tf_py_test(
     name = "applications_test",
-    size = "medium",
+    size = "large",
     srcs = ["applications_test.py"],
     shard_count = 50,
     tags = [
