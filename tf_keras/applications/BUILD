@@ -57,6 +57,7 @@ tf_py_test(
     srcs = ["applications_test.py"],
     shard_count = 50,
     tags = [
+        "no_oss",  # b/318174391
         "no_rocm",
         "notsan",  # b/168814536
         "requires-net:external",

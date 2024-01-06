@@ -539,6 +539,9 @@ tf_py_test(
     srcs = ["vis_utils_test.py"],
     python_version = "PY3",
     shard_count = 4,
+    tags = [
+        "no_oss",  # TODO(b/318174391)
+    ],
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_numpy_installed",
