@@ -1259,20 +1259,25 @@ class DataHandler:
             `Model` should always set this to `True`.
           pss_evaluation_shards: See `Model.fit`.
         """
+        if batch_size is not None:
+            _check_positive("batch_size", batch_size)
+        if steps_per_epoch not in (None, -1) and steps_per_epoch <= 0:
+            raise ValueError(
+                "steps_per_epoch must be positive, None or -1. Received "
+                f"{steps_per_epoch}. See `Model.fit`."
+            )
+        self._initial_epoch = _check_non_negative(
+            "initial_epoch", initial_epoch
+        )
+        _check_positive("max_queue_size", max_queue_size)
+        _check_positive("workers", workers)
+        if steps_per_execution is not None:
+            _check_positive("steps_per_execution", steps_per_execution)
 
-        self._initial_epoch = initial_epoch
         self._initial_step = 0
-        self._epochs = epochs
+        self._epochs = _check_positive("epochs", epochs)
         self._insufficient_data = False
         self._model = model
-
-        if steps_per_epoch == 0:
-            raise ValueError(
-                "Unexpected value for `steps_per_epoch`. Received value is 0. "
-                "Please check the docstring for `model.fit()` for supported "
-                "values."
-            )
-
         self._steps_per_epoch = steps_per_epoch
 
         # `steps_per_execution_value` is the cached initial value.
@@ -1952,6 +1957,22 @@ def _check_data_cardinality(data):
             )
         msg += "Make sure all arrays contain the same number of samples."
         raise ValueError(msg)
+
+
+def _check_non_negative(name, value):
+    if value < 0:
+        raise ValueError(
+            f"Expected {name} to be non-negative. Received is {value}."
+        )
+    return value
+
+
+def _check_positive(name, value):
+    if value <= 0:
+        raise ValueError(
+            f"Expected {name} to be positive. Received is {value}."
+        )
+    return value
 
 
 def _get_tensor_types():
