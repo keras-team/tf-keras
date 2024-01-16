@@ -1447,7 +1447,7 @@ class DataHandlerTest(test_combinations.TestCase):
 
         with self.assertRaisesRegex(
             ValueError,
-            "steps_per_epoch must be positive, None or -1. Received 0.",
+            "Unexpected value for `steps_per_epoch`. Received value is 0.",
         ):
             data_adapter.DataHandler(
                 data, initial_epoch=0, epochs=2, steps_per_epoch=0
