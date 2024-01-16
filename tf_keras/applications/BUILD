@@ -52,9 +52,30 @@ py_library(
 )
 
 tf_py_test(
-    name = "applications_test",
-    size = "medium",
+    name = "applications_test_channels_first",
     srcs = ["applications_test.py"],
+    args = ["--image_data_format=channels_first"],
+    main = "applications_test.py",
+    shard_count = 50,
+    tags = [
+        "no_oss",  # b/318174391
+        "no_rocm",
+        "notsan",  # b/168814536
+        "requires-net:external",
+    ],
+    deps = [
+        ":applications",
+        "//:expect_absl_installed",  # absl/testing:parameterized
+        "//:expect_tensorflow_installed",
+        "//tf_keras/testing_infra:test_combinations",
+    ],
+)
+
+tf_py_test(
+    name = "applications_test_channels_last",
+    srcs = ["applications_test.py"],
+    args = ["--image_data_format=channels_last"],
+    main = "applications_test.py",
     shard_count = 50,
     tags = [
         "no_oss",  # b/318174391

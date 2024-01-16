@@ -17,6 +17,7 @@
 import os
 
 import tensorflow.compat.v2 as tf
+from absl import flags
 from absl.testing import parameterized
 
 from tf_keras import backend
@@ -39,6 +40,12 @@ from tf_keras.applications import vgg16
 from tf_keras.applications import vgg19
 from tf_keras.applications import xception
 from tf_keras.testing_infra import test_utils
+
+_IMAGE_DATA_FORMAT = flags.DEFINE_string(
+    "image_data_format",
+    "channels_first",
+    "The image data format to use for the test.",
+)
 
 MODEL_LIST_NO_NASNET = [
     (resnet.ResNet50, 2048),
@@ -120,16 +127,6 @@ NASNET_LIST = [
 MODEL_LIST = MODEL_LIST_NO_NASNET + NASNET_LIST
 
 MODELS_UNSUPPORTED_CHANNELS_FIRST = ["ConvNeXt", "NASNet", "RegNetX", "RegNetY"]
-# Add each data format for each model
-test_parameters_with_image_data_format = [
-    (
-        "{}_{}".format(model[0].__name__, image_data_format),
-        *model,
-        image_data_format,
-    )
-    for image_data_format in ["channels_first", "channels_last"]
-    for model in MODEL_LIST
-]
 
 # Parameters for loading weights for MobileNetV3.
 # (class, alpha, minimalistic, include_top)
@@ -183,8 +180,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
                 "{} does not support channels first".format(app.__name__)
             )
 
-    @parameterized.named_parameters(test_parameters_with_image_data_format)
-    def test_application_base(self, app, _, image_data_format):
+    @parameterized.parameters(*MODEL_LIST)
+    def test_application_base(self, app, _):
+        image_data_format = _IMAGE_DATA_FORMAT.value
         self.skip_if_invalid_image_data_format_for_model(app, image_data_format)
         backend.set_image_data_format(image_data_format)
         # Can be instantiated with default arguments
@@ -200,8 +198,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
         self.assertEqual(len(model.weights), len(reconstructed_model.weights))
         backend.clear_session()
 
-    @parameterized.named_parameters(test_parameters_with_image_data_format)
-    def test_application_notop(self, app, last_dim, image_data_format):
+    @parameterized.parameters(*MODEL_LIST)
+    def test_application_notop(self, app, last_dim):
+        image_data_format = _IMAGE_DATA_FORMAT.value
         self.skip_if_invalid_image_data_format_for_model(app, image_data_format)
         backend.set_image_data_format(image_data_format)
         if image_data_format == "channels_first":
@@ -226,10 +225,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
             self.assertShapeEqual(output_shape, correct_output_shape)
         backend.clear_session()
 
-    @parameterized.named_parameters(test_parameters_with_image_data_format)
-    def test_application_notop_custom_input_shape(
-        self, app, last_dim, image_data_format
-    ):
+    @parameterized.parameters(*MODEL_LIST)
+    def test_application_notop_custom_input_shape(self, app, last_dim):
+        image_data_format = _IMAGE_DATA_FORMAT.value
         self.skip_if_invalid_image_data_format_for_model(app, image_data_format)
         backend.set_image_data_format(image_data_format)
         if image_data_format == "channels_first":
@@ -261,10 +259,9 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
         last_layer_act = model.layers[-1].activation.__name__
         self.assertEqual(last_layer_act, "softmax")
 
-    @parameterized.named_parameters(test_parameters_with_image_data_format)
-    def test_application_variable_input_channels(
-        self, app, last_dim, image_data_format
-    ):
+    @parameterized.parameters(*MODEL_LIST)
+    def test_application_variable_input_channels(self, app, last_dim):
+        image_data_format = _IMAGE_DATA_FORMAT.value
         self.skip_if_invalid_image_data_format_for_model(app, image_data_format)
         backend.set_image_data_format(image_data_format)
         if backend.image_data_format() == "channels_first":
@@ -303,9 +300,10 @@ class ApplicationsTest(tf.test.TestCase, parameterized.TestCase):
             include_top=include_top,
         )
 
-    @parameterized.named_parameters(test_parameters_with_image_data_format)
+    @parameterized.parameters(*MODEL_LIST)
     @test_utils.run_v2_only
-    def test_model_checkpoint(self, app, _, image_data_format):
+    def test_model_checkpoint(self, app, _):
+        image_data_format = _IMAGE_DATA_FORMAT.value
         self.skip_if_invalid_image_data_format_for_model(app, image_data_format)
         backend.set_image_data_format(image_data_format)
 
