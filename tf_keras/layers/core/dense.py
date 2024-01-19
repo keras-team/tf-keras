@@ -118,8 +118,8 @@ class Dense(Layer):
 
         self.units = int(units) if not isinstance(units, int) else units
         if self.units <= 0:
-            raise ValueError(f'Invalid value for `units`: {units}. Must be a 
-                             positive integer.')
+            raise ValueError(f"Invalid value for `units`: {units}. Must be a 
+                             positive integer.")
         self.activation = activations.get(activation)
         self.use_bias = use_bias
         self.kernel_initializer = initializers.get(kernel_initializer)
