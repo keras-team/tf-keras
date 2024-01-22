@@ -225,9 +225,7 @@ class SidecarEvaluator:
                 # `expect_partial` because the checkpoint can have other
                 # `Trackable`s such as `optimizer`.
                 checkpoint.restore(latest_checkpoint).expect_partial()
-                checkpoint_attributes = list_checkpoint_attributes(
-                    latest_checkpoint
-                )
+                checkpoint_attributes = list_checkpoint_attributes(latest_checkpoint)
                 # The checkpoint should contain model and optimizer for
                 # SidecarEvaluator to work. But the model weights saved by
                 # ModelCheckpoint callback does not contain model as an
@@ -268,12 +266,9 @@ class SidecarEvaluator:
                     f"Error: {e.__class__.__name__}: {e}"
                 )
                 continue
-            if (
-                self._iterations.numpy() == _ITERATIONS_UNINITIALIZED
-                and not isinstance(
-                    self.model.optimizer,
-                    optimizer.Optimizer,
-                )
+            if self._iterations.numpy() == _ITERATIONS_UNINITIALIZED and not isinstance(
+                self.model.optimizer,
+                optimizer.Optimizer,
             ):
                 raise RuntimeError(
                     "Variable `iterations` cannot be loaded from the "
@@ -313,9 +308,7 @@ class SidecarEvaluator:
             ):
                 # Exit the loop because we have evaluated the final checkpoint
                 # file.
-                logging.info(
-                    "Last checkpoint evaluated. SidecarEvaluator stops."
-                )
+                logging.info("Last checkpoint evaluated. SidecarEvaluator stops.")
                 return
 
 
@@ -382,7 +375,7 @@ class SidecarEvaluatorModelExport(ModelCheckpoint):
     sidecar_evaluator.start()
     # Model weights are saved if evaluator deems it's the best seen so far.
     ```
-    
+
     Args:
         export_filepath: Path where best models should be saved by this
           `SidecarEvaluatorModelExport` callback. Epoch formatting options, such
@@ -409,19 +402,12 @@ class SidecarEvaluatorModelExport(ModelCheckpoint):
     def on_test_begin(self, logs=None):
         """Updates export_index to the latest checkpoint."""
 
-        most_recent_filepath = (
-            self._get_most_recently_modified_file_matching_pattern(
-                self._checkpoint_filepath
-            )
+        most_recent_filepath = self._get_most_recently_modified_file_matching_pattern(
+            self._checkpoint_filepath
         )
         if most_recent_filepath is not None:
             self.export_index = (
-                int(
-                    re.match(r".*ckpt-(?P<ckpt>\d+)", most_recent_filepath)[
-                        "ckpt"
-                    ]
-                )
-                - 1
+                int(re.match(r".*ckpt-(?P<ckpt>\d+)", most_recent_filepath)["ckpt"]) - 1
             )
         else:
             self.export_index = 0
