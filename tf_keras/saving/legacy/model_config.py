@@ -75,7 +75,7 @@ def model_from_config(config, custom_objects=None):
 def model_from_yaml(yaml_string, custom_objects=None):
     """Parses a yaml model configuration file and returns a model instance.
 
-    Note: Since TF 2.6, this method is no longer supported and will raise a
+    Note: Deprecated: THIS FUNCTION IS DEPRECATED. Since TF 2.6, this method is no longer supported and will raise a
     RuntimeError.
 
     Args:
