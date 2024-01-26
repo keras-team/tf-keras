@@ -7,6 +7,7 @@ package(
         "//tf_keras:friends",
         "//third_party/tensorflow/python/feature_column:__subpackages__",  # For unit testing
         "//third_party/tensorflow/python/tpu:__subpackages__",  # For unit testing
+        "//third_party/tensorflow_decision_forests:__subpackages__",  # for DenseFeatures
     ],
     licenses = ["notice"],
 )
