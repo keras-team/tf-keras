@@ -388,6 +388,9 @@ class ExportArchive(tf.__internal__.tracking.AutoTrackable):
         from tensorflow.python.ops.lookup_ops import (
             LookupInterface,
         )
+        from tensorflow.python.trackable.resource import (
+            RestoredResource,
+        )
 
         from tf_keras.layers.preprocessing.index_lookup import IndexLookup
 
@@ -395,7 +398,10 @@ class ExportArchive(tf.__internal__.tracking.AutoTrackable):
             for root in self._tracked:
                 descendants = tf.train.TrackableView(root).descendants()
                 for trackable in descendants:
-                    if isinstance(trackable, (IndexLookup, LookupInterface)):
+                    if isinstance(
+                        trackable,
+                        (IndexLookup, LookupInterface, RestoredResource),
+                    ):
                         self._misc_assets.append(trackable)
 
 
