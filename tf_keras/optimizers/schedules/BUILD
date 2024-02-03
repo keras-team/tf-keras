@@ -6,12 +6,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
-    default_visibility = [
-        "//tf_keras:friends",
-        "//third_party/tensorflow/python:__pkg__",
-        "//third_party/tensorflow/python/distribute:__pkg__",
-        "//third_party/tensorflow/python/trackable:__pkg__",
-    ],
+    default_visibility = ["//tf_keras:friends"],
     licenses = ["notice"],
 )
 
