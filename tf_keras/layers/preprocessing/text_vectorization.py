@@ -24,6 +24,7 @@ from tf_keras.layers.preprocessing import preprocessing_utils as utils
 from tf_keras.layers.preprocessing import string_lookup
 from tf_keras.saving.legacy.saved_model import layer_serialization
 from tf_keras.saving.serialization_lib import deserialize_keras_object
+from tf_keras.saving.serialization_lib import serialize_keras_object
 from tf_keras.utils import layer_utils
 from tf_keras.utils import tf_utils
 
@@ -500,8 +501,8 @@ class TextVectorization(base_preprocessing_layer.PreprocessingLayer):
     def get_config(self):
         config = {
             "max_tokens": self._lookup_layer.max_tokens,
-            "standardize": self._standardize,
-            "split": self._split,
+            "standardize": serialize_keras_object(self._standardize),
+            "split": serialize_keras_object(self._split),
             "ngrams": self._ngrams_arg,
             "output_mode": self._output_mode,
             "output_sequence_length": self._output_sequence_length,

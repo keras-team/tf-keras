@@ -2408,6 +2408,27 @@ class TextVectorizationSavingTest(
         new_output_dataset = new_model.predict(input_array)
         self.assertAllEqual(expected_output, new_output_dataset)
 
+    def test_cloning_with_custom_callable(self):
+        @register_keras_serializable(package="Test")
+        def pipe_split_fn(inp):
+            return tf.strings.split(inp, sep="|")
+
+        text_dataset = tf.data.Dataset.from_tensor_slices(
+            [
+                "this|is|some|pipe-delimited|text",
+                "some|more|pipe-delimited|text",
+                "yet|more|pipe-delimited|text",
+            ]
+        )
+        vectorizer = text_vectorization.TextVectorization(
+            max_tokens=10, standardize=None, split=pipe_split_fn
+        )
+        vectorizer.adapt(text_dataset)
+        input_data = keras.Input(shape=(), dtype=tf.string)
+        outputs = vectorizer(input_data)
+        model = keras.Model(inputs=input_data, outputs=outputs)
+        _ = keras.models.clone_model(model)
+
     @test_utils.run_v2_only()
     def test_saving_v3(self):
         vocab_data = ["earth", "wind", "and", "fire"]
