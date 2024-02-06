@@ -24,6 +24,7 @@ from tf_keras import layers
 from tf_keras import losses
 from tf_keras import metrics
 from tf_keras import models
+from tf_keras import optimizers
 from tf_keras.engine.input_layer import Input
 from tf_keras.engine.sequential import Sequential
 from tf_keras.engine.training import Model
