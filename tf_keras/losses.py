@@ -65,7 +65,7 @@ class Loss:
     for more details on this.
     """
 
-    def __init__(self, reduction=tf.keras.losses.Reduction.AUTO, name=None):
+    def __init__(self, reduction=losses.Reduction.AUTO, name=None):
         """Initializes `Loss` class.
 
         Args:
@@ -81,7 +81,7 @@ class Loss:
                 for more details.
             name: Optional name for the instance.
         """
-        losses_utils.ReductionV2.validate(reduction)
+        losses.Reduction.validate(reduction)
         self.reduction = reduction
         self.name = name
         # SUM_OVER_BATCH is only allowed in losses managed by `fit` or
@@ -200,9 +200,9 @@ class Loss:
             not self._allow_sum_over_batch_size
             and tf.distribute.has_strategy()
             and (
-                self.reduction == tf.keras.losses.Reduction.AUTO
+                self.reduction == losses.Reduction.AUTO
                 or self.reduction
-                == losses_utils.ReductionV2.SUM_OVER_BATCH_SIZE
+                == losses.Reduction.SUM_OVER_BATCH_SIZE
             )
         ):
             raise ValueError(
@@ -215,8 +215,8 @@ class Loss:
                 "/distribute/custom_training for more details."
             )
 
-        if self.reduction == tf.keras.losses.Reduction.AUTO:
-            return tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE
+        if self.reduction == losses.Reduction.AUTO:
+            return losses.Reduction.SUM_OVER_BATCH_SIZE
         return self.reduction
 
 
@@ -225,7 +225,7 @@ class LossFunctionWrapper(Loss):
     """Wraps a loss function in the `Loss` class."""
 
     def __init__(
-        self, fn, reduction=tf.keras.losses.Reduction.AUTO, name=None, **kwargs
+        self, fn, reduction=losses.Reduction.AUTO, name=None, **kwargs
     ):
         """Initializes `LossFunctionWrapper` class.
 
@@ -340,7 +340,7 @@ class MeanSquaredError(LossFunctionWrapper):
     """
 
     def __init__(
-        self, reduction=keras.losses.Reduction.AUTO, name="mean_squared_error"
+        self, reduction=losses.Reduction.AUTO, name="mean_squared_error"
     ):
         """Initializes `MeanSquaredError` instance.
 
@@ -401,7 +401,7 @@ class MeanAbsoluteError(LossFunctionWrapper):
 
     def __init__(
         self,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="mean_absolute_error",
     ):
         """Initializes `MeanAbsoluteError` instance.
@@ -469,7 +469,7 @@ class MeanAbsolutePercentageError(LossFunctionWrapper):
 
     def __init__(
         self,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="mean_absolute_percentage_error",
     ):
         """Initializes `MeanAbsolutePercentageError` instance.
@@ -534,7 +534,7 @@ class MeanSquaredLogarithmicError(LossFunctionWrapper):
 
     def __init__(
         self,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="mean_squared_logarithmic_error",
     ):
         """Initializes `MeanSquaredLogarithmicError` instance.
@@ -627,7 +627,7 @@ class BinaryCrossentropy(LossFunctionWrapper):
         from_logits=False,
         label_smoothing=0.0,
         axis=-1,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="binary_crossentropy",
     ):
         """Initializes `BinaryCrossentropy` instance.
@@ -811,7 +811,7 @@ class BinaryFocalCrossentropy(LossFunctionWrapper):
         from_logits=False,
         label_smoothing=0.0,
         axis=-1,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="binary_focal_crossentropy",
     ):
         """Initializes `BinaryFocalCrossentropy` instance."""
@@ -893,7 +893,7 @@ class CategoricalCrossentropy(LossFunctionWrapper):
         from_logits=False,
         label_smoothing=0.0,
         axis=-1,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="categorical_crossentropy",
     ):
         """Initializes `CategoricalCrossentropy` instance.
@@ -1043,7 +1043,7 @@ class CategoricalFocalCrossentropy(LossFunctionWrapper):
         from_logits=False,
         label_smoothing=0.0,
         axis=-1,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="categorical_focal_crossentropy",
     ):
         """Initializes `CategoricalFocalCrossentropy` instance."""
@@ -1123,7 +1123,7 @@ class SparseCategoricalCrossentropy(LossFunctionWrapper):
         self,
         from_logits=False,
         ignore_class=None,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="sparse_categorical_crossentropy",
     ):
         """Initializes `SparseCategoricalCrossentropy` instance.
@@ -1228,7 +1228,7 @@ class CosineSimilarity(LossFunctionWrapper):
     def __init__(
         self,
         axis=-1,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="cosine_similarity",
     ):
         super().__init__(
@@ -1277,7 +1277,7 @@ class Hinge(LossFunctionWrapper):
     ```
     """
 
-    def __init__(self, reduction=tf.keras.losses.Reduction.AUTO, name="hinge"):
+    def __init__(self, reduction=losses.Reduction.AUTO, name="hinge"):
         """Initializes `Hinge` instance.
 
         Args:
@@ -1338,7 +1338,7 @@ class SquaredHinge(LossFunctionWrapper):
     """
 
     def __init__(
-        self, reduction=tf.keras.losses.Reduction.AUTO, name="squared_hinge"
+        self, reduction=losses.Reduction.AUTO, name="squared_hinge"
     ):
         """Initializes `SquaredHinge` instance.
 
@@ -1398,7 +1398,7 @@ class CategoricalHinge(LossFunctionWrapper):
     """
 
     def __init__(
-        self, reduction=tf.keras.losses.Reduction.AUTO, name="categorical_hinge"
+        self, reduction=losses.Reduction.AUTO, name="categorical_hinge"
     ):
         """Initializes `CategoricalHinge` instance.
 
@@ -1457,7 +1457,7 @@ class Poisson(LossFunctionWrapper):
     ```
     """
 
-    def __init__(self, reduction=keras.losses.Reduction.AUTO, name="poisson"):
+    def __init__(self, reduction=losses.Reduction.AUTO, name="poisson"):
         """Initializes `Poisson` instance.
 
         Args:
@@ -1577,7 +1577,7 @@ class KLDivergence(LossFunctionWrapper):
     """
 
     def __init__(
-        self, reduction=tf.keras.losses.Reduction.AUTO, name="kl_divergence"
+        self, reduction=losses.Reduction.AUTO, name="kl_divergence"
     ):
         """Initializes `KLDivergence` instance.
 
@@ -1645,7 +1645,7 @@ class Huber(LossFunctionWrapper):
     def __init__(
         self,
         delta=1.0,
-        reduction=tf.keras.losses.Reduction.AUTO,
+        reduction=losses.Reduction.AUTO,
         name="huber_loss",
     ):
         """Initializes `Huber` instance.
