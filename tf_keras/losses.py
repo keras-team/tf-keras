@@ -340,7 +340,7 @@ class MeanSquaredError(LossFunctionWrapper):
     """
 
     def __init__(
-        self, reduction=tf.keras.losses.Reduction.AUTO, name="mean_squared_error"
+        self,reduction=tf.keras.losses.Reduction.AUTO, name="mean_squared_error"
     ):
         """Initializes `MeanSquaredError` instance.
 
@@ -1457,7 +1457,7 @@ class Poisson(LossFunctionWrapper):
     ```
     """
 
-    def __init__(self, reduction=tf.keras.losses.Reduction.AUTO, name="poisson"):
+    def __init__(self,reduction=tf.keras.losses.Reduction.AUTO, name="poisson"):
         """Initializes `Poisson` instance.
 
         Args:
