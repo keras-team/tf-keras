@@ -27,7 +27,7 @@ from tf_keras.saving import saving_lib
 from tf_keras.saving.legacy import serialization as legacy_serialization
 from tf_keras.saving.serialization_lib import deserialize_keras_object
 from tf_keras.saving.serialization_lib import serialize_keras_object
-from tf_keras.utils import losses_utils
+from tf_keras import losses
 from tf_keras.utils import tf_utils
 
 # isort: off
