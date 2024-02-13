@@ -20,6 +20,7 @@ Detailed documentation and user guides are available at
 
 from tf_keras import applications
 from tf_keras import distribute
+from tf_keras import layers
 from tf_keras import losses
 from tf_keras import metrics
 from tf_keras import models
