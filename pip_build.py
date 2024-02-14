@@ -449,13 +449,14 @@ def test_wheel(wheel_path, expected_version, requirements_path):
     checks = ";".join(symbols_to_check)
     # Uninstall `keras-nightly` after installing requirements
     # otherwise both will register `experimentalOptimizer` and test will fail.
+    # Skip install deps for `tf_keras` as TensorFlow installed from requirements
     script = (
         "#!/bin/bash\n"
         "virtualenv kenv\n"
         f"source {os.path.join('kenv', 'bin', 'activate')}\n"
         f"pip3 install -r {requirements_path}\n"
         "pip3 uninstall -y keras-nightly\n"
-        f"pip3 install {wheel_path} --force-reinstall\n"
+        f"pip3 install {wheel_path} --force-reinstall --no-deps\n"
         f"python3 -c 'import tf_keras;{checks};print(tf_keras.__version__)'\n"
     )
     try:
