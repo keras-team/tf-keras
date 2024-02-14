@@ -39,7 +39,9 @@ with open(os.path.abspath(__file__)) as f:
 
 # pin version to that of tensorflow or tf_nightly.
 if "nightly" in "{{PACKAGE}}":
-    install_requires = ["tf-nightly~={{VERSION}}.dev"]
+    version = "{{VERSION}}"  # 2.17.0.dev2024021419
+    base_version = version.split(".dev")[0]
+    install_requires = [f"tf-nightly~={base_version}.dev"]
 else:
     install_requires = ["tensorflow~={{VERSION}}"]
 
