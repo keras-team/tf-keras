@@ -60,28 +60,43 @@ module.exports = async ({github, context}) => {
         'Github event: pull_request updated with new code for PR number = ',
         context.issue.number);
     const labelsToRemove = 'ready to pull';
-    return github.rest.issues.removeLabel({
+    let result;
+    try {
+    result = await github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
       name: labelsToRemove,
     });
+    console.log(`'${labelsToRemove}' label removed successfully.\n`);
+    }
+    catch(e){
+       console.log(`'${labelsToRemove}' label dosen't exist in the PR. \n`);
+       result = `'${labelsToRemove}' label dosen't exist in the PR.`;
+    }
+    return result;
   } else if (context.payload.action == 'closed') {
     console.log('Trigger Event: ', context.payload.action);
     console.log(
         'Github event: pull_request updated with new code for PR number =',
         context.payload.pull_request.number);
     const labelsToRemove = ['keras-team-review-pending','ready to pull'];
-    let status = [];
+    let result = [];
     for(let label of labelsToRemove){
-     let result = github.rest.issues.removeLabel({
+      try {
+     let response = await github.rest.issues.removeLabel({
       owner: context.repo.owner,
       repo: context.repo.repo,
       issue_number: context.issue.number,
       name: label,
     });
-      status.push(result);
+        result.push(response);
+     }
+      catch(e){
+          console.log(`'${label}' label dosen't exist in the PR. \n`);
+          result.push( `'${label}' label dosen't exist in the PR.`);
+      }
     }
-    return status;
+    return result;
   }
 };
