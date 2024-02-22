@@ -130,7 +130,7 @@ class TestGeneratorMethods(test_combinations.TestCase):
             steps_per_epoch=5,
             validation_data=custom_generator(),
             validation_steps=1,
-            workers=0,
+            workers=1,
         )
 
     @test_combinations.run_with_all_model_types
@@ -166,7 +166,7 @@ class TestGeneratorMethods(test_combinations.TestCase):
             steps=5,
             max_queue_size=10,
             use_multiprocessing=False,
-            workers=0,
+            workers=1,
         )
 
     @test_combinations.run_with_all_model_types
@@ -192,7 +192,7 @@ class TestGeneratorMethods(test_combinations.TestCase):
             use_multiprocessing=False,
         )
         model.predict_generator(
-            custom_generator(), steps=5, max_queue_size=10, workers=0
+            custom_generator(), steps=5, max_queue_size=10, workers=1
         )
         # Test generator with just inputs (no targets)
         model.predict_generator(
@@ -209,7 +209,7 @@ class TestGeneratorMethods(test_combinations.TestCase):
             use_multiprocessing=False,
         )
         model.predict_generator(
-            custom_generator(mode=1), steps=5, max_queue_size=10, workers=0
+            custom_generator(mode=1), steps=5, max_queue_size=10, workers=1
         )
 
     @test_combinations.run_with_all_model_types
@@ -453,7 +453,7 @@ class TestGeneratorMethodsWithSequences(test_combinations.TestCase):
             validation_data=custom_generator(),
             validation_steps=1,
             max_queue_size=10,
-            workers=0,
+            workers=1,
             use_multiprocessing=True,
         )
         model.fit_generator(
@@ -462,7 +462,7 @@ class TestGeneratorMethodsWithSequences(test_combinations.TestCase):
             validation_data=custom_generator(),
             validation_steps=1,
             max_queue_size=10,
-            workers=0,
+            workers=1,
             use_multiprocessing=False,
         )
 
