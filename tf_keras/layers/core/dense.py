@@ -117,10 +117,10 @@ class Dense(Layer):
         super().__init__(activity_regularizer=activity_regularizer, **kwargs)
 
         self.units = int(units) if not isinstance(units, int) else units
-        if self.units <= 0:
+        if self.units < 0:
             raise ValueError(
-                f"Invalid value for `units`: {units}. Must be a "
-                f"positive integer."
+                "Received an invalid value for `units`, expected "
+                f"a positive integer. Received: units={units}"
             )
         self.activation = activations.get(activation)
         self.use_bias = use_bias
