@@ -1540,7 +1540,11 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
             checkpoint_position.restore(slot_variable)
 
     def _create_or_restore_slot_variable(
-        self, slot_variable_position, slot_name, variable
+        self,
+        slot_variable_position,
+        slot_name,
+        variable,
+        slot_variable_shape=None,
     ):
         """Returns the slot variable that should have a value restored into it.
 
@@ -1563,6 +1567,8 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
             indicating the slot variable `Trackable` object to be restored.
           slot_name: The name of this `Optimizer`'s slot to restore into.
           variable: The variable object this slot is being created for.
+          slot_variable_shape: (Optional) Shape of the required slot variable.
+            When not provided, the shape is same as the value in checkpoint.
 
         Returns:
           A slot variable that should have a value restored into it, or None if
@@ -1598,11 +1604,13 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
                     checkpoint_position=slot_variable_position
                 )
             )
+            if slot_variable_shape is None:
+                slot_variable_shape = slot_variable_position.value_shape()
             slot_variable = self.add_slot(
                 var=variable,
                 initializer=initializer,
                 slot_name=slot_name,
-                shape=slot_variable_position.value_shape(),
+                shape=slot_variable_shape,
             )
             # Slot variables are not owned by any one object (because we don't
             # want to save the slot variable if the optimizer is saved without
