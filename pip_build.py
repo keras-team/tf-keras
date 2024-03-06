@@ -450,6 +450,7 @@ def test_wheel(wheel_path, expected_version, requirements_path):
     # Use Env var `TENSORFLOW_VERSION` for specific TF version to use in release
     # Uninstall `keras` after installing requirements
     # otherwise both will register `experimentalOptimizer` and test will fail.
+    # Skip install deps for `tf_keras` as TensorFlow installed from requirements
     script = (
         "#!/bin/bash\n"
         "virtualenv kenv\n"
@@ -458,7 +459,7 @@ def test_wheel(wheel_path, expected_version, requirements_path):
         "pip3 uninstall -y tensorflow tf-nightly\n"
         'pip3 install "${TENSORFLOW_VERSION:-tf-nightly}"\n'
         "pip3 uninstall -y keras keras-nightly\n"
-        f"pip3 install {wheel_path} --force-reinstall\n"
+        f"pip3 install {wheel_path} --force-reinstall --no-deps\n"
         f"python3 -c 'import tf_keras;{checks};print(tf_keras.__version__)'\n"
     )
     try:

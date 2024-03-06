@@ -37,6 +37,12 @@ with open(os.path.abspath(__file__)) as f:
             "`pip_build.py` instead of `setup.py`."
         )
 
+# pin version to that of tensorflow or tf_nightly.
+if "nightly" in "{{PACKAGE}}":
+    install_requires = ["tf-nightly~={{VERSION}}.dev"]
+else:
+    install_requires = ["tensorflow~={{VERSION}}"]
+
 setuptools.setup(
     name="{{PACKAGE}}",
     # Version strings with `-` characters are semver compatible,
@@ -49,7 +55,7 @@ setuptools.setup(
     author="Keras team",
     author_email="keras-users@googlegroups.com",
     packages=setuptools.find_packages(),
-    install_requires=[],
+    install_requires=install_requires,
     # Supported Python versions
     python_requires=">=3.8",
     # PyPI package information.
@@ -64,6 +70,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3 :: Only",
         "Topic :: Scientific/Engineering",
         "Topic :: Scientific/Engineering :: Mathematics",
