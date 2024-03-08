@@ -56,7 +56,10 @@ def check_graphviz():
         # to check the pydot/graphviz installation.
         pydot.Dot.create(pydot.Dot())
         return True
-    except (OSError, pydot.InvocationException):
+    except (OSError, FileNotFoundError):
+        return False
+    # pydot_ng has InvocationException but pydot doesn't
+    except pydot.InvocationException:
         return False
 
 
