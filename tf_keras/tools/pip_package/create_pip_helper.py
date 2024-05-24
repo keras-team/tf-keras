@@ -37,6 +37,7 @@ PIP_EXCLUDED_FILES = frozenset(
 PIP_EXCLUDED_DIRS = frozenset(
     [
         "tf_keras/benchmarks",
+        "tf_keras/layers/experimental",  # cannot build currently, circular refs
         "tf_keras/tests",
     ]
 )
@@ -45,6 +46,7 @@ PIP_EXCLUDED_DIRS = frozenset(
 EXCLUDED_INIT_FILE_DIRECTORIES = frozenset(
     [
         "tf_keras/benchmarks",
+        "tf_keras/layers/experimental",
         "tf_keras/tools",
     ]
 )
