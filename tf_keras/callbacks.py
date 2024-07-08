@@ -1903,6 +1903,23 @@ class BackupAndRestore(Callback):
                 "only supports empty strategy, "
                 "MirroredStrategy, MultiWorkerMirroredStrategy and TPUStrategy."
             )
+
+        # Re-initialize the optimizer.
+        if self.model.built:
+            if (
+                self.model.optimizer is not None
+                and callable(getattr(self.model.optimizer, "build", None))
+                and not getattr(self.model.optimizer, "_built", False)
+            ):
+                self.model.optimizer.build(self.model.trainable_variables)
+        else:
+            logging.warning(
+                "To use the BackupAndRestore callback, "
+                "you model must be built before you call `fit()`. "
+                f"Model {self.model} is unbuilt. You can build it "
+                "beforehand by calling it on a batch of data."
+            )
+
         self.model._training_state = worker_training_state.WorkerTrainingState(
             self.model,
             self.backup_dir,

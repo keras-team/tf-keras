@@ -204,15 +204,20 @@ class CuDNNLSTM(_CuDNNRNN):
             shape=self._vector_shape,
         )
 
+        batch_dim = tf.shape(inputs)[1]
+        max_sequence_length = tf.shape(inputs)[0]
+        sequence_lengths = tf.fill([batch_dim], max_sequence_length)
+
         args = {
             "input": inputs,
             "input_h": input_h,
             "input_c": input_c,
             "params": params,
             "is_training": True,
+            "sequence_lengths": sequence_lengths,
         }
 
-        outputs, h, c, _, _ = tf.raw_ops.CudnnRNNV2(**args)
+        outputs, h, c, _, _ = tf.raw_ops.CudnnRNNV3(**args)
 
         if self.stateful or self.return_state:
             h = h[0]
