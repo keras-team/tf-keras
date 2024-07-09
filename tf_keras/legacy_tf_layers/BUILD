@@ -1,9 +1,9 @@
 # Description:
 #   Contains the legacy TF layers (internal TensorFlow version).
 
-# Placeholder: load unaliased py_library
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")  # buildifier: disable=same-origin-load
 load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")  # buildifier: disable=same-origin-load
+# Placeholder: load unaliased py_library
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],

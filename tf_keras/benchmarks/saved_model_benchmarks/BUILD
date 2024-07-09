@@ -1,8 +1,8 @@
 # Description:
 #   Implementation of TF-Keras benchmarks.
 
-# Placeholder: load unaliased py_library
 load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
+# Placeholder: load unaliased py_library
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],

@@ -93,7 +93,7 @@ class AutoCastVariableTest(test.TestCase, parameterized.TestCase):
 
             # within auto cast scope of different dtype
             with autocast_variable.enable_auto_cast_variables(tf.float16):
-                self.assertEqual(x.dtype, tf.float32)
+                self.assertEqual(x.dtype, tf.float16)
                 self.assertEqual(x.value().dtype, tf.float16)
                 self.assertEqual(x.read_value().dtype, tf.float16)
                 self.assertEqual(tf.identity(x).dtype, tf.float16)
@@ -160,7 +160,7 @@ class AutoCastVariableTest(test.TestCase, parameterized.TestCase):
 
             dtype = tf.float16
             with autocast_variable.enable_auto_cast_variables(dtype):
-                self.assertEqual(x.dtype, tf.float32)
+                self.assertEqual(x.dtype, tf.float16)
                 self.assertIsInstance(x.dtype, tf.DType)
                 self.assertEqual(x.true_dtype, tf.float32)
                 self.assertIsInstance(x.true_dtype, tf.DType)
@@ -339,31 +339,37 @@ class AutoCastVariableTest(test.TestCase, parameterized.TestCase):
             v1 = tf.constant(3.0, dtype=tf.float32)
             v2 = tf.constant(3.0, dtype=tf.float16)
 
-            def run_and_check():
+            def run_and_check(in_auto_cast_scope):
                 # Assign float32 values
                 self.assertAllClose(3.0, self.evaluate(x.assign(v1)))
                 self.assertAllClose(3.0 * 2, self.evaluate(x.assign_add(v1)))
                 self.assertAllClose(3.0, self.evaluate(x.assign_sub(v1)))
 
-                # Attempt to assign float16 values
-                with self.assertRaisesRegex(
-                    ValueError,
-                    "conversion requested dtype float32 for Tensor with dtype "
-                    "float16",
-                ):
+                if in_auto_cast_scope:
+                    # Assigning float16 values in autocast scope should succeed
                     self.evaluate(x.assign(v2))
-                with self.assertRaisesRegex(
-                    ValueError,
-                    "conversion requested dtype float32 for Tensor with dtype "
-                    "float16",
-                ):
                     self.evaluate(x.assign_add(v2))
-                with self.assertRaisesRegex(
-                    ValueError,
-                    "conversion requested dtype float32 for Tensor with dtype "
-                    "float16",
-                ):
                     self.evaluate(x.assign_sub(v2))
+                else:
+                    # Assigning float16 values in non-autocast scope should fail
+                    with self.assertRaisesRegex(
+                        ValueError,
+                        "conversion requested dtype float32 for Tensor with "
+                        "dtype float16",
+                    ):
+                        self.evaluate(x.assign(v2))
+                    with self.assertRaisesRegex(
+                        ValueError,
+                        "conversion requested dtype float32 for Tensor with "
+                        "dtype float16",
+                    ):
+                        self.evaluate(x.assign_add(v2))
+                    with self.assertRaisesRegex(
+                        ValueError,
+                        "conversion requested dtype float32 for Tensor with "
+                        "dtype float16",
+                    ):
+                        self.evaluate(x.assign_sub(v2))
 
                 # Assign Python floats
                 self.assertAllClose(0.0, self.evaluate(x.assign(0.0)))
@@ -419,13 +425,13 @@ class AutoCastVariableTest(test.TestCase, parameterized.TestCase):
                     3.0, self.evaluate(tf.compat.v1.assign_sub(x, 3.0))
                 )
 
-            run_and_check()
+            run_and_check(False)
             # reset x
             self.evaluate(x.assign(0.0))
             # within auto cast scope.
             with autocast_variable.enable_auto_cast_variables(tf.float16):
                 # assign still expect float32 value even if in float16 scope
-                run_and_check()
+                run_and_check(True)
 
     @tf.__internal__.distribute.combinations.generate(maybe_distribute)
     def test_assign_tf_function(self, distribution):

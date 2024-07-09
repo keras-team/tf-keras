@@ -1,9 +1,9 @@
 # Description:
 #   Contains the TF-Keras testing infrastructure.
 
+load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 # Placeholder: load unaliased py_library
 # Placeholder: load unaliased py_test
-load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],

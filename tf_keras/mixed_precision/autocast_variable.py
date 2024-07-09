@@ -124,20 +124,21 @@ class AutoCastVariable(tf.Variable, tf.__internal__.types.Tensor):
     def _should_cast(self):
         """Returns True if this variable should be casted when accessed."""
         autocast_dtype = getattr(_autocast_dtype, "dtype", None)
-        return autocast_dtype is not None and self.dtype != autocast_dtype
+        return autocast_dtype is not None and self.true_dtype != autocast_dtype
 
     @property
     def dtype(self):
+        """The dtype when the value is accessed, that is after casting."""
+        return self._cast_dtype
+
+    @property
+    def true_dtype(self):
         """The dtype of the underlying variable, before any casts are done."""
         return self._variable.dtype
 
     @property
-    def true_dtype(self):
-        """Deprecated alias of `dtype`."""
-        return self._variable.dtype
-
-    @property
     def _cast_dtype(self):
+        """The dtype after casting."""
         dtype = getattr(_autocast_dtype, "dtype", None)
         return dtype or self._variable.dtype
 
@@ -202,7 +203,8 @@ class AutoCastVariable(tf.Variable, tf.__internal__.types.Tensor):
         if tf.executing_eagerly() and not self._in_graph_mode:
             repr_str = (
                 "<AutoCastVariable '{v.name}' shape={v.shape} "
-                "dtype={v.dtype.name} dtype_to_cast_to={v._cast_dtype.name}, "
+                "dtype={v.true_dtype.name} "
+                "dtype_to_cast_to={v._cast_dtype.name}, "
                 "numpy={np_repr}>"
             )
             return repr_str.format(
@@ -211,7 +213,8 @@ class AutoCastVariable(tf.Variable, tf.__internal__.types.Tensor):
         else:
             repr_str = (
                 "<AutoCastVariable '{v.name}' shape={v.shape} "
-                "dtype={v.dtype.name} dtype_to_cast_to={v._cast_dtype.name}>"
+                "dtype={v.true_dtype.name} "
+                "dtype_to_cast_to={v._cast_dtype.name}>"
             )
             return repr_str.format(v=self)
 
@@ -261,6 +264,9 @@ class AutoCastVariable(tf.Variable, tf.__internal__.types.Tensor):
     def _apply_assign_update(
         self, update_fn, value, use_locking=None, name=None, read_value=True
     ):
+        # In auto cast scope, we cast back to the actual variable dtype.
+        if self._should_cast():
+            value = tf.cast(value, self.true_dtype)
         # TODO(b/146181571): This logic can be simplified once
         # DistributedVariable.assign returns a DistributedVariable. Currently
         # for MirroredStrategy, it returns a Mirrored value.

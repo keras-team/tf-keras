@@ -1033,6 +1033,13 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
         slot_dict = self._slots.setdefault(var_key, {})
         weight = slot_dict.get(slot_name, None)
         if weight is None:
+            # Under a mixed precision policy, variables report their "cast"
+            # dtype. However, we want to use the original dtype for slots.
+            if hasattr(var, "true_dtype"):
+                dtype = var.true_dtype
+            else:
+                dtype = var.dtype
+
             if isinstance(initializer, str) or callable(initializer):
                 initializer = initializers.get(initializer)
                 if isinstance(
@@ -1043,7 +1050,7 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
                 else:
                     slot_shape = var.shape
                 initial_value = functools.partial(
-                    initializer, shape=slot_shape, dtype=var.dtype
+                    initializer, shape=slot_shape, dtype=dtype
                 )
             else:
                 initial_value = initializer
@@ -1064,7 +1071,7 @@ class OptimizerV2(tf.__internal__.tracking.Trackable):
                 with strategy.extended.colocate_vars_with(var):
                     weight = tf.Variable(
                         name=f"{var._shared_name}/{slot_name}",
-                        dtype=var.dtype,
+                        dtype=dtype,
                         trainable=False,
                         initial_value=initial_value,
                     )

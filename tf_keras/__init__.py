@@ -35,6 +35,6 @@ from tf_keras.testing_infra import test_utils
 from tensorflow.python import tf2
 from tensorflow.python.util.tf_export import keras_export
 
-__version__ = "2.18.0"
+__version__ = "2.17.0"
 
 keras_export("keras.__version__").export_constant(__name__, "__version__")

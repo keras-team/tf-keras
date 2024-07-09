@@ -498,26 +498,32 @@ class _BaseOptimizer(tf.__internal__.tracking.AutoTrackable):
         Returns:
           An optimizer variable.
         """
+        # Under a mixed precision policy, variables report their "cast"
+        # dtype. However, we want to use the original dtype for slots.
+        if hasattr(model_variable, "true_dtype"):
+            dtype = model_variable.true_dtype
+        else:
+            dtype = model_variable.dtype
         if initial_value is None:
             if shape is None:
                 if model_variable.shape.rank is None:
                     # When the rank is None, we cannot get a concrete
                     # `model_variable.shape`, we use dynamic shape.
                     initial_value = tf.zeros_like(
-                        model_variable, dtype=model_variable.dtype
+                        model_variable, dtype=dtype
                     )
                 else:
                     # We cannot always use `zeros_like`, because some cases
                     # the shape exists while values don't.
                     initial_value = tf.zeros(
-                        model_variable.shape, dtype=model_variable.dtype
+                        model_variable.shape, dtype=dtype
                     )
             else:
-                initial_value = tf.zeros(shape, dtype=model_variable.dtype)
+                initial_value = tf.zeros(shape, dtype=dtype)
         variable = tf.Variable(
             initial_value=initial_value,
             name=f"{variable_name}/{model_variable._shared_name}",
-            dtype=model_variable.dtype,
+            dtype=dtype,
             trainable=False,
         )
         # If model_variable is a shard of a ShardedVariable, we should add a
@@ -1188,10 +1194,17 @@ class Optimizer(_BaseOptimizer):
                         self._mesh, rank=initial_value.shape.rank
                     ),
                 )
+            # Under a mixed precision policy, variables report their "cast"
+            # dtype. However, we want to use the original dtype for optimizer
+            # variables.
+            if hasattr(model_variable, "true_dtype"):
+                dtype = model_variable.true_dtype
+            else:
+                dtype = model_variable.dtype
             variable = tf.experimental.dtensor.DVariable(
                 initial_value=initial_value,
                 name=f"{variable_name}/{model_variable._shared_name}",
-                dtype=model_variable.dtype,
+                dtype=dtype,
                 trainable=False,
             )
             self._variables.append(variable)

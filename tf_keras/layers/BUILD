@@ -1,8 +1,8 @@
 # Description:
 #   Contains the TF-Keras layers (internal TensorFlow version).
 
-# Placeholder: load unaliased py_library
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
+# Placeholder: load unaliased py_library
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],

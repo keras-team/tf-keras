@@ -229,7 +229,7 @@ class StepsPerExecutionTuner:
 
         if current_spe >= spe_limit:
             new_spe = current_spe
-        elif current_spe == 0:
+        elif current_spe <= 0:
             new_spe = self.init_spe
 
         self._steps_per_execution.assign(np.round(new_spe))

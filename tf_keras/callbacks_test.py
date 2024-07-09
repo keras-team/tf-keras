@@ -471,11 +471,17 @@ class KerasCallbacksTest(test_combinations.TestCase, parameterized.TestCase):
 
             def on_epoch_end(self, epoch, log=None):
                 if epoch == epoch_int:
+                    # Re-initialize optimizer to test state restore.
+                    self.model.optimizer = sgd.SGD()
+
                     raise RuntimeError("EpochInterruption")
 
             def on_batch_end(self, batch, logs=None):
                 self.batch_count += 1
                 if self.batch_count == steps_int:
+                    # Re-initialize optimizer to test state restore.
+                    self.model.optimizer = sgd.SGD()
+
                     raise RuntimeError("StepsInterruption")
 
         class VerifyRestore(Callback):
@@ -504,6 +510,12 @@ class KerasCallbacksTest(test_combinations.TestCase, parameterized.TestCase):
                         "Training did not restore at Epoch (%d) and step (%d)"
                         % (self.initial_epoch, self.initial_step)
                     )
+
+            def on_train_begin(self, logs=None):
+                if self.model.optimizer is None or not getattr(
+                    self.model.optimizer, "_built", False
+                ):
+                    raise ValueError("Optimizer did not restore at train begin")
 
         model = keras.Sequential([keras.layers.Dense(10)])
         optimizer = sgd.SGD()

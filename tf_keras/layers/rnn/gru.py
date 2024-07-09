@@ -1034,11 +1034,13 @@ def gpu_gru(
             mask, time_major
         )
 
-    if not time_major and sequence_lengths is None:
-        inputs = tf.transpose(inputs, perm=(1, 0, 2))
-        seq_axis, batch_axis = (0, 1)
-    else:
-        seq_axis, batch_axis = (0, 1) if time_major else (1, 0)
+    seq_axis, batch_axis = (0, 1) if time_major else (1, 0)
+
+    if sequence_lengths is None:
+        max_sequence_length = tf.shape(inputs)[seq_axis]
+        batch_size = tf.shape(inputs)[batch_axis]
+        sequence_lengths = tf.fill([batch_size], max_sequence_length)
+
     # For init_h, cuDNN expects one more dim of num_layers before or after batch
     # dim for time major or batch major inputs respectively
     init_h = tf.expand_dims(init_h, axis=seq_axis)
@@ -1069,49 +1071,36 @@ def gpu_gru(
         transpose_weights=True,
     )
 
-    if sequence_lengths is not None:
-        if go_backwards:
-            # Three reversals are required. E.g.,
-            # normal input = [1, 2, 3, 0, 0]  # where 0 need to be masked
-            # reversed_input_to_cudnn = [3, 2, 1, 0, 0]
-            # output_from_cudnn = [6, 5, 4, 0, 0]
-            # expected_output = [0, 0, 6, 5 ,4]
-            inputs = tf.reverse_sequence(
-                inputs,
-                sequence_lengths,
-                seq_axis=seq_axis,
-                batch_axis=batch_axis,
-            )
-        outputs, h, _, _, _ = tf.raw_ops.CudnnRNNV3(
-            input=inputs,
-            input_h=init_h,
-            input_c=0,
-            params=params,
-            is_training=True,
-            rnn_mode="gru",
-            sequence_lengths=sequence_lengths,
-            time_major=time_major,
+    if go_backwards:
+        # Three reversals are required. E.g.,
+        # normal input = [1, 2, 3, 0, 0]  # where 0 need to be masked
+        # reversed_input_to_cudnn = [3, 2, 1, 0, 0]
+        # output_from_cudnn = [6, 5, 4, 0, 0]
+        # expected_output = [0, 0, 6, 5 ,4]
+        inputs = tf.reverse_sequence(
+            inputs,
+            sequence_lengths,
+            seq_axis=seq_axis,
+            batch_axis=batch_axis,
         )
-        if go_backwards:
-            outputs = tf.reverse_sequence(
-                outputs,
-                sequence_lengths,
-                seq_axis=seq_axis,
-                batch_axis=batch_axis,
-            )
-            outputs = tf.reverse(outputs, axis=[seq_axis])
-    else:
-        if go_backwards:
-            # Reverse axis 0 since the input is already convert to time major.
-            inputs = tf.reverse(inputs, axis=[0])
-        outputs, h, _, _ = tf.raw_ops.CudnnRNN(
-            input=inputs,
-            input_h=init_h,
-            input_c=0,
-            params=params,
-            is_training=True,
-            rnn_mode="gru",
+    outputs, h, _, _, _ = tf.raw_ops.CudnnRNNV3(
+        input=inputs,
+        input_h=init_h,
+        input_c=0,
+        params=params,
+        is_training=True,
+        rnn_mode="gru",
+        sequence_lengths=sequence_lengths,
+        time_major=time_major,
+    )
+    if go_backwards:
+        outputs = tf.reverse_sequence(
+            outputs,
+            sequence_lengths,
+            seq_axis=seq_axis,
+            batch_axis=batch_axis,
         )
+        outputs = tf.reverse(outputs, axis=[seq_axis])
 
     last_output = outputs[-1]
     if not time_major and sequence_lengths is None and return_sequences:
