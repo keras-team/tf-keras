@@ -2,12 +2,8 @@
 #   Contains the TF-Keras normalization layers (internal TensorFlow version).
 
 # Placeholder: load unaliased py_library
-
-# buildifier: disable=same-origin-load
-load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
-
-# buildifier: disable=same-origin-load
-load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
+load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")  # buildifier: disable=same-origin-load
+load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")  # buildifier: disable=same-origin-load
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
