@@ -509,15 +509,11 @@ class _BaseOptimizer(tf.__internal__.tracking.AutoTrackable):
                 if model_variable.shape.rank is None:
                     # When the rank is None, we cannot get a concrete
                     # `model_variable.shape`, we use dynamic shape.
-                    initial_value = tf.zeros_like(
-                        model_variable, dtype=dtype
-                    )
+                    initial_value = tf.zeros_like(model_variable, dtype=dtype)
                 else:
                     # We cannot always use `zeros_like`, because some cases
                     # the shape exists while values don't.
-                    initial_value = tf.zeros(
-                        model_variable.shape, dtype=dtype
-                    )
+                    initial_value = tf.zeros(model_variable.shape, dtype=dtype)
             else:
                 initial_value = tf.zeros(shape, dtype=dtype)
         variable = tf.Variable(
