@@ -58,29 +58,23 @@ class TestObjectRegistration(tf.test.TestCase):
             def get_config(self):
                 return {"value": self._value}
 
+            @classmethod
+            def from_config(cls, config):
+                return cls(**config)
+
         serialized_name = "Custom>TestClass"
         inst = TestClass(value=10)
         class_name = object_registration._GLOBAL_CUSTOM_NAMES[TestClass]
         self.assertEqual(serialized_name, class_name)
         config = serialization_lib.serialize_keras_object(inst)
-        self.assertEqual(class_name, config["class_name"])
+        if tf.__internal__.tf2.enabled():
+            self.assertEqual(class_name, config["registered_name"])
+        else:
+            self.assertEqual(class_name, config["class_name"])
         new_inst = serialization_lib.deserialize_keras_object(config)
         self.assertIsNot(inst, new_inst)
         self.assertIsInstance(new_inst, TestClass)
         self.assertEqual(10, new_inst._value)
-
-        # Make sure registering a new class with same name will fail.
-        with self.assertRaisesRegex(
-            ValueError, ".*has already been registered.*"
-        ):
-
-            @object_registration.register_keras_serializable()
-            class TestClass:
-                def __init__(self, value):
-                    self._value = value
-
-                def get_config(self):
-                    return {"value": self._value}
 
     def test_serialize_custom_class_with_custom_name(self):
         @object_registration.register_keras_serializable(
@@ -93,6 +87,10 @@ class TestObjectRegistration(tf.test.TestCase):
             def get_config(self):
                 return {"val": self._val}
 
+            @classmethod
+            def from_config(cls, config):
+                return cls(**config)
+
         serialized_name = "TestPackage>CustomName"
         inst = OtherTestClass(val=5)
         class_name = object_registration._GLOBAL_CUSTOM_NAMES[OtherTestClass]
@@ -103,9 +101,12 @@ class TestObjectRegistration(tf.test.TestCase):
         cls = object_registration.get_registered_object(fn_class_name)
         self.assertEqual(OtherTestClass, cls)
 
-        config = keras.utils.serialization.serialize_keras_object(inst)
-        self.assertEqual(class_name, config["class_name"])
-        new_inst = keras.utils.serialization.deserialize_keras_object(config)
+        config = serialization_lib.serialize_keras_object(inst)
+        if tf.__internal__.tf2.enabled():
+            self.assertEqual(class_name, config["registered_name"])
+        else:
+            self.assertEqual(class_name, config["class_name"])
+        new_inst = serialization_lib.deserialize_keras_object(config)
         self.assertIsNot(inst, new_inst)
         self.assertIsInstance(new_inst, OtherTestClass)
         self.assertEqual(5, new_inst._val)
@@ -121,9 +122,12 @@ class TestObjectRegistration(tf.test.TestCase):
         fn_class_name = object_registration.get_registered_name(my_fn)
         self.assertEqual(fn_class_name, class_name)
 
-        config = keras.utils.serialization.serialize_keras_object(my_fn)
-        self.assertEqual(class_name, config)
-        fn = keras.utils.serialization.deserialize_keras_object(config)
+        config = serialization_lib.serialize_keras_object(my_fn)
+        if tf.__internal__.tf2.enabled():
+            self.assertEqual("my_fn", config["config"])
+        else:
+            self.assertEqual(class_name, config)
+        fn = serialization_lib.deserialize_keras_object(config)
         self.assertEqual(42, fn())
 
         fn_2 = object_registration.get_registered_object(fn_class_name)
@@ -141,3 +145,7 @@ class TestObjectRegistration(tf.test.TestCase):
             class TestClass:
                 def __init__(self, value):
                     self._value = value
+
+
+if __name__ == "__main__":
+    tf.test.main()
