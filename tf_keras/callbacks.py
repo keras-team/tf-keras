@@ -1423,20 +1423,20 @@ class ModelCheckpoint(Callback):
         if mode == "min":
             self.monitor_op = np.less
             if self.best is None:
-                self.best = np.Inf
+                self.best = np.inf
         elif mode == "max":
             self.monitor_op = np.greater
             if self.best is None:
-                self.best = -np.Inf
+                self.best = -np.inf
         else:
             if "acc" in self.monitor or self.monitor.startswith("fmeasure"):
                 self.monitor_op = np.greater
                 if self.best is None:
-                    self.best = -np.Inf
+                    self.best = -np.inf
             else:
                 self.monitor_op = np.less
                 if self.best is None:
-                    self.best = np.Inf
+                    self.best = np.inf
 
         if self.save_freq != "epoch" and not isinstance(self.save_freq, int):
             raise ValueError(
@@ -2112,7 +2112,7 @@ class EarlyStopping(Callback):
         # Allow instances to be re-used
         self.wait = 0
         self.stopped_epoch = 0
-        self.best = np.Inf if self.monitor_op == np.less else -np.Inf
+        self.best = np.inf if self.monitor_op == np.less else -np.inf
         self.best_weights = None
         self.best_epoch = 0
 
@@ -3115,10 +3115,10 @@ class ReduceLROnPlateau(Callback):
             self.mode == "auto" and "acc" not in self.monitor
         ):
             self.monitor_op = lambda a, b: np.less(a, b - self.min_delta)
-            self.best = np.Inf
+            self.best = np.inf
         else:
             self.monitor_op = lambda a, b: np.greater(a, b + self.min_delta)
-            self.best = -np.Inf
+            self.best = -np.inf
         self.cooldown_counter = 0
         self.wait = 0
 

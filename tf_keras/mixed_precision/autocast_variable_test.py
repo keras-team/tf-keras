@@ -517,13 +517,13 @@ class AutoCastVariableTest(test.TestCase, parameterized.TestCase):
                 # same float16 value.
                 self.evaluate(x.assign(1.0 + small_tensor))
                 self.assertEqual(1.0, self.evaluate(x.value()))
-            self.assertEqual(1.0 + small_val, self.evaluate(x))
+            self.assertEqual(1.0 + np.float64(small_val), self.evaluate(x))
 
             self.evaluate(x.assign(1.0))
             with autocast_variable.enable_auto_cast_variables(tf.float16):
                 self.evaluate(x.assign_add(small_tensor))
                 self.assertEqual(1.0, self.evaluate(x.value()))
-            self.assertEqual(1.0 + small_val, self.evaluate(x))
+            self.assertEqual(1.0 + np.float64(small_val), self.evaluate(x))
 
     def test_thread_local_autocast_dtype(self):
         x = get_var(1.0, tf.float32)
