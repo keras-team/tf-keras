@@ -352,7 +352,8 @@ class Layer(base_layer.Layer):
             Accepted values are constants defined in the class
             `tf.VariableAggregation`.
           **kwargs: Additional keyword arguments. Accepted values are `getter`,
-            `collections`, `experimental_autocast` and `caching_device`.
+            `collections`, `autocast`, `experimental_autocast` and
+            `caching_device`.
 
         Returns:
           The created variable. Usually either a `Variable` or
@@ -371,6 +372,7 @@ class Layer(base_layer.Layer):
         # Validate optional keyword arguments.
         for kwarg in kwargs:
             if kwarg not in [
+                "autocast",
                 "getter",
                 "collections",
                 "experimental_autocast",
@@ -380,9 +382,13 @@ class Layer(base_layer.Layer):
         has_custom_getter = "getter" in kwargs
         getter = kwargs.pop("getter", base_layer_utils.make_variable)
         collections_arg = kwargs.pop("collections", None)
-        # 'experimental_autocast' can be set to False by the caller to indicate
-        # an AutoCastVariable should never be created.
-        autocast = kwargs.pop("experimental_autocast", True)
+        # 'autocast' or 'experimental_autocast' can be set to False by the
+        # caller to indicate an AutoCastVariable should never be created.
+        autocast = kwargs.pop("autocast", None)
+        if autocast is None:
+            autocast = kwargs.pop("experimental_autocast", None)
+            if autocast is None:
+                autocast = True
         # See the docstring for tf.Variable about the details for
         # caching_device.
         caching_device = kwargs.pop("caching_device", None)

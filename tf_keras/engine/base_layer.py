@@ -578,7 +578,8 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
             Accepted values are constants defined in the class
             `tf.VariableAggregation`.
           **kwargs: Additional keyword arguments. Accepted values are `getter`,
-            `collections`, `experimental_autocast` and `caching_device`.
+            `collections`, `autocast`, `experimental_autocast` and
+            `caching_device`.
 
         Returns:
           The variable created.
@@ -594,6 +595,7 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         # Validate optional keyword arguments.
         for kwarg in kwargs:
             if kwarg not in [
+                "autocast",
                 "collections",
                 "experimental_autocast",
                 "caching_device",
@@ -603,9 +605,13 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
             ]:
                 raise TypeError("Unknown keyword argument:", kwarg)
         collections_arg = kwargs.pop("collections", None)
-        # 'experimental_autocast' can be set to False by the caller to indicate
-        # an AutoCastVariable should never be created.
-        autocast = kwargs.pop("experimental_autocast", True)
+        # 'autocast' or 'experimental_autocast' can be set to False by the
+        # caller to indicate an AutoCastVariable should never be created.
+        autocast = kwargs.pop("autocast", None)
+        if autocast is None:
+            autocast = kwargs.pop("experimental_autocast", None)
+            if autocast is None:
+                autocast = True
         # See the docstring for tf.Variable about the details for
         # caching_device.
         caching_device = kwargs.pop("caching_device", None)

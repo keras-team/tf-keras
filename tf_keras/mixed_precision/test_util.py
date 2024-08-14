@@ -214,7 +214,7 @@ class MultiplyLayerWithoutAutoCast(MultiplyLayer):
             (),
             initializer="ones",
             dtype=dtype,
-            experimental_autocast=False,
+            autocast=False,
             regularizer=self._regularizer,
         )
         self.built = True
