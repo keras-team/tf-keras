@@ -10,7 +10,6 @@ package(
     default_visibility = [
         "//tf_keras:friends",
         "//third_party/tensorflow/cc/saved_model:__pkg__",  # For unit tests.
-        "//third_party/tensorflow/python/trackable:__pkg__",
     ],
     licenses = ["notice"],
 )
