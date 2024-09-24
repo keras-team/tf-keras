@@ -2,7 +2,7 @@
 # The rest of the packages are mostly used for testing purpose.
 pandas
 pydot
-scipy ~= 1.9.2
+scipy
 # Remove once both TensorFlow and TF-Keras nightly builds pass.
 # Temporarily enforce 3.20.3 version, as the only version which is compatible
 # with both new and old protobuf stubs. This is needed to resolve
@@ -13,7 +13,7 @@ tf-nightly
 portpicker
 pyyaml
 Pillow
-numpy ~= 1.24.3  # Sync with the numpy version used in TF
+numpy >= 1.26.0, < 2.1.0 # Sync with the numpy version used in TF
 black==22.3.0
 isort==5.10.1
 flake8==4.0.1
