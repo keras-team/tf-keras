@@ -166,6 +166,7 @@ class StackedRNNCells(base_layer.Layer):
 
     @tf_utils.shape_type_conversion
     def build(self, input_shape):
+        super().build(input_shape)
         if isinstance(input_shape, list):
             input_shape = input_shape[0]
 
@@ -195,7 +196,6 @@ class StackedRNNCells(base_layer.Layer):
                 input_shape = tuple(
                     [batch_size] + tf.TensorShape(output_dim).as_list()
                 )
-        self.built = True
 
     def get_config(self):
         cells = []

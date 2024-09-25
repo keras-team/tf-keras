@@ -154,7 +154,7 @@ class RNNTest(test_combinations.TestCase):
                     initializer="uniform",
                     name="recurrent_kernel",
                 )
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs, states):
                 prev_output = states[0]
@@ -241,7 +241,7 @@ class RNNTest(test_combinations.TestCase):
                     initializer="uniform",
                     name="recurrent_kernel",
                 )
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs, states):
                 prev_output = states[0]
@@ -720,7 +720,7 @@ class RNNTest(test_combinations.TestCase):
                     initializer="uniform",
                     name="recurrent_kernel",
                 )
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs, states):
                 prev_output = states[0]
@@ -968,7 +968,7 @@ class RNNTest(test_combinations.TestCase):
 
             def build(self, input_shape):
                 self.cell.build(input_shape)
-                self.built = True
+                super().build(input_shape)
 
             def get_initial_state(
                 self, inputs=None, batch_size=None, dtype=None
@@ -2034,7 +2034,7 @@ class RNNCellWithConstants(keras.layers.Layer):
             initializer="uniform",
             name="constant_kernel",
         )
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs, states, constants):
         [prev_output] = states
@@ -2081,7 +2081,7 @@ class Minimal2DRNNCell(keras.layers.Layer):
         self.bias = self.add_weight(
             shape=(self.unit_a, self.unit_b), initializer="uniform", name="bias"
         )
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs, states):
         prev_output = states[0]

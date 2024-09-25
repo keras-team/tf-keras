@@ -470,7 +470,8 @@ class Bidirectional(Wrapper):
             self.forward_layer.build(input_shape)
         with backend.name_scope(self.backward_layer.name):
             self.backward_layer.build(input_shape)
-        self.built = True
+        # Call Layer.build() to skip Wrapper.build() which we override here.
+        Layer.build(self, input_shape)
 
     def compute_mask(self, inputs, mask):
         if isinstance(mask, list):

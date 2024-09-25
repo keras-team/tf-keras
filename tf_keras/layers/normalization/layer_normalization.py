@@ -249,7 +249,7 @@ class LayerNormalization(Layer):
             self.beta = None
 
         self._fused = self._fused_can_be_used(rank)
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs):
         # TODO(b/229545225): Remove the RaggedTensor check.

@@ -527,7 +527,7 @@ class TrainingTest(test_combinations.TestCase):
 
             def build(self, input_shape):
                 self._nested_layer = NestedReturnTraining()
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs):
                 return self._nested_layer(inputs)
@@ -4148,7 +4148,7 @@ class TestTrainingWithMetrics(test_combinations.TestCase):
                 self.a = self.add_weight(
                     "a", (1, 1), initializer="ones", trainable=False
                 )
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs):
                 self.add_metric(

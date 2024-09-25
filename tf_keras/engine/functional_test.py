@@ -69,7 +69,7 @@ class NetworkConstructionTest(test_combinations.TestCase):
                         self.a, [[1.0]], name="unconditional_update"
                     )
                 )
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs):
                 self.add_update(

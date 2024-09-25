@@ -144,8 +144,6 @@ class CuDNNGRU(_CuDNNRNN):
             constraint=self.bias_constraint,
         )
 
-        self.built = True
-
     def _process_batch(self, inputs, initial_state):
         if not self.time_major:
             inputs = tf.transpose(inputs, perm=(1, 0, 2))

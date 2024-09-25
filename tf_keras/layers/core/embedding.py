@@ -185,7 +185,7 @@ class Embedding(Layer):
             constraint=self.embeddings_constraint,
             experimental_autocast=False,
         )
-        self.built = True
+        super().build(input_shape)
 
     def compute_mask(self, inputs, mask=None):
         if not self.mask_zero:

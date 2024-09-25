@@ -21,6 +21,7 @@ from tf_keras import activations
 from tf_keras import constraints
 from tf_keras import initializers
 from tf_keras import regularizers
+from tf_keras.engine.base_layer import Layer
 from tf_keras.engine.input_spec import InputSpec
 from tf_keras.layers.convolutional.base_conv import Conv
 
@@ -203,7 +204,8 @@ class SeparableConv(Conv):
             )
         else:
             self.bias = None
-        self.built = True
+        # Call Layer.build() to skip Conv.build() which we override here.
+        Layer.build(self, input_shape)
 
     def call(self, inputs):
         raise NotImplementedError

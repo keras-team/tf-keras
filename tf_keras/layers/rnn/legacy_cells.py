@@ -246,11 +246,6 @@ class RNNCell(base_layer.Layer):
         """Integer or TensorShape: size of outputs produced by this cell."""
         raise NotImplementedError("Abstract method")
 
-    def build(self, _):
-        # This tells the parent Layer object that it's OK to call
-        # self.add_weight() inside the call() method.
-        pass
-
     def get_initial_state(self, inputs=None, batch_size=None, dtype=None):
         if inputs is not None:
             # Validate the given batch_size and dtype against inputs if
@@ -445,15 +440,15 @@ class BasicRNNCell(LayerRNNCell):
         return self._num_units
 
     @tf_utils.shape_type_conversion
-    def build(self, inputs_shape):
-        if inputs_shape[-1] is None:
+    def build(self, input_shape):
+        if input_shape[-1] is None:
             raise ValueError(
                 "Expected inputs.shape[-1] to be known, "
-                f"received shape: {inputs_shape}"
+                f"received shape: {input_shape}"
             )
         _check_supported_dtypes(self.dtype)
 
-        input_depth = inputs_shape[-1]
+        input_depth = input_shape[-1]
         self._kernel = self.add_weight(
             _WEIGHTS_VARIABLE_NAME,
             shape=[input_depth + self._num_units, self._num_units],
@@ -464,7 +459,7 @@ class BasicRNNCell(LayerRNNCell):
             initializer=tf.compat.v1.zeros_initializer(dtype=self.dtype),
         )
 
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs, state):
         """Most basic RNN: output = new_state = act(W * input + U * state +
@@ -563,14 +558,14 @@ class GRUCell(LayerRNNCell):
         return self._num_units
 
     @tf_utils.shape_type_conversion
-    def build(self, inputs_shape):
-        if inputs_shape[-1] is None:
+    def build(self, input_shape):
+        if input_shape[-1] is None:
             raise ValueError(
                 "Expected inputs.shape[-1] to be known, "
-                f"received shape: {inputs_shape}"
+                f"received shape: {input_shape}"
             )
         _check_supported_dtypes(self.dtype)
-        input_depth = inputs_shape[-1]
+        input_depth = input_shape[-1]
         self._gate_kernel = self.add_weight(
             f"gates/{_WEIGHTS_VARIABLE_NAME}",
             shape=[input_depth + self._num_units, 2 * self._num_units],
@@ -600,7 +595,7 @@ class GRUCell(LayerRNNCell):
             ),
         )
 
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs, state):
         """Gated recurrent unit (GRU) with nunits cells."""
@@ -774,14 +769,14 @@ class BasicLSTMCell(LayerRNNCell):
         return self._num_units
 
     @tf_utils.shape_type_conversion
-    def build(self, inputs_shape):
-        if inputs_shape[-1] is None:
+    def build(self, input_shape):
+        if input_shape[-1] is None:
             raise ValueError(
                 "Expected inputs.shape[-1] to be known, "
-                f"received shape: {inputs_shape}"
+                f"received shape: {input_shape}"
             )
         _check_supported_dtypes(self.dtype)
-        input_depth = inputs_shape[-1]
+        input_depth = input_shape[-1]
         h_depth = self._num_units
         self._kernel = self.add_weight(
             _WEIGHTS_VARIABLE_NAME,
@@ -793,7 +788,7 @@ class BasicLSTMCell(LayerRNNCell):
             initializer=tf.compat.v1.zeros_initializer(dtype=self.dtype),
         )
 
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs, state):
         """Long short-term memory cell (LSTM).
@@ -1017,14 +1012,14 @@ class LSTMCell(LayerRNNCell):
         return self._output_size
 
     @tf_utils.shape_type_conversion
-    def build(self, inputs_shape):
-        if inputs_shape[-1] is None:
+    def build(self, input_shape):
+        if input_shape[-1] is None:
             raise ValueError(
                 "Expected inputs.shape[-1] to be known, "
-                f"received shape: {inputs_shape}"
+                f"received shape: {input_shape}"
             )
         _check_supported_dtypes(self.dtype)
-        input_depth = inputs_shape[-1]
+        input_depth = input_shape[-1]
         h_depth = self._num_units if self._num_proj is None else self._num_proj
         maybe_partitioner = (
             tf.compat.v1.fixed_size_partitioner(self._num_unit_shards)
@@ -1076,7 +1071,7 @@ class LSTMCell(LayerRNNCell):
                 partitioner=maybe_proj_partitioner,
             )
 
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs, state):
         """Run one step of LSTM.

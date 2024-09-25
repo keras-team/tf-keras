@@ -368,9 +368,9 @@ class DropoutWrapper(_RNNCellWrapperV1):
     def wrapped_cell(self):
         return self.cell
 
-    def build(self, inputs_shape):
-        self.cell.build(inputs_shape)
-        self.built = True
+    def build(self, input_shape):
+        self.cell.build(input_shape)
+        super().build(input_shape)
 
     def _variational_recurrent_dropout_value(
         self, unused_index, value, noise, keep_prob

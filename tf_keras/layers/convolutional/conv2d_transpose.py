@@ -23,6 +23,7 @@ from tf_keras import constraints
 from tf_keras import initializers
 from tf_keras import regularizers
 from tf_keras.dtensor import utils
+from tf_keras.engine.base_layer import Layer
 from tf_keras.engine.input_spec import InputSpec
 from tf_keras.layers.convolutional.conv2d import Conv2D
 from tf_keras.utils import conv_utils
@@ -240,7 +241,8 @@ class Conv2DTranspose(Conv2D):
             )
         else:
             self.bias = None
-        self.built = True
+        # Call Layer.build() to skip Conv.build() which we override here.
+        Layer.build(self, input_shape)
 
     def call(self, inputs):
         inputs_shape = tf.shape(inputs)

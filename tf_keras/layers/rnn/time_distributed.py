@@ -135,7 +135,6 @@ class TimeDistributed(Wrapper):
         )
         child_input_shape = tf_utils.convert_shapes(child_input_shape)
         super().build(tuple(child_input_shape))
-        self.built = True
 
     def compute_output_shape(self, input_shape):
         input_shape = tf_utils.convert_shapes(input_shape, to_tuples=False)

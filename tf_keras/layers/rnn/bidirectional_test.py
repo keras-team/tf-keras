@@ -60,7 +60,7 @@ class _RNNCellWithConstants(keras.layers.Layer):
             initializer="uniform",
             name="constant_kernel",
         )
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs, states, constants):
         [prev_output] = states

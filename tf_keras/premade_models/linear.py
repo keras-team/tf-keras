@@ -156,7 +156,8 @@ class LinearModel(training.Model):
             )
         else:
             self.bias = None
-        self.built = True
+        # Call Layer.build() to skip Model.build() which we override here.
+        base_layer.Layer.build(self, input_shape)
 
     def call(self, inputs):
         result = None

@@ -284,7 +284,7 @@ class LocallyConnected1D(Layer):
             self.input_spec = InputSpec(ndim=3, axes={1: input_dim})
         else:
             self.input_spec = InputSpec(ndim=3, axes={-1: input_dim})
-        self.built = True
+        super().build(input_shape)
 
     @tf_utils.shape_type_conversion
     def compute_output_shape(self, input_shape):

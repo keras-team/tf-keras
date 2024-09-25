@@ -174,7 +174,7 @@ class Dense(Layer):
             )
         else:
             self.bias = None
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs):
         if inputs.dtype.base_dtype != self._compute_dtype_object.base_dtype:

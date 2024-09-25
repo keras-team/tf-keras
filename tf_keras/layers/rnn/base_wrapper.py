@@ -56,7 +56,7 @@ class Wrapper(Layer):
         if not self.layer.built:
             self.layer.build(input_shape)
             self.layer.built = True
-        self.built = True
+        super().build(input_shape)
 
     @property
     def activity_regularizer(self):

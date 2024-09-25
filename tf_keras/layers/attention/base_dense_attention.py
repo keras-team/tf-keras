@@ -86,7 +86,8 @@ class BaseDenseAttention(base_layer.BaseRandomLayer):
         # be purely stateless, with no reference to any variable.
         if self.dropout > 0:
             super().build(input_shape)
-        self.built = True
+        else:
+            base_layer.Layer.build(self, input_shape)
 
     def _calculate_scores(self, query, key):
         """Calculates attention scores.

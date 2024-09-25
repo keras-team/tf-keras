@@ -542,7 +542,7 @@ class BatchNormalizationBase(Layer):
         finally:
             if partitioner:
                 self._scope.set_partitioner(partitioner)
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs, training=None, mask=None):
         inputs = tf.cast(inputs, self.compute_dtype)

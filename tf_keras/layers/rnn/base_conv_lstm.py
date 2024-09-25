@@ -218,7 +218,6 @@ class ConvLSTMCell(DropoutRNNCellMixin, base_layer.BaseRandomLayer):
             )
         else:
             self.bias = None
-        self.built = True
 
     def call(self, inputs, states, training=None):
         h_tm1 = states[0]  # previous memory state

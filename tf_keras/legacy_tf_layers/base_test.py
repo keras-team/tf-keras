@@ -505,7 +505,7 @@ class BaseLayerTest(tf.test.TestCase, parameterized.TestCase):
         class MyLayer(base_tf_layers.Layer):
             def build(self, input_shape):
                 self.my_var = self.add_weight("my_var", (), tf.float32)
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs):
                 return tf.multiply(inputs, self.my_var, name="my_op")
@@ -559,7 +559,7 @@ class BaseLayerTest(tf.test.TestCase, parameterized.TestCase):
         class MyLayer(base_tf_layers.Layer):
             def build(self, input_shape):
                 self.my_var = self.add_weight("my_var", (), tf.float32)
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs):
                 return inputs
@@ -587,7 +587,7 @@ class BaseLayerTest(tf.test.TestCase, parameterized.TestCase):
                 self.add_update(
                     tf.compat.v1.assign_add(self.a, 1.0, name="b_update")
                 )
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs):
                 self.add_update(
@@ -629,7 +629,7 @@ class BaseLayerTest(tf.test.TestCase, parameterized.TestCase):
                 self.a = self.add_weight("a", (), tf.float32, trainable=False)
                 self.b = self.add_weight("b", (), tf.float32, trainable=False)
                 self.add_loss(self.a)
-                self.built = True
+                super().build(input_shape)
 
             def call(self, inputs):
                 self.add_loss(inputs, inputs=True)

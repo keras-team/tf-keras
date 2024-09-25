@@ -1877,9 +1877,9 @@ class AddLayer(base_layer.Layer):
     Useful for testing a layer with a variable
     """
 
-    def build(self, _):
+    def build(self, input_shape):
         self.v = self.add_weight("v", (), initializer="ones")
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs):
         return inputs + self.v

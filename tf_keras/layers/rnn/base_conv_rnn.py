@@ -20,6 +20,7 @@ import tensorflow.compat.v2 as tf
 
 from tf_keras import backend
 from tf_keras.engine import base_layer
+from tf_keras.engine.base_layer import Layer
 from tf_keras.engine.input_spec import InputSpec
 from tf_keras.layers.rnn.base_rnn import RNN
 from tf_keras.utils import conv_utils
@@ -207,6 +208,8 @@ class ConvRNN(RNN):
 
     @tf_utils.shape_type_conversion
     def build(self, input_shape):
+        # Call Layer.build() to skip RNN.build() which we override here.
+        Layer.build(self, input_shape)
         # Note input_shape will be list of shapes of initial states and
         # constants if these are passed in __call__.
         if self._num_constants is not None:
@@ -263,7 +266,6 @@ class ConvRNN(RNN):
                 ]
         if self.stateful:
             self.reset_states()
-        self.built = True
 
     def get_initial_state(self, inputs):
         # (samples, timesteps, img_dims..., filters)

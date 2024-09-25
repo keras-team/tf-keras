@@ -248,7 +248,7 @@ class Conv(Layer):
         self.input_spec = InputSpec(
             min_ndim=self.rank + 2, axes={channel_axis: input_channel}
         )
-        self.built = True
+        super().build(input_shape)
 
     def convolution_op(self, inputs, kernel):
         if self.padding == "causal":

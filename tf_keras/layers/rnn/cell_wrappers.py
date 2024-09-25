@@ -102,10 +102,10 @@ class _RNNCellWrapper(AbstractRNNCell):
             inputs, state, cell_call_fn=self.cell.call, **kwargs
         )
 
-    def build(self, inputs_shape):
+    def build(self, input_shape):
         """Builds the wrapped cell."""
-        self.cell.build(inputs_shape)
-        self.built = True
+        self.cell.build(input_shape)
+        super().build(input_shape)
 
     @property
     def wrapped_cell(self):

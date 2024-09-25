@@ -53,7 +53,7 @@ class LayerWithLearningPhase(keras.engine.base_layer.Layer):
         self.input_spec = keras.layers.InputSpec(
             shape=[None] * len(input_shape)
         )
-        self.built = True
+        super().build(input_shape)
 
     def call(self, x, training=None):
         if training is None:

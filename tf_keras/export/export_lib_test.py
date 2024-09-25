@@ -396,7 +396,7 @@ class ExportArchiveTest(tf.test.TestCase, parameterized.TestCase):
 
             def build(self, input_shape):
                 self.dense.build(input_shape)
-                self.built = True
+                super().build(input_shape)
 
             def call(self, x):
                 return self.dense(x)

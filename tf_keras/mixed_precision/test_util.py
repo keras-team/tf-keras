@@ -171,14 +171,14 @@ class MultiplyLayer(AssertTypeLayer):
             activity_regularizer=self._activity_regularizer, **kwargs
         )
 
-    def build(self, _):
+    def build(self, input_shape):
         self.v = self.add_weight(
             self._var_name,
             (),
             initializer="ones",
             regularizer=self._regularizer,
         )
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs):
         self.assert_input_types(inputs)
@@ -205,7 +205,7 @@ class MultiplyLayer(AssertTypeLayer):
 class MultiplyLayerWithoutAutoCast(MultiplyLayer):
     """Same as MultiplyLayer, but does not use AutoCastVariables."""
 
-    def build(self, _):
+    def build(self, input_shape):
         dtype = self.dtype
         if dtype in ("float16", "bfloat16"):
             dtype = "float32"
@@ -217,7 +217,8 @@ class MultiplyLayerWithoutAutoCast(MultiplyLayer):
             autocast=False,
             regularizer=self._regularizer,
         )
-        self.built = True
+        # Call Layer.build() to skip MultiplyLayer.build() which we override.
+        base_layer.Layer.build(self, input_shape)
 
     def call(self, inputs):
         self.assert_input_types(inputs)

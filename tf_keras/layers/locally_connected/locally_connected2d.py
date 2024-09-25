@@ -308,7 +308,7 @@ class LocallyConnected2D(Layer):
             self.input_spec = InputSpec(ndim=4, axes={1: input_filter})
         else:
             self.input_spec = InputSpec(ndim=4, axes={-1: input_filter})
-        self.built = True
+        super().build(input_shape)
 
     @tf_utils.shape_type_conversion
     def compute_output_shape(self, input_shape):

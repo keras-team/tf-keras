@@ -102,7 +102,7 @@ class PReLU(Layer):
                 if i not in self.shared_axes:
                     axes[i] = input_shape[i]
         self.input_spec = InputSpec(ndim=len(input_shape), axes=axes)
-        self.built = True
+        super().build(input_shape)
 
     def call(self, inputs):
         pos = backend.relu(inputs)

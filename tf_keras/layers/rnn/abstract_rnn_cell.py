@@ -56,7 +56,7 @@ class AbstractRNNCell(base_layer.Layer):
               shape=(self.units, self.units),
               initializer='uniform',
               name='recurrent_kernel')
-          self.built = True
+          super().build(input_shape)
 
         def call(self, inputs, states):
           prev_output = states[0]

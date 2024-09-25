@@ -189,7 +189,6 @@ class SimpleRNNCell(DropoutRNNCellMixin, base_layer.BaseRandomLayer):
             )
         else:
             self.bias = None
-        self.built = True
 
     def call(self, inputs, states, training=None):
         prev_output = states[0] if tf.nest.is_nested(states) else states
