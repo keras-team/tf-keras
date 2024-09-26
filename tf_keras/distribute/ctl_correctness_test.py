@@ -295,6 +295,8 @@ class TestDistributionStrategyDnnCorrectness(
         sync_batchnorm,
         jit_compile,
     ):
+        tf.config.experimental.disable_mlir_bridge()
+
         # TODO(anjs): Identify why this particular V1 optimizer needs a higher
         # tol.
         if (
