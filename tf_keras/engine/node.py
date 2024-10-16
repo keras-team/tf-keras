@@ -84,9 +84,10 @@ class Node:
         self.call_args = call_args
         self.call_kwargs = call_kwargs
 
-        # Cached for performance.
+        # Cached for performance. Put kwargs in order of the call method instead
+        # of using the sorted key order from `tf.nest.flatten`.
         self._flat_arguments = tf.nest.flatten(
-            (self.call_args, self.call_kwargs)
+            (self.call_args, self.call_kwargs.values())
         )
         # Used to avoid expensive `nest` operations in the most common case.
         self._single_positional_tensor_passed = (
@@ -176,9 +177,13 @@ class Node:
             for kt_id, kt_index in self._keras_inputs_ids_and_indices:
                 flat_arguments[kt_index] = tensor_dict[kt_id].pop()
 
+            # Pack the same way as `self._flat_arguments`, i.e. `kwargs` as a
+            # list in the original order.
             args, kwargs = tf.nest.pack_sequence_as(
-                (self.call_args, self.call_kwargs), flat_arguments
+                (self.call_args, self.call_kwargs.values()), flat_arguments
             )
+            # Add the keys to `kwargs` to go from a list to a dict.
+            kwargs = {k: v for k, v in zip(self.call_kwargs.keys(), kwargs)}
             return args, kwargs
 
     def serialize(self, make_node_key, node_conversion_map):

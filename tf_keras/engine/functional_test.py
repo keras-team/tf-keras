@@ -694,6 +694,35 @@ class NetworkConstructionTest(test_combinations.TestCase):
     @test_combinations.generate(
         test_combinations.combine(mode=["graph", "eager"])
     )
+    def test_multi_input_layer_call(self):
+        @object_registration.register_keras_serializable()
+        class MyLayer(layers.Layer):
+            def call(self, embedding, query_indices, slot_id, position):
+                return [embedding, query_indices, slot_id, position]
+
+        with self.cached_session():
+            a = layers.Input(shape=(32,), name="input_a")
+            b = layers.Input(shape=(32,), name="input_b")
+            c = layers.Input(shape=(32,), name="input_c")
+            d = layers.Input(shape=(32,), name="input_d")
+
+            output = MyLayer()(a, b, c, d)
+            model = training_lib.Model(
+                inputs=[a, b, c, d], outputs=output, name="model"
+            )
+
+            config = model.get_config()
+            model2 = models.Model.from_config(config)
+            self.assertEqual(model2.get_config(), config)
+
+            model.summary()
+            json_str = model.to_json()
+            model2 = models.model_from_json(json_str)
+            self.assertEqual(model2.to_json(), json_str)
+
+    @test_combinations.generate(
+        test_combinations.combine(mode=["graph", "eager"])
+    )
     def test_invalid_graphs(self):
         a = layers.Input(shape=(32,), name="input_a")
         b = layers.Input(shape=(32,), name="input_b")
