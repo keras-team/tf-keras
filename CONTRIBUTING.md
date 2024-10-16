@@ -20,7 +20,7 @@ development environment and run the unit tests. This is covered in the section
 ### Step 3. Create a pull request
 
 Once the change is ready, open a pull request from your branch in your fork to
-the master branch in [keras-team/keras](https://github.com/keras-team/keras).
+the master branch in [keras-team/tf-keras](https://github.com/keras-team/tf-keras).
 
 ### Step 4. Sign the Contributor License Agreement
 
@@ -149,8 +149,8 @@ as a dependency, we need to uninstall `keras-nightly` so that tests will run
 against TF-Keras code in the local workspace.
 
 ```shell
-git clone https://github.com/YOUR_GITHUB_USERNAME/keras.git
-cd keras
+git clone https://github.com/YOUR_GITHUB_USERNAME/tf-keras.git
+cd tf-keras
 pip install -r requirements.txt
 pip uninstall keras-nightly
 ```
@@ -220,14 +220,14 @@ We use [Bazel](https://bazel.build/) to build and run the tests.
 
 ### Run a test file
 
-For example, to run the tests in `keras/engine/base_layer_test.py`,
+For example, to run the tests in `tf_keras/engine/base_layer_test.py`,
 we can run the following command at the root directory of the repo.
 
 ```shell
-bazel test keras/engine:base_layer_test
+bazel test tf_keras/engine:base_layer_test
 ```
 
-`keras/engine` is the relative path to the directory containing the `BUILD` file
+`tf_keras/engine` is the relative path to the directory containing the `BUILD` file
 defining the test. `base_layer_test` is the test target name defined with
 `tf_py_test` in the `BUILD` file.
 
@@ -239,7 +239,7 @@ can use the following command to run all the tests in `activations_test.py`,
 whose names contain `test_serialization`.
 
 ```
-bazel test keras:activations_test --test_filter=*test_serialization*
+bazel test tf_keras:activations_test --test_filter=*test_serialization*
 ```
 
 ### Run all tests
@@ -267,7 +267,7 @@ command above.
   However, it may slow down the tests for not running in parallel
   and may cause the test to timeout.
 
-## Contributing to TF-Keras applications
+## Contributing to TF-tf_keras applications
 
 Contributions to the
 [pre-trained application library](https://keras.io/api/applications/) are
