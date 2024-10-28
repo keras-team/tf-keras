@@ -210,7 +210,7 @@ def get_json_type(obj):
             return {
                 "class_name": "TypeSpec",
                 "type_spec": type_spec_name,
-                "serialized": obj._serialize(),
+                "serialized": _encode_tuple(obj._serialize()),
             }
         except ValueError:
             raise ValueError(

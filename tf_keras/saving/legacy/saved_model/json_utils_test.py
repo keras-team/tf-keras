@@ -16,12 +16,23 @@
 """Tests the JSON encoder and decoder."""
 
 import enum
+from typing import Mapping
 
 import tensorflow.compat.v2 as tf
 
 from tf_keras.saving.legacy.saved_model import json_utils
 from tf_keras.testing_infra import test_combinations
 from tf_keras.testing_infra import test_utils
+
+
+class _ExtensionType(tf.experimental.ExtensionType):
+    """An ExtensionType with multiple tuples and mappings."""
+
+    __name__ = "tf_keras.json_utils.test._ExtensionType"
+
+    x: tf.Tensor
+    xy: tuple[tf.Tensor, tf.Tensor]
+    kv: Mapping[str, tf.Tensor]
 
 
 class JsonUtilsTest(test_combinations.TestCase):
@@ -63,6 +74,17 @@ class JsonUtilsTest(test_combinations.TestCase):
             ValueError, "No TypeSpec has been registered"
         ):
             loaded = json_utils.decode(string)
+
+    def test_encode_decode_extensiontype_spec(self):
+        instance = _ExtensionType(
+            x=tf.constant(1),
+            xy=(tf.constant(2), tf.constant(True)),
+            kv={"a": tf.constant("foo"), "b": tf.constant("bar")},
+        )
+        spec = tf.type_spec_from_value(instance)
+        string = json_utils.Encoder().encode(spec)
+        loaded = json_utils.decode(string)
+        self.assertEqual(spec, loaded)
 
     def test_encode_decode_enum(self):
         class Enum(enum.Enum):
