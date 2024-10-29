@@ -112,11 +112,13 @@ class TestObjectRegistration(tf.test.TestCase):
         self.assertEqual(5, new_inst._val)
 
     def test_serialize_custom_function(self):
-        @object_registration.register_keras_serializable()
+        @object_registration.register_keras_serializable(
+            package="Test", name="func"
+        )
         def my_fn():
             return 42
 
-        serialized_name = "Custom>my_fn"
+        serialized_name = "Test>func"
         class_name = object_registration._GLOBAL_CUSTOM_NAMES[my_fn]
         self.assertEqual(serialized_name, class_name)
         fn_class_name = object_registration.get_registered_name(my_fn)
@@ -124,9 +126,9 @@ class TestObjectRegistration(tf.test.TestCase):
 
         config = serialization_lib.serialize_keras_object(my_fn)
         if tf.__internal__.tf2.enabled():
-            self.assertEqual("my_fn", config["config"])
+            self.assertEqual(serialized_name, config["config"])
         else:
-            self.assertEqual(class_name, config)
+            self.assertEqual(serialized_name, config)
         fn = serialization_lib.deserialize_keras_object(config)
         self.assertEqual(42, fn())
 
