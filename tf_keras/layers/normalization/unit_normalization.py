@@ -60,7 +60,8 @@ class UnitNormalization(base_layer.Layer):
         self.supports_masking = True
 
     def build(self, input_shape):
-        self.axis = tf_utils.validate_axis(self.axis, input_shape)
+        tf_utils.validate_axis(self.axis, input_shape)
+        super().build(input_shape)
 
     def call(self, inputs):
         inputs = tf.cast(inputs, self.compute_dtype)
