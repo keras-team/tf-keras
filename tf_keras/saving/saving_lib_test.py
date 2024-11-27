@@ -533,7 +533,7 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         self.assertIn("keras_version", metadata)
         self.assertIn("date_saved", metadata)
 
-    def test_gfile_local_called(self):
+    def test_gfile_copy_called(self):
         temp_filepath = Path(
             os.path.join(self.get_temp_dir(), "my_model.keras")
         )
@@ -541,16 +541,18 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         with mock.patch(
             "re.match", autospec=True
         ) as mock_re_match, mock.patch.object(
-            tf.io.gfile, "GFile"
-        ) as mock_gfile:
+            tf.io.gfile, "copy"
+        ) as mock_gfile_copy:
             # Check regex matching
             mock_re_match.return_value = True
             model.save(temp_filepath, save_format="keras_v3")
             mock_re_match.assert_called()
             self.assertIn(str(temp_filepath), mock_re_match.call_args.args)
 
-            # Check gfile opened with filepath specified
-            self.assertIn(str(temp_filepath), mock_gfile.call_args.args)
+            # Check gfile copied with filepath specified as destination
+            self.assertEqual(
+                str(temp_filepath), str(mock_gfile_copy.call_args.args[1])
+            )
 
     def test_load_model_api_endpoint(self):
         temp_filepath = Path(os.path.join(self.get_temp_dir(), "mymodel.keras"))
