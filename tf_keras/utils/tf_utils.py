@@ -78,9 +78,9 @@ def get_random_seed():
       the random seed as an integer.
     """
     if getattr(backend._SEED_GENERATOR, "generator", None):
-        return backend._SEED_GENERATOR.generator.randint(1, 1e9)
+        return backend._SEED_GENERATOR.generator.randint(1, int(1e9))
     else:
-        return random.randint(1, 1e9)
+        return random.randint(1, int(1e9))
 
 
 def is_tensor_or_tensor_list(v):

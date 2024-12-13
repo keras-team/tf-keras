@@ -2029,7 +2029,7 @@ class RandomGenerator(tf.__internal__.tracking.AutoTrackable):
         if user_specified_seed is not None:
             return user_specified_seed
         elif getattr(_SEED_GENERATOR, "generator", None):
-            return _SEED_GENERATOR.generator.randint(1, 1e9)
+            return _SEED_GENERATOR.generator.randint(1, int(1e9))
         else:
             return random.randint(1, int(1e9))
 
