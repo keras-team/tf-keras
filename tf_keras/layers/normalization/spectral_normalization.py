@@ -95,7 +95,13 @@ class SpectralNormalization(Wrapper):
 
     def call(self, inputs, training=False):
         if training:
-            self.normalize_weights()
+            new_vector_u, new_kernel = tf.cond(
+                tf.reduce_all(tf.equal(self.kernel.value, 0)),
+                lambda: (self.vector_u.value, self.kernel.value),
+                self.normalized_weights,
+            )
+            self.vector_u.assign(new_vector_u)
+            self.kernel.assign(new_kernel)
 
         output = self.layer(inputs)
         return output
@@ -105,35 +111,29 @@ class SpectralNormalization(Wrapper):
             self.layer.compute_output_shape(input_shape).as_list()
         )
 
-    def normalize_weights(self):
+    def normalized_weights(self):
         """Generate spectral normalized weights.
 
-        This method will update the value of `self.kernel` with the
+        This method returns the updated value for `self.kernel` with the
         spectral normalized value, so that the layer is ready for `call()`.
         """
 
         weights = tf.reshape(self.kernel, [-1, self.kernel_shape[-1]])
-        vector_u = self.vector_u
+        vector_u = self.vector_u.value
 
-        # check for zeroes weights
-        if not tf.reduce_all(tf.equal(weights, 0.0)):
-            for _ in range(self.power_iterations):
-                vector_v = tf.math.l2_normalize(
-                    tf.matmul(vector_u, weights, transpose_b=True)
-                )
-                vector_u = tf.math.l2_normalize(tf.matmul(vector_v, weights))
-            vector_u = tf.stop_gradient(vector_u)
-            vector_v = tf.stop_gradient(vector_v)
-            sigma = tf.matmul(
-                tf.matmul(vector_v, weights), vector_u, transpose_b=True
+        for _ in range(self.power_iterations):
+            vector_v = tf.keras.utils.normalize(
+                tf.matmul(vector_u, tf.transpose(weights)), axis=None
             )
-            self.vector_u.assign(tf.cast(vector_u, self.vector_u.dtype))
-            self.kernel.assign(
-                tf.cast(
-                    tf.reshape(self.kernel / sigma, self.kernel_shape),
-                    self.kernel.dtype,
-                )
-            )
+            vector_u = tf.keras.utils.normalize(tf.matmul(vector_v, weights), axis=None)
+        vector_u = tf.stop_gradient(vector_u)
+        vector_v = tf.stop_gradient(vector_v)
+        sigma = tf.matmul(
+            tf.matmul(vector_v, weights), tf.transpose(vector_u)
+        )
+        kernel = tf.reshape(tf.divide(self.kernel, sigma), self.kernel_shape)
+        return tf.cast(vector_u, self.vector_u.dtype), tf.cast(
+            kernel, self.kernel.dtype)
 
     def get_config(self):
         config = {"power_iterations": self.power_iterations}
