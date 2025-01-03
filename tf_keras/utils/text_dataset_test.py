@@ -33,7 +33,7 @@ class TextDatasetFromDirectoryTest(test_combinations.TestCase):
     ):
         # Get a unique temp directory
         temp_dir = os.path.join(
-            self.get_temp_dir(), str(random.randint(0, 1e6))
+            self.get_temp_dir(), str(random.randint(0, int(1e6)))
         )
         os.mkdir(temp_dir)
         self.addCleanup(shutil.rmtree, temp_dir)
