@@ -13,6 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 """MNIST handwritten digits dataset."""
+import os
 
 import numpy as np
 
@@ -23,7 +24,7 @@ from tensorflow.python.util.tf_export import keras_export
 
 
 @keras_export("keras.datasets.mnist.load_data")
-def load_data(path="mnist.npz"):
+def load_data(path="mnist.npz", cache_dir=None):
     """Loads the MNIST dataset.
 
     This is a dataset of 60,000 28x28 grayscale images of the 10 digits,
@@ -32,8 +33,9 @@ def load_data(path="mnist.npz"):
     [MNIST homepage](http://yann.lecun.com/exdb/mnist/).
 
     Args:
-      path: path where to cache the dataset locally
-        (relative to `~/.keras/datasets`).
+      path: path where to cache the dataset locally relative to cache_dir.
+      cache_dir: dir location where to cache the dataset locally. When None,
+        defaults to `~/.keras/datasets`.
 
     Returns:
       Tuple of NumPy arrays: `(x_train, y_train), (x_test, y_test)`.
@@ -72,12 +74,16 @@ def load_data(path="mnist.npz"):
     origin_folder = (
         "https://storage.googleapis.com/tensorflow/tf-keras-datasets/"
     )
+    if cache_dir:
+        cache_dir = os.path.expanduser(cache_dir)
+        os.makedirs(cache_dir, exist_ok=True)
     path = get_file(
         path,
         origin=origin_folder + "mnist.npz",
         file_hash=(  # noqa: E501
             "731c5ac602752760c8e48fbffcf8c3b850d9dc2a2aedcf2cc48468fc17b673d1"
         ),
+        cache_dir=cache_dir,
     )
     with np.load(path, allow_pickle=True) as f:
         x_train, y_train = f["x_train"], f["y_train"]

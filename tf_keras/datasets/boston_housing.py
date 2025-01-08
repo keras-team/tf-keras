@@ -14,6 +14,8 @@
 # ==============================================================================
 """Boston housing price regression dataset."""
 
+import os
+
 import numpy as np
 
 from tf_keras.utils.data_utils import get_file
@@ -23,7 +25,9 @@ from tensorflow.python.util.tf_export import keras_export
 
 
 @keras_export("keras.datasets.boston_housing.load_data")
-def load_data(path="boston_housing.npz", test_split=0.2, seed=113):
+def load_data(
+    path="boston_housing.npz", test_split=0.2, seed=113, cache_dir=None
+):
     """Loads the Boston Housing dataset.
 
     This is a dataset taken from the StatLib library which is maintained at
@@ -43,11 +47,12 @@ def load_data(path="boston_housing.npz", test_split=0.2, seed=113):
     [StatLib website](http://lib.stat.cmu.edu/datasets/boston).
 
     Args:
-      path: path where to cache the dataset locally
-          (relative to `~/.keras/datasets`).
+      path: path where to cache the dataset locally (relative to
+        `~/.keras/datasets`).
       test_split: fraction of the data to reserve as test set.
-      seed: Random seed for shuffling the data
-          before computing the test split.
+      seed: Random seed for shuffling the data before computing the test split.
+      cache_dir: directory where to cache the dataset locally. When None,
+        defaults to `~/.keras/datasets`.
 
     Returns:
       Tuple of Numpy arrays: `(x_train, y_train), (x_test, y_test)`.
@@ -64,12 +69,16 @@ def load_data(path="boston_housing.npz", test_split=0.2, seed=113):
     origin_folder = (
         "https://storage.googleapis.com/tensorflow/tf-keras-datasets/"
     )
+    if cache_dir:
+        cache_dir = os.path.expanduser(cache_dir)
+        os.makedirs(cache_dir, exist_ok=True)
     path = get_file(
         path,
         origin=origin_folder + "boston_housing.npz",
         file_hash=(  # noqa: E501
             "f553886a1f8d56431e820c5b82552d9d95cfcb96d1e678153f8839538947dff5"
         ),
+        cache_dir=cache_dir,
     )
     with np.load(path, allow_pickle=True) as f:
         x = f["x"]

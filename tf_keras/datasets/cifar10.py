@@ -27,7 +27,7 @@ from tensorflow.python.util.tf_export import keras_export
 
 
 @keras_export("keras.datasets.cifar10.load_data")
-def load_data():
+def load_data(cache_dir=None):
     """Loads the CIFAR10 dataset.
 
     This is a dataset of 50,000 32x32 color training images and 10,000 test
@@ -48,6 +48,10 @@ def load_data():
     |   7   | horse       |
     |   8   | ship        |
     |   9   | truck       |
+
+    Args:
+      cache_dir: directory where to cache the dataset locally. When None,
+        defaults to `~/.keras/datasets`.
 
     Returns:
       Tuple of NumPy arrays: `(x_train, y_train), (x_test, y_test)`.
@@ -78,6 +82,9 @@ def load_data():
     """
     dirname = "cifar-10-batches-py"
     origin = "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
+    if cache_dir:
+        cache_dir = os.path.expanduser(cache_dir)
+        os.makedirs(cache_dir, exist_ok=True)
     path = get_file(
         dirname,
         origin=origin,
@@ -85,6 +92,7 @@ def load_data():
         file_hash=(  # noqa: E501
             "6d958be074577803d12ecdefd02955f39262c83c16fe9348329d7fe0b5c001ce"
         ),
+        cache_dir=cache_dir,
     )
 
     num_train_samples = 50000

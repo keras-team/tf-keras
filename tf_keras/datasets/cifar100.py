@@ -27,7 +27,7 @@ from tensorflow.python.util.tf_export import keras_export
 
 
 @keras_export("keras.datasets.cifar100.load_data")
-def load_data(label_mode="fine"):
+def load_data(label_mode="fine", cache_dir=None):
     """Loads the CIFAR100 dataset.
 
     This is a dataset of 50,000 32x32 color training images and
@@ -39,6 +39,8 @@ def load_data(label_mode="fine"):
       label_mode: one of "fine", "coarse". If it is "fine" the category labels
         are the fine-grained labels, if it is "coarse" the output labels are the
         coarse-grained superclasses.
+      cache_dir: directory where to cache the dataset locally. When None,
+        defaults to `~/.keras/datasets`.
 
     Returns:
       Tuple of NumPy arrays: `(x_train, y_train), (x_test, y_test)`.
@@ -75,6 +77,9 @@ def load_data(label_mode="fine"):
 
     dirname = "cifar-100-python"
     origin = "https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz"
+    if cache_dir:
+        cache_dir = os.path.expanduser(cache_dir)
+        os.makedirs(cache_dir, exist_ok=True)
     path = get_file(
         dirname,
         origin=origin,
@@ -82,6 +87,7 @@ def load_data(label_mode="fine"):
         file_hash=(  # noqa: E501
             "85cd44d02ba6437773c5bbd22e183051d648de2e7d6b014e1ef29b855ba677a7"
         ),
+        cache_dir=cache_dir,
     )
 
     fpath = os.path.join(path, "train")

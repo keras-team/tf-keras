@@ -26,7 +26,7 @@ from tensorflow.python.util.tf_export import keras_export
 
 
 @keras_export("keras.datasets.fashion_mnist.load_data")
-def load_data():
+def load_data(cache_dir=None):
     """Loads the Fashion-MNIST dataset.
 
     This is a dataset of 60,000 28x28 grayscale images of 10 fashion categories,
@@ -47,6 +47,10 @@ def load_data():
     |   7   | Sneaker     |
     |   8   | Bag         |
     |   9   | Ankle boot  |
+
+    Args:
+      cache_dir: directory where to cache the dataset locally. When None,
+        defaults to `~/.keras/datasets`.
 
     Returns:
       Tuple of NumPy arrays: `(x_train, y_train), (x_test, y_test)`.
@@ -77,7 +81,6 @@ def load_data():
       The copyright for Fashion-MNIST is held by Zalando SE.
       Fashion-MNIST is licensed under the [MIT license](
       https://github.com/zalandoresearch/fashion-mnist/blob/master/LICENSE).
-
     """
     dirname = os.path.join("datasets", "fashion-mnist")
     base = "https://storage.googleapis.com/tensorflow/tf-keras-datasets/"
@@ -87,10 +90,19 @@ def load_data():
         "t10k-labels-idx1-ubyte.gz",
         "t10k-images-idx3-ubyte.gz",
     ]
-
+    if cache_dir:
+        cache_dir = os.path.expanduser(cache_dir)
+        os.makedirs(cache_dir, exist_ok=True)
     paths = []
     for fname in files:
-        paths.append(get_file(fname, origin=base + fname, cache_subdir=dirname))
+        paths.append(
+            get_file(
+                fname,
+                origin=base + fname,
+                cache_dir=cache_dir,
+                cache_subdir=dirname,
+            )
+        )
 
     with gzip.open(paths[0], "rb") as lbpath:
         y_train = np.frombuffer(lbpath.read(), np.uint8, offset=8)

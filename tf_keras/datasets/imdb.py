@@ -15,6 +15,7 @@
 """IMDB sentiment classification dataset."""
 
 import json
+import os
 
 import numpy as np
 
@@ -36,6 +37,7 @@ def load_data(
     start_char=1,
     oov_char=2,
     index_from=3,
+    cache_dir=None,
     **kwargs,
 ):
     """Loads the [IMDB dataset](https://ai.stanford.edu/~amaas/data/sentiment/).
@@ -73,6 +75,8 @@ def load_data(
           Words that were cut out because of the `num_words` or
           `skip_top` limits will be replaced with this character.
       index_from: int. Index actual words with this index and higher.
+      cache_dir: directory where to cache the dataset locally. When None,
+          defaults to `~/.keras/datasets`.
       **kwargs: Used for backwards compatibility.
 
     Returns:
@@ -108,12 +112,16 @@ def load_data(
     origin_folder = (
         "https://storage.googleapis.com/tensorflow/tf-keras-datasets/"
     )
+    if cache_dir:
+        cache_dir = os.path.expanduser(cache_dir)
+        os.makedirs(cache_dir, exist_ok=True)
     path = get_file(
         path,
         origin=origin_folder + "imdb.npz",
         file_hash=(  # noqa: E501
             "69664113be75683a8fe16e3ed0ab59fda8886cb3cd7ada244f7d9544e4676b9f"
         ),
+        cache_dir=cache_dir,
     )
     with np.load(path, allow_pickle=True) as f:
         x_train, labels_train = f["x_train"], f["y_train"]
