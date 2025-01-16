@@ -134,7 +134,7 @@ class TestGetFile(tf.test.TestCase):
             )
             os.remove(path)
 
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
             ValueError, 'Please specify the "origin".*'
         ):
             _ = keras.utils.data_utils.get_file()

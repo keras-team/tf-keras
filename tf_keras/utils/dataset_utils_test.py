@@ -457,7 +457,7 @@ class SplitDatasetTest(tf.test.TestCase):
             r"^(.*?(\bleft_size\b).*?(\bshould be\b)"
             r".*?(\bwithin the range\b).*?(\b0\b).*?(\b1\b))"
         )
-        with self.assertRaisesRegexp(ValueError, expected_regex):
+        with self.assertRaisesRegex(ValueError, expected_regex):
             dataset = [
                 np.ones(shape=(200, 32, 32)),
                 np.zeros(shape=(200, 32, 32)),

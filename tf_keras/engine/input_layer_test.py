@@ -267,31 +267,31 @@ class InputLayerTest(test_combinations.TestCase):
 
     @test_combinations.generate(test_combinations.combine(mode=["eager"]))
     def testNoMixingArgsWithTypeSpecArg(self):
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
             ValueError, "all other args except `name` must be None"
         ):
             input_layer_lib.Input(
                 shape=(4, 7), type_spec=tf.TensorSpec((2, 7, 32), tf.float32)
             )
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
             ValueError, "all other args except `name` must be None"
         ):
             input_layer_lib.Input(
                 batch_size=4, type_spec=tf.TensorSpec((7, 32), tf.float32)
             )
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
             ValueError, "all other args except `name` must be None"
         ):
             input_layer_lib.Input(
                 dtype=tf.int64, type_spec=tf.TensorSpec((7, 32), tf.float32)
             )
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
             ValueError, "all other args except `name` must be None"
         ):
             input_layer_lib.Input(
                 sparse=True, type_spec=tf.TensorSpec((7, 32), tf.float32)
             )
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
             ValueError, "all other args except `name` must be None"
         ):
             input_layer_lib.Input(

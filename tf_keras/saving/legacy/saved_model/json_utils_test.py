@@ -70,7 +70,7 @@ class JsonUtilsTest(test_combinations.TestCase):
             "serialized": None,
         }
         string = json_utils.Encoder().encode(invalid_type_spec)
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
             ValueError, "No TypeSpec has been registered"
         ):
             loaded = json_utils.decode(string)
