@@ -411,7 +411,7 @@ class OptimizerFuntionalityTest(tf.test.TestCase, parameterized.TestCase):
             "module": None,
             "registered_name": "CustomLRSchedule",
         }
-        self.assertDictContainsSubset(expected_config, config)
+        self.assertEqual(config, {**config, **expected_config})
         self.assertDictEqual(expected_learning_rate, config["learning_rate"])
 
         restored_optimizer = adam_new.Adam.from_config(
