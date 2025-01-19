@@ -375,7 +375,7 @@ def skipgrams(
 
     if shuffle:
         if seed is None:
-            seed = random.randint(0, 10e6)
+            seed = random.randint(0, int(10e6))
         random.seed(seed)
         random.shuffle(couples)
         random.seed(seed)
