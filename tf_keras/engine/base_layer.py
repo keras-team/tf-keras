@@ -2321,7 +2321,7 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         """
         input_shape = config["input_shape"]
         if input_shape is not None:
-            self.build(input_shape)
+            self.build(tf_utils.convert_shapes(input_shape, to_tuples=False))
 
     ############################################################################
     # Methods & attributes below are all private and only used by the framework.

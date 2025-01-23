@@ -285,12 +285,16 @@ class Sequential(functional.Functional):
         ):
             # Determine whether the input shape is novel, i.e. whether the model
             # should be rebuilt.
-            input_shape = tuple(input_shape)
+            input_shape = tf_utils.convert_shapes(input_shape)
             if self._inferred_input_shape is None:
                 new_shape = input_shape
             else:
-                new_shape = relax_input_shape(
-                    self._inferred_input_shape, input_shape
+                new_shape = tf.nest.map_structure(
+                    _relax_input_shape,
+                    tf_utils.convert_shapes(
+                        self._inferred_input_shape, to_tuples=False
+                    ),
+                    tf_utils.convert_shapes(input_shape, to_tuples=False),
                 )
             if (
                 new_shape is not None
@@ -299,10 +303,13 @@ class Sequential(functional.Functional):
                 # A novel shape has been received: we need to rebuild the model.
                 # In case we are inside a graph function, we step out of it.
                 with tf.init_scope():
-                    inputs = input_layer.Input(
-                        batch_shape=new_shape,
-                        dtype=input_dtype,
-                        name=self.layers[0].name + "_input",
+                    inputs = tf.nest.map_structure(
+                        lambda s: input_layer.Input(
+                            batch_shape=tf_utils.convert_shapes(s),
+                            dtype=input_dtype,
+                            name=self.layers[0].name + "_input",
+                        ),
+                        tf_utils.convert_shapes(new_shape, to_tuples=False),
                     )
                     layer_input = inputs
                     created_nodes = set()
@@ -370,7 +377,7 @@ class Sequential(functional.Functional):
                 raise ValueError("You must provide an `input_shape` argument.")
             self._build_graph_network_for_inferred_shape(input_shape)
             if not self.built:
-                input_shape = tuple(input_shape)
+                input_shape = tf_utils.convert_shapes(input_shape)
                 self._build_input_shape = input_shape
                 super().build(input_shape)
         self.built = True
@@ -435,7 +442,8 @@ class Sequential(functional.Functional):
     def get_config(self):
         layer_configs = []
         serialize_obj_fn = serialization_lib.serialize_keras_object
-        if getattr(self, "use_legacy_config", None):
+        use_legacy_config = getattr(self, "use_legacy_config", False)
+        if use_legacy_config:
             serialize_obj_fn = legacy_serialization.serialize_keras_object
         for layer in super().layers:
             # `super().layers` include the InputLayer if available (it is
@@ -446,7 +454,11 @@ class Sequential(functional.Functional):
         config = training.Model.get_config(self)
         config["name"] = self.name
         config["layers"] = copy.deepcopy(layer_configs)
-        if not self._is_graph_network and self._build_input_shape is not None:
+        if (
+            use_legacy_config
+            and not self._is_graph_network
+            and self._build_input_shape
+        ):
             config["build_input_shape"] = self._build_input_shape
         return config
 
@@ -458,6 +470,7 @@ class Sequential(functional.Functional):
             layer_configs = config["layers"]
         else:
             name = None
+            build_input_shape = None
             layer_configs = config
         model = cls(name=name)
         for layer_config in layer_configs:
@@ -519,11 +532,15 @@ def _get_shape_tuple(t):
     return None
 
 
-def relax_input_shape(shape_1, shape_2):
+def _relax_input_shape(shape_1, shape_2):
     if shape_1 is None or shape_2 is None:
         return None
-    if len(shape_1) != len(shape_2):
+    if shape_1.rank is None or shape_2.rank is None:
         return None
+    if shape_1.rank != shape_2.rank:
+        return None
+    shape_1 = shape_1.as_list()
+    shape_2 = shape_2.as_list()
     return tuple(None if d1 != d2 else d1 for d1, d2 in zip(shape_1, shape_2))
 
 

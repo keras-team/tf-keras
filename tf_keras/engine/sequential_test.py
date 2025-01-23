@@ -19,6 +19,7 @@ import tensorflow.compat.v2 as tf
 from absl.testing import parameterized
 
 import tf_keras as keras
+from tf_keras.saving import object_registration
 from tf_keras.testing_infra import test_combinations
 from tf_keras.testing_infra import test_utils
 
@@ -574,6 +575,22 @@ class TestSequential(test_combinations.TestCase):
         model(image_inputs)
         model.fit(x=image_inputs, y=image_inputs, steps_per_epoch=1)
 
+    @test_combinations.run_all_keras_modes(always_skip_v1=True)
+    def test_multi_inputs_build(self):
+        model = keras.Sequential([ImageMultiplyLayer()])
+        model.build({"images": (None, 512, 512, 3), "weights": (None, 3)})
+
+        image_inputs = tf.ones((2, 512, 512, 3))
+        weight_inputs = tf.ones((2, 3))
+        output = model({"images": image_inputs, "weights": weight_inputs})
+
+        config = model.to_json()
+        new_model = keras.models.model_from_json(config)
+        new_output = new_model(
+            {"images": image_inputs, "weights": weight_inputs}
+        )
+        self.assertAllClose(output, new_output)
+
 
 class TestSequentialEagerIntegration(test_combinations.TestCase):
     @test_combinations.run_all_keras_modes
@@ -642,9 +659,19 @@ class TestSequentialEagerIntegration(test_combinations.TestCase):
         self.assertTrue(model.built)
 
 
+@object_registration.register_keras_serializable()
 class ImageAugmentLayer(keras.layers.Layer):
     def call(self, inputs):
         return inputs
+
+
+@object_registration.register_keras_serializable()
+class ImageMultiplyLayer(keras.layers.Layer):
+    def call(self, inputs):
+        images = inputs["images"]
+        weights = inputs["weights"]
+        images = tf.reshape(images, (-1, 1, 1, 3))
+        return images * weights
 
 
 if __name__ == "__main__":
