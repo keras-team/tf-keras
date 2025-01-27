@@ -365,7 +365,7 @@ def skipgrams(
         random.shuffle(words)
 
         couples += [
-            [words[i % len(words)], random.randint(1, vocabulary_size - 1)]
+            [words[i % len(words)], random.randint(1, int(vocabulary_size - 1))]
             for i in range(num_negative_samples)
         ]
         if categorical:
@@ -375,7 +375,7 @@ def skipgrams(
 
     if shuffle:
         if seed is None:
-            seed = random.randint(0, 10e6)
+            seed = random.randint(0, int(10e6))
         random.seed(seed)
         random.shuffle(couples)
         random.seed(seed)
