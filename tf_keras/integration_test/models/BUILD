@@ -31,6 +31,5 @@ py_library(
         "translation.py",
         "vae.py",
     ],
-    srcs_version = "PY3",
     deps = ["//:expect_tensorflow_installed"],
 )

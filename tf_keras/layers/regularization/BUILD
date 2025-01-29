@@ -21,7 +21,6 @@ package(
 py_library(
     name = "regularization",
     srcs = ["__init__.py"],
-    srcs_version = "PY3",
     deps = [
         ":activity_regularization",
         ":alpha_dropout",
@@ -37,7 +36,6 @@ py_library(
 py_library(
     name = "dropout",
     srcs = ["dropout.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -49,7 +47,6 @@ py_library(
 py_library(
     name = "spatial_dropout1d",
     srcs = ["spatial_dropout1d.py"],
-    srcs_version = "PY3",
     deps = [
         ":dropout",
         "//:expect_tensorflow_installed",
@@ -60,7 +57,6 @@ py_library(
 py_library(
     name = "spatial_dropout2d",
     srcs = ["spatial_dropout2d.py"],
-    srcs_version = "PY3",
     deps = [
         ":dropout",
         "//:expect_tensorflow_installed",
@@ -72,7 +68,6 @@ py_library(
 py_library(
     name = "spatial_dropout3d",
     srcs = ["spatial_dropout3d.py"],
-    srcs_version = "PY3",
     deps = [
         ":dropout",
         "//:expect_tensorflow_installed",
@@ -84,7 +79,6 @@ py_library(
 py_library(
     name = "gaussian_dropout",
     srcs = ["gaussian_dropout.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -97,7 +91,6 @@ py_library(
 py_library(
     name = "gaussian_noise",
     srcs = ["gaussian_noise.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -109,7 +102,6 @@ py_library(
 py_library(
     name = "activity_regularization",
     srcs = ["activity_regularization.py"],
-    srcs_version = "PY3",
     deps = [
         "//tf_keras:regularizers",
         "//tf_keras/engine:base_layer",
@@ -119,7 +111,6 @@ py_library(
 py_library(
     name = "alpha_dropout",
     srcs = ["alpha_dropout.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -132,7 +123,6 @@ tf_py_test(
     name = "dropout_test",
     size = "medium",
     srcs = ["dropout_test.py"],
-    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_numpy_installed",
@@ -147,7 +137,6 @@ tf_py_test(
     name = "spatial_dropout_test",
     size = "medium",
     srcs = ["spatial_dropout_test.py"],
-    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_tensorflow_installed",
@@ -161,7 +150,6 @@ tf_py_test(
     name = "gaussian_dropout_test",
     size = "medium",
     srcs = ["gaussian_dropout_test.py"],
-    python_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -175,7 +163,6 @@ tf_py_test(
     name = "gaussian_noise_test",
     size = "medium",
     srcs = ["gaussian_noise_test.py"],
-    python_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -189,7 +176,6 @@ tf_py_test(
     name = "activity_regularization_test",
     size = "medium",
     srcs = ["activity_regularization_test.py"],
-    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_numpy_installed",
@@ -203,7 +189,6 @@ tf_py_test(
     name = "alpha_dropout_test",
     size = "medium",
     srcs = ["alpha_dropout_test.py"],
-    python_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",

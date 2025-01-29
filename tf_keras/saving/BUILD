@@ -25,7 +25,6 @@ py_library(
         "pickle_utils.py",
         "saving_api.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":object_registration",
         ":serialization",
@@ -52,7 +51,6 @@ py_library(
     srcs = [
         "saving_lib.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":serialization_lib",
         "//:expect_tensorflow_installed",
@@ -65,7 +63,6 @@ tf_py_test(
     name = "saving_lib_test",
     size = "medium",
     srcs = ["saving_lib_test.py"],
-    python_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",
@@ -80,7 +77,6 @@ py_library(
     srcs = [
         "object_registration.py",
     ],
-    srcs_version = "PY3",
 )
 
 py_library(
@@ -88,7 +84,6 @@ py_library(
     srcs = [
         "serialization_lib.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":object_registration",
         ":serialization",
@@ -103,7 +98,6 @@ py_library(
     srcs = [
         "legacy/serialization.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":object_registration",
         "//:expect_numpy_installed",
@@ -117,7 +111,6 @@ tf_py_test(
     name = "object_registration_test",
     size = "small",
     srcs = ["object_registration_test.py"],
-    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
@@ -128,7 +121,6 @@ tf_py_test(
     name = "metrics_serialization_test",
     size = "medium",
     srcs = ["legacy/metrics_serialization_test.py"],
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "notsan",  # TODO(b/170870790)
@@ -146,7 +138,6 @@ tf_py_test(
     name = "losses_serialization_test",
     size = "medium",
     srcs = ["legacy/losses_serialization_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -161,7 +152,6 @@ tf_py_test(
     name = "pickle_utils_test",
     size = "medium",
     srcs = ["pickle_utils_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -176,7 +166,6 @@ tf_py_test(
     name = "save_weights_test",
     size = "medium",
     srcs = ["legacy/save_weights_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_oss_py35",  # b/147011479
@@ -196,7 +185,6 @@ tf_py_test(
     name = "save_test",
     size = "medium",
     srcs = ["legacy/save_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_pip",  # TODO(b/202022379)
@@ -214,7 +202,6 @@ tf_py_test(
     name = "saving_utils_test",
     size = "medium",
     srcs = ["legacy/saving_utils_test.py"],
-    python_version = "PY3",
     tags = ["notsan"],
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -229,7 +216,6 @@ tf_py_test(
     name = "serialization_lib_test",
     size = "small",
     srcs = ["serialization_lib_test.py"],
-    python_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",

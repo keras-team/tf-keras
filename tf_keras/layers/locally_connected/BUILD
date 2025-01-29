@@ -17,7 +17,6 @@ py_library(
     srcs = [
         "__init__.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":locally_connected1d",
         ":locally_connected2d",
@@ -27,7 +26,6 @@ py_library(
 py_library(
     name = "locally_connected_utils",
     srcs = ["locally_connected_utils.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -39,7 +37,6 @@ py_library(
 py_library(
     name = "locally_connected1d",
     srcs = ["locally_connected1d.py"],
-    srcs_version = "PY3",
     deps = [
         ":locally_connected_utils",
         "//tf_keras:activations",
@@ -57,7 +54,6 @@ py_library(
 py_library(
     name = "locally_connected2d",
     srcs = ["locally_connected2d.py"],
-    srcs_version = "PY3",
     deps = [
         ":locally_connected_utils",
         "//tf_keras:activations",
@@ -76,7 +72,6 @@ tf_py_test(
     name = "locally_connected_test",
     size = "medium",
     srcs = ["locally_connected_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = ["no_windows"],
     deps = [

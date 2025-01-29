@@ -30,7 +30,6 @@ py_library(
         "training_utils_v1.py",
         "training_v1.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":base_layer",
         ":base_preprocessing_layer",
@@ -74,7 +73,6 @@ py_library(
 py_library(
     name = "base_layer_utils",
     srcs = ["base_layer_utils.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -90,7 +88,6 @@ py_library(
         "base_layer.py",
         "base_layer_v1.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":base_layer_utils",
         ":input_spec",
@@ -146,7 +143,6 @@ py_library(
 py_library(
     name = "data_adapter",
     srcs = ["data_adapter.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/distribute",
@@ -159,7 +155,6 @@ py_library(
 py_library(
     name = "input_spec",
     srcs = ["input_spec.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -169,7 +164,6 @@ py_library(
 py_library(
     name = "keras_tensor",
     srcs = ["keras_tensor.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/utils:object_identity",
@@ -181,7 +175,6 @@ py_library(
     srcs = [
         "base_preprocessing_layer.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":base_layer",
         "//:expect_tensorflow_installed",
@@ -192,7 +185,6 @@ py_library(
 py_library(
     name = "node",
     srcs = ["node.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_layer_utils",
         "//:expect_numpy_installed",
@@ -205,7 +197,6 @@ py_library(
 tf_py_test(
     name = "base_layer_utils_test",
     srcs = ["base_layer_utils_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
@@ -222,7 +213,6 @@ tf_py_test(
     name = "data_adapter_test",
     size = "medium",
     srcs = ["data_adapter_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_oss_py38",  # TODO(b/150615192)
@@ -242,7 +232,6 @@ tf_py_test(
     name = "base_preprocessing_layer_test",
     size = "medium",
     srcs = ["base_preprocessing_layer_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
@@ -259,7 +248,6 @@ tf_py_test(
     name = "functional_utils_test",
     size = "medium",
     srcs = ["functional_utils_test.py"],
-    python_version = "PY3",
     deps = [
         ":functional_utils",
         ":input_layer",
@@ -275,7 +263,6 @@ cuda_py_test(
     name = "training_gpu_test",
     size = "small",
     srcs = ["training_gpu_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
@@ -296,7 +283,6 @@ tf_py_test(
     name = "correctness_test",
     size = "medium",
     srcs = ["correctness_test.py"],
-    python_version = "PY3",
     shard_count = 2,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -315,7 +301,6 @@ tf_py_test(
     name = "keras_tensor_test",
     size = "small",
     srcs = ["keras_tensor_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
@@ -331,7 +316,6 @@ tf_py_test(
     name = "ragged_keras_tensor_test",
     size = "small",
     srcs = ["ragged_keras_tensor_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
@@ -347,7 +331,6 @@ tf_py_test(
     name = "input_spec_test",
     size = "small",
     srcs = ["input_spec_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
@@ -362,7 +345,6 @@ tf_py_test(
     name = "training_test",
     size = "large",  # Resolves timeout in OSS build.
     srcs = ["training_test.py"],
-    python_version = "PY3",
     shard_count = 20,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -407,7 +389,6 @@ tf_py_test(
     name = "training_dataset_test",
     size = "medium",
     srcs = ["training_dataset_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -425,7 +406,6 @@ tf_py_test(
     name = "training_arrays_test",
     size = "medium",
     srcs = ["training_arrays_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
@@ -443,7 +423,6 @@ tf_py_test(
     name = "training_generator_test",
     size = "medium",
     srcs = ["training_generator_test.py"],
-    python_version = "PY3",
     shard_count = 6,
     tags = [
         "noasan",  # TODO(b/132183295): Re-enable this.
@@ -470,7 +449,6 @@ tf_py_test(
     name = "training_integration_test",
     size = "medium",
     srcs = ["training_integration_test.py"],
-    python_version = "PY3",
     shard_count = 30,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -488,7 +466,6 @@ tf_py_test(
     name = "feature_columns_integration_test",
     size = "medium",
     srcs = ["feature_columns_integration_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
         "notsan",
@@ -506,7 +483,6 @@ tf_py_test(
     name = "training_eager_test",
     size = "medium",
     srcs = ["training_eager_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
         "notsan",
@@ -524,7 +500,6 @@ tf_py_test(
     name = "training_utils_v1_test",
     size = "medium",
     srcs = ["training_utils_v1_test.py"],
-    python_version = "PY3",
     tags = [
         "no_oss",  # TODO(b/135021748) re-enable
         "notsan",
@@ -542,7 +517,6 @@ tf_py_test(
     name = "input_layer_test",
     size = "medium",
     srcs = ["input_layer_test.py"],
-    python_version = "PY3",
     shard_count = 3,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -561,7 +535,6 @@ tf_py_test(
     name = "functional_test",
     size = "medium",
     srcs = ["functional_test.py"],
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "no-internal-py3",
@@ -589,7 +562,6 @@ tf_py_test(
     name = "node_test",
     size = "medium",
     srcs = ["node_test.py"],
-    python_version = "PY3",
     shard_count = 3,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -608,7 +580,6 @@ tf_py_test(
     name = "base_layer_test",
     size = "medium",
     srcs = ["base_layer_test.py"],
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -636,7 +607,6 @@ tf_py_test(
     name = "control_flow_test",
     size = "medium",
     srcs = ["control_flow_test.py"],
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -654,7 +624,6 @@ tf_py_test(
     name = "sequential_test",
     size = "medium",
     srcs = ["sequential_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
@@ -672,7 +641,6 @@ tf_py_test(
     name = "deferred_sequential_test",
     size = "medium",
     srcs = ["deferred_sequential_test.py"],
-    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],

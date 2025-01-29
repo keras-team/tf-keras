@@ -20,7 +20,6 @@ py_library(
     srcs = [
         "__init__.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":discretization",
         ":hashed_crossing",
@@ -40,7 +39,6 @@ py_library(
     srcs = [
         "discretization.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":preprocessing_utils",
         "//:expect_numpy_installed",
@@ -55,7 +53,6 @@ py_library(
     srcs = [
         "hashing.py",
     ],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -68,7 +65,6 @@ py_library(
     srcs = [
         "hashed_crossing.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":preprocessing_utils",
         "//:expect_tensorflow_installed",
@@ -84,7 +80,6 @@ py_library(
     srcs = [
         "image_preprocessing.py",
     ],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -102,7 +97,6 @@ py_library(
     srcs = [
         "index_lookup.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":category_encoding",
         ":preprocessing_utils",
@@ -118,7 +112,6 @@ py_library(
     srcs = [
         "normalization.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":preprocessing_utils",
         "//:expect_numpy_installed",
@@ -133,7 +126,6 @@ py_library(
     srcs = [
         "integer_lookup.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":index_lookup",
         "//:expect_tensorflow_installed",
@@ -146,7 +138,6 @@ py_library(
     srcs = [
         "text_vectorization.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":category_encoding",
         ":preprocessing_utils",
@@ -165,7 +156,6 @@ py_library(
     srcs = [
         "category_encoding.py",
     ],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -181,7 +171,6 @@ py_library(
     srcs = [
         "string_lookup.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":index_lookup",
         "//:expect_tensorflow_installed",
@@ -194,7 +183,6 @@ py_library(
     srcs = [
         "preprocessing_stage.py",
     ],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -206,7 +194,6 @@ py_library(
 py_library(
     name = "preprocessing_test_utils",
     srcs = ["preprocessing_test_utils.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -216,7 +203,6 @@ py_library(
 py_library(
     name = "preprocessing_utils",
     srcs = ["preprocessing_utils.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -226,7 +212,6 @@ py_library(
 tf_py_test(
     name = "preprocessing_utils_test",
     srcs = ["preprocessing_utils_test.py"],
-    python_version = "PY3",
     deps = [
         ":preprocessing_utils",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -240,7 +225,6 @@ tf_py_test(
 tf_py_test(
     name = "category_encoding_test",
     srcs = ["category_encoding_test.py"],
-    python_version = "PY3",
     deps = [
         ":category_encoding",
         ":preprocessing_test_utils",
@@ -260,7 +244,6 @@ distribute_py_test(
         "CUDA_MODULE_LOADING": "LAZY",
     },
     main = "category_encoding_distribution_test.py",
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "multi_and_single_gpu",
@@ -289,7 +272,6 @@ distribute_py_test(
         "CUDA_MODULE_LOADING": "LAZY",
     },
     main = "image_preprocessing_distribution_test.py",
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "multi_and_single_gpu",
@@ -313,7 +295,6 @@ distribute_py_test(
 tf_py_test(
     name = "discretization_test",
     srcs = ["discretization_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = ["no_rocm"],
     deps = [
@@ -333,7 +314,6 @@ distribute_py_test(
         "CUDA_MODULE_LOADING": "LAZY",
     },
     main = "discretization_distribution_test.py",
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "multi_and_single_gpu",
@@ -354,7 +334,6 @@ distribute_py_test(
 cuda_py_test(
     name = "hashing_test",
     srcs = ["hashing_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":hashing",
@@ -375,7 +354,6 @@ distribute_py_test(
         "CUDA_MODULE_LOADING": "LAZY",
     },
     main = "hashing_distribution_test.py",
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "multi_and_single_gpu",
@@ -393,7 +371,6 @@ distribute_py_test(
 tf_py_test(
     name = "hashed_crossing_test",
     srcs = ["hashed_crossing_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":hashing",
@@ -409,7 +386,6 @@ tf_py_test(
 tf_py_test(
     name = "index_lookup_test",
     srcs = ["index_lookup_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = ["noasan"],  # TODO(b/183961255)
     deps = [
@@ -431,7 +407,6 @@ distribute_py_test(
         "CUDA_MODULE_LOADING": "LAZY",
     },
     main = "index_lookup_distribution_test.py",
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "multi_and_single_gpu",
@@ -450,7 +425,6 @@ distribute_py_test(
 cuda_py_test(
     name = "image_preprocessing_test",
     srcs = ["image_preprocessing_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_windows",  # TODO(b/184424727): Re-enable this.
@@ -471,7 +445,6 @@ cuda_py_test(
 tf_py_test(
     name = "normalization_test",
     srcs = ["normalization_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     tags = [
         "noasan",  # TODO(b/337374867) fails with -fsanitize=null
@@ -489,7 +462,6 @@ tf_py_test(
 tf_py_test(
     name = "integer_lookup_test",
     srcs = ["integer_lookup_test.py"],
-    python_version = "PY3",
     tags = ["noasan"],  # TODO(b/183961255)
     deps = [
         ":integer_lookup",
@@ -509,7 +481,6 @@ distribute_py_test(
         "CUDA_MODULE_LOADING": "LAZY",
     },
     main = "normalization_distribution_test.py",
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "no_oss",
@@ -528,7 +499,6 @@ distribute_py_test(
 tf_py_test(
     name = "text_vectorization_test",
     srcs = ["text_vectorization_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":preprocessing_test_utils",
@@ -549,7 +519,6 @@ distribute_py_test(
         "CUDA_MODULE_LOADING": "LAZY",
     },
     main = "text_vectorization_distribution_test.py",
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "multi_and_single_gpu",
@@ -571,7 +540,6 @@ distribute_py_test(
 tf_py_test(
     name = "string_lookup_test",
     srcs = ["string_lookup_test.py"],
-    python_version = "PY3",
     tags = [
         "notsan",  #b/168758821
     ],
@@ -589,7 +557,6 @@ tf_py_test(
 tf_py_test(
     name = "preprocessing_stage_test",
     srcs = ["preprocessing_stage_test.py"],
-    python_version = "PY3",
     tags = ["no_windows"],  # TODO(b/152991402)
     deps = [
         ":preprocessing_stage",

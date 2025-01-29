@@ -18,7 +18,6 @@ py_library(
     srcs = [
         "export_lib.py",
     ],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -28,7 +27,6 @@ tf_py_test(
     name = "export_lib_test",
     size = "medium",
     srcs = ["export_lib_test.py"],
-    python_version = "PY3",
     deps = [
         ":export_lib",
         "//:expect_absl_installed",  # absl/testing:parameterized

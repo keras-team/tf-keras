@@ -23,7 +23,6 @@ py_library(
         ":tf_keras_python_api_gen_compat_v1",
         ":tf_keras_python_api_gen_compat_v2",
     ],
-    srcs_version = "PY3",
     visibility = ["//visibility:public"],
     deps = [
         "//:expect_tensorflow_installed",

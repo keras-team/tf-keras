@@ -45,7 +45,6 @@ py_library(
         "py_metric.py",
         "regression_metrics.py",
     ],
-    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -67,7 +66,6 @@ tf_py_test(
     name = "metrics_functional_test",
     size = "small",
     srcs = ["metrics_functional_test.py"],
-    python_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -80,7 +78,6 @@ tf_py_test(
     name = "accuracy_metrics_test",
     size = "medium",
     srcs = ["accuracy_metrics_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":metrics",
@@ -97,7 +94,6 @@ tf_py_test(
     name = "confusion_metrics_test",
     size = "medium",
     srcs = ["confusion_metrics_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":metrics",
@@ -118,7 +114,6 @@ tf_py_test(
     name = "f_score_metrics_test",
     size = "medium",
     srcs = ["f_score_metrics_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":metrics",
@@ -134,7 +129,6 @@ tf_py_test(
     name = "hinge_metrics_test",
     size = "medium",
     srcs = ["hinge_metrics_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":metrics",
@@ -151,7 +145,6 @@ tf_py_test(
     name = "iou_metrics_test",
     size = "medium",
     srcs = ["iou_metrics_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":metrics",
@@ -168,7 +161,6 @@ tf_py_test(
     name = "probabilistic_metrics_test",
     size = "medium",
     srcs = ["probabilistic_metrics_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":metrics",
@@ -185,7 +177,6 @@ tf_py_test(
     name = "regression_metrics_test",
     size = "medium",
     srcs = ["regression_metrics_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":metrics",
@@ -200,7 +191,6 @@ tf_py_test(
     name = "base_metric_test",
     size = "medium",
     srcs = ["base_metric_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":metrics",
@@ -217,7 +207,6 @@ tf_py_test(
     name = "metrics_correctness_test",
     size = "medium",
     srcs = ["metrics_correctness_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized

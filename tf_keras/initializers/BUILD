@@ -19,7 +19,6 @@ py_library(
         "initializers.py",
         "initializers_v1.py",
     ],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -34,7 +33,6 @@ tf_py_test(
     name = "initializers_test",
     size = "small",
     srcs = ["initializers_test.py"],
-    python_version = "PY3",
     deps = [
         ":initializers",
         "//:expect_numpy_installed",

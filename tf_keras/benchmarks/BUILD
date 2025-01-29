@@ -28,7 +28,6 @@ package(
 # Add all benchmarks related utils here for pip testing dependencies.
 py_library(
     name = "keras_benchmark_lib_pip",
-    srcs_version = "PY3",
     deps = [
         ":benchmark_util",
         ":distribution_util",
@@ -39,7 +38,6 @@ py_library(
 # This lib is mainly for running benchmarks on mlcompass infra.
 py_library(
     name = "profiler_lib",
-    srcs_version = "PY3",
     visibility = [
         "//learning/brain/contrib/keras_benchmark:__subpackages__",
         "//tf_keras:friends",
@@ -55,7 +53,6 @@ py_test(
     name = "keras_cpu_benchmark_test",
     size = "large",
     srcs = ["keras_cpu_benchmark_test.py"],
-    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         ":benchmark_util",
@@ -70,7 +67,6 @@ cuda_py_test(
     name = "eager_microbenchmarks_test",
     size = "medium",
     srcs = ["eager_microbenchmarks_test.py"],
-    python_version = "PY3",
     tags = COMMON_TAGS + [
         "no_oss_py38",  # TODO(b/162044699)
     ],
@@ -85,7 +81,6 @@ cuda_py_test(
 cuda_py_test(
     name = "model_components_benchmarks_test",
     srcs = ["model_components_benchmarks_test.py"],
-    python_version = "PY3",
     deps = [
         ":profiler_lib",
         "//:expect_tensorflow_installed",
@@ -96,7 +91,6 @@ cuda_py_test(
 py_library(
     name = "benchmark_util",
     srcs = ["benchmark_util.py"],
-    srcs_version = "PY3",
     deps = [
         ":distribution_util",
         "//:expect_numpy_installed",
@@ -108,7 +102,6 @@ py_library(
 py_test(
     name = "benchmark_util_test",
     srcs = ["benchmark_util_test.py"],
-    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         ":benchmark_util",
@@ -120,7 +113,6 @@ py_test(
 py_library(
     name = "distribution_util",
     srcs = ["distribution_util.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -129,7 +121,6 @@ py_library(
 py_test(
     name = "optimizer_benchmarks_test",
     srcs = ["optimizer_benchmarks_test.py"],
-    python_version = "PY3",
     tags = COMMON_TAGS + [
         "no_oss_py38",  # TODO(b/162044699)
     ],
@@ -152,7 +143,6 @@ py_test(
 py_binary(
     name = "model_memory_profile",
     srcs = ["model_memory_profile.py"],
-    python_version = "PY3",
     tags = ["no_oss"],
     deps = ["//:expect_tensorflow_installed"],
 )
@@ -160,7 +150,6 @@ py_binary(
 py_test(
     name = "metrics_memory_benchmark_test",
     srcs = ["metrics_memory_benchmark_test.py"],
-    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_numpy_installed",

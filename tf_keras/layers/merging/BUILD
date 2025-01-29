@@ -21,7 +21,6 @@ package(
 py_library(
     name = "merging",
     srcs = ["__init__.py"],
-    srcs_version = "PY3",
     deps = [
         ":add",
         ":average",
@@ -37,7 +36,6 @@ py_library(
 py_library(
     name = "base_merge",
     srcs = ["base_merge.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -49,7 +47,6 @@ py_library(
 py_library(
     name = "add",
     srcs = ["add.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_merge",
     ],
@@ -58,7 +55,6 @@ py_library(
 py_library(
     name = "subtract",
     srcs = ["subtract.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_merge",
         "//tf_keras/utils:tf_utils",
@@ -68,7 +64,6 @@ py_library(
 py_library(
     name = "multiply",
     srcs = ["multiply.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_merge",
     ],
@@ -77,7 +72,6 @@ py_library(
 py_library(
     name = "average",
     srcs = ["average.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_merge",
     ],
@@ -86,7 +80,6 @@ py_library(
 py_library(
     name = "maximum",
     srcs = ["maximum.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_merge",
         "//:expect_tensorflow_installed",
@@ -96,7 +89,6 @@ py_library(
 py_library(
     name = "minimum",
     srcs = ["minimum.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_merge",
         "//:expect_tensorflow_installed",
@@ -106,7 +98,6 @@ py_library(
 py_library(
     name = "concatenate",
     srcs = ["concatenate.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_merge",
         "//:expect_tensorflow_installed",
@@ -118,7 +109,6 @@ py_library(
 py_library(
     name = "dot",
     srcs = ["dot.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_merge",
         "//:expect_tensorflow_installed",
@@ -132,7 +122,6 @@ tf_py_test(
     name = "merging_test",
     size = "medium",
     srcs = ["merging_test.py"],
-    python_version = "PY3",
     shard_count = 4,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized

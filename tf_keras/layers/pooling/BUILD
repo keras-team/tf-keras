@@ -21,7 +21,6 @@ package(
 py_library(
     name = "pooling",
     srcs = ["__init__.py"],
-    srcs_version = "PY3",
     deps = [
         ":average_pooling1d",
         ":average_pooling2d",
@@ -41,7 +40,6 @@ py_library(
 py_library(
     name = "base_pooling1d",
     srcs = ["base_pooling1d.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -54,7 +52,6 @@ py_library(
 py_library(
     name = "base_pooling2d",
     srcs = ["base_pooling2d.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -67,7 +64,6 @@ py_library(
 py_library(
     name = "base_pooling3d",
     srcs = ["base_pooling3d.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -80,7 +76,6 @@ py_library(
 py_library(
     name = "base_global_pooling1d",
     srcs = ["base_global_pooling1d.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -92,7 +87,6 @@ py_library(
 py_library(
     name = "base_global_pooling2d",
     srcs = ["base_global_pooling2d.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -104,7 +98,6 @@ py_library(
 py_library(
     name = "base_global_pooling3d",
     srcs = ["base_global_pooling3d.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -116,7 +109,6 @@ py_library(
 py_library(
     name = "max_pooling1d",
     srcs = ["max_pooling1d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_pooling1d",
         "//tf_keras:backend",
@@ -126,7 +118,6 @@ py_library(
 py_library(
     name = "max_pooling2d",
     srcs = ["max_pooling2d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_pooling2d",
         "//:expect_tensorflow_installed",
@@ -136,7 +127,6 @@ py_library(
 py_library(
     name = "max_pooling3d",
     srcs = ["max_pooling3d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_pooling3d",
         "//:expect_tensorflow_installed",
@@ -146,7 +136,6 @@ py_library(
 py_library(
     name = "average_pooling1d",
     srcs = ["average_pooling1d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_pooling1d",
         "//tf_keras:backend",
@@ -156,7 +145,6 @@ py_library(
 py_library(
     name = "average_pooling2d",
     srcs = ["average_pooling2d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_pooling2d",
         "//:expect_tensorflow_installed",
@@ -166,7 +154,6 @@ py_library(
 py_library(
     name = "average_pooling3d",
     srcs = ["average_pooling3d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_pooling3d",
         "//:expect_tensorflow_installed",
@@ -176,7 +163,6 @@ py_library(
 py_library(
     name = "global_max_pooling1d",
     srcs = ["global_max_pooling1d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_global_pooling1d",
         "//tf_keras:backend",
@@ -186,7 +172,6 @@ py_library(
 py_library(
     name = "global_max_pooling2d",
     srcs = ["global_max_pooling2d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_global_pooling2d",
         "//tf_keras:backend",
@@ -196,7 +181,6 @@ py_library(
 py_library(
     name = "global_max_pooling3d",
     srcs = ["global_max_pooling3d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_global_pooling3d",
         "//tf_keras:backend",
@@ -206,7 +190,6 @@ py_library(
 py_library(
     name = "global_average_pooling1d",
     srcs = ["global_average_pooling1d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_global_pooling1d",
         "//:expect_tensorflow_installed",
@@ -217,7 +200,6 @@ py_library(
 py_library(
     name = "global_average_pooling2d",
     srcs = ["global_average_pooling2d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_global_pooling2d",
         "//tf_keras:backend",
@@ -227,7 +209,6 @@ py_library(
 py_library(
     name = "global_average_pooling3d",
     srcs = ["global_average_pooling3d.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_global_pooling3d",
         "//tf_keras:backend",
@@ -238,7 +219,6 @@ tf_py_test(
     name = "average_pooling_test",
     size = "medium",
     srcs = ["average_pooling_test.py"],
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "notsan",  # TODO(b/183962355)
@@ -256,7 +236,6 @@ tf_py_test(
     name = "max_pooling_test",
     size = "medium",
     srcs = ["max_pooling_test.py"],
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "notsan",  # TODO(b/183962355)
@@ -274,7 +253,6 @@ tf_py_test(
     name = "global_average_pooling_test",
     size = "medium",
     srcs = ["global_average_pooling_test.py"],
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "notsan",  # TODO(b/183962355)
@@ -292,7 +270,6 @@ tf_py_test(
     name = "global_max_pooling_test",
     size = "medium",
     srcs = ["global_max_pooling_test.py"],
-    python_version = "PY3",
     shard_count = 8,
     tags = [
         "notsan",  # TODO(b/183962355)

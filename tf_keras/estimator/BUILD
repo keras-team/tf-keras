@@ -16,7 +16,6 @@ py_library(
     srcs = [
         "__init__.py",
     ],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],

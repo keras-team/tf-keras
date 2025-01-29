@@ -15,7 +15,6 @@ package(
 py_library(
     name = "feature_column",
     srcs = ["__init__.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_feature_layer",
         ":dense_features",
@@ -27,7 +26,6 @@ py_library(
 py_library(
     name = "base_feature_layer",
     srcs = ["base_feature_layer.py"],
-    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -40,7 +38,6 @@ py_library(
     srcs = [
         "dense_features.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":base_feature_layer",
         "//:expect_tensorflow_installed",
@@ -53,7 +50,6 @@ py_library(
     srcs = [
         "dense_features_v2.py",
     ],
-    srcs_version = "PY3",
     deps = [
         ":base_feature_layer",
         ":dense_features",
@@ -89,7 +85,6 @@ tf_py_test(
 py_library(
     name = "sequence_feature_column",
     srcs = ["sequence_feature_column.py"],
-    srcs_version = "PY3",
     deps = [
         ":base_feature_layer",
         "//:expect_tensorflow_installed",
@@ -112,8 +107,6 @@ tf_py_test(
 tf_py_test(
     name = "sequence_feature_column_integration_test",
     srcs = ["sequence_feature_column_integration_test.py"],
-    python_version = "PY3",
-    srcs_version = "PY3",
     tags = ["no_pip"],
     deps = [
         ":dense_features",

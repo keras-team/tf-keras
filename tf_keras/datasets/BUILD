@@ -24,7 +24,6 @@ py_library(
         "mnist.py",
         "reuters.py",
     ],
-    srcs_version = "PY3",
     visibility = ["//visibility:public"],
     deps = [
         "//:expect_numpy_installed",
