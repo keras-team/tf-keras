@@ -15,6 +15,7 @@ py_library(
     srcs = [
         "learning_rate_schedule.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/utils:generic_utils",

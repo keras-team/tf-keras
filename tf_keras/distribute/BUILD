@@ -25,6 +25,7 @@ py_library(
         "distributed_training_utils.py",
         "distributed_training_utils_v1.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":distribute_coordinator_utils",
         "//:expect_tensorflow_installed",
@@ -44,6 +45,7 @@ py_library(
 
 py_library(
     name = "distribute_test_lib_pip",
+    srcs_version = "PY3",
     deps = [
         ":dataset_creator_model_fit_test_base",
         ":distribute_strategy_test_lib",
@@ -59,6 +61,7 @@ py_library(
 py_library(
     name = "optimizer_combinations",
     srcs = ["optimizer_combinations.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/optimizers",
@@ -71,6 +74,7 @@ py_library(
     srcs = [
         "worker_training_state.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":distributed_file_utils",
         "//:expect_tensorflow_installed",
@@ -82,11 +86,13 @@ py_library(
 py_library(
     name = "model_collection_base",
     srcs = ["model_collection_base.py"],
+    srcs_version = "PY3",
 )
 
 py_library(
     name = "model_combinations",
     srcs = ["model_combinations.py"],
+    srcs_version = "PY3",
     deps = [
         ":simple_models",
         "//:expect_tensorflow_installed",
@@ -96,6 +102,7 @@ py_library(
 py_library(
     name = "simple_models",
     srcs = ["simple_models.py"],
+    srcs_version = "PY3",
     deps = [
         ":model_collection_base",
         "//:expect_tensorflow_installed",
@@ -106,6 +113,7 @@ py_library(
 py_library(
     name = "saved_model_test_base",
     srcs = ["saved_model_test_base.py"],
+    srcs_version = "PY3",
     deps = [
         ":model_combinations",
         "//:expect_numpy_installed",
@@ -117,6 +125,7 @@ py_library(
 cuda_py_test(
     name = "model_checkpoint_test",
     srcs = ["model_checkpoint_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":multi_worker_testing_utils",
@@ -129,6 +138,7 @@ cuda_py_test(
 cuda_py_test(
     name = "worker_training_state_test",
     srcs = ["worker_training_state_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":multi_worker_testing_utils",
@@ -155,6 +165,7 @@ distribute_py_test(
 cuda_py_test(
     name = "collective_all_reduce_strategy_test",
     srcs = ["collective_all_reduce_strategy_test.py"],
+    python_version = "PY3",
     tags = [
         "multi_and_single_gpu",
         "nomsan",  # TODO(b/162894966)
@@ -260,6 +271,7 @@ py_library(
     srcs = [
         "distribute_strategy_test.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":multi_worker_testing_utils",
         ":optimizer_combinations",
@@ -302,6 +314,7 @@ distribute_py_test(
     disable_mlir_bridge = True,  # TODO(b/170352626)
     full_precision = True,
     main = "distribute_strategy_test.py",
+    python_version = "PY3",
     shard_count = 20,
     tags = [
         "multi_and_single_gpu",
@@ -351,6 +364,7 @@ py_library(
         "keras_rnn_model_correctness_test.py",
         "keras_stateful_lstm_model_correctness_test.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":strategy_combinations",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -564,6 +578,7 @@ py_library(
     srcs = [
         "keras_utils_test.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_numpy_installed",
@@ -575,6 +590,7 @@ py_library(
 cuda_py_test(
     name = "keras_optimizer_v2_test",
     srcs = ["keras_optimizer_v2_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "multi_and_single_gpu",
@@ -606,6 +622,7 @@ distribute_py_test(
 cuda_py_test(
     name = "mirrored_strategy_test",
     srcs = ["mirrored_strategy_test.py"],
+    python_version = "PY3",
     tags = [
         "multi_and_single_gpu",
         "no_windows_gpu",  # TODO(b/130551176)
@@ -621,6 +638,7 @@ cuda_py_test(
 cuda_py_test(
     name = "mirrored_variable_test",
     srcs = ["mirrored_variable_test.py"],
+    python_version = "PY3",
     tags = [
         "guitar",
         "multi_and_single_gpu",
@@ -635,6 +653,7 @@ cuda_py_test(
 cuda_py_test(
     name = "multi_worker_test",
     srcs = ["multi_worker_test.py"],
+    python_version = "PY3",
     shard_count = 2,
     tags = [
         "multi_and_single_gpu",
@@ -658,6 +677,7 @@ cuda_py_test(
 tf_py_test(
     name = "multi_worker_callback_tf2_test",
     srcs = ["multi_worker_callback_tf2_test.py"],
+    python_version = "PY3",
     shard_count = 5,
     tags = [
         "no_windows",  # TODO(b/184424727): Re-enable this.
@@ -675,6 +695,7 @@ py_library(
     srcs = [
         "multi_worker_testing_utils.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
@@ -685,6 +706,7 @@ py_library(
 py_library(
     name = "tpu_strategy_test_utils",
     srcs = ["tpu_strategy_test_utils.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -731,6 +753,7 @@ distribute_py_test(
 distribute_py_test(
     name = "sharded_variable_test",
     srcs = ["sharded_variable_test.py"],
+    python_version = "PY3",
     shard_count = 2,
     tags = [
         "multi_and_single_gpu",
@@ -749,6 +772,7 @@ distribute_py_test(
 distribute_py_test(
     name = "parameter_server_evaluation_test",
     srcs = ["parameter_server_evaluation_test.py"],
+    python_version = "PY3",
     shard_count = 1,
     tags = [
         "multi_and_single_gpu",
@@ -769,6 +793,7 @@ distribute_py_test(
 distribute_py_test(
     name = "parameter_server_exact_evaluation_test",
     srcs = ["parameter_server_exact_evaluation_test.py"],
+    python_version = "PY3",
     shard_count = 29,
     tags = [
         "multi_and_single_gpu",
@@ -841,6 +866,7 @@ py_library(
     srcs = [
         "distributed_file_utils.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -849,6 +875,8 @@ py_library(
 tf_py_test(
     name = "distributed_file_utils_test",
     srcs = ["distributed_file_utils_test.py"],
+    python_version = "PY3",
+    srcs_version = "PY3",
     deps = [
         ":distributed_file_utils",
         "//:expect_tensorflow_installed",
@@ -858,6 +886,7 @@ tf_py_test(
 py_library(
     name = "strategy_combinations",
     srcs = ["strategy_combinations.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -866,6 +895,7 @@ py_library(
 py_library(
     name = "test_example",
     srcs = ["test_example.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/legacy_tf_layers:layers",
@@ -877,6 +907,7 @@ py_library(
     srcs = [
         "distribute_coordinator_utils.py",
     ],
+    srcs_version = "PY3",
     deps = ["//:expect_tensorflow_installed"],
 )
 
@@ -885,6 +916,7 @@ py_library(
     srcs = [
         "dataset_creator_model_fit_test_base.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":multi_worker_testing_utils",
         "//:expect_absl_installed",  # absl/testing:parameterized

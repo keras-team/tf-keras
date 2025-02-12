@@ -34,6 +34,7 @@ package(
 py_library(
     name = "mixed_precision_experimental",
     srcs = ["__init__.py"],
+    srcs_version = "PY3",
     deps = [
         ":loss_scale_optimizer",
         ":policy",
@@ -45,6 +46,7 @@ py_library(
     srcs = [
         "policy.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":device_compatibility_check",
         "//:expect_tensorflow_installed",
@@ -57,6 +59,8 @@ tf_py_test(
     srcs = [
         "policy_test.py",
     ],
+    python_version = "PY3",
+    srcs_version = "PY3",
     tags = ["no_rocm"],
     deps = [
         ":policy",
@@ -70,6 +74,7 @@ tf_py_test(
 py_library(
     name = "device_compatibility_check",
     srcs = ["device_compatibility_check.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -78,6 +83,7 @@ py_library(
 cuda_py_test(
     name = "device_compatibility_check_test",
     srcs = ["device_compatibility_check_test.py"],
+    srcs_version = "PY3",
     deps = [
         ":device_compatibility_check",
         "//:expect_tensorflow_installed",
@@ -90,6 +96,7 @@ py_library(
     srcs = [
         "autocast_variable.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/distribute",
@@ -100,6 +107,7 @@ tf_py_test(
     name = "autocast_variable_test",
     size = "medium",
     srcs = ["autocast_variable_test.py"],
+    python_version = "PY3",
     deps = [
         ":autocast_variable",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -112,6 +120,7 @@ tf_py_test(
 py_library(
     name = "loss_scale_optimizer",
     srcs = ["loss_scale_optimizer.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",
@@ -124,6 +133,7 @@ cuda_py_test(
     name = "loss_scale_optimizer_test",
     size = "medium",
     srcs = ["loss_scale_optimizer_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":loss_scale_optimizer",
@@ -138,6 +148,7 @@ cuda_py_test(
     name = "mixed_precision_graph_rewrite_test",
     size = "small",
     srcs = ["mixed_precision_graph_rewrite_test.py"],
+    python_version = "PY3",
     deps = [
         ":loss_scale_optimizer",
         ":policy",
@@ -153,6 +164,7 @@ cuda_py_test(
 py_library(
     name = "test_util",
     srcs = ["test_util.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
@@ -163,6 +175,7 @@ cuda_py_test(
     name = "layer_test",
     size = "medium",
     srcs = ["layer_test.py"],
+    python_version = "PY3",
     tags = [
         "no_pip",
         "no_windows",  # b/139083295: bfloat16 tests fail on Windows
@@ -184,6 +197,7 @@ cuda_py_test(
         "//tf_keras/mixed_precision/testdata:lso_ckpt_tf2.2",
         "//tf_keras/mixed_precision/testdata:lso_savedmodel_tf2.2",
     ],
+    python_version = "PY3",
     shard_count = 5,
     tags = [
         "no_pip",
@@ -202,6 +216,7 @@ cuda_py_test(
     name = "layer_correctness_test",
     size = "medium",
     srcs = ["layer_correctness_test.py"],
+    python_version = "PY3",
     shard_count = 10,
     tags = [
         "no_rocm",

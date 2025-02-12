@@ -19,6 +19,7 @@ package(
 tf_py_test(
     name = "get_config_test",
     srcs = ["get_config_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_pip",
@@ -36,6 +37,7 @@ tf_py_test(
 tf_py_test(
     name = "add_loss_correctness_test",
     srcs = ["add_loss_correctness_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -54,6 +56,7 @@ tpu_py_test(
     ],
     disable_experimental = True,
     disable_mlir_bridge = False,
+    python_version = "PY3",
     tags = ["no_oss"],
     deps = [
         "//:expect_tensorboard_installed",
@@ -67,6 +70,7 @@ tpu_py_test(
 tf_py_test(
     name = "convert_to_constants_test",
     srcs = ["convert_to_constants_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     deps = [
         "//:expect_tensorflow_installed",
@@ -79,6 +83,7 @@ tf_py_test(
 tf_py_test(
     name = "custom_training_loop_test",
     srcs = ["custom_training_loop_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = ["notsan"],
     deps = [
@@ -94,6 +99,7 @@ tf_py_test(
 tf_py_test(
     name = "graph_util_test",
     srcs = ["graph_util_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
@@ -105,6 +111,7 @@ tf_py_test(
     name = "integration_test",
     size = "medium",
     srcs = ["integration_test.py"],
+    python_version = "PY3",
     shard_count = 16,
     tags = [
         "notsan",
@@ -126,6 +133,7 @@ py_library(
     srcs = [
         "model_architectures.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//tf_keras",
     ],
@@ -134,6 +142,7 @@ py_library(
 tf_py_test(
     name = "model_architectures_test",
     srcs = ["model_architectures_test.py"],
+    python_version = "PY3",
     shard_count = 16,
     deps = [
         ":model_architectures",
@@ -148,6 +157,7 @@ tf_py_test(
 py_library(
     name = "model_subclassing_test_util",
     srcs = ["model_subclassing_test_util.py"],
+    srcs_version = "PY3",
     deps = [
         "//tf_keras",
         "//tf_keras/testing_infra:test_utils",
@@ -157,6 +167,7 @@ py_library(
 tf_py_test(
     name = "model_subclassing_test",
     srcs = ["model_subclassing_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_windows",
@@ -176,6 +187,7 @@ tf_py_test(
 tf_py_test(
     name = "model_subclassing_compiled_test",
     srcs = ["model_subclassing_compiled_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_windows",
@@ -214,6 +226,7 @@ tf_py_test(
     name = "memory_checker_test",
     size = "medium",
     srcs = ["memory_checker_test.py"],
+    python_version = "PY3",
     shard_count = 8,
     tags = [
         "no_oss",
@@ -251,6 +264,7 @@ cuda_py_test(
     name = "saver_test",
     size = "medium",
     srcs = ["saver_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:tf_keras_api",
@@ -263,6 +277,7 @@ tf_py_test(
     name = "serialization_util_test",
     size = "small",
     srcs = ["serialization_util_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",
@@ -276,6 +291,7 @@ tf_py_test(
 tf_py_test(
     name = "temporal_sample_weights_correctness_test",
     srcs = ["temporal_sample_weights_correctness_test.py"],
+    python_version = "PY3",
     shard_count = 20,
     deps = [
         "//:expect_numpy_installed",
@@ -289,6 +305,7 @@ tf_py_test(
 tf_py_test(
     name = "tracking_test",
     srcs = ["tracking_test.py"],
+    python_version = "PY3",
     tags = [
         "no_windows",
         "nomac",
@@ -308,6 +325,7 @@ tf_py_test(
 tf_py_test(
     name = "tracking_util_test",
     srcs = ["tracking_util_test.py"],
+    python_version = "PY3",
     tags = ["notsan"],  # b/74395663
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -341,12 +359,14 @@ tf_py_test(
 py_library(
     name = "get_config_samples",
     srcs = ["get_config_samples.py"],
+    srcs_version = "PY3",
     deps = [],
 )
 
 py_test(
     name = "keras_doctest",
     srcs = ["keras_doctest.py"],
+    python_version = "PY3",
     tags = [
         "no_pip",
         "noasan",

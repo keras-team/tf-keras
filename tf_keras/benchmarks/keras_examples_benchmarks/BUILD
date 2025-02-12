@@ -30,6 +30,7 @@ COMMON_TAGS = [
 cuda_py_test(
     name = "bidirectional_lstm_benchmark_test",
     srcs = ["bidirectional_lstm_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
@@ -42,6 +43,7 @@ cuda_py_test(
 cuda_py_test(
     name = "text_classification_transformer_benchmark_test",
     srcs = ["text_classification_transformer_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
@@ -54,6 +56,7 @@ cuda_py_test(
 cuda_py_test(
     name = "antirectifier_benchmark_test",
     srcs = ["antirectifier_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
@@ -66,6 +69,7 @@ cuda_py_test(
 cuda_py_test(
     name = "mnist_conv_benchmark_test",
     srcs = ["mnist_conv_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_numpy_installed",
@@ -79,6 +83,7 @@ cuda_py_test(
 cuda_py_test(
     name = "mnist_hierarchical_rnn_benchmark_test",
     srcs = ["mnist_hierarchical_rnn_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
@@ -91,6 +96,7 @@ cuda_py_test(
 cuda_py_test(
     name = "mnist_irnn_benchmark_test",
     srcs = ["mnist_irnn_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
@@ -103,6 +109,7 @@ cuda_py_test(
 cuda_py_test(
     name = "reuters_mlp_benchmark_test",
     srcs = ["reuters_mlp_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_numpy_installed",
@@ -116,6 +123,7 @@ cuda_py_test(
 cuda_py_test(
     name = "cifar10_cnn_benchmark_test",
     srcs = ["cifar10_cnn_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",
@@ -128,6 +136,7 @@ cuda_py_test(
 cuda_py_test(
     name = "mnist_conv_custom_training_benchmark_test",
     srcs = ["mnist_conv_custom_training_benchmark_test.py"],
+    python_version = "PY3",
     tags = COMMON_TAGS,
     deps = [
         "//:expect_tensorflow_installed",

@@ -37,6 +37,7 @@ py_library(
         "migration_utils.py",
         "variable_scope_shim.py",
     ],
+    srcs_version = "PY3",
     visibility = [
         "//learning/brain/contrib:__subpackages__",
         "//tf_keras:friends",
@@ -54,6 +55,7 @@ py_library(
 py_library(
     name = "convolutional",
     srcs = ["convolutional.py"],
+    srcs_version = "PY3",
     deps = [
         ":layers_base",
         "//:expect_tensorflow_installed",
@@ -64,6 +66,7 @@ py_library(
 py_library(
     name = "core",
     srcs = ["core.py"],
+    srcs_version = "PY3",
     deps = [
         ":layers_base",
         "//:expect_tensorflow_installed",
@@ -74,6 +77,7 @@ py_library(
 py_library(
     name = "normalization",
     srcs = ["normalization.py"],
+    srcs_version = "PY3",
     deps = [
         ":layers_base",
         "//:expect_tensorflow_installed",
@@ -84,6 +88,7 @@ py_library(
 py_library(
     name = "pooling",
     srcs = ["pooling.py"],
+    srcs_version = "PY3",
     deps = [
         ":layers_base",
         "//:expect_tensorflow_installed",
@@ -96,6 +101,7 @@ tf_py_test(
     size = "small",
     srcs = ["base_test.py"],
     main = "base_test.py",
+    python_version = "PY3",
     deps = [
         ":core",
         ":layers_base",
@@ -111,6 +117,7 @@ tf_py_test(
     size = "small",
     srcs = ["core_test.py"],
     main = "core_test.py",
+    python_version = "PY3",
     deps = [
         ":core",
         "//:expect_tensorflow_installed",
@@ -123,6 +130,7 @@ tf_py_test(
     size = "small",
     srcs = ["convolutional_test.py"],
     main = "convolutional_test.py",
+    python_version = "PY3",
     deps = [
         ":convolutional",
         "//:expect_tensorflow_installed",
@@ -134,6 +142,7 @@ tf_py_test(
     size = "small",
     srcs = ["pooling_test.py"],
     main = "pooling_test.py",
+    python_version = "PY3",
     tags = ["no_rocm"],
     deps = [
         ":pooling",
@@ -146,6 +155,7 @@ cuda_py_test(
     size = "medium",
     srcs = ["normalization_test.py"],
     main = "normalization_test.py",
+    python_version = "PY3",
     shard_count = 10,
     deps = [
         ":convolutional",
@@ -160,6 +170,7 @@ tf_py_test(
     size = "small",
     srcs = ["variable_scope_shim_test.py"],
     main = "variable_scope_shim_test.py",
+    python_version = "PY3",
     tags = ["no_windows"],
     deps = [
         ":core",
@@ -176,6 +187,7 @@ tf_py_test(
     size = "small",
     srcs = ["migration_utils_test.py"],
     main = "migration_utils_test.py",
+    python_version = "PY3",
     deps = [
         ":layers",
         "//:expect_tensorflow_installed",

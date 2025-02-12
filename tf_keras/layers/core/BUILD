@@ -26,6 +26,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":activation",
         ":dense",
@@ -69,6 +70,7 @@ py_library(
 py_library(
     name = "einsum_dense",
     srcs = ["einsum_dense.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:activations",
@@ -82,6 +84,7 @@ py_library(
 py_library(
     name = "embedding",
     srcs = ["embedding.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -116,6 +119,7 @@ py_library(
 py_library(
     name = "tf_op_layer",
     srcs = ["tf_op_layer.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -130,6 +134,7 @@ py_library(
 py_library(
     name = "identity",
     srcs = ["identity.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -140,6 +145,7 @@ tf_py_test(
     name = "core_test",
     size = "medium",
     srcs = ["core_test.py"],
+    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -153,6 +159,7 @@ tf_py_test(
 tf_py_test(
     name = "einsum_dense_test",
     srcs = ["einsum_dense_test.py"],
+    python_version = "PY3",
     deps = [
         ":einsum_dense",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -168,6 +175,7 @@ cuda_py_test(
     name = "embedding_test",
     size = "medium",
     srcs = ["embedding_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",

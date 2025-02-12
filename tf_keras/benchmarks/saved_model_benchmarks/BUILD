@@ -26,6 +26,7 @@ package(
 py_library(
     name = "saved_model_benchmark_util",
     srcs = ["saved_model_benchmark_util.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/benchmarks:profiler_lib",

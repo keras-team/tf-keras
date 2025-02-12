@@ -25,6 +25,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":cropping1d",
         ":cropping2d",
@@ -45,6 +46,7 @@ py_library(
 py_library(
     name = "cropping1d",
     srcs = ["cropping1d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -56,6 +58,7 @@ py_library(
 py_library(
     name = "cropping2d",
     srcs = ["cropping2d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -67,6 +70,7 @@ py_library(
 py_library(
     name = "cropping3d",
     srcs = ["cropping3d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -78,6 +82,7 @@ py_library(
 py_library(
     name = "flatten",
     srcs = ["flatten.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -90,6 +95,7 @@ py_library(
 py_library(
     name = "permute",
     srcs = ["permute.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/engine:base_layer",
@@ -100,6 +106,7 @@ py_library(
 py_library(
     name = "repeat_vector",
     srcs = ["repeat_vector.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -111,6 +118,7 @@ py_library(
 py_library(
     name = "reshape",
     srcs = ["reshape.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -121,6 +129,7 @@ py_library(
 py_library(
     name = "up_sampling1d",
     srcs = ["up_sampling1d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -132,6 +141,7 @@ py_library(
 py_library(
     name = "up_sampling2d",
     srcs = ["up_sampling2d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -144,6 +154,7 @@ py_library(
 py_library(
     name = "up_sampling3d",
     srcs = ["up_sampling3d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -156,6 +167,7 @@ py_library(
 py_library(
     name = "zero_padding1d",
     srcs = ["zero_padding1d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -168,6 +180,7 @@ py_library(
 py_library(
     name = "zero_padding2d",
     srcs = ["zero_padding2d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -180,6 +193,7 @@ py_library(
 py_library(
     name = "zero_padding3d",
     srcs = ["zero_padding3d.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -193,6 +207,7 @@ cuda_py_test(
     name = "cropping_test",
     size = "medium",
     srcs = ["cropping_test.py"],
+    python_version = "PY3",
     shard_count = 8,
     deps = [
         "//:expect_numpy_installed",
@@ -207,6 +222,7 @@ tf_py_test(
     name = "flatten_test",
     size = "medium",
     srcs = ["flatten_test.py"],
+    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -221,6 +237,7 @@ tf_py_test(
     name = "permute_test",
     size = "medium",
     srcs = ["permute_test.py"],
+    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -235,6 +252,7 @@ tf_py_test(
     name = "repeat_vector_test",
     size = "medium",
     srcs = ["repeat_vector_test.py"],
+    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -249,6 +267,7 @@ tf_py_test(
     name = "reshape_test",
     size = "medium",
     srcs = ["reshape_test.py"],
+    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -263,6 +282,7 @@ cuda_py_test(
     name = "up_sampling_test",
     size = "medium",
     srcs = ["up_sampling_test.py"],
+    python_version = "PY3",
     shard_count = 8,
     deps = [
         "//:expect_numpy_installed",
@@ -277,6 +297,7 @@ cuda_py_test(
     name = "zero_padding_test",
     size = "medium",
     srcs = ["zero_padding_test.py"],
+    python_version = "PY3",
     shard_count = 8,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized

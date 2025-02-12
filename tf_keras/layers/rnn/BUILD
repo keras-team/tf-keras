@@ -17,6 +17,7 @@ package(
 py_library(
     name = "rnn",
     srcs = ["__init__.py"],
+    srcs_version = "PY3",
     deps = [
         ":abstract_rnn_cell",
         ":base_rnn",
@@ -42,6 +43,7 @@ py_library(
 py_library(
     name = "rnn_utils",
     srcs = ["rnn_utils.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/utils:control_flow_util",
@@ -51,6 +53,7 @@ py_library(
 py_library(
     name = "abstract_rnn_cell",
     srcs = ["abstract_rnn_cell.py"],
+    srcs_version = "PY3",
     deps = [
         ":rnn_utils",
         "//tf_keras/engine:base_layer",
@@ -60,6 +63,7 @@ py_library(
 py_library(
     name = "dropout_rnn_cell_mixin",
     srcs = ["dropout_rnn_cell_mixin.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -69,6 +73,7 @@ py_library(
 py_library(
     name = "gru_lstm_utils",
     srcs = ["gru_lstm_utils.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -77,6 +82,7 @@ py_library(
 py_library(
     name = "gru",
     srcs = ["gru.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_rnn",
         ":dropout_rnn_cell_mixin",
@@ -97,6 +103,7 @@ py_library(
 py_library(
     name = "gru_v1",
     srcs = ["gru_v1.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_rnn",
         ":gru",
@@ -112,6 +119,7 @@ py_library(
 py_library(
     name = "lstm",
     srcs = ["lstm.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_rnn",
         ":dropout_rnn_cell_mixin",
@@ -132,6 +140,7 @@ py_library(
 py_library(
     name = "lstm_v1",
     srcs = ["lstm_v1.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_rnn",
         ":lstm",
@@ -147,6 +156,7 @@ py_library(
 py_library(
     name = "stacked_rnn_cells",
     srcs = ["stacked_rnn_cells.py"],
+    srcs_version = "PY3",
     deps = [
         ":rnn_utils",
         "//:expect_tensorflow_installed",
@@ -160,6 +170,7 @@ py_library(
 py_library(
     name = "base_rnn",
     srcs = ["base_rnn.py"],
+    srcs_version = "PY3",
     deps = [
         ":dropout_rnn_cell_mixin",
         ":rnn_utils",
@@ -177,6 +188,7 @@ py_library(
 py_library(
     name = "simple_rnn",
     srcs = ["simple_rnn.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_rnn",
         ":dropout_rnn_cell_mixin",
@@ -196,6 +208,7 @@ py_library(
 py_library(
     name = "base_conv_rnn",
     srcs = ["base_conv_rnn.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_rnn",
         "//:expect_numpy_installed",
@@ -212,6 +225,7 @@ py_library(
 py_library(
     name = "base_conv_lstm",
     srcs = ["base_conv_lstm.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_conv_rnn",
         ":dropout_rnn_cell_mixin",
@@ -229,6 +243,7 @@ py_library(
 py_library(
     name = "conv_lstm1d",
     srcs = ["conv_lstm1d.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_conv_lstm",
     ],
@@ -237,6 +252,7 @@ py_library(
 py_library(
     name = "conv_lstm2d",
     srcs = ["conv_lstm2d.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_conv_lstm",
     ],
@@ -245,6 +261,7 @@ py_library(
 py_library(
     name = "conv_lstm3d",
     srcs = ["conv_lstm3d.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_conv_lstm",
     ],
@@ -253,6 +270,7 @@ py_library(
 py_library(
     name = "base_cudnn_rnn",
     srcs = ["base_cudnn_rnn.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_rnn",
         "//:expect_tensorflow_installed",
@@ -264,6 +282,7 @@ py_library(
 py_library(
     name = "cudnn_lstm",
     srcs = ["cudnn_lstm.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_cudnn_rnn",
         ":gru_lstm_utils",
@@ -277,6 +296,7 @@ py_library(
 py_library(
     name = "cudnn_gru",
     srcs = ["cudnn_gru.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_cudnn_rnn",
         ":gru_lstm_utils",
@@ -290,6 +310,7 @@ py_library(
 py_library(
     name = "cell_wrappers",
     srcs = ["cell_wrappers.py"],
+    srcs_version = "PY3",
     deps = [
         ":abstract_rnn_cell",
         ":lstm",
@@ -302,6 +323,7 @@ py_library(
 py_library(
     name = "legacy_cell_wrappers",
     srcs = ["legacy_cell_wrappers.py"],
+    srcs_version = "PY3",
     deps = [
         ":cell_wrappers",
         ":legacy_cells",
@@ -312,6 +334,7 @@ py_library(
 py_library(
     name = "legacy_cells",
     srcs = ["legacy_cells.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:activations",
@@ -327,6 +350,7 @@ py_library(
 py_library(
     name = "base_wrapper",
     srcs = ["base_wrapper.py"],
+    srcs_version = "PY3",
     deps = [
         "//tf_keras/engine:base_layer",
         "//tf_keras/utils:generic_utils",
@@ -336,6 +360,7 @@ py_library(
 py_library(
     name = "bidirectional",
     srcs = ["bidirectional.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_wrapper",
         ":rnn_utils",
@@ -352,6 +377,7 @@ py_library(
 py_library(
     name = "time_distributed",
     srcs = ["time_distributed.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_wrapper",
         "//:expect_tensorflow_installed",
@@ -368,6 +394,7 @@ cuda_py_test(
     name = "gru_lstm_test",
     size = "medium",
     srcs = ["gru_lstm_test.py"],
+    python_version = "PY3",
     shard_count = 2,
     tags = [
         "no_oss",  # TODO(b/277925387)
@@ -388,6 +415,7 @@ cuda_py_test(
     name = "gru_test",
     size = "medium",
     srcs = ["gru_test.py"],
+    python_version = "PY3",
     shard_count = 12,
     tags = [
         "no_oss",  # TODO(b/277925387)
@@ -408,6 +436,7 @@ tf_py_test(
     name = "gru_v1_test",
     size = "medium",
     srcs = ["gru_v1_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "notsan",  # http://b/62136390
@@ -429,6 +458,7 @@ cuda_py_test(
     name = "lstm_test",
     size = "medium",
     srcs = ["lstm_test.py"],
+    python_version = "PY3",
     shard_count = 12,
     tags = [
         "no_oss",
@@ -450,6 +480,7 @@ tf_py_test(
     name = "lstm_v1_test",
     size = "medium",
     srcs = ["lstm_v1_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "noasan",  # times out b/63678675
@@ -472,6 +503,7 @@ tf_py_test(
     name = "base_rnn_test",
     size = "medium",
     srcs = ["base_rnn_test.py"],
+    python_version = "PY3",
     shard_count = 12,
     tags = [
         "notsan",  # TODO(b/170870794)
@@ -497,6 +529,7 @@ tf_py_test(
     name = "simple_rnn_test",
     size = "medium",
     srcs = ["simple_rnn_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = ["notsan"],
     deps = [
@@ -513,6 +546,7 @@ tf_py_test(
     name = "conv_lstm_test",
     size = "medium",
     srcs = ["conv_lstm_test.py"],
+    python_version = "PY3",
     shard_count = 8,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -528,6 +562,7 @@ cuda_py_test(
     name = "cudnn_test",
     size = "medium",
     srcs = ["cudnn_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_oss",  # TODO(b/277925387)
@@ -548,6 +583,7 @@ tf_py_test(
     name = "cell_wrappers_test",
     size = "medium",
     srcs = ["cell_wrappers_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "notsan",
@@ -569,6 +605,7 @@ tf_py_test(
     name = "legacy_cell_wrappers_test",
     size = "small",
     srcs = ["legacy_cell_wrappers_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":legacy_cell_wrappers",
@@ -583,6 +620,7 @@ tf_py_test(
     name = "base_wrapper_test",
     size = "small",
     srcs = ["base_wrapper_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -595,6 +633,7 @@ tf_py_test(
     name = "bidirectional_test",
     size = "medium",
     srcs = ["bidirectional_test.py"],
+    python_version = "PY3",
     shard_count = 12,
     tags = [
         "noasan",  # http://b/78599823
@@ -618,6 +657,7 @@ tf_py_test(
     name = "time_distributed_test",
     size = "medium",
     srcs = ["time_distributed_test.py"],
+    python_version = "PY3",
     shard_count = 12,
     tags = [
         "noasan",  # http://b/78599823

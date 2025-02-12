@@ -61,6 +61,7 @@ py_library(
         "save_impl.py",
         "serialized_attributes.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":order_preserving_set",
         ":utils",
@@ -73,6 +74,7 @@ tf_py_test(
     name = "revive_test",
     size = "medium",
     srcs = ["revive_test.py"],
+    python_version = "PY3",
     shard_count = 8,
     tags = [
         "no_windows",  # b/158005583
@@ -90,6 +92,7 @@ tf_py_test(
     name = "json_utils_test",
     size = "small",
     srcs = ["json_utils_test.py"],
+    python_version = "PY3",
     deps = [
         ":saved_model",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -104,6 +107,7 @@ tf_py_test(
     name = "saved_model_test",
     size = "medium",
     srcs = ["saved_model_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "no_oss",  # TODO(keras-team): Fails in OSS.
@@ -124,6 +128,8 @@ tf_py_test(
 py_binary(
     name = "create_test_saved_model",
     srcs = ["create_test_saved_model.py"],
+    python_version = "PY3",
+    srcs_version = "PY3",
     tags = ["no_oss"],
     deps = [
         "//:expect_absl_installed",  # absl:app
@@ -138,6 +144,7 @@ tf_py_test(
     name = "determinism_test",
     srcs = ["determinism_test.py"],
     data = [":create_test_saved_model.par"],
+    python_version = "PY3",
     tags = ["no_oss"],
     deps = [
         "//:expect_tensorflow_installed",
