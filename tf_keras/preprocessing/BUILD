@@ -17,6 +17,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":image",
         ":sequence",
@@ -30,6 +31,7 @@ py_library(
     srcs = [
         "image.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_pillow_installed",
@@ -46,6 +48,7 @@ py_library(
     srcs = [
         "sequence.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/utils:data_utils",
@@ -57,6 +60,7 @@ py_library(
     srcs = [
         "text.py",
     ],
+    srcs_version = "PY3",
     deps = ["//:expect_tensorflow_installed"],
 )
 
@@ -64,6 +68,7 @@ tf_py_test(
     name = "image_test",
     size = "medium",
     srcs = ["image_test.py"],
+    python_version = "PY3",
     tags = [
         "no_oss",  # TODO(scottzhu): Fix for multiple export issue.
     ],
@@ -81,6 +86,7 @@ tf_py_test(
     name = "sequence_test",
     size = "small",
     srcs = ["sequence_test.py"],
+    python_version = "PY3",
     deps = [
         ":sequence",
         "//:expect_numpy_installed",
@@ -93,6 +99,7 @@ tf_py_test(
     name = "text_test",
     size = "small",
     srcs = ["text_test.py"],
+    python_version = "PY3",
     deps = [
         ":text",
         "//:expect_numpy_installed",

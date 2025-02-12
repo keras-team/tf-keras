@@ -25,6 +25,7 @@ py_library(
         "__init__.py",
         "serialization.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":kernelized",
         ":noise",
@@ -49,6 +50,7 @@ py_library(
 py_library(
     name = "kernelized",
     srcs = ["kernelized.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -61,6 +63,7 @@ py_library(
 py_library(
     name = "noise",
     srcs = ["noise.py"],
+    srcs_version = "PY3",
     deps = [
         "//tf_keras/layers/regularization:alpha_dropout",
         "//tf_keras/layers/regularization:gaussian_dropout",
@@ -72,6 +75,7 @@ tf_py_test(
     name = "tensorflow_op_layer_test",
     size = "medium",
     srcs = ["tensorflow_op_layer_test.py"],
+    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -86,6 +90,7 @@ tf_py_test(
     name = "subclassed_layers_test",
     size = "medium",
     srcs = ["subclassed_layers_test.py"],
+    python_version = "PY3",
     shard_count = 3,
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -100,6 +105,7 @@ tf_py_test(
     name = "serialization_test",
     size = "small",
     srcs = ["serialization_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",
@@ -112,6 +118,7 @@ tf_py_test(
     name = "kernelized_test",
     size = "small",
     srcs = ["kernelized_test.py"],
+    python_version = "PY3",
     deps = [
         ":layers",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -128,6 +135,7 @@ tf_py_test(
     name = "layers_test",
     size = "small",
     srcs = ["layers_test.py"],
+    python_version = "PY3",
     deps = [
         ":layers",
         "//:expect_tensorflow_installed",

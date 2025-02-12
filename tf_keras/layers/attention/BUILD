@@ -23,6 +23,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":additive_attention",
         ":attention_layer",
@@ -33,6 +34,7 @@ py_library(
 py_library(
     name = "multi_head_attention",
     srcs = ["multi_head_attention.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -50,6 +52,7 @@ py_library(
 py_library(
     name = "base_dense_attention",
     srcs = ["base_dense_attention.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -61,6 +64,7 @@ py_library(
 py_library(
     name = "attention_layer",
     srcs = ["attention.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_dense_attention",
         "//:expect_tensorflow_installed",
@@ -70,6 +74,7 @@ py_library(
 py_library(
     name = "additive_attention",
     srcs = ["additive_attention.py"],
+    srcs_version = "PY3",
     deps = [
         ":base_dense_attention",
         "//:expect_tensorflow_installed",
@@ -79,6 +84,7 @@ py_library(
 tf_py_test(
     name = "multi_head_attention_test",
     srcs = ["multi_head_attention_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_numpy_installed",
@@ -92,6 +98,7 @@ tf_py_test(
     name = "base_dense_attention_test",
     size = "medium",
     srcs = ["base_dense_attention_test.py"],
+    python_version = "PY3",
     deps = [
         ":base_dense_attention",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -106,6 +113,7 @@ tf_py_test(
     name = "attention_test",
     size = "medium",
     srcs = ["attention_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_numpy_installed",
@@ -120,6 +128,7 @@ tf_py_test(
     name = "additive_attention_test",
     size = "medium",
     srcs = ["additive_attention_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_numpy_installed",

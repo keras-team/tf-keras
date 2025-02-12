@@ -16,6 +16,7 @@ py_library(
     srcs = [
         "test_combinations.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":test_utils",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -29,6 +30,7 @@ py_library(
     srcs = [
         "test_utils.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
         "//:expect_tensorflow_installed",
@@ -47,6 +49,7 @@ py_library(
 py_library(
     name = "keras_doctest_lib",
     srcs = ["keras_doctest_lib.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_numpy_installed",
     ],
@@ -55,6 +58,7 @@ py_library(
 py_test(
     name = "keras_doctest_lib_test",
     srcs = ["keras_doctest_lib_test.py"],
+    python_version = "PY3",
     tags = [
         "noasan",
         "nomsan",
@@ -71,6 +75,7 @@ tf_py_test(
     name = "test_combinations_test",
     size = "small",
     srcs = ["test_combinations_test.py"],
+    python_version = "PY3",
     tags = ["notsan"],
     deps = [
         ":test_combinations",

@@ -36,12 +36,14 @@ BECHMARK_TAGS = [
 py_library(
     name = "run_xprof",
     srcs = ["run_xprof.py"],
+    srcs_version = "PY3",
     visibility = ["//visibility:private"],
 )
 
 py_library(
     name = "layer_benchmarks_test_base",
     srcs = ["layer_benchmarks_test_base.py"],
+    srcs_version = "PY3",
     visibility = ["//visibility:private"],
     deps = [
         ":run_xprof",
@@ -53,6 +55,7 @@ py_library(
 tf_py_test(
     name = "layer_benchmarks_test",
     srcs = ["layer_benchmarks_test.py"],
+    python_version = "PY3",
     tags = BECHMARK_TAGS,
     deps = [
         ":layer_benchmarks_test_base",

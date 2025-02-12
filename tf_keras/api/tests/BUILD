@@ -22,6 +22,8 @@ tf_py_test(
         "//tf_keras/api/tests:API_UPDATE_WARNING.txt",
         "//tf_keras/api/tests:README.txt",
     ],
+    python_version = "PY3",
+    srcs_version = "PY3",
     tags = [
         "no_oss",  # TODO(scottzhu): Fix this in OSS test.
         "no_pip",

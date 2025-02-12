@@ -17,6 +17,7 @@ package(
 py_library(
     name = "dynamic_lookup",
     srcs = ["dynamic_lookup.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/layers",
@@ -27,6 +28,7 @@ tf_py_test(
     name = "dynamic_lookup_test",
     size = "small",
     srcs = ["dynamic_lookup_test.py"],
+    python_version = "PY3",
     shard_count = 6,
     tags = ["notpu"],
     deps = [

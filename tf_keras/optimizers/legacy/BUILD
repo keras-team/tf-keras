@@ -27,6 +27,7 @@ py_library(
         "optimizer_v2.py",
         "rmsprop.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",

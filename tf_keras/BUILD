@@ -35,6 +35,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":backend",
         ":engine",
@@ -68,6 +69,7 @@ py_library(
 py_library(
     name = "backend",
     srcs = ["backend.py"],
+    srcs_version = "PY3",
     deps = [
         ":backend_config",
         "//:expect_numpy_installed",
@@ -84,6 +86,7 @@ py_library(
 py_library(
     name = "backend_config",
     srcs = ["backend_config.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -96,6 +99,7 @@ py_library(
         "//tf_keras/metrics",
         "//tf_keras/models",
     ],
+    srcs_version = "PY3",
     deps = [
         "//tf_keras/engine",
     ],
@@ -106,6 +110,7 @@ py_library(
     srcs = [
         "activations.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":backend",
         "//tf_keras/layers/activation",
@@ -117,6 +122,7 @@ py_library(
 py_library(
     name = "base_layer",
     srcs = [],
+    srcs_version = "PY3",
     deps = [
         "//tf_keras/engine:base_layer",
     ],
@@ -127,6 +133,7 @@ py_library(
     srcs = [
         "callbacks.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":backend",
         "//:expect_tensorboard_installed",
@@ -145,6 +152,7 @@ py_library(
     srcs = [
         "callbacks_v1.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":backend",
         "//:expect_tensorboard_installed",
@@ -158,6 +166,7 @@ py_library(
     srcs = [
         "constraints.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":backend",
         "//tf_keras/utils:engine_utils",
@@ -169,6 +178,7 @@ py_library(
     srcs = [
         "losses.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":backend",
         "//:expect_tensorflow_installed",
@@ -184,6 +194,7 @@ py_library(
     srcs = [
         "regularizers.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":backend",
         "//tf_keras/utils:engine_utils",
@@ -196,6 +207,7 @@ py_library(
 # py_library(
 #     name = "url_utils",
 #     srcs = ["google/url_utils.py"],
+#     srcs_version = "PY3",
 #     deps = ["//pyglib/contrib/google_ssl"],
 # )
 # copybara:uncomment_end
@@ -218,6 +230,7 @@ tf_py_test(
     name = "activations_test",
     size = "small",
     srcs = ["activations_test.py"],
+    python_version = "PY3",
     deps = [
         ":activations",
         ":backend",
@@ -236,6 +249,7 @@ tf_py_test(
     name = "constraints_test",
     size = "small",
     srcs = ["constraints_test.py"],
+    python_version = "PY3",
     deps = [
         ":backend",
         ":constraints",
@@ -249,6 +263,7 @@ tf_py_test(
     name = "regularizers_test",
     size = "medium",
     srcs = ["regularizers_test.py"],
+    python_version = "PY3",
     deps = [
         ":tf_keras",
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -261,6 +276,7 @@ tf_py_test(
     name = "losses_test",
     size = "small",
     srcs = ["losses_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     tags = [
         "noasan",  # b/186128525
@@ -279,6 +295,7 @@ tf_py_test(
     name = "callbacks_test",
     size = "medium",
     srcs = ["callbacks_test.py"],
+    python_version = "PY3",
     shard_count = 6,
     tags = [
         "no_pip",  # TODO(b/276923757)
@@ -298,6 +315,7 @@ tf_py_test(
     name = "callbacks_v1_test",
     size = "medium",
     srcs = ["callbacks_v1_test.py"],
+    python_version = "PY3",
     tags = [
         "nomac",  # Using profiler causes segfault in MacOS runs.
         "notsan",
@@ -320,6 +338,7 @@ tf_py_test(
     name = "backend_test",
     size = "medium",
     srcs = ["backend_test.py"],
+    python_version = "PY3",
     shard_count = 4,
     deps = [
         ":backend",
@@ -336,6 +355,7 @@ tf_py_test(
     name = "backend_config_test",
     size = "medium",
     srcs = ["backend_config_test.py"],
+    python_version = "PY3",
     deps = [
         ":backend",
         ":backend_config",
@@ -348,6 +368,7 @@ tf_py_test(
 # tf_py_test(
 #     name = "url_utils_test",
 #     srcs = ["google/url_utils_test.py"],
+#     python_version = "PY3",
 #     deps = [
 #         ":url_utils",
 #         "//:expect_tensorflow_installed",
@@ -358,6 +379,7 @@ tf_py_test(
 # tf_py_test(
 #     name = "distribute_utils_test",
 #     srcs = ["google/distribute_utils_test.py"],
+#     python_version = "PY3",
 #     deps = [
 #         ":distribute_utils",
 #         "//:expect_tensorflow_installed",

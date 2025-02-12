@@ -19,6 +19,7 @@ package(
 tf_py_test(
     name = "forwardprop_test",
     srcs = ["forwardprop_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
         "//:expect_tensorflow_installed",
@@ -29,6 +30,7 @@ tf_py_test(
 tf_py_test(
     name = "function_test",
     srcs = ["function_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:tf_keras_api",
@@ -38,6 +40,7 @@ tf_py_test(
 tf_py_test(
     name = "gradients_test",
     srcs = ["gradients_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:tf_keras_api",
@@ -47,6 +50,7 @@ tf_py_test(
 cuda_py_test(
     name = "saved_model_test",
     srcs = ["saved_model_test.py"],
+    python_version = "PY3",
     tags = [
         "no_oss",  # TODO(keras-team): Fails in OSS due to reference to `tf.keras`
     ],
@@ -60,6 +64,7 @@ cuda_py_test(
 tf_py_test(
     name = "legacy_rnn_test",  # Remove this target in when TF 1 is deprecated.
     srcs = ["legacy_rnn_test.py"],
+    python_version = "PY3",
     tags = [
         "no_oss",  # TODO(keras-team): Fails in OSS cpu tests due to lazy loading of `keras` module.
     ],
@@ -81,6 +86,7 @@ tf_py_test(
 tf_py_test(
     name = "vectorized_map_test",
     srcs = ["vectorized_map_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:tf_keras_api",
@@ -90,6 +96,7 @@ tf_py_test(
 cuda_py_test(
     name = "gradient_checkpoint_test",
     srcs = ["gradient_checkpoint_test.py"],
+    python_version = "PY3",
     tags = ["no_oss"],  # TODO(b/249526796)
     deps = [
         "//:expect_tensorflow_installed",
@@ -100,6 +107,7 @@ cuda_py_test(
 cuda_py_test(
     name = "central_storage_strategy_test",
     srcs = ["central_storage_strategy_test.py"],
+    python_version = "PY3",
     tags = [
         "multi_and_single_gpu",
         "no_oss",  # TODO(keras-team): Fails in OSS due to reference to `tf.keras`.
@@ -118,6 +126,7 @@ tpu_py_test(
     srcs = ["tpu_strategy_test.py"],
     disable_experimental = True,
     disable_mlir_bridge = False,
+    python_version = "PY3",
     tags = ["no_oss"],
     deps = [
         "//:expect_absl_installed",  # absl/testing:parameterized
@@ -128,6 +137,7 @@ tpu_py_test(
 tf_py_test(
     name = "multi_worker_tutorial_test",
     srcs = ["multi_worker_tutorial_test.py"],
+    python_version = "PY3",
     shard_count = 6,
     tags = [
         "no_oss",  # TODO(keras-team): Fails in OSS cpu tests due to reference to `tf.keras`.
@@ -166,6 +176,7 @@ distribute_py_test(
 distribute_py_test(
     name = "parameter_server_keras_preprocessing_test",
     srcs = ["parameter_server_keras_preprocessing_test.py"],
+    python_version = "PY3",
     shard_count = 6,  # TODO(b/184290570): Investigate why only 1 shard times out.
     tags = [
         "multi_and_single_gpu",
@@ -186,6 +197,7 @@ distribute_py_test(
 distribute_py_test(
     name = "distributed_training_test",
     srcs = ["distributed_training_test.py"],
+    python_version = "PY3",
     shard_count = 50,
     tags = [
         "multi_gpu",
@@ -205,6 +217,7 @@ distribute_py_test(
 distribute_py_test(
     name = "mwms_multi_process_runner_test",
     srcs = ["mwms_multi_process_runner_test.py"],
+    python_version = "PY3",
     tags = [
         "multi_gpu",
         "no_rocm",
@@ -223,12 +236,14 @@ distribute_py_test(
 py_library(
     name = "preprocessing_test_utils",
     srcs = ["preprocessing_test_utils.py"],
+    srcs_version = "PY3",
     deps = ["//:expect_tensorflow_installed"],
 )
 
 distribute_py_test(
     name = "preprocessing_applied_in_dataset_creator_test",
     srcs = ["preprocessing_applied_in_dataset_creator_test.py"],
+    python_version = "PY3",
     shard_count = 50,
     tags = [
         "multi_gpu",
@@ -249,6 +264,7 @@ distribute_py_test(
 distribute_py_test(
     name = "preprocessing_applied_in_dataset_test",
     srcs = ["preprocessing_applied_in_dataset_test.py"],
+    python_version = "PY3",
     shard_count = 50,
     tags = [
         "multi_gpu",
@@ -269,6 +285,7 @@ distribute_py_test(
 distribute_py_test(
     name = "preprocessing_applied_in_model_test",
     srcs = ["preprocessing_applied_in_model_test.py"],
+    python_version = "PY3",
     shard_count = 50,
     tags = [
         "multi_gpu",
@@ -289,6 +306,7 @@ distribute_py_test(
 distribute_py_test(
     name = "parameter_server_custom_training_loop_test",
     srcs = ["parameter_server_custom_training_loop_test.py"],
+    python_version = "PY3",
     tags = [
         "multi_gpu",
         "no_oss",  # TODO(b/183640564): Re-enable
@@ -307,6 +325,7 @@ distribute_py_test(
 tf_py_test(
     name = "custom_object_saving_test",
     srcs = ["custom_object_saving_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/api:tf_keras_api",
@@ -317,6 +336,7 @@ tf_py_test(
 tf_py_test(
     name = "parameter_server_training_metric_test",
     srcs = ["parameter_server_training_metric_test.py"],
+    python_version = "PY3",
     tags = [
         "nomac",  # TODO(mihaimaruseac): b/127695564
         "notsan",  # TODO(b/156029134)
@@ -334,6 +354,7 @@ tf_py_test(
     name = "fit_test",
     size = "medium",
     srcs = ["fit_test.py"],
+    python_version = "PY3",
     shard_count = 28,
     tags = [
         "no_oss",  # TODO(keras-team): Fails in OSS due to reference to `tf.keras`
@@ -350,6 +371,7 @@ tf_py_test(
     name = "saving_v3_test",
     size = "medium",
     srcs = ["saving_v3_test.py"],
+    python_version = "PY3",
     shard_count = 12,
     tags = [
         "no_oss",  # TODO(keras-team): Fails in OSS.
@@ -366,6 +388,7 @@ tf_py_test(
     name = "py_metric_test",
     size = "medium",
     srcs = ["py_metric_test.py"],
+    python_version = "PY3",
     shard_count = 2,
     deps = [
         "//:expect_tensorflow_installed",
@@ -379,6 +402,7 @@ tf_py_test(
     name = "extension_type_test",
     size = "medium",
     srcs = ["extension_type_test.py"],
+    python_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras",

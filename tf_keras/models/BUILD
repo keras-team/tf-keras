@@ -15,6 +15,7 @@ package(
 py_library(
     name = "sharpness_aware_minimization",
     srcs = ["sharpness_aware_minimization.py"],
+    srcs_version = "PY3",
     deps = [
         ":cloning",
         "//:expect_tensorflow_installed",
@@ -27,6 +28,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":cloning",
         ":sharpness_aware_minimization",
@@ -38,6 +40,7 @@ py_library(
     srcs = [
         "cloning.py",
     ],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras:backend",
@@ -56,6 +59,7 @@ tf_py_test(
     size = "medium",
     srcs = ["cloning_test.py"],
     main = "cloning_test.py",
+    python_version = "PY3",
     shard_count = 8,
     tags = [
         "notsan",  # b/67509773

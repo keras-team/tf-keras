@@ -37,6 +37,7 @@ py_library(
         "rmsprop.py",
         "sgd.py",
     ],
+    srcs_version = "PY3",
     deps = [
         ":utils",
         "//:expect_tensorflow_installed",
@@ -51,6 +52,7 @@ py_library(
 py_library(
     name = "utils",
     srcs = ["utils.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
     ],
@@ -59,6 +61,7 @@ py_library(
 py_library(
     name = "legacy_learning_rate_decay",
     srcs = ["legacy_learning_rate_decay.py"],
+    srcs_version = "PY3",
     deps = [
         "//:expect_tensorflow_installed",
         "//tf_keras/optimizers/schedules:learning_rate_schedule",
@@ -69,6 +72,7 @@ tf_py_test(
     name = "optimizer_v1_test",
     size = "medium",
     srcs = ["optimizer_v1_test.py"],
+    python_version = "PY3",
     shard_count = 8,
     tags = ["notsan"],
     deps = [
