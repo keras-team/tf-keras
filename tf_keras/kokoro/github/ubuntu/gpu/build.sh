@@ -40,9 +40,6 @@ pip install -r requirements.txt
 # Update this once we switch to `tf_keras-nightly` in TensorFlow.
 pip uninstall -y keras-nightly
 
-# LD Library Path needs to be same as TensorFlow Ubuntu Docker build -
-# https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/tf_sig_build_dockerfiles/
-export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/tensorrt/lib"
 CUDA_TOOLKIT_PATH="/usr/local/cuda-11.8"
 TF_CUDA_CONFIG_REPO="@ubuntu20.04-gcc9_manylinux2014-cuda11.8-cudnn8.6-tensorrt8.4_config_cuda"
 TF_CUDA_COMPUTE_CAPABILITIES="sm_35,sm_50,sm_60,sm_70,sm_75,compute_80"
