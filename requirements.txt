@@ -8,8 +8,8 @@ scipy
 # with both new and old protobuf stubs. This is needed to resolve
 # Keras-TensorFlow circular dependency issue, when one of them gets a dependency
 # incompatible with another one (protobuf in this specific case).
-protobuf==3.20.3
-tf-nightly
+protobuf==4.21.6
+tf-nightly[and_cuda]
 portpicker
 pyyaml
 Pillow

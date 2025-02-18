@@ -31,9 +31,9 @@ bind(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "f66073dee0bc159157b0bd7f502d7d1ee0bc76b3c1eac9836927511bdc4b3fc1",
-    strip_prefix = "protobuf-3.21.9",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.21.9.zip"],
+    sha256 = "6b1040a5661cd5f6e610cbca9cfaa2a17d60e2bb545309bc1b278bb05be44bdd",
+    strip_prefix = "protobuf-4.21.6",
+    urls = ["https://files.pythonhosted.org/packages/0e/25/693cd589793e7ae429ef76ab08f74b7866d342fd079cc4c723141a9660d3/protobuf-4.21.6.tar.gz"],
 )
 
 # ZLIB. Need by com_google_protobuf.
