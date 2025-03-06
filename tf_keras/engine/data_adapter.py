@@ -794,8 +794,7 @@ class DatasetAdapter(DataAdapter):
         # each epoch.
         return (
             self._user_steps is None
-            or tf.data.experimental.cardinality(self._dataset).numpy()
-            == self._user_steps
+            or self._dataset.cardinality().numpy() == self._user_steps
         )
 
     def _validate_args(self, y, sample_weights, steps, pss_evaluation_shards):
@@ -819,8 +818,8 @@ class DatasetAdapter(DataAdapter):
                         "specify the number of steps to run."
                     )
             else:
-                size = tf.data.experimental.cardinality(self._dataset).numpy()
-                if size == tf.data.experimental.INFINITE_CARDINALITY:
+                size = self._dataset.cardinality().numpy()
+                if size == tf.data.INFINITE_CARDINALITY:
                     if pss_evaluation_shards:
                         raise ValueError(
                             "When performing exact evaluation, the dataset "
@@ -1481,8 +1480,8 @@ class DataHandler:
         if not isinstance(dataset, tf.data.Dataset):
             return None
 
-        size = tf.data.experimental.cardinality(dataset)
-        if size == tf.data.experimental.INFINITE_CARDINALITY and steps is None:
+        size = dataset.cardinality()
+        if size == tf.data.INFINITE_CARDINALITY and steps is None:
             raise ValueError(
                 "When passing an infinitely repeating dataset, please specify "
                 "a `steps_per_epoch` value so that epoch level "

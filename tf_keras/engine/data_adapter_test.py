@@ -1198,8 +1198,8 @@ class DataHandlerTest(test_combinations.TestCase):
         ds = tf.data.Dataset.from_tensor_slices([0, 1, 2, 3, 4, 5, 6])
         filtered_ds = ds.filter(lambda x: x < 4)
         self.assertEqual(
-            tf.data.experimental.cardinality(filtered_ds).numpy(),
-            tf.data.experimental.UNKNOWN_CARDINALITY,
+            filtered_ds.cardinality().numpy(),
+            tf.data.UNKNOWN_CARDINALITY,
         )
 
         # User can choose to only partially consume `Dataset`.
@@ -1221,8 +1221,8 @@ class DataHandlerTest(test_combinations.TestCase):
         ds = tf.data.Dataset.from_tensor_slices([0, 1, 2, 3, 4, 5, 6])
         filtered_ds = ds.filter(lambda x: x < 4)
         self.assertEqual(
-            tf.data.experimental.cardinality(filtered_ds).numpy(),
-            tf.data.experimental.UNKNOWN_CARDINALITY,
+            filtered_ds.cardinality().numpy(),
+            tf.data.UNKNOWN_CARDINALITY,
         )
 
         data_handler = data_adapter.DataHandler(
