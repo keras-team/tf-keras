@@ -459,20 +459,22 @@ tf_py_test(
     ],
 )
 
-tf_py_test(
-    name = "integer_lookup_test",
-    srcs = ["integer_lookup_test.py"],
-    tags = ["noasan"],  # TODO(b/183961255)
-    deps = [
-        ":integer_lookup",
-        ":preprocessing_test_utils",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
-        "//tf_keras",
-        "//tf_keras/testing_infra:test_combinations",
-        "//tf_keras/utils:generic_utils",
-    ],
-)
+# TODO b/393368266 - Disabled for py 3.12.
+# Upgrade h5py and/or tf_keras to fix.
+# tf_py_test(
+#     name = "integer_lookup_test",
+#     srcs = ["integer_lookup_test.py"],
+#     tags = ["noasan"],  # TODO(b/183961255)
+#     deps = [
+#         ":integer_lookup",
+#         ":preprocessing_test_utils",
+#         "//:expect_absl_installed",  # absl/testing:parameterized
+#         "//:expect_tensorflow_installed",
+#         "//tf_keras",
+#         "//tf_keras/testing_infra:test_combinations",
+#         "//tf_keras/utils:generic_utils",
+#     ],
+# )
 
 distribute_py_test(
     name = "normalization_distribution_test",
