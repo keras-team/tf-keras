@@ -24,6 +24,7 @@ from tensorflow.python.util.tf_export import keras_export
 
 from tf_keras.saving import saving_lib
 from tf_keras.saving.legacy import save as legacy_sm_saving_lib
+from tf_keras.saving.legacy import saving_utils
 from tf_keras.utils import io_utils
 
 try:
@@ -75,8 +76,7 @@ class SupportWriteToRemote:
     supports remoted saved model out of the box.
     """
 
-    def __init__(self, filepath, overwrite=True, save_format=None):
-        save_format = get_save_format(filepath, save_format=save_format)
+    def __init__(self, filepath, overwrite, save_format):
         self.overwrite = overwrite
         if saving_lib.is_remote_path(filepath) and save_format != "tf":
             self.temp_directory = tempfile.TemporaryDirectory()
@@ -191,14 +191,14 @@ def save_model(model, filepath, overwrite=True, save_format=None, **kwargs):
     when loading the model. See the `custom_objects` argument in
     `tf.keras.saving.load_model`.
     """
+    save_format = get_save_format(filepath, save_format)
+
     # Supports remote paths via a temporary file
     with SupportWriteToRemote(
         filepath,
         overwrite=overwrite,
         save_format=save_format,
     ) as local_filepath:
-        save_format = get_save_format(filepath, save_format)
-
         # Deprecation warnings
         if save_format == "h5":
             warnings.warn(
@@ -307,8 +307,12 @@ def load_model(
 
 
 def save_weights(model, filepath, overwrite=True, **kwargs):
+    save_format = get_save_weights_format(filepath)
+
     # Supports remote paths via a temporary file
-    with SupportWriteToRemote(filepath, overwrite=overwrite) as local_filepath:
+    with SupportWriteToRemote(
+        filepath, overwrite=overwrite, save_format=save_format
+    ) as local_filepath:
         if str(local_filepath).endswith(".weights.h5"):
             # If file exists and should not be overwritten.
             try:
@@ -385,3 +389,12 @@ def get_save_format(filepath, save_format):
         return "tf"
     else:
         return "h5"
+
+
+def get_save_weights_format(filepath):
+    filepath = io_utils.path_to_string(filepath)
+    filepath_is_h5 = saving_utils.is_hdf5_filepath(filepath)
+    if filepath_is_h5:
+        return "h5"
+    else:
+        return "tf"

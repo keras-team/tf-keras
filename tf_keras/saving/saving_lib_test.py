@@ -533,11 +533,14 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         self.assertIn("keras_version", metadata)
         self.assertIn("date_saved", metadata)
 
-    def test_gfile_copy_called(self):
-        temp_filepath = Path(
-            os.path.join(self.get_temp_dir(), "my_model.keras")
+    def test_save_keras_gfile_copy_called(self):
+        path = Path(os.path.join(self.get_temp_dir(), "my_model.keras"))
+        model = keras.Sequential(
+            [
+                keras.Input(shape=(1, 1)),
+                keras.layers.Dense(4),
+            ]
         )
-        model = CompileOverridingModel()
         with mock.patch(
             "re.match", autospec=True
         ) as mock_re_match, mock.patch.object(
@@ -545,14 +548,82 @@ class SavingV3Test(tf.test.TestCase, parameterized.TestCase):
         ) as mock_gfile_copy:
             # Check regex matching
             mock_re_match.return_value = True
-            model.save(temp_filepath, save_format="keras_v3")
+            model.save(path, save_format="keras_v3")
             mock_re_match.assert_called()
-            self.assertIn(str(temp_filepath), mock_re_match.call_args.args)
+            self.assertIn(str(path), mock_re_match.call_args.args)
 
             # Check gfile copied with filepath specified as destination
-            self.assertEqual(
-                str(temp_filepath), str(mock_gfile_copy.call_args.args[1])
-            )
+            mock_gfile_copy.assert_called()
+            self.assertEqual(str(path), str(mock_gfile_copy.call_args.args[1]))
+
+    def test_save_tf_gfile_copy_not_called(self):
+        path = Path(os.path.join(self.get_temp_dir(), "my_model.keras"))
+        model = keras.Sequential(
+            [
+                keras.Input(shape=(1, 1)),
+                keras.layers.Dense(4),
+            ]
+        )
+        with mock.patch(
+            "re.match", autospec=True
+        ) as mock_re_match, mock.patch.object(
+            tf.io.gfile, "copy"
+        ) as mock_gfile_copy:
+            # Check regex matching
+            mock_re_match.return_value = True
+            model.save(path, save_format="tf")
+            mock_re_match.assert_called()
+            self.assertIn(str(path), mock_re_match.call_args.args)
+
+            # Check gfile.copy was not used.
+            mock_gfile_copy.assert_not_called()
+
+    def test_save_weights_h5_gfile_copy_called(self):
+        path = Path(os.path.join(self.get_temp_dir(), "my_model.weights.h5"))
+        model = keras.Sequential(
+            [
+                keras.Input(shape=(1, 1)),
+                keras.layers.Dense(4),
+            ]
+        )
+        model(tf.constant([[1.0]]))
+        with mock.patch(
+            "re.match", autospec=True
+        ) as mock_re_match, mock.patch.object(
+            tf.io.gfile, "copy"
+        ) as mock_gfile_copy:
+            # Check regex matching
+            mock_re_match.return_value = True
+            model.save_weights(path)
+            mock_re_match.assert_called()
+            self.assertIn(str(path), mock_re_match.call_args.args)
+
+            # Check gfile copied with filepath specified as destination
+            mock_gfile_copy.assert_called()
+            self.assertEqual(str(path), str(mock_gfile_copy.call_args.args[1]))
+
+    def test_save_weights_tf_gfile_copy_not_called(self):
+        path = Path(os.path.join(self.get_temp_dir(), "my_model.ckpt"))
+        model = keras.Sequential(
+            [
+                keras.Input(shape=(1, 1)),
+                keras.layers.Dense(4),
+            ]
+        )
+        model(tf.constant([[1.0]]))
+        with mock.patch(
+            "re.match", autospec=True
+        ) as mock_re_match, mock.patch.object(
+            tf.io.gfile, "copy"
+        ) as mock_gfile_copy:
+            # Check regex matching
+            mock_re_match.return_value = True
+            model.save_weights(path)
+            mock_re_match.assert_called()
+            self.assertIn(str(path), mock_re_match.call_args.args)
+
+            # Check gfile.copy was not used.
+            mock_gfile_copy.assert_not_called()
 
     def test_load_model_api_endpoint(self):
         temp_filepath = Path(os.path.join(self.get_temp_dir(), "mymodel.keras"))
