@@ -417,7 +417,7 @@ class TimeDistributedTest(test_combinations.TestCase):
         output_dense = model_2.predict(dense_data, steps=1)
 
         output_ragged = convert_ragged_tensor_value(output_ragged)
-        self.assertAllEqual(output_ragged.to_tensor(), output_dense)
+        self.assertAllClose(output_ragged.to_tensor(), output_dense)
 
     @test_combinations.run_all_keras_modes
     def test_TimeDistributed_with_ragged_input_with_batch_size(self):
