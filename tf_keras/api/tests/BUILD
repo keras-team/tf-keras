@@ -23,6 +23,7 @@ tf_py_test(
         "//tf_keras/api/tests:README.txt",
     ],
     tags = [
+        "DO_NOT_USE_MIGRATION_ONLY_NO_PYTHON_NEXT",
         "no_oss",  # TODO(scottzhu): Fix this in OSS test.
         "no_pip",
         "no_rocm",
