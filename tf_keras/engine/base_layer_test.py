@@ -1106,6 +1106,171 @@ class BaseLayerTest(test_combinations.TestCase):
         with self.assertRaises(NotImplementedError):
             config = layer.get_config()
 
+    def test_call_context_args_with_custom_layers_propagates_args(self):
+        class Inner(layers.Layer):
+            def __init__(self):
+                super().__init__()
+                self._register_call_context_args("foo_mode")
+
+            def call(self, x, foo_mode=None):
+                return x + (1 if foo_mode else 0)
+
+        class Outer(layers.Layer):
+            def __init__(self):
+                super().__init__()
+                self._register_call_context_args("foo_mode")
+                self.inner = Inner()
+
+            def call(self, x):
+                # Outer doesn’t even need to re‑inject explicitly:
+                # our base class will propagate foo_mode automatically
+                return self.inner(x)
+
+        layer = Outer()
+        self.assertEqual(int(layer(np.array(0), foo_mode=True)), 1)
+        self.assertEqual(int(layer(np.array(0))), 0)
+
+    def test_register_call_context_arguments_success(self):
+        """Validate that registering call-context args works as expected."""
+
+        class MyLayer(layers.Layer):
+            def call(self, x):
+                return x
+
+        layer = MyLayer()
+
+        layer._register_call_context_args("foo_mode")
+
+        self.assertCountEqual(
+            layer._call_context_args, ("foo_mode", "training")
+        )
+
+    def test_register_call_context_arguments_after_call_raises_error(self):
+        """Validate that registering call-context args after the layer has
+        been called raises an error."""
+
+        class MyLayer(layers.Layer):
+            def call(self, x):
+                return x
+
+        layer = MyLayer()
+        layer(np.array(0))
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "Cannot add call-context args after the layer has been called.",
+        ):
+            layer._register_call_context_args("foo_mode")
+
+    def test_nested_context_args_follow_priority_order(self):
+        """Validate that call-context args are propagated correctly
+        through multiple layers, and that the most specific value is used
+        when multiple values are passed down the call-stack.
+        """
+
+        class Inner(base_layer.Layer):
+            def __init__(self):
+                super().__init__(name="inner_layer")
+                self._register_call_context_args("foo_mode")
+
+            def call(self, inputs, foo_mode=None):
+                return inputs + (1 if foo_mode else 0)
+
+        class Middle(base_layer.Layer):
+            def __init__(self):
+                super().__init__(name="middle_layer")
+                self._inner_layer = Inner()
+
+            def call(self, inputs):
+                return self._inner_layer(inputs)
+
+        class Outer(base_layer.Layer):
+            def __init__(self):
+                super().__init__(name="outer_layer")
+                self._middle = Middle()
+
+            def call(self, inputs):
+                return self._middle(inputs)
+
+        layer = Outer()
+        layer._register_call_context_args("foo_mode")
+
+        # The value of foo_mode is set to True in the call to Outer,
+        # so it should automatically propagate to Inner through Middle.
+        self.assertEqual(int(layer(np.array(0), foo_mode=True)), 1)
+        self.assertEqual(int(layer(np.array(0))), 0)
+
+    def test_context_arg_propagation_without_declaration_does_not_resolve(self):
+        """Validate that layer does not resolve a propagated arg if it is not
+        declared as a call-context arg in the layer itself."""
+
+        class Inner(layers.Layer):
+            def call(self, x, foo_mode=None):
+                return x + (1 if foo_mode else 0)
+
+        class Wrapper(layers.Layer):
+            def __init__(self):
+                super().__init__()
+                self.inner = Inner()
+
+            def call(self, x):
+                return self.inner(x)
+
+        layer = Wrapper()
+        layer._register_call_context_args("foo_mode")
+
+        # The value of foo_mode is set to True in the call to Wrapper,
+        # However, it is not declared as a call-context arg in Inner,
+        # so it should not resolve to True inside Inner (and instead
+        # default to False).
+        self.assertEqual(int(layer(np.array(0), foo_mode=True)), 0)
+
+    def test_call_context_args_with_models_as_layers_propagates_args(self):
+        """Validate that call-context args are propagated correctly
+        through functional and sequential models when used as layers.
+        """
+
+        class InnerLayer(base_layer.Layer):
+            def __init__(self):
+                super().__init__(name="inner_layer")
+                self._register_call_context_args("foo")
+
+            def call(self, inputs, foo=None):
+                if foo:
+                    return inputs + 1.0
+                return inputs
+
+        class OuterLayer(base_layer.Layer):
+            def __init__(self):
+                super().__init__(name="outer_layer")
+                self._inner_layer = InnerLayer()
+
+            def call(self, inputs):
+                return self._inner_layer(inputs)
+
+        sample_input = tf.constant([[1.0, 2.0], [3.0, 4.0]], dtype="float32")
+
+        # Sequential model
+        seq = sequential.Sequential([OuterLayer()])
+        seq._register_call_context_args("foo")
+
+        out_true = seq(sample_input, foo=True)
+        self.assertAllEqual(out_true, sample_input + 1.0)
+
+        out_false = seq(sample_input, foo=False)
+        self.assertAllEqual(out_false, sample_input)
+
+        # Functional model
+        inp = input_layer.Input((2,))
+        outer = OuterLayer()(inp)
+        model = training_lib.Model(inputs=[inp], outputs=[outer])
+        model._register_call_context_args("foo")
+
+        out_true = model(sample_input, foo=True)
+        self.assertAllEqual(out_true, sample_input + 1.0)
+
+        out_false = model(sample_input, foo=False)
+        self.assertAllEqual(out_false, sample_input)
+
 
 @test_utils.run_v2_only
 class SymbolicSupportTest(test_combinations.TestCase):

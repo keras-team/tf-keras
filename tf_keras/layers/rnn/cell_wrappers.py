@@ -52,9 +52,21 @@ class _RNNCellWrapper(AbstractRNNCell):
         super().__init__(*args, **kwargs)
         self.cell = cell
         cell_call_spec = tf_inspect.getfullargspec(cell.call)
+        accepts_kwargs = cell_call_spec.varkw is not None
+
         self._call_spec.expects_training_arg = (
             "training" in cell_call_spec.args
-        ) or (cell_call_spec.varkw is not None)
+        ) or accepts_kwargs
+
+        # Filter _expects_context_arg. An argument is kept if:
+        # 1. It's an explicit argument in cell_call_spec.args OR
+        # 2. The cell accepts arbitrary keyword arguments (**kwargs),
+        #    meaning it could potentially handle the context argument.
+        self._call_spec._expected_context_args = {
+            arg
+            for arg in self._call_spec._expected_context_args
+            if (arg in cell_call_spec.args) or accepts_kwargs
+        }
 
     def _call_wrapped_cell(self, inputs, state, cell_call_fn, **kwargs):
         """Calls the wrapped cell and performs the wrapping logic.

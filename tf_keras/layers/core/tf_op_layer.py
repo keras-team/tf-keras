@@ -259,6 +259,10 @@ class TFOpLambda(Layer):
 
         self._call_spec.expects_training_arg = False
         self._call_spec.expects_mask_arg = False
+        # Clear the call-context arguments for the layer's call method.
+        # Otherwise, Keras ends up injecting context arguments into the op-call
+        # when the call method accepts kwargs.
+        self._call_spec._expected_context_args.clear()
 
     def _call_wrapper(self, *args, **kwargs):
         created_variables = []

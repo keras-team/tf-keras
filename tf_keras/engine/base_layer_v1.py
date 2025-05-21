@@ -132,6 +132,7 @@ class Layer(base_layer.Layer):
         self, trainable=True, name=None, dtype=None, dynamic=False, **kwargs
     ):
         self._instrument_layer_creation()
+        self._called = False
 
         # These properties should be set by the user via keyword arguments.
         # note that 'dtype', 'input_shape' and 'batch_input_shape'
@@ -164,6 +165,8 @@ class Layer(base_layer.Layer):
         # Provides information about which inputs are compatible with the layer.
         self._input_spec = None
         self.supports_masking = False
+
+        self._call_context_args = {"training"}
 
         self._init_set_name(name)
         self._activity_regularizer = regularizers.get(
@@ -705,6 +708,7 @@ class Layer(base_layer.Layer):
           RuntimeError: if `super().__init__()` was not called in the
             constructor.
         """
+        self._called = True
         self._assert_built_as_v1()
 
         if not hasattr(self, "_thread_local"):
@@ -803,7 +807,12 @@ class Layer(base_layer.Layer):
         if build_graph and base_layer_utils.needs_keras_history(inputs):
             base_layer_utils.create_keras_history(inputs)
 
-        with call_context.enter(self, inputs, build_graph, training_value):
+        with call_context.enter(
+            self,
+            inputs,
+            build_graph,
+            call_context_args={"training": training_value},
+        ):
             # Check input assumptions set after layer building, e.g. input
             # shape.
             if build_graph:

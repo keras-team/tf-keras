@@ -775,11 +775,13 @@ class CallFunctionSpec:
     """Caches the spec and provides utilities for handling call function
     args."""
 
-    def __init__(self, full_argspec):
+    def __init__(self, full_argspec, call_context_args=set()):
         """Initialies a `CallFunctionSpec`.
 
         Args:
           full_argspec: the FullArgSpec of a call function of a layer.
+          call_context_args: The set of call-context arguments registered
+            with to the current layer.
         """
         self._full_argspec = full_argspec
 
@@ -797,6 +799,18 @@ class CallFunctionSpec:
             "mask" in self._arg_names or call_accepts_kwargs
         )
 
+        # Track the set of call-context arguments that the current layer's
+        # `call` method accepts.
+        self._expected_context_args = set()
+        self._update_call_context_arguments(call_context_args)
+
+        self._context_arg_defaults = dict()
+        self._update_call_context_argument_defaults(call_context_args)
+
+    def _update_call_context_argument_defaults(self, context_args):
+        """Updates the set of call-context argument defaults for the current
+        layer's `call` method.
+        """
         call_fn_defaults = self._full_argspec.defaults or []
         defaults = dict()
         # The call arg defaults are an n-tuple of the last n elements of the
@@ -806,7 +820,21 @@ class CallFunctionSpec:
         # The default training arg will be any (non-None) default specified in
         # the method signature, or None if no value is specified.
         defaults.update(self._full_argspec.kwonlydefaults or {})
-        self._default_training_arg = defaults.get("training")
+
+        for arg in context_args:
+            self._context_arg_defaults[arg] = defaults.get(arg)
+
+    def _update_call_context_arguments(self, context_args):
+        """Updates the set of call-context arguments that the current layer's
+        `call` method accepts.
+        """
+        call_accepts_kwargs = self._full_argspec.varkw is not None
+        args_to_add = {
+            arg
+            for arg in context_args
+            if call_accepts_kwargs or arg in self._arg_names
+        }
+        self._expected_context_args.update(args_to_add)
 
     @property
     def full_argspec(self):
@@ -844,6 +872,16 @@ class CallFunctionSpec:
         self._expects_training_arg = value
 
     @property
+    def expected_context_args(self):
+        """The set of call-context arguments that the current layer's
+        `call` method accepts."""
+        return self._expected_context_args
+
+    @expected_context_args.setter
+    def expected_context_args(self, value):
+        self._expected_context_args = value
+
+    @property
     def expects_mask_arg(self):
         """Whether the call function uses `mask` as a parameter."""
         return self._expects_mask_arg
@@ -855,7 +893,11 @@ class CallFunctionSpec:
     @property
     def default_training_arg(self):
         """The default value given to the "training" argument."""
-        return self._default_training_arg
+        return self.get_context_arg_default("training")
+
+    def get_context_arg_default(self, arg_name):
+        """The default value given to the call context arguments."""
+        return self._context_arg_defaults.get(arg_name, None)
 
     def arg_was_passed(self, arg_name, args, kwargs, inputs_in_args=False):
         """Returns true if argument is present in `args` or `kwargs`.

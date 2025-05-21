@@ -138,12 +138,24 @@ def trace_model_call(model, input_signature=None):
     @tf.function
     def _wrapped_model(*args, **kwargs):
         """A concrete tf.function that wraps the model's call function."""
+        call_context = base_layer_utils.call_context()
+
+        args, kwargs, propagated = model._get_propagated_call_context_arguments(
+            args, kwargs, call_context, model._call_context_args
+        )
+
         (args, kwargs,) = model._call_spec.set_arg_value(
             "training", False, args, kwargs, inputs_in_args=True
         )
 
-        with base_layer_utils.call_context().enter(
-            model, inputs=None, build_graph=False, training=False, saving=True
+        propagated["training"] = False
+
+        with call_context.enter(
+            model,
+            inputs=None,
+            build_graph=False,
+            call_context_args=propagated,
+            saving=True,
         ):
             outputs = model(*args, **kwargs)
 

@@ -639,7 +639,9 @@ class RNNTest(test_combinations.TestCase):
             cells[0].kernel, tf.ones_like(cells[0].kernel)
         )
         # TODO(b/128682878): Remove when RNNCells are __call__'d.
-        with base_layer_utils.call_context().enter(layer, x, True, None):
+        with base_layer_utils.call_context().enter(
+            layer, x, {"training": True}, None
+        ):
             cells[0].add_update(update_1)
             cells[0].add_update(update_2)
         self.assertEqual(len(layer.updates), 2)

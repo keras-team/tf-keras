@@ -219,7 +219,11 @@ def wrap_layer_functions(layer, serialization_cache):
     with tracing_scope():
         call_collection.trace_with_input_signature()
         with base_layer_utils.call_context().enter(
-            layer, inputs=None, build_graph=True, training=None, saving=True
+            layer,
+            inputs=None,
+            build_graph=True,
+            call_context_args={},
+            saving=True,
         ):
             for fn in fns.values():
                 if fn is not None and not isinstance(fn, LayerCall):
@@ -515,18 +519,27 @@ class LayerCallCollection:
             else:
                 add_trace_to_queue(fn, args, kwargs)
 
-    def training_arg_was_passed(self, args, kwargs):
+    def arg_was_passed(self, arg_name, args, kwargs):
+        """Returns True if the argument was passed to the call function."""
         return self._call_spec.arg_was_passed(
-            "training", args, kwargs, inputs_in_args=True
+            arg_name, args, kwargs, inputs_in_args=True
         )
 
-    def get_training_arg_value(self, args, kwargs):
+    def training_arg_was_passed(self, args, kwargs):
+        """Returns True if the training arg was passed to the call function."""
+        return self.arg_was_passed("training", args, kwargs)
+
+    def get_arg_value(self, arg_name, args, kwargs):
+        """Returns the value of the given argument or None if not found."""
         try:
             return self._call_spec.get_arg_value(
-                "training", args, kwargs, inputs_in_args=True
+                arg_name, args, kwargs, inputs_in_args=True
             )
-        except KeyError:  # Training is not in args or kwargs.
+        except KeyError:  # Arg not found in args or kwargs.
             return None
+
+    def get_training_arg_value(self, args, kwargs):
+        return self.get_arg_value("training", args, kwargs)
 
     def get_input_arg_value(self, args, kwargs):
         return self._call_spec.get_arg_value(
@@ -613,20 +626,23 @@ def layer_call_wrapper(call_collection, method, name):
     def wrapper(*args, **kwargs):
         """Calls method within call context."""
         layer = call_collection.layer
-        training = None
+        propagated = {"training": None}
         inputs = _filtered_inputs([args, kwargs])
 
-        if (args or kwargs) and call_collection.training_arg_was_passed(
-            args, kwargs
-        ):
-            training = call_collection.get_training_arg_value(args, kwargs)
+        for context_arg in layer._call_context_args:
+            if (args or kwargs) and call_collection.arg_was_passed(
+                context_arg, args, kwargs
+            ):
+                propagated[context_arg] = call_collection.get_arg_value(
+                    context_arg, args, kwargs
+                )
 
         original_losses = _reset_layer_losses(layer)
         with base_layer_utils.call_context().enter(
             layer,
             inputs=inputs,
             build_graph=False,
-            training=training,
+            call_context_args=propagated,
             saving=True,
         ):
             with autocast_variable.enable_auto_cast_variables(

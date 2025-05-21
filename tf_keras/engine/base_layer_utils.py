@@ -480,7 +480,8 @@ class CallContext:
       layer: The `Layer` whose `call` is currently active.
       inputs: The inputs to the currently active `Layer`.
       build_graph: Whether currently inside a Graph or FuncGraph.
-      training: Whether currently executing in training or inference mode.
+      call_context_args: The call-context arguments being propagated through the
+        the call-stack.
       saving: Whether currently saving to SavedModel.
       frozen: Whether currently executing inside a `Layer` with `trainable` set
         to `False`.
@@ -495,6 +496,7 @@ class CallContext:
             "layer": None,
             "inputs": None,
             "build_graph": False,
+            "call_context_args": dict(),
             "training": None,
             "saving": None,
         }
@@ -502,14 +504,17 @@ class CallContext:
         # refactor.
         self._in_keras_graph = False
 
-    def enter(self, layer, inputs, build_graph, training, saving=None):
+    def enter(
+        self, layer, inputs, build_graph, call_context_args=dict(), saving=None
+    ):
         """Push a Layer and its inputs and state onto the current call context.
 
         Args:
           layer: The `Layer` whose `call` is currently active.
           inputs: The inputs to the currently active `Layer`.
           build_graph: Whether currently inside a Graph or FuncGraph.
-          training: Whether currently executing in training or inference mode.
+          call_context_args: The call-context arguments being propagated through
+            the call-stack.
           saving: Whether currently saving to SavedModel.
 
         Returns:
@@ -519,7 +524,7 @@ class CallContext:
             "layer": layer,
             "inputs": inputs,
             "build_graph": build_graph,
-            "training": training,
+            "call_context_args": call_context_args,
             "saving": saving,
         }
         return CallContextManager(self, state)
@@ -538,7 +543,14 @@ class CallContext:
 
     @property
     def training(self):
-        return self._state["training"]
+        return self.call_context_args.get("training", None)
+
+    @property
+    def call_context_args(self):
+        return self._state["call_context_args"]
+
+    def get_call_context_arg(self, arg_name):
+        return self.call_context_args.get(arg_name, None)
 
     @property
     def saving(self):

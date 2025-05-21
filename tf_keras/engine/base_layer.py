@@ -308,6 +308,7 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         self, trainable=True, name=None, dtype=None, dynamic=False, **kwargs
     ):
         self._instrument_layer_creation()
+        self._called = False
 
         # These properties should be set by the user via keyword arguments.
         # note that 'dtype', 'input_shape' and 'batch_input_shape'
@@ -325,6 +326,10 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         }
         # Validate optional keyword arguments.
         generic_utils.validate_kwargs(kwargs, allowed_kwargs)
+
+        # Track the built-in call-context arguments. These are arguments that
+        # are tracked and propagated across the call-stack by default.
+        self._call_context_args = {"training"}
 
         # Mutable properties
         # Indicates whether the layer's weights are updated during training
@@ -410,6 +415,9 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         self._outbound_nodes_value = []
 
         self._init_call_fn_args()
+
+        # Track the built-in call-context arguments.
+        self._call_spec._update_call_context_arguments(self._call_context_args)
 
         # Whether the `call` method can be used to build a TF graph without
         # issues.  This attribute has no effect if the model is created using
@@ -1042,6 +1050,7 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         # - input_spec compatibility is only checked against `inputs`
         # - mixed precision casting (autocast) is only applied to `inputs`,
         #   not to any other argument.
+        self._called = True
         inputs, args, kwargs = self._call_spec.split_out_first_arg(args, kwargs)
         input_list = tf.nest.flatten(inputs)
 
@@ -1080,17 +1089,21 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
         if self._expects_mask_arg and mask_is_implicit:
             kwargs["mask"] = input_masks
 
-        # Training mode for `Layer.call` is set via (in order of priority):
-        # (1) The `training` argument passed to this `Layer.call`, if it is not
-        #  None
-        # (2) The training mode of an outer `Layer.call`.
-        # (3) The default mode set by `tf.keras.backend.set_learning_phase` (if
-        #  set)
-        # (4) Any non-None default value for `training` specified in the call
+        # Call-context arguments for `Layer.call` is set via (in order of
+        # priority):
+        # (1) The argument passed to this `Layer.call`, if it is not None
+        # (2) The argument value of an outer `Layer.call`.
+        # (3) (only for "training") The default mode set by
+        # `tf.keras.backend.set_learning_phase` (if set)
+        # (4) Any non-None default value for the argument specified in the call
         #  signature
-        # (5) False (treating the layer as if it's in inference)
-        args, kwargs, training_mode = self._set_training_mode(
-            args, kwargs, call_context
+        # (5) False
+        (
+            args,
+            kwargs,
+            propagated,
+        ) = self._get_propagated_call_context_arguments(
+            args, kwargs, call_context, self._call_context_args
         )
 
         # Losses are cleared for all sublayers on the outermost `Layer.call`.
@@ -1104,7 +1117,7 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
             layer=self,
             inputs=inputs,
             build_graph=not eager,
-            training=training_mode,
+            call_context_args=propagated,
         ):
             input_spec.assert_input_compatibility(
                 self.input_spec, inputs, self.name
@@ -1151,6 +1164,55 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
                     self._set_save_spec(inputs, args, kwargs)
 
                 return outputs
+
+    def _register_call_context_args(self, *argument_names):
+        """Registers call-context args for this layer.
+        If this layer declares a `call()` method that accepts
+        one or more of the given args, those args will be
+        automatically injected into the call signature of this
+        layer. This layer will also propagate the args to any
+        nested sublayers that are called from within this layer.
+        If this layer doesn't declare a `call()` method that
+        accepts one or more of the given args, these args will
+        simply be propagated to any nested sublayers without
+        being injected into the call signature of this layer.
+        This is useful for propagating custom arguments
+        from top-level layers/models to sublayers.
+        Example:
+        ```
+        class Inner(layers.Layer):
+            def __init__(self):
+                super().__init__()
+                # Register `foo_mode` as a call-context arg
+                self._register_call_context_args("foo_mode")
+            def call(self, x, foo_mode=False):
+                # If foo_mode=True add 1, otherwise add 0
+                add_val = ops.where(foo_mode, 1.0, 0.0)
+                return x + add_val
+        class Outer(layers.Layer):
+            def __init__(self):
+                super().__init__()
+                self.inner = Inner()
+            def call(self, x):
+                # We don't explicitly pass foo_mode here—Base Layer.__call__
+                # should inject it into `self.inner`
+                return self.inner(x)
+        sample_input = np.array([[1.0], [2.0]])
+        # Sequential model
+        seq = models.Sequential([Outer()])
+        # Tell the Sequential model to propagate foo_mode down
+        # the call-stack
+        seq.register_call_context_args("foo_mode")
+        # foo_mode=True -> input + 1
+        out_true = seq(sample_input, foo_mode=True)
+        """
+        if self._called:
+            raise RuntimeError(
+                "Cannot add call-context args after the layer has been called."
+            )
+        self._call_context_args |= set(argument_names)
+        self._call_spec._update_call_context_arguments(argument_names)
+        self._call_spec._update_call_context_argument_defaults(argument_names)
 
     def _get_unnested_name_scope(self):
         if _is_name_scope_on_model_declaration_enabled:
@@ -2535,47 +2597,57 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
             kwargs["mask"] = input_masks
             mask_arg_passed_by_framework = True
 
-        # If `training` argument is None or not explicitly passed,
-        # propagate `training` value from this layer's calling layer.
-        training_value = None
-        training_arg_passed_by_framework = False
-        # Priority 1: `training` was explicitly passed a non-None value.
-        if self._call_spec.arg_was_passed("training", args, kwargs):
-            training_value = self._call_spec.get_arg_value(
-                "training", args, kwargs
-            )
-            if not self._expects_training_arg:
-                kwargs.pop("training")
+        propagated = dict()
+        args_passed_by_framework = dict()
+        for context_arg in self._call_context_args:
+            # If `training` argument is None or not explicitly passed,
+            # propagate `training` value from this layer's calling layer.
+            value = None
+            args_passed_by_framework[context_arg] = False
+            # Priority 1: `training` was explicitly passed a non-None value.
+            if self._call_spec.arg_was_passed(context_arg, args, kwargs):
+                value = self._call_spec.get_arg_value(context_arg, args, kwargs)
+                if not self._expects_context_arg(context_arg):
+                    kwargs.pop(context_arg)
 
-        if training_value is None:
-            # Priority 2: `training` was passed to a parent layer.
-            if call_context.training is not None:
-                training_value = call_context.training
-            # Priority 3: `learning_phase()` has been set.
-            elif backend.global_learning_phase_is_set():
-                training_value = backend.learning_phase()
-                # Force the training_value to be bool type which matches to the
-                # contract for layer/model call args.
-                if tf.is_tensor(training_value):
-                    training_value = tf.cast(training_value, tf.bool)
+            if value is None:
+                # Priority 2: `training` was passed to a parent layer.
+                if call_context.get_call_context_arg(context_arg) is not None:
+                    value = call_context.get_call_context_arg(context_arg)
+                # Priority 3: `learning_phase()` has been set.
+                elif (
+                    context_arg == "training"
+                    and backend.global_learning_phase_is_set()
+                ):
+                    value = backend.learning_phase()
+                    # Force the training_value to be bool type which matches to
+                    # the contract for layer/model call args.
+                    if tf.is_tensor(value):
+                        value = tf.cast(value, tf.bool)
+                    else:
+                        value = bool(value)
+                # Priority 4: trace layer with the default training argument
+                # specified in the `call` signature (or in inference mode if the
+                # `call` signature specifies no non-None default).
                 else:
-                    training_value = bool(training_value)
-            # Priority 4: trace layer with the default training argument
-            # specified in the `call` signature (or in inference mode if the
-            # `call` signature specifies no non-None default).
-            else:
-                training_value = self._call_spec.default_training_arg
-            # In cases (2), (3), (4) the training argument is passed
-            # automatically by the framework, and will not be hard-coded into
-            # the model.
-            if self._expects_training_arg:
-                args, kwargs = self._call_spec.set_arg_value(
-                    "training", training_value, args, kwargs
-                )
-                training_arg_passed_by_framework = True
+                    value = self._call_spec.get_context_arg_default(context_arg)
+                # In cases (2), (3), (4) the training argument is passed
+                # automatically by the framework, and will not be hard-coded
+                # into the model.
+                if self._expects_context_arg(context_arg):
+                    args, kwargs = self._call_spec.set_arg_value(
+                        context_arg, value, args, kwargs
+                    )
+                    args_passed_by_framework[context_arg] = True
+
+            if value is not None:
+                propagated[context_arg] = value
 
         with call_context.enter(
-            layer=self, inputs=inputs, build_graph=True, training=training_value
+            layer=self,
+            inputs=inputs,
+            build_graph=True,
+            call_context_args=propagated,
         ):
             # Check input assumptions set after layer building, e.g. input
             # shape.
@@ -2601,10 +2673,13 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
                     "Tensor or a list of Tensors, not None "
                     "(layer: " + self.name + ")."
                 )
-            if training_arg_passed_by_framework:
-                args, kwargs = self._call_spec.set_arg_value(
-                    "training", None, args, kwargs, pop_kwarg_if_none=True
-                )
+
+            for context_arg, is_passed in args_passed_by_framework.items():
+                if is_passed:
+                    args, kwargs = self._call_spec.set_arg_value(
+                        context_arg, None, args, kwargs, pop_kwarg_if_none=True
+                    )
+
             if mask_arg_passed_by_framework:
                 kwargs.pop("mask")
             # Node connectivity does not special-case the first argument.
@@ -2613,52 +2688,100 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
             )
             return outputs
 
-    def _set_training_mode(self, args, kwargs, call_context):
-        training_mode = None
-        if self._expects_training_arg:
-            # (1) `training` was passed to this `Layer.call`.
-            if self._call_spec.arg_was_passed("training", args, kwargs):
-                training_mode = self._call_spec.get_arg_value(
-                    "training", args, kwargs
-                )
-            # If no `training` arg was passed, or `None` was explicitly passed,
-            # the framework will make a decision about the training mode is.
-            if training_mode is None:
-                call_ctx_training = call_context.training
-                # (2) `training` mode is inferred from an outer `Layer.call`.
-                if call_ctx_training is not None:
-                    training_mode = call_ctx_training
-                # (3) User set `tf.keras.backend.set_learning_phase`.
-                elif backend.global_learning_phase_is_set():
-                    training_mode = backend.learning_phase()
-                    # Ensure value is a `bool` or `tf.bool`.
-                    if isinstance(training_mode, bool):
-                        pass
-                    elif tf.is_tensor(training_mode):
-                        training_mode = tf.cast(training_mode, tf.bool)
+    def _get_propagated_call_context_arguments(
+        self, args, kwargs, call_context, local_call_context_arguments
+    ):
+        """Resolves the values for propagated call context arguments for the
+        current layer.
+
+        Args:
+            args: The arguments passed to the current layer's `call` method.
+            kwargs: The keyword arguments passed to the current layer's `call`
+              method.
+            call_context: The `CallContext` for the current call-stack.
+            local_call_context_arguments: The call-context arguments registered
+            with to the current layer's `Layer.call` method.
+
+        Returns:
+            A tuple of the following:
+            1. Updated args
+            2. Updated kwargs
+            3. A dictionary of the resolved call-context arguments that should
+            be propagated to the next layer in the call-stack.
+        """
+        propagated_context = dict()
+        relevant_arguments = call_context.call_context_args.keys() | set(
+            local_call_context_arguments
+        )
+
+        for argument in relevant_arguments:
+            authoritative_value = None
+            was_explicitly_passed = self._call_spec.arg_was_passed(
+                argument, args, kwargs
+            )
+            if self._expects_context_arg(argument):
+                # (1) `arg_name` was passed to this `Layer.call`.
+                if was_explicitly_passed:
+                    authoritative_value = self._call_spec.get_arg_value(
+                        argument, args, kwargs
+                    )
+                # If no `arg_name` arg was passed, or `None` was explicitly
+                # passed, the framework will make a decision about the training
+                # mode is.
+                if authoritative_value is None:
+                    value_from_context = call_context.get_call_context_arg(
+                        argument
+                    )
+                    # (2) `arg_name` mode is inferred from an outer
+                    # `Layer.call`.
+                    if value_from_context is not None:
+                        authoritative_value = value_from_context
+                    # (3) User set `tf.keras.backend.set_learning_phase`.
+                    elif (
+                        argument == "training"
+                        and backend.global_learning_phase_is_set()
+                    ):
+                        authoritative_value = backend.learning_phase()
+                        # Ensure value is a `bool` or `tf.bool`.
+                        if isinstance(authoritative_value, bool):
+                            pass
+                        elif tf.is_tensor(authoritative_value):
+                            authoritative_value = tf.cast(
+                                authoritative_value, tf.bool
+                            )
+                        else:
+                            authoritative_value = bool(authoritative_value)
+                    # (4) We default to using `call`'s default value for
+                    # `arg_name`, or treating the layer as if it is in inference
+                    # if no non-None default is specified in the `call`
+                    # signature.
                     else:
-                        training_mode = bool(training_mode)
-                # (4) We default to using `call`'s default value for `training`,
-                # or treating the layer as if it is in inference if no non-None
-                # default is specified in the `call` signature.
-                else:
-                    training_mode = self._call_spec.default_training_arg
+                        authoritative_value = (
+                            self._call_spec.get_context_arg_default(argument)
+                        )
 
-                # For case (2), (3), (4) `training` arg is passed by framework.
-                args, kwargs = self._call_spec.set_arg_value(
-                    "training", training_mode, args, kwargs
-                )
-        else:
-            if "training" in kwargs:
-                # `training` was passed to this `Layer` but is not needed for
-                # `Layer.call`. It will set the default mode for inner
-                # `Layer.call`s.
-                training_mode = kwargs.pop("training")
+                    # For case (2), (3), (4) `arg_name` arg is passed by
+                    # framework.
+                    args, kwargs = self._call_spec.set_arg_value(
+                        argument, authoritative_value, args, kwargs
+                    )
             else:
-                # Grab the current `training` mode from any outer `Layer.call`.
-                training_mode = call_context.training
+                if argument in kwargs:
+                    # `arg_name` was passed to this `Layer` but is not needed
+                    # for `Layer.call`. It will set the default mode for inner
+                    # `Layer.call`s.
+                    authoritative_value = kwargs.pop(argument)
+                else:
+                    # Grab the current `arg_name` mode from any outer
+                    # `Layer.call`.
+                    authoritative_value = call_context.get_call_context_arg(
+                        argument
+                    )
 
-        return args, kwargs, training_mode
+            if authoritative_value is not None:
+                propagated_context[argument] = authoritative_value
+
+        return args, kwargs, propagated_context
 
     def _autographed_call(self):
         # Wrapping `call` function in autograph to allow for dynamic control
@@ -3351,7 +3474,8 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
 
     def _init_call_fn_args(self, expects_training_arg=None):
         self._call_spec = layer_utils.CallFunctionSpec(
-            tf_inspect.getfullargspec(self.call)
+            tf_inspect.getfullargspec(self.call),
+            getattr(self, "_call_context_args", set()),
         )
         if expects_training_arg is not None:
             self._call_spec.expects_training_arg = expects_training_arg
@@ -3360,6 +3484,9 @@ class Layer(tf.Module, version_utils.LayerVersionSelector):
     def _expects_training_arg(self):
         """Whether the call function uses 'training' as a parameter."""
         return self._call_spec.expects_training_arg
+
+    def _expects_context_arg(self, argument_name):
+        return argument_name in self._call_spec.expected_context_args
 
     @property
     def _expects_mask_arg(self):
