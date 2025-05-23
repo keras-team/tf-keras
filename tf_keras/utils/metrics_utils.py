@@ -237,6 +237,7 @@ class AUCCurve(Enum):
 
     ROC = "ROC"
     PR = "PR"
+    PR_GAIN = "PR_GAIN"
 
     @staticmethod
     def from_str(key):
@@ -244,10 +245,12 @@ class AUCCurve(Enum):
             return AUCCurve.PR
         elif key in ("roc", "ROC"):
             return AUCCurve.ROC
+        elif key in ("pr_gain", "prgain", "PR_GAIN", "PRGAIN"):
+            return AUCCurve.PR_GAIN
         else:
             raise ValueError(
                 f'Invalid AUC curve value: "{key}". '
-                'Expected values are ["PR", "ROC"]'
+                'Expected values are ["PR", "ROC", "PR_GAIN"]'
             )
 
 
