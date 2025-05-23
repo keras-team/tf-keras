@@ -1471,9 +1471,10 @@ class AUC(base_metric.Metric):
                 # label_weights should be of length equal to the number of
                 # labels.
                 shapes.append((self.label_weights, ("L",)))
-                tf.debugging.assert_shapes(
-                    shapes, message="Number of labels is not consistent."
-                )
+
+            tf.debugging.assert_shapes(
+                shapes, message="Number of labels is not consistent."
+            )
 
         # Only forward label_weights to update_confusion_matrix_variables when
         # multi_label is False. Otherwise the averaging of individual label AUCs
