@@ -1605,6 +1605,82 @@ class AUCTest(tf.test.TestCase, parameterized.TestCase):
         expected_result = 2.416 / 7 + 4 / 7
         self.assertAllClose(self.evaluate(result), expected_result, 1e-3)
 
+    def test_weighted_pr_gain_majoring(self):
+        self.setup()
+        auc_obj = metrics.AUC(
+            num_thresholds=self.num_thresholds,
+            curve="PR_GAIN",
+            summation_method="majoring",
+        )
+        self.evaluate(tf.compat.v1.variables_initializer(auc_obj.variables))
+        result = auc_obj(
+            self.y_true, self.y_pred, sample_weight=self.sample_weight
+        )
+
+        # tp = [7, 4, 0], fp = [3, 0, 0], fn = [0, 3, 7], tn = [0, 3, 3]
+        # scaling_factor (P/N) = 7/3
+        # recall_gain = 1 - 7/3 [ 0/7, 3/4, 7/0 ] = [1, -3/4, -inf] -> [1, 0, 0]
+        # precision_gain = 1 - 7/3 [ 3/7, 0/4, 0/0 ] = [0, 1, 1]
+        # heights = [max(0, 1), max(1, 1)] = [1, 1]
+        # widths = [(1 - 0), (0 - 0)] = [1, 0]
+        expected_result = 1 * 1  + 0 * 1
+        self.assertAllClose(self.evaluate(result), expected_result, 1e-3)
+
+    def test_weighted_pr_gain_minoring(self):
+        self.setup()
+        auc_obj = metrics.AUC(
+            num_thresholds=self.num_thresholds,
+            curve="PR_GAIN",
+            summation_method="minoring",
+        )
+        self.evaluate(tf.compat.v1.variables_initializer(auc_obj.variables))
+        result = auc_obj(
+            self.y_true, self.y_pred, sample_weight=self.sample_weight
+        )
+
+        # tp = [7, 4, 0], fp = [3, 0, 0], fn = [0, 3, 7], tn = [0, 3, 3]
+        # scaling_factor (P/N) = 7/3
+        # recall_gain = 1 - 7/3 [ 0/7, 3/4, 7/0 ] = [1, -3/4, -inf] -> [1, 0, 0]
+        # precision_gain = 1 - 7/3 [ 3/7, 0/4, 0/0 ] = [0, 1, 1]
+        # heights = [min(0, 1), min(1, 1)] = [0, 1]
+        # widths = [(1 - 0), (0 - 0)] = [1, 0]
+        expected_result = 1 * 0 + 0 * 1
+        self.assertAllClose(self.evaluate(result), expected_result, 1e-3)
+
+    def test_weighted_pr_gain_interpolation(self):
+        self.setup()
+        auc_obj = metrics.AUC(num_thresholds=self.num_thresholds, curve="PR_GAIN")
+        self.evaluate(tf.compat.v1.variables_initializer(auc_obj.variables))
+        result = auc_obj(
+            self.y_true, self.y_pred, sample_weight=self.sample_weight
+        )
+
+        # tp = [7, 4, 0], fp = [3, 0, 0], fn = [0, 3, 7], tn = [0, 3, 3]
+        # scaling_factor (P/N) = 7/3
+        # recall_gain = 1 - 7/3 [ 0/7, 3/4, 7/0 ] = [1, -3/4, -inf] -> [1, 0, 0]
+        # precision_gain = 1 - 7/3 [ 3/7, 0/4, 0/0 ] = [0, 1, 1]
+        # heights = [(0+1)/2, (1+1)/2] = [0.5, 1]
+        # widths = [(1 - 0), (0 - 0)] = [1, 0]
+        expected_result = 1 * 0.5 + 0 * 1
+        self.assertAllClose(self.evaluate(result), expected_result, 1e-3)
+
+    def test_pr_gain_interpolation(self):
+        self.setup()
+        auc_obj = metrics.AUC(num_thresholds=self.num_thresholds, curve="PR_GAIN")
+        self.evaluate(tf.compat.v1.variables_initializer(auc_obj.variables))
+        y_true = tf.constant([0, 0, 0, 1, 0, 1, 0, 1, 1, 1])
+        y_pred = tf.constant([0.1, 0.2, 0.3, 0.3, 0.4, 0.4, 0.6, 0.6, 0.8, 0.9])
+        result = auc_obj( y_true, y_pred)
+
+        # tp = [5, 3, 0], fp = [5, 1, 0], fn = [0, 2, 5], tn = [0, 4, 4]
+        # scaling_factor (P/N) = 5/5 = 1
+        # recall_gain = 1 - [ 0/5, 2/3, 5/0 ] = [1, 1/3, 0]
+        # precision_gain = 1 - [ 5/5, 1/3, 0/0 ] = [0, 2/3, 1]
+        # heights = [(0+2/3)/2, (2/3+1)/2] = [0.333, 0.833]
+        # widths = [(1 - 1/3), (1/3 - 0)] = [0.666, 0.333]
+        expected_result = 0.666666 * 0.3333333 + 0.3333333 * 0.8333333
+        self.assertAllClose(self.evaluate(result), expected_result, 1e-3)
+
     def test_invalid_num_thresholds(self):
         with self.assertRaisesRegex(
             ValueError, "Argument `num_thresholds` must be an integer > 1"
