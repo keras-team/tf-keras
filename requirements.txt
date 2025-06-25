@@ -3,12 +3,6 @@
 pandas
 pydot
 scipy
-# Remove once both TensorFlow and TF-Keras nightly builds pass.
-# Temporarily enforce 4.21.6 version, as the only version which is compatible
-# with both new and old protobuf stubs. This is needed to resolve
-# Keras-TensorFlow circular dependency issue, when one of them gets a dependency
-# incompatible with another one (protobuf in this specific case).
-protobuf==4.21.6
 tf-nightly
 portpicker
 pyyaml

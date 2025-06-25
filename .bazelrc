@@ -28,6 +28,9 @@
 #     nohdfs:       Disable hadoop hdfs support.
 #     nonccl:       Disable nccl support.
 
+# No MODULE.bzl file.
+common --noenable_bzlmod
+
 # Sets the default Apple platform to macOS.
 build --apple_platform_type=macos
 
