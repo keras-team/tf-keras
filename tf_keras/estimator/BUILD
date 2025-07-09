@@ -17,6 +17,6 @@ py_library(
         "__init__.py",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )

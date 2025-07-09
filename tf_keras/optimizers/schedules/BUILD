@@ -16,7 +16,7 @@ py_library(
         "learning_rate_schedule.py",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:generic_utils",
     ],
 )
@@ -27,11 +27,11 @@ cuda_py_test(
     srcs = ["learning_rate_schedule_test.py"],
     shard_count = 4,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )

@@ -50,11 +50,11 @@ py_library(
     name = "kernelized",
     srcs = ["kernelized.py"],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/initializers",
+        "@pypi//numpy",
     ],
 )
 
@@ -74,11 +74,11 @@ tf_py_test(
     srcs = ["tensorflow_op_layer_test.py"],
     shard_count = 3,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/saving",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -88,11 +88,11 @@ tf_py_test(
     srcs = ["subclassed_layers_test.py"],
     shard_count = 3,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -101,10 +101,10 @@ tf_py_test(
     size = "small",
     srcs = ["serialization_test.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -114,13 +114,13 @@ tf_py_test(
     srcs = ["kernelized_test.py"],
     deps = [
         ":layers",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:backend",
         "//tf_keras/initializers",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -130,6 +130,6 @@ tf_py_test(
     srcs = ["layers_test.py"],
     deps = [
         ":layers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )

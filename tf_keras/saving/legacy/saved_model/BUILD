@@ -40,7 +40,7 @@ py_library(
     name = "utils",
     srcs = ["utils.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer_utils",
         "//tf_keras/utils:layer_utils",
     ],
@@ -64,7 +64,7 @@ py_library(
     deps = [
         ":order_preserving_set",
         ":utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:generic_utils",
     ],
 )
@@ -78,11 +78,11 @@ tf_py_test(
         "no_windows",  # b/158005583
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -92,11 +92,11 @@ tf_py_test(
     srcs = ["json_utils_test.py"],
     deps = [
         ":saved_model",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -113,11 +113,11 @@ tf_py_test(
         "notsan",  #TODO(b/181771982): it is flaky
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -126,11 +126,11 @@ py_binary(
     srcs = ["create_test_saved_model.py"],
     tags = ["no_oss"],
     deps = [
-        "//:expect_absl_installed",  # absl:app
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:regularizers",
         "//tf_keras/testing_infra:test_utils",
         "//third_party/py/absl/flags",
+        "@pypi//absl_py",  # absl:app
     ],
 )
 
@@ -140,6 +140,6 @@ tf_py_test(
     data = [":create_test_saved_model.par"],
     tags = ["no_oss"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )

@@ -57,9 +57,9 @@ py_test(
     deps = [
         ":benchmark_util",
         ":profiler_lib",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "@pypi//numpy",
     ],
 )
 
@@ -72,7 +72,7 @@ cuda_py_test(
     ],
     deps = [
         ":profiler_lib",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/utils:tf_inspect",
     ],
@@ -83,7 +83,7 @@ cuda_py_test(
     srcs = ["model_components_benchmarks_test.py"],
     deps = [
         ":profiler_lib",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -93,9 +93,9 @@ py_library(
     srcs = ["benchmark_util.py"],
     deps = [
         ":distribution_util",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "@pypi//numpy",
     ],
 )
 
@@ -105,7 +105,7 @@ py_test(
     tags = COMMON_TAGS,
     deps = [
         ":benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -114,7 +114,7 @@ py_library(
     name = "distribution_util",
     srcs = ["distribution_util.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
     ],
 )
 
@@ -127,7 +127,7 @@ py_test(
     deps = [
         ":benchmark_util",
         ":profiler_lib",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/optimizers/legacy:optimizers",
     ],
@@ -144,7 +144,9 @@ py_binary(
     name = "model_memory_profile",
     srcs = ["model_memory_profile.py"],
     tags = ["no_oss"],
-    deps = ["//:expect_tensorflow_installed"],
+    deps = [
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+    ],
 )
 
 py_test(
@@ -152,8 +154,8 @@ py_test(
     srcs = ["metrics_memory_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "@pypi//numpy",
     ],
 )

@@ -37,7 +37,7 @@ py_library(
     name = "base_merge",
     srcs = ["base_merge.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/utils:tf_utils",
@@ -82,7 +82,7 @@ py_library(
     srcs = ["maximum.py"],
     deps = [
         ":base_merge",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -91,7 +91,7 @@ py_library(
     srcs = ["minimum.py"],
     deps = [
         ":base_merge",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -100,7 +100,7 @@ py_library(
     srcs = ["concatenate.py"],
     deps = [
         ":base_merge",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/utils:tf_utils",
     ],
@@ -111,7 +111,7 @@ py_library(
     srcs = ["dot.py"],
     deps = [
         ":base_merge",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer_utils",
         "//tf_keras/utils:tf_utils",
@@ -124,10 +124,10 @@ tf_py_test(
     srcs = ["merging_test.py"],
     shard_count = 4,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
