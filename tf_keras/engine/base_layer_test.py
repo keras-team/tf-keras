@@ -1273,6 +1273,57 @@ class BaseLayerTest(test_combinations.TestCase):
 
 
 @test_utils.run_v2_only
+class BaseRandomLayerTest(test_combinations.TestCase):
+    def teardown(self):
+        backend.disable_tf_random_generator()
+
+    def test_rng_type_is_saved_in_config(self):
+        backend.disable_tf_random_generator()
+
+        layer = base_layer.BaseRandomLayer(rng_type="stateful")
+        config = layer.get_config()
+        self.assertEqual(config["rng_type"], "stateful")
+        reloaded_layer = base_layer.BaseRandomLayer.from_config(config)
+        self.assertEqual(reloaded_layer._random_generator._rng_type, "stateful")
+
+        layer = base_layer.BaseRandomLayer(rng_type="stateless")
+        config = layer.get_config()
+        self.assertEqual(config["rng_type"], "stateless")
+        reloaded_layer = base_layer.BaseRandomLayer.from_config(config)
+        self.assertEqual(
+            reloaded_layer._random_generator._rng_type, "stateless"
+        )
+
+        layer = base_layer.BaseRandomLayer()
+        config = layer.get_config()
+        self.assertNotIn("rng_type", config)
+        reloaded_layer = base_layer.BaseRandomLayer.from_config(config)
+        self.assertEqual(
+            reloaded_layer._random_generator._rng_type, "legacy_stateful"
+        )
+
+        layer = base_layer.BaseRandomLayer(rng_type="legacy_stateful")
+        config = layer.get_config()
+        self.assertNotIn("rng_type", config)
+        reloaded_layer = base_layer.BaseRandomLayer.from_config(config)
+        self.assertEqual(
+            reloaded_layer._random_generator._rng_type, "legacy_stateful"
+        )
+
+    def test_rng_type_with_tf_random_generator(self):
+        # Test `rng_type` is still serialized when global stateful mode is on.
+        backend.enable_tf_random_generator()
+
+        layer = base_layer.BaseRandomLayer()
+        config = layer.get_config()
+        self.assertEqual(config["rng_type"], "stateful")
+
+        backend.disable_tf_random_generator()
+        reloaded_layer = base_layer.BaseRandomLayer.from_config(config)
+        self.assertEqual(reloaded_layer._random_generator._rng_type, "stateful")
+
+
+@test_utils.run_v2_only
 class SymbolicSupportTest(test_combinations.TestCase):
     def test_using_symbolic_tensors_with_tf_ops(self):
         # Single-input.
