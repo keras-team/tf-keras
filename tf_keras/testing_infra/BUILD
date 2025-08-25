@@ -18,9 +18,9 @@ py_library(
     ],
     deps = [
         ":test_utils",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -30,8 +30,7 @@ py_library(
         "test_utils.py",
     ],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer_utils",
         "//tf_keras/layers",
@@ -39,6 +38,7 @@ py_library(
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/utils:tf_contextlib",
         "//tf_keras/utils:tf_inspect",
+        "@pypi//numpy",
     ],
 )
 
@@ -48,7 +48,7 @@ py_library(
     name = "keras_doctest_lib",
     srcs = ["keras_doctest_lib.py"],
     deps = [
-        "//:expect_numpy_installed",
+        "@pypi//numpy",
     ],
 )
 
@@ -62,8 +62,8 @@ py_test(
     ],
     deps = [
         ":keras_doctest_lib",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -75,9 +75,9 @@ tf_py_test(
     deps = [
         ":test_combinations",
         ":test_utils",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )

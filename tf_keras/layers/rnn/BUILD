@@ -35,7 +35,7 @@ py_library(
         ":simple_rnn",
         ":stacked_rnn_cells",
         ":time_distributed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -43,7 +43,7 @@ py_library(
     name = "rnn_utils",
     srcs = ["rnn_utils.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:control_flow_util",
     ],
 )
@@ -61,7 +61,7 @@ py_library(
     name = "dropout_rnn_cell_mixin",
     srcs = ["dropout_rnn_cell_mixin.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
     ],
 )
@@ -70,7 +70,7 @@ py_library(
     name = "gru_lstm_utils",
     srcs = ["gru_lstm_utils.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -82,7 +82,7 @@ py_library(
         ":dropout_rnn_cell_mixin",
         ":gru_lstm_utils",
         ":rnn_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:backend",
         "//tf_keras:constraints",
@@ -117,7 +117,7 @@ py_library(
         ":dropout_rnn_cell_mixin",
         ":gru_lstm_utils",
         ":rnn_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:backend",
         "//tf_keras:constraints",
@@ -149,7 +149,7 @@ py_library(
     srcs = ["stacked_rnn_cells.py"],
     deps = [
         ":rnn_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/utils:generic_utils",
@@ -164,13 +164,13 @@ py_library(
         ":dropout_rnn_cell_mixin",
         ":rnn_utils",
         ":stacked_rnn_cells",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/saving/legacy/saved_model",
         "//tf_keras/utils:generic_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -181,7 +181,7 @@ py_library(
         ":base_rnn",
         ":dropout_rnn_cell_mixin",
         ":rnn_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:backend",
         "//tf_keras:constraints",
@@ -198,14 +198,14 @@ py_library(
     srcs = ["base_conv_rnn.py"],
     deps = [
         ":base_rnn",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/utils:engine_utils",
         "//tf_keras/utils:generic_utils",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -215,7 +215,7 @@ py_library(
     deps = [
         ":base_conv_rnn",
         ":dropout_rnn_cell_mixin",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:backend",
         "//tf_keras:base_layer",
@@ -255,7 +255,7 @@ py_library(
     srcs = ["base_cudnn_rnn.py"],
     deps = [
         ":base_rnn",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:input_spec",
     ],
@@ -267,7 +267,7 @@ py_library(
     deps = [
         ":base_cudnn_rnn",
         ":gru_lstm_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
         "//tf_keras/initializers",
@@ -280,7 +280,7 @@ py_library(
     deps = [
         ":base_cudnn_rnn",
         ":gru_lstm_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
         "//tf_keras/initializers",
@@ -293,7 +293,7 @@ py_library(
     deps = [
         ":abstract_rnn_cell",
         ":lstm",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:generic_utils",
         "//tf_keras/utils:tf_inspect",
     ],
@@ -305,7 +305,7 @@ py_library(
     deps = [
         ":cell_wrappers",
         ":legacy_cells",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -313,7 +313,7 @@ py_library(
     name = "legacy_cells",
     srcs = ["legacy_cells.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer_utils",
@@ -339,7 +339,7 @@ py_library(
     deps = [
         ":base_wrapper",
         ":rnn_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -354,7 +354,7 @@ py_library(
     srcs = ["time_distributed.py"],
     deps = [
         ":base_wrapper",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -375,12 +375,12 @@ cuda_py_test(
     deps = [
         ":gru",
         ":lstm",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -394,13 +394,13 @@ cuda_py_test(
     ],
     deps = [
         ":gru_lstm_utils",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -415,13 +415,13 @@ tf_py_test(
     deps = [
         ":gru",
         ":gru_v1",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -436,13 +436,13 @@ cuda_py_test(
     ],
     deps = [
         ":gru_lstm_utils",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -458,13 +458,13 @@ tf_py_test(
     deps = [
         ":lstm",
         ":lstm_v1",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -482,14 +482,14 @@ tf_py_test(
         ":legacy_cells",
         ":lstm",
         ":lstm_v1",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/engine:base_layer_utils",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:generic_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -500,12 +500,12 @@ tf_py_test(
     shard_count = 4,
     tags = ["notsan"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -515,12 +515,12 @@ tf_py_test(
     srcs = ["conv_lstm_test.py"],
     shard_count = 8,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -534,13 +534,13 @@ cuda_py_test(
         "no_windows_gpu",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -555,13 +555,13 @@ tf_py_test(
     deps = [
         ":cell_wrappers",
         ":legacy_cells",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
         "//tf_keras/legacy_tf_layers:layers_base",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/utils:generic_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -573,9 +573,9 @@ tf_py_test(
     deps = [
         ":legacy_cell_wrappers",
         ":legacy_cells",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -585,9 +585,9 @@ tf_py_test(
     srcs = ["base_wrapper_test.py"],
     shard_count = 4,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -602,15 +602,15 @@ tf_py_test(
     ],
     deps = [
         ":cell_wrappers",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/engine:base_layer_utils",
         "//tf_keras/layers/core",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:generic_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -624,11 +624,11 @@ tf_py_test(
         "notsan",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )

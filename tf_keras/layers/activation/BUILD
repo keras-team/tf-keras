@@ -41,7 +41,7 @@ py_library(
     name = "softmax",
     srcs = ["softmax.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/utils:tf_utils",
@@ -86,7 +86,7 @@ py_library(
     name = "thresholded_relu",
     srcs = ["thresholded_relu.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/utils:tf_utils",
@@ -98,11 +98,11 @@ tf_py_test(
     size = "medium",
     srcs = ["relu_test.py"],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -111,7 +111,7 @@ tf_py_test(
     size = "medium",
     srcs = ["softmax_test.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
@@ -123,7 +123,7 @@ tf_py_test(
     size = "medium",
     srcs = ["leaky_relu_test.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
@@ -135,7 +135,7 @@ tf_py_test(
     size = "medium",
     srcs = ["prelu_test.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
@@ -147,7 +147,7 @@ tf_py_test(
     size = "medium",
     srcs = ["elu_test.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
@@ -159,7 +159,7 @@ tf_py_test(
     size = "medium",
     srcs = ["thresholded_relu_test.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",

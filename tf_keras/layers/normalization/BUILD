@@ -31,7 +31,7 @@ py_library(
     name = "batch_normalization",
     srcs = ["batch_normalization.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -48,7 +48,7 @@ py_library(
     srcs = ["batch_normalization_v1.py"],
     deps = [
         ":batch_normalization",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -56,7 +56,7 @@ py_library(
     name = "group_normalization",
     srcs = ["group_normalization.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
         "//tf_keras/dtensor:utils",
@@ -69,7 +69,7 @@ py_library(
     name = "layer_normalization",
     srcs = ["layer_normalization.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
         "//tf_keras/dtensor:utils",
@@ -82,7 +82,7 @@ py_library(
     name = "unit_normalization",
     srcs = ["unit_normalization.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
     ],
 )
@@ -91,7 +91,7 @@ py_library(
     name = "spectral_normalization",
     srcs = ["spectral_normalization.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
     ],
 )
@@ -109,13 +109,13 @@ cuda_py_test(
     ],
     deps = [
         ":group_normalization",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -129,13 +129,13 @@ cuda_py_test(
     ],
     deps = [
         ":batch_normalization",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -146,12 +146,12 @@ tf_py_test(
     tags = ["no_oss"],
     deps = [
         ":batch_normalization",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/dtensor:test_util",
         "//tf_keras/testing_infra:test_utils",
         "//third_party/tensorflow/python/distribute/experimental:mirrored_strategy",
+        "@pypi//numpy",
     ],
 )
 
@@ -164,11 +164,11 @@ cuda_py_test(
         "notsan",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -177,11 +177,11 @@ cuda_py_test(
     size = "small",
     srcs = ["unit_normalization_test.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -190,10 +190,10 @@ cuda_py_test(
     size = "small",
     srcs = ["spectral_normalization_test.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )

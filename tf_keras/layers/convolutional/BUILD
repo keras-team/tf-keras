@@ -48,7 +48,7 @@ py_library(
     name = "base_conv",
     srcs = ["base_conv.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -103,7 +103,7 @@ py_library(
     srcs = ["conv1d_transpose.py"],
     deps = [
         ":conv1d",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -120,7 +120,7 @@ py_library(
     srcs = ["conv2d_transpose.py"],
     deps = [
         ":conv2d",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:backend",
         "//tf_keras:constraints",
@@ -138,7 +138,7 @@ py_library(
     srcs = ["conv3d_transpose.py"],
     deps = [
         ":conv3d",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -155,7 +155,7 @@ py_library(
     srcs = ["base_separable_conv.py"],
     deps = [
         ":base_conv",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -170,7 +170,7 @@ py_library(
     srcs = ["separable_conv1d.py"],
     deps = [
         ":base_separable_conv",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -184,7 +184,7 @@ py_library(
     srcs = ["separable_conv2d.py"],
     deps = [
         ":base_separable_conv",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -198,7 +198,7 @@ py_library(
     srcs = ["base_depthwise_conv.py"],
     deps = [
         ":base_conv",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
         "//tf_keras/engine:base_layer",
@@ -212,7 +212,7 @@ py_library(
     srcs = ["depthwise_conv1d.py"],
     deps = [
         ":base_depthwise_conv",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:engine_utils",
         "//tf_keras/utils:tf_utils",
     ],
@@ -235,12 +235,12 @@ cuda_py_test(
     srcs = ["conv_test.py"],
     shard_count = 8,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -249,12 +249,12 @@ cuda_py_test(
     size = "medium",
     srcs = ["conv_transpose_test.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -264,11 +264,11 @@ cuda_py_test(
     srcs = ["depthwise_conv_test.py"],
     shard_count = 8,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -277,11 +277,11 @@ cuda_py_test(
     size = "medium",
     srcs = ["separable_conv_test.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )

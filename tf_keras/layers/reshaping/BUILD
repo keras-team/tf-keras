@@ -46,7 +46,7 @@ py_library(
     name = "cropping1d",
     srcs = ["cropping1d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/utils:engine_utils",
@@ -57,7 +57,7 @@ py_library(
     name = "cropping2d",
     srcs = ["cropping2d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/utils:engine_utils",
@@ -68,7 +68,7 @@ py_library(
     name = "cropping3d",
     srcs = ["cropping3d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/utils:engine_utils",
@@ -79,11 +79,11 @@ py_library(
     name = "flatten",
     srcs = ["flatten.py"],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/utils:engine_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -91,7 +91,7 @@ py_library(
     name = "permute",
     srcs = ["permute.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
     ],
@@ -101,7 +101,7 @@ py_library(
     name = "repeat_vector",
     srcs = ["repeat_vector.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -112,9 +112,9 @@ py_library(
     name = "reshape",
     srcs = ["reshape.py"],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
+        "@pypi//numpy",
     ],
 )
 
@@ -122,7 +122,7 @@ py_library(
     name = "up_sampling1d",
     srcs = ["up_sampling1d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -133,7 +133,7 @@ py_library(
     name = "up_sampling2d",
     srcs = ["up_sampling2d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -145,7 +145,7 @@ py_library(
     name = "up_sampling3d",
     srcs = ["up_sampling3d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -157,7 +157,7 @@ py_library(
     name = "zero_padding1d",
     srcs = ["zero_padding1d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -169,7 +169,7 @@ py_library(
     name = "zero_padding2d",
     srcs = ["zero_padding2d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -181,7 +181,7 @@ py_library(
     name = "zero_padding3d",
     srcs = ["zero_padding3d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -195,11 +195,11 @@ cuda_py_test(
     srcs = ["cropping_test.py"],
     shard_count = 8,
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -209,11 +209,11 @@ tf_py_test(
     srcs = ["flatten_test.py"],
     shard_count = 3,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -223,11 +223,11 @@ tf_py_test(
     srcs = ["permute_test.py"],
     shard_count = 3,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -237,11 +237,11 @@ tf_py_test(
     srcs = ["repeat_vector_test.py"],
     shard_count = 3,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -251,11 +251,11 @@ tf_py_test(
     srcs = ["reshape_test.py"],
     shard_count = 3,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -265,11 +265,11 @@ cuda_py_test(
     srcs = ["up_sampling_test.py"],
     shard_count = 8,
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -279,11 +279,11 @@ cuda_py_test(
     srcs = ["zero_padding_test.py"],
     shard_count = 8,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )

@@ -46,8 +46,7 @@ py_library(
         "regression_metrics.py",
     ],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:backend",
         "//tf_keras:losses",
@@ -59,6 +58,7 @@ py_library(
         "//tf_keras/utils:generic_utils",
         "//tf_keras/utils:metrics_utils",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -67,10 +67,10 @@ tf_py_test(
     size = "small",
     srcs = ["metrics_functional_test.py"],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
     ],
 )
 
@@ -81,12 +81,12 @@ tf_py_test(
     shard_count = 4,
     deps = [
         ":metrics",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -97,16 +97,16 @@ tf_py_test(
     shard_count = 4,
     deps = [
         ":metrics",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_scipy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/models",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:metrics_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
+        "@pypi//scipy",
     ],
 )
 
@@ -117,11 +117,11 @@ tf_py_test(
     shard_count = 4,
     deps = [
         ":metrics",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -132,12 +132,12 @@ tf_py_test(
     shard_count = 4,
     deps = [
         ":metrics",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -148,12 +148,12 @@ tf_py_test(
     shard_count = 4,
     deps = [
         ":metrics",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -164,12 +164,12 @@ tf_py_test(
     shard_count = 4,
     deps = [
         ":metrics",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -180,10 +180,10 @@ tf_py_test(
     shard_count = 4,
     deps = [
         ":metrics",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
     ],
 )
 
@@ -194,12 +194,12 @@ tf_py_test(
     shard_count = 4,
     deps = [
         ":metrics",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -209,11 +209,11 @@ tf_py_test(
     srcs = ["metrics_correctness_test.py"],
     shard_count = 4,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -227,7 +227,7 @@ cuda_py_test(
     ],
     deps = [
         ":metrics",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",

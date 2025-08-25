@@ -25,7 +25,7 @@ py_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
     ],
 )
@@ -35,8 +35,8 @@ py_binary(
     srcs = ["extractor_wrapper.py"],
     visibility = ["//visibility:public"],
     deps = [
-        "//:expect_absl_installed",  # absl:app
-        # "//third_party/tensorflow/python/tools/api/generator2/extractor",
+        "//:tf_nightly_with_deps",  # "//third_party/tensorflow/python/tools/api/generator2/extractor"
+        "@pypi//absl_py",  # absl:app
     ],
 )
 
@@ -45,8 +45,8 @@ py_binary(
     srcs = ["generator_wrapper.py"],
     visibility = ["//visibility:public"],
     deps = [
-        "//:expect_absl_installed",  # absl:app
-        # "//third_party/tensorflow/python/tools/api/generator2/generator",
+        "//:tf_nightly_with_deps",  # "//third_party/tensorflow/python/tools/api/generator2/generator"
+        "@pypi//absl_py",  # absl:app
     ],
 )
 
@@ -56,7 +56,7 @@ generate_apis(
     output_files = KERAS_API_INIT_FILES_V1,
     output_package = "tf_keras.api",
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         # "//third_party/tensorflow/lite/python:analyzer",
         # "//third_party/tensorflow/lite/python:lite",
@@ -71,7 +71,7 @@ generate_apis(
     output_files = KERAS_API_INIT_FILES_V1,
     output_package = "tf_keras.api._v1",
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         # "//third_party/tensorflow/lite/python:analyzer",
         # "//third_party/tensorflow/lite/python:lite",
@@ -86,7 +86,7 @@ generate_apis(
     output_files = KERAS_API_INIT_FILES,
     output_package = "tf_keras.api._v2",
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         # "//third_party/tensorflow/lite/python:analyzer",
         # "//third_party/tensorflow/lite/python:lite",

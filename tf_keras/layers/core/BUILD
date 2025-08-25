@@ -51,7 +51,7 @@ py_library(
     name = "activation",
     srcs = ["activation.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
     ],
 )
@@ -60,7 +60,7 @@ py_library(
     name = "dense",
     srcs = ["dense.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/dtensor:utils",
     ],
@@ -70,7 +70,7 @@ py_library(
     name = "einsum_dense",
     srcs = ["einsum_dense.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -83,7 +83,7 @@ py_library(
     name = "embedding",
     srcs = ["embedding.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -99,7 +99,7 @@ py_library(
     name = "lambda",
     srcs = ["lambda_layer.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
     ],
 )
@@ -108,7 +108,7 @@ py_library(
     name = "masking",
     srcs = ["masking.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
     ],
 )
@@ -117,7 +117,7 @@ py_library(
     name = "tf_op_layer",
     srcs = ["tf_op_layer.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras:constraints",
         "//tf_keras:regularizers",
@@ -131,7 +131,7 @@ py_library(
     name = "identity",
     srcs = ["identity.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
     ],
 )
@@ -142,11 +142,11 @@ tf_py_test(
     srcs = ["core_test.py"],
     shard_count = 3,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -155,12 +155,12 @@ tf_py_test(
     srcs = ["einsum_dense_test.py"],
     deps = [
         ":einsum_dense",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -169,11 +169,11 @@ cuda_py_test(
     size = "medium",
     srcs = ["embedding_test.py"],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/mixed_precision:policy",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )

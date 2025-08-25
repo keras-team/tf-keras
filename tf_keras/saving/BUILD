@@ -29,9 +29,7 @@ py_library(
         ":object_registration",
         ":serialization",
         ":serialization_lib",
-        "//:expect_h5py_installed",
-        "//:expect_tensorflow_installed",
-        "//:expect_yaml_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras:losses",
         "//tf_keras:regularizers",
@@ -43,6 +41,8 @@ py_library(
         "//tf_keras/utils:engine_utils",
         "//tf_keras/utils:metrics_utils",
         "//tf_keras/utils:mode_keys",
+        "@pypi//h5py",
+        "@pypi//pyyaml",
     ],
 )
 
@@ -53,7 +53,7 @@ py_library(
     ],
     deps = [
         ":serialization_lib",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:generic_utils",
         "//tf_keras/utils:io_utils",
     ],
@@ -64,11 +64,11 @@ tf_py_test(
     size = "medium",
     srcs = ["saving_lib_test.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/utils:generic_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -87,9 +87,9 @@ py_library(
     deps = [
         ":object_registration",
         ":serialization",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/saving/legacy/saved_model:utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -100,10 +100,10 @@ py_library(
     ],
     deps = [
         ":object_registration",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:tf_contextlib",
         "//tf_keras/utils:tf_inspect",
+        "@pypi//numpy",
     ],
 )
 
@@ -112,7 +112,7 @@ tf_py_test(
     size = "small",
     srcs = ["object_registration_test.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
     ],
 )
@@ -126,11 +126,11 @@ tf_py_test(
         "notsan",  # TODO(b/170870790)
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -140,11 +140,11 @@ tf_py_test(
     srcs = ["legacy/losses_serialization_test.py"],
     shard_count = 4,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -154,11 +154,11 @@ tf_py_test(
     srcs = ["pickle_utils_test.py"],
     shard_count = 4,
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -173,11 +173,11 @@ tf_py_test(
         "no_windows",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -190,11 +190,11 @@ tf_py_test(
         "no_pip",  # TODO(b/202022379)
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -204,11 +204,11 @@ tf_py_test(
     srcs = ["legacy/saving_utils_test.py"],
     tags = ["notsan"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -217,10 +217,10 @@ tf_py_test(
     size = "small",
     srcs = ["serialization_lib_test.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/saving:serialization",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
