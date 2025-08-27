@@ -1624,15 +1624,15 @@ class AUC(base_metric.Metric):
             # ROC or PR values. In particular
             # 1) Both measures diverge when there are no negative examples;
             # 2) Both measures diverge when there are no true positives;
-            # 3) Recall gain becomes negative when the recall is lower than the label
-            # average (i.e. when more negative examples are classified positive
-            # than real positives).
+            # 3) Recall gain becomes negative when the recall is lower than the
+            # label average (i.e. when more negative examples are classified
+            # positive than real positives).
             #
             # We ignore case 1 as it is easily communicated. For case 2 we set
             # recall_gain to 0 and precision_gain to 1. For case 3 we set the
             # recall_gain to 0. These fixes will result in an overastimation of
-            # the AUC for estimateors that are anti-correlated with the label (at
-            # some thresholds).
+            # the AUC for estimateors that are anti-correlated with the label
+            # (at some thresholds).
             #
             # The scaling factor $\frac{P}{N}$ that is used to form both
             # gain values.
@@ -1641,13 +1641,27 @@ class AUC(base_metric.Metric):
                 tf.math.add(self.false_positives, self.true_negatives),
             )
 
-            recall_gain = 1.0 - scaling_factor * tf.math.divide_no_nan(self.false_negatives, self.true_positives)
-            precision_gain = 1.0 - scaling_factor * tf.math.divide_no_nan(self.false_positives, self.true_positives)
+            recall_gain = 1.0 - scaling_factor * tf.math.divide_no_nan(
+                self.false_negatives, self.true_positives
+            )
+            precision_gain = 1.0 - scaling_factor * tf.math.divide_no_nan(
+                self.false_positives, self.true_positives
+            )
             # Handle case 2.
-            recall_gain = tf.where(tf.equal(self.true_positives, 0.0), tf.zeros_like(recall_gain), recall_gain)
-            precision_gain = tf.where(tf.equal(self.true_positives, 0.0), tf.ones_like(precision_gain), precision_gain)
+            recall_gain = tf.where(
+                tf.equal(self.true_positives, 0.0),
+                tf.zeros_like(recall_gain),
+                recall_gain,
+            )
+            precision_gain = tf.where(
+                tf.equal(self.true_positives, 0.0),
+                tf.ones_like(precision_gain),
+                precision_gain,
+            )
             # Handle case 3.
-            recall_gain = tf.math.maximum(recall_gain, tf.zeros_like(recall_gain))
+            recall_gain = tf.math.maximum(
+                recall_gain, tf.zeros_like(recall_gain)
+            )
 
             x = recall_gain
             y = precision_gain

@@ -1623,7 +1623,7 @@ class AUCTest(tf.test.TestCase, parameterized.TestCase):
         # precision_gain = 1 - 7/3 [ 3/7, 0/4, 0/0 ] = [0, 1, 1]
         # heights = [max(0, 1), max(1, 1)] = [1, 1]
         # widths = [(1 - 0), (0 - 0)] = [1, 0]
-        expected_result = 1 * 1  + 0 * 1
+        expected_result = 1 * 1 + 0 * 1
         self.assertAllClose(self.evaluate(result), expected_result, 1e-3)
 
     def test_weighted_pr_gain_minoring(self):
@@ -1649,7 +1649,9 @@ class AUCTest(tf.test.TestCase, parameterized.TestCase):
 
     def test_weighted_pr_gain_interpolation(self):
         self.setup()
-        auc_obj = metrics.AUC(num_thresholds=self.num_thresholds, curve="PR_GAIN")
+        auc_obj = metrics.AUC(
+            num_thresholds=self.num_thresholds, curve="PR_GAIN"
+        )
         self.evaluate(tf.compat.v1.variables_initializer(auc_obj.variables))
         result = auc_obj(
             self.y_true, self.y_pred, sample_weight=self.sample_weight
@@ -1666,11 +1668,13 @@ class AUCTest(tf.test.TestCase, parameterized.TestCase):
 
     def test_pr_gain_interpolation(self):
         self.setup()
-        auc_obj = metrics.AUC(num_thresholds=self.num_thresholds, curve="PR_GAIN")
+        auc_obj = metrics.AUC(
+            num_thresholds=self.num_thresholds, curve="PR_GAIN"
+        )
         self.evaluate(tf.compat.v1.variables_initializer(auc_obj.variables))
         y_true = tf.constant([0, 0, 0, 1, 0, 1, 0, 1, 1, 1])
         y_pred = tf.constant([0.1, 0.2, 0.3, 0.3, 0.4, 0.4, 0.6, 0.6, 0.8, 0.9])
-        result = auc_obj( y_true, y_pred)
+        result = auc_obj(y_true, y_pred)
 
         # tp = [5, 3, 0], fp = [5, 1, 0], fn = [0, 2, 5], tn = [0, 4, 4]
         # scaling_factor (P/N) = 5/5 = 1
