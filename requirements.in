@@ -3,13 +3,21 @@
 pandas
 pydot
 scipy
+protobuf >= 5.28.0, < 7.0
 tf-nightly
 portpicker
 pyyaml
 Pillow
+numpy >= 2.0.0, < 2.2.0 # Sync with the numpy version used in TF
 black==22.3.0
 isort==5.10.1
 flake8==4.0.1
+tensorboard
+tensorflow-io==0.37.1 ; python_version <= "3.12"
+
+# Needed to build wheels
+build
+
 # NVIDIA CUDA dependencies
 nvidia-cublas-cu12 == 12.5.3.2
 nvidia-cuda-cupti-cu12 == 12.5.82

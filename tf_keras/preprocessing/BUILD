@@ -31,13 +31,13 @@ py_library(
         "image.py",
     ],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_pillow_installed",
-        "//:expect_scipy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/utils:data_utils",
         "//tf_keras/utils:image_utils",
+        "@pypi//numpy",
+        "@pypi//pillow",
+        "@pypi//scipy",
     ],
 )
 
@@ -47,7 +47,7 @@ py_library(
         "sequence.py",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:data_utils",
     ],
 )
@@ -57,7 +57,9 @@ py_library(
     srcs = [
         "text.py",
     ],
-    deps = ["//:expect_tensorflow_installed"],
+    deps = [
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+    ],
 )
 
 tf_py_test(
@@ -69,11 +71,11 @@ tf_py_test(
     ],
     deps = [
         ":image",
-        "//:expect_numpy_installed",
-        "//:expect_pandas_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
+        "@pypi//pandas",
     ],
 )
 
@@ -83,9 +85,9 @@ tf_py_test(
     srcs = ["sequence_test.py"],
     deps = [
         ":sequence",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
     ],
 )
 
@@ -95,8 +97,8 @@ tf_py_test(
     srcs = ["text_test.py"],
     deps = [
         ":text",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
     ],
 )

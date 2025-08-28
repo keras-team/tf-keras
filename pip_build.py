@@ -1,5 +1,7 @@
 """Build the TF-Keras pip package.
 
+DEPRECATED: Use the Bazel commands in `wheel/README.md` instead.
+
 The steps are as follows:
 
 0. Run bazel build in TF-Keras root directory to obtain protobuf Python files.

@@ -45,7 +45,7 @@ py_library(
     visibility = ["//visibility:private"],
     deps = [
         ":run_xprof",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -56,7 +56,7 @@ tf_py_test(
     tags = BECHMARK_TAGS,
     deps = [
         ":layer_benchmarks_test_base",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
     ],

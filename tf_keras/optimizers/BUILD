@@ -1,10 +1,10 @@
 # Description:
 #   Contains the TF-Keras Optimizer API.
 
-# Placeholder: load unaliased py_library
 load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")  # buildifier: disable=same-origin-load
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")  # buildifier: disable=same-origin-load
 load("@org_keras//tf_keras:tf_keras.bzl", "distribute_py_test")  # buildifier: disable=same-origin-load
+# Placeholder: load unaliased py_library
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
@@ -39,7 +39,7 @@ py_library(
     ],
     deps = [
         ":utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/dtensor:utils",
         "//tf_keras/optimizers/legacy:optimizers",
@@ -52,7 +52,7 @@ py_library(
     name = "utils",
     srcs = ["utils.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -60,7 +60,7 @@ py_library(
     name = "legacy_learning_rate_decay",
     srcs = ["legacy_learning_rate_decay.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/optimizers/schedules:learning_rate_schedule",
     ],
 )
@@ -72,11 +72,11 @@ tf_py_test(
     shard_count = 8,
     tags = ["notsan"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -86,7 +86,7 @@ cuda_py_test(
     srcs = ["legacy_learning_rate_decay_test.py"],
     deps = [
         ":legacy_learning_rate_decay",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
     ],
@@ -106,10 +106,10 @@ distribute_py_test(
     ],
     deps = [
         ":optimizers",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -125,10 +125,11 @@ distribute_py_test(
     ],
     deps = [
         ":optimizers",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//portpicker",
     ],
 )
 
@@ -138,8 +139,8 @@ cuda_py_test(
     srcs = ["lion_test.py"],
     shard_count = 4,
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "@pypi//numpy",
     ],
 )

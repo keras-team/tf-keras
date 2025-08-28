@@ -27,7 +27,7 @@ py_library(
     name = "dtensor",
     srcs = ["__init__.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -38,11 +38,11 @@ tf_py_test(
     deps = [
         ":dtensor",
         ":test_util",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/initializers",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -54,10 +54,10 @@ tf_py_test(
     deps = [
         ":dtensor",
         ":test_util",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -80,12 +80,12 @@ tf_py_test(
         ":dtensor",
         ":layout_map",
         ":test_util",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/layers",
         "//tf_keras/models",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -95,13 +95,13 @@ py_library(
     deps = [
         ":dtensor",
         ":layout_map",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:losses",
         "//tf_keras/datasets",
         "//tf_keras/layers",
         "//tf_keras/models",
         "//tf_keras/utils:np_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -112,11 +112,11 @@ tf_py_test(
     deps = [
         ":dtensor",
         ":test_util",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/metrics",
         "//tf_keras/utils:tf_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -137,8 +137,8 @@ tf_py_test(
 #         ":integration_test_utils",
 #         ":layout_map",
 #         ":test_util",
-#         "//:expect_numpy_installed",
-#         "//:expect_tensorflow_installed",
+#         "@pypi//numpy",
+#         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//tf_keras:backend",
 #         "//tf_keras/optimizers",
 #         "//tf_keras/utils:tf_utils",
@@ -153,12 +153,12 @@ tf_py_test(
         ":dtensor",
         ":layout_map",
         ":test_util",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:losses",
         "//tf_keras/layers",
         "//tf_keras/models",
         "//tf_keras/optimizers",
+        "@pypi//numpy",
     ],
 )
 
@@ -166,7 +166,7 @@ py_library(
     name = "lazy_variable",
     srcs = ["lazy_variable.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -175,7 +175,7 @@ py_library(
     srcs = ["utils.py"],
     deps = [
         ":dtensor",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -186,10 +186,10 @@ tf_py_test(
         ":dtensor",
         ":test_util",
         ":utils",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -197,9 +197,9 @@ py_library(
     name = "test_util",
     srcs = ["test_util.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -231,9 +231,9 @@ tf_py_test(
 #     deps = [
 #         ":integration_test_utils",
 #         ":test_util",
-#         "//:expect_absl_installed",  # absl/testing:parameterized
-#         "//:expect_numpy_installed",
-#         "//:expect_tensorflow_installed",
+#         "@pypi//absl_py",  # absl/testing:parameterized
+#         "@pypi//numpy",
+#         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//tf_keras:backend",
 #         "//tf_keras/mixed_precision:mixed_precision_experimental",
 #         "//tf_keras/optimizers",

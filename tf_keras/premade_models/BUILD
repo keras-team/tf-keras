@@ -20,7 +20,7 @@ py_library(
         "wide_deep.py",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend_config",
         "//tf_keras:regularizers",
     ],
@@ -33,10 +33,10 @@ tf_py_test(
     shard_count = 2,
     deps = [
         ":premade_models",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
     ],
 )
 
@@ -47,9 +47,9 @@ tf_py_test(
     shard_count = 2,
     deps = [
         ":premade_models",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
     ],
 )

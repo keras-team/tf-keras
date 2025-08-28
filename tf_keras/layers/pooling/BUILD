@@ -41,7 +41,7 @@ py_library(
     name = "base_pooling1d",
     srcs = ["base_pooling1d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -53,7 +53,7 @@ py_library(
     name = "base_pooling2d",
     srcs = ["base_pooling2d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -65,7 +65,7 @@ py_library(
     name = "base_pooling3d",
     srcs = ["base_pooling3d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
@@ -77,7 +77,7 @@ py_library(
     name = "base_global_pooling1d",
     srcs = ["base_global_pooling1d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/utils:engine_utils",
@@ -88,7 +88,7 @@ py_library(
     name = "base_global_pooling2d",
     srcs = ["base_global_pooling2d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/utils:engine_utils",
@@ -99,7 +99,7 @@ py_library(
     name = "base_global_pooling3d",
     srcs = ["base_global_pooling3d.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/utils:engine_utils",
@@ -120,7 +120,7 @@ py_library(
     srcs = ["max_pooling2d.py"],
     deps = [
         ":base_pooling2d",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -129,7 +129,7 @@ py_library(
     srcs = ["max_pooling3d.py"],
     deps = [
         ":base_pooling3d",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -147,7 +147,7 @@ py_library(
     srcs = ["average_pooling2d.py"],
     deps = [
         ":base_pooling2d",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -156,7 +156,7 @@ py_library(
     srcs = ["average_pooling3d.py"],
     deps = [
         ":base_pooling3d",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -192,7 +192,7 @@ py_library(
     srcs = ["global_average_pooling1d.py"],
     deps = [
         ":base_global_pooling1d",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
     ],
 )
@@ -224,11 +224,11 @@ tf_py_test(
         "notsan",  # TODO(b/183962355)
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -241,11 +241,11 @@ tf_py_test(
         "notsan",  # TODO(b/183962355)
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -258,11 +258,11 @@ tf_py_test(
         "notsan",  # TODO(b/183962355)
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -275,10 +275,10 @@ tf_py_test(
         "notsan",  # TODO(b/183962355)
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )

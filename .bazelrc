@@ -28,6 +28,9 @@
 #     nohdfs:       Disable hadoop hdfs support.
 #     nonccl:       Disable nccl support.
 
+# No MODULE.bzl file.
+common --noenable_bzlmod
+
 # Sets the default Apple platform to macOS.
 build --apple_platform_type=macos
 
@@ -39,11 +42,15 @@ test --define open_source_build=true
 build --define=use_fast_cpp_protos=false
 test --define=use_fast_cpp_protos=false
 
+build --incompatible_enable_cc_toolchain_resolution
+build --repo_env USE_HERMETIC_CC_TOOLCHAIN=1
+
 # This config refers to building with CUDA available. It does not necessarily
 # mean that we build CUDA op kernels.
 build:using_cuda --define=using_cuda=true
 build:using_cuda --action_env TF_NEED_CUDA=1
 build:using_cuda --crosstool_top=@local_config_cuda//crosstool:toolchain
+build:using_cuda --@rules_ml_toolchain//common:enable_cuda
 
 # Enable the mlir generated GPU kernels only for cuda builds.
 build --define=tensorflow_enable_mlir_generated_gpu_kernels=0
@@ -53,6 +60,9 @@ build:using_cuda --define=tensorflow_enable_mlir_generated_gpu_kernels=1
 # This config refers to building CUDA op kernels with nvcc.
 build:cuda --config=using_cuda
 build:cuda --define=using_cuda_nvcc=true
+# Build CUDA with NVCC and other C++ targets with Clang
+build:cuda --action_env=TF_NVCC_CLANG="1"
+build:cuda --@local_config_cuda//:cuda_compiler=nvcc
 
 # dbg config, as a shorthand for '--config=opt -c dbg'
 build:dbg --config=opt -c dbg

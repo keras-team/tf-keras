@@ -16,7 +16,7 @@ tf_py_test(
     name = "category_encoding_benchmark",
     srcs = ["category_encoding_benchmark.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:category_encoding",
     ],
@@ -26,7 +26,7 @@ tf_py_test(
     name = "hashing_benchmark",
     srcs = ["hashing_benchmark.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:hashing",
     ],
@@ -36,7 +36,7 @@ tf_py_test(
     name = "index_lookup_adapt_benchmark",
     srcs = ["index_lookup_adapt_benchmark.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:index_lookup",
     ],
@@ -46,7 +46,7 @@ tf_py_test(
     name = "index_lookup_forward_benchmark",
     srcs = ["index_lookup_forward_benchmark.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:index_lookup",
     ],
@@ -56,7 +56,7 @@ tf_py_test(
     name = "normalization_adapt_benchmark",
     srcs = ["normalization_adapt_benchmark.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:normalization",
     ],
@@ -66,7 +66,7 @@ tf_py_test(
     name = "discretization_adapt_benchmark",
     srcs = ["discretization_adapt_benchmark.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:discretization",
     ],
@@ -76,7 +76,7 @@ cuda_py_test(
     name = "image_preproc_benchmark",
     srcs = ["image_preproc_benchmark.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers/preprocessing:image_preprocessing",
     ],
@@ -87,7 +87,7 @@ tf_py_test(
     srcs = ["bucketized_column_dense_benchmark.py"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -97,7 +97,7 @@ tf_py_test(
     srcs = ["hashed_crossing_benchmark.py"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -107,7 +107,7 @@ tf_py_test(
     srcs = ["category_hash_dense_benchmark.py"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -117,7 +117,7 @@ tf_py_test(
     srcs = ["category_hash_varlen_benchmark.py"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -128,7 +128,7 @@ tf_py_test(
     tags = ["no_windows"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -139,7 +139,7 @@ tf_py_test(
     tags = ["no_windows"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -150,7 +150,7 @@ tf_py_test(
     tags = ["no_windows"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -161,7 +161,7 @@ tf_py_test(
     tags = ["no_windows"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -172,7 +172,7 @@ tf_py_test(
     tags = ["no_windows"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -183,7 +183,7 @@ tf_py_test(
     tags = ["no_windows"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -193,7 +193,7 @@ tf_py_test(
     srcs = ["embedding_dense_benchmark.py"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -203,16 +203,19 @@ tf_py_test(
     srcs = ["embedding_varlen_benchmark.py"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )
 
 py_library(
     name = "feature_column_benchmark",
-    srcs = ["feature_column_benchmark.py"],
+    srcs = [
+        "__init__.py",
+        "feature_column_benchmark.py",
+    ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
     ],
 )
 
@@ -221,7 +224,7 @@ tf_py_test(
     srcs = ["weighted_embedding_varlen_benchmark.py"],
     deps = [
         ":feature_column_benchmark",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
     ],
 )

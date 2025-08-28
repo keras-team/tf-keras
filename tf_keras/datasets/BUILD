@@ -26,9 +26,9 @@ py_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/utils:engine_utils",
+        "@pypi//numpy",
     ],
 )

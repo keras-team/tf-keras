@@ -1,5 +1,5 @@
 #!/bin/bash
-BAZEL_VERSION=5.4.0
+BAZEL_VERSION=7.4.1
 rm -rf ~/bazel
 mkdir ~/bazel
 
@@ -15,7 +15,8 @@ which bazel
 bazel version
 
 TAG_FILTERS="-no_oss,-oss_excluded,-oss_serial,-gpu,-benchmark-test,-no_oss_py3,-no_pip,-nopip"
+bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.9 -- --upgrade
 bazel build \
-    --define=use_fast_cpp_protos=false \
+    --repo_env=HERMETIC_PYTHON_VERSION=3.9 \
     --build_tag_filters="${TAG_FILTERS}" \
     -- //tf_keras/...

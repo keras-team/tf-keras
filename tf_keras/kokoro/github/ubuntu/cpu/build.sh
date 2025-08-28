@@ -18,32 +18,11 @@ set -x
 
 cd "${KOKORO_ROOT}/"
 
-sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
-
-PYTHON_BINARY="/usr/bin/python3.9"
-
-"${PYTHON_BINARY}" -m venv venv
-source venv/bin/activate
-
-# Check the python version
-python --version
-python3 --version
-
 cd "src/github/tf-keras"
 
-# Keep pip version at 20.1.1 to avoid the slow resolver issue.
-pip install -U pip==20.1.1 setuptools
-pip install -r requirements.txt
-# Uninstall the keras-nightly package so that we will only test the version of
-# keras code from local workspace.
-# TODO(keras-team): `tf-nightly` currently installs `keras-nightly`.
-# Update this once we switch to `tf_keras-nightly` in TensorFlow.
-pip uninstall -y keras-nightly
-
-# TODO(scottzhu): Using --define=use_fast_cpp_protos=false to suppress the
-# protobuf build issue for now. We should have a proper solution for this.
+bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.9 -- --upgrade
 bazel test --test_timeout 300,450,1200,3600 --test_output=errors --keep_going \
-   --define=use_fast_cpp_protos=false \
+   --repo_env=HERMETIC_PYTHON_VERSION=3.9 \
    --build_tests_only \
    --build_tag_filters="-no_oss,-oss_excluded" \
    --test_tag_filters="-no_oss,-oss_excluded" \

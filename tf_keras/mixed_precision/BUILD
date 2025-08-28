@@ -47,7 +47,7 @@ py_library(
     ],
     deps = [
         ":device_compatibility_check",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -60,7 +60,7 @@ tf_py_test(
     tags = ["no_rocm"],
     deps = [
         ":policy",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/testing_infra:test_combinations",
@@ -71,7 +71,7 @@ py_library(
     name = "device_compatibility_check",
     srcs = ["device_compatibility_check.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -80,7 +80,7 @@ cuda_py_test(
     srcs = ["device_compatibility_check_test.py"],
     deps = [
         ":device_compatibility_check",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -91,7 +91,7 @@ py_library(
         "autocast_variable.py",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/distribute",
     ],
 )
@@ -102,10 +102,10 @@ tf_py_test(
     srcs = ["autocast_variable_test.py"],
     deps = [
         ":autocast_variable",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
         "//tf_keras/optimizers/legacy:optimizers",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -113,10 +113,10 @@ py_library(
     name = "loss_scale_optimizer",
     srcs = ["loss_scale_optimizer.py"],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/utils:generic_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -128,7 +128,7 @@ cuda_py_test(
     deps = [
         ":loss_scale_optimizer",
         ":test_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
     ],
@@ -141,12 +141,12 @@ cuda_py_test(
     deps = [
         ":loss_scale_optimizer",
         ":policy",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -154,7 +154,7 @@ py_library(
     name = "test_util",
     srcs = ["test_util.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
     ],
 )
@@ -169,10 +169,10 @@ cuda_py_test(
     ],
     deps = [
         ":test_util",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -191,10 +191,10 @@ cuda_py_test(
     ],
     deps = [
         ":test_util",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -207,9 +207,9 @@ cuda_py_test(
         "no_rocm",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )

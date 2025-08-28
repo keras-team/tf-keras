@@ -20,7 +20,7 @@ py_library(
         "initializers_v1.py",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/dtensor:utils",
         "//tf_keras/saving:serialization_lib",
@@ -35,11 +35,11 @@ tf_py_test(
     srcs = ["initializers_test.py"],
     deps = [
         ":initializers",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine",
         "//tf_keras/models",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
     ],
 )

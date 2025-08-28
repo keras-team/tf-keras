@@ -39,10 +39,7 @@ py_library(
         ":input_spec",
         ":keras_tensor",
         ":node",
-        "//:expect_h5py_installed",
-        "//:expect_tensorboard_installed",
-        "//:expect_tensorflow_installed",
-        "//:expect_yaml_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
         "//tf_keras:backend",
         "//tf_keras:callbacks",
@@ -67,6 +64,9 @@ py_library(
         "//tf_keras/utils:steps_per_execution_tuning",
         "//tf_keras/utils:tf_utils",
         "//tf_keras/utils:version_utils",
+        "@pypi//h5py",
+        "@pypi//pyyaml",
+        "@pypi//tensorboard_data_server",
     ],
 )
 
@@ -74,7 +74,7 @@ py_library(
     name = "base_layer_utils",
     srcs = ["base_layer_utils.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/dtensor",
         "//tf_keras/utils:tf_inspect",
@@ -92,7 +92,7 @@ py_library(
         ":base_layer_utils",
         ":input_spec",
         ":node",
-        "//:expect_numpy_installed",
+        "@pypi//numpy",
         "//tf_keras:backend",
         "//tf_keras:constraints",
         "//tf_keras/initializers",
@@ -110,7 +110,7 @@ py_library(
         "//tf_keras/utils:tf_utils",
         "//tf_keras/utils:traceback_utils",
         "//tf_keras/utils:version_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -121,7 +121,7 @@ py_library(
         ":base_layer",
         ":keras_tensor",
         ":node",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/distribute",
         "//tf_keras/saving",
@@ -136,7 +136,7 @@ py_library(
         ":input_layer",
         ":keras_tensor",
         ":node",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -144,7 +144,7 @@ py_library(
     name = "data_adapter",
     srcs = ["data_adapter.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/distribute",
         "//tf_keras/utils:dataset_creator",
         "//tf_keras/utils:engine_utils",
@@ -156,7 +156,7 @@ py_library(
     name = "input_spec",
     srcs = ["input_spec.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
     ],
 )
@@ -165,7 +165,7 @@ py_library(
     name = "keras_tensor",
     srcs = ["keras_tensor.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:object_identity",
     ],
 )
@@ -177,7 +177,7 @@ py_library(
     ],
     deps = [
         ":base_layer",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
     ],
 )
@@ -187,10 +187,10 @@ py_library(
     srcs = ["node.py"],
     deps = [
         ":base_layer_utils",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -202,7 +202,7 @@ tf_py_test(
     ],
     deps = [
         ":base_layer_utils",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:backend",
         "//tf_keras/testing_infra:test_combinations",
@@ -220,11 +220,11 @@ tf_py_test(
     ],
     deps = [
         ":data_adapter",
-        "//:expect_numpy_installed",
-        "//:expect_pandas_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
+        "@pypi//pandas",
     ],
 )
 
@@ -237,10 +237,10 @@ tf_py_test(
     ],
     deps = [
         ":base_preprocessing_layer",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -251,7 +251,7 @@ tf_py_test(
     deps = [
         ":functional_utils",
         ":input_layer",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/models",
@@ -269,13 +269,13 @@ cuda_py_test(
     deps = [
         ":engine",
         ":input_layer",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/layers/convolutional",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -289,11 +289,11 @@ tf_py_test(
         "notsan",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -305,10 +305,10 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -320,10 +320,10 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -335,9 +335,9 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -352,9 +352,7 @@ tf_py_test(
     ],
     deps = [
         ":engine",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:backend",
         "//tf_keras:callbacks",
@@ -366,6 +364,8 @@ tf_py_test(
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:data_utils",
         "//tf_keras/utils:np_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -377,11 +377,11 @@ tf_py_test(
         "nomac",  # TODO(b/146226927)
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -394,11 +394,11 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -410,12 +410,12 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -431,9 +431,7 @@ tf_py_test(
     ],
     deps = [
         ":engine",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:losses",
         "//tf_keras/layers",
@@ -442,6 +440,8 @@ tf_py_test(
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:data_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -454,11 +454,11 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -471,11 +471,11 @@ tf_py_test(
         "notsan",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -488,11 +488,11 @@ tf_py_test(
         "notsan",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -505,11 +505,11 @@ tf_py_test(
         "notsan",
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -544,8 +544,7 @@ tf_py_test(
     deps = [
         ":base_layer",
         ":engine",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:backend",
         "//tf_keras/initializers",
@@ -555,6 +554,7 @@ tf_py_test(
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:layer_utils",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -587,9 +587,7 @@ tf_py_test(
     deps = [
         ":base_layer",
         ":engine",
-        "//:expect_numpy_installed",
-        "//:expect_tensorboard_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:backend",
         "//tf_keras:regularizers",
@@ -600,6 +598,8 @@ tf_py_test(
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
+        "@pypi//tensorboard_data_server",
     ],
 )
 
@@ -612,11 +612,11 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -629,11 +629,11 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -645,10 +645,10 @@ tf_py_test(
         "nomac",  # TODO(mihaimaruseac): b/127695564
     ],
     deps = [
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )

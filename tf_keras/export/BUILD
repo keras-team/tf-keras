@@ -16,10 +16,11 @@ package(
 py_library(
     name = "export_lib",
     srcs = [
+        "__init__.py",
         "export_lib.py",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -29,9 +30,9 @@ tf_py_test(
     srcs = ["export_lib_test.py"],
     deps = [
         ":export_lib",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )

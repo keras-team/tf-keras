@@ -17,6 +17,7 @@ package(
 py_library(
     name = "optimizers",
     srcs = [
+        "__init__.py",
         "adadelta.py",
         "adagrad.py",
         "adam.py",
@@ -28,7 +29,7 @@ py_library(
         "rmsprop.py",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras:backend_config",
         "//tf_keras/engine:base_layer_utils",
@@ -47,7 +48,7 @@ cuda_py_test(
     shard_count = 4,
     deps = [
         ":optimizers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -63,7 +64,7 @@ cuda_py_test(
     ],
     deps = [
         ":optimizers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -77,7 +78,7 @@ cuda_py_test(
     tags = ["no_rocm"],
     deps = [
         ":optimizers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -90,7 +91,7 @@ cuda_py_test(
     # TODO(b/168527439): invalid resource variable reference on GPU for TFRT.
     deps = [
         ":optimizers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -102,7 +103,7 @@ cuda_py_test(
     shard_count = 4,
     deps = [
         ":optimizers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -113,7 +114,7 @@ cuda_py_test(
     shard_count = 4,
     deps = [
         ":optimizers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -125,7 +126,7 @@ cuda_py_test(
     shard_count = 4,
     deps = [
         ":optimizers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -139,10 +140,10 @@ cuda_py_test(
     ],
     deps = [
         ":optimizers",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -154,8 +155,8 @@ cuda_py_test(
     # TODO(b/168527439): invalid resource variable reference on GPU for TFRT.
     deps = [
         ":optimizers",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )

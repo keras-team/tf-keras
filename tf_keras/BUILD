@@ -38,12 +38,7 @@ py_library(
     deps = [
         ":backend",
         ":engine",
-        "//:expect_h5py_installed",
-        "//:expect_numpy_installed",
-        "//:expect_pydot_installed",
-        "//:expect_scipy_installed",
-        "//:expect_tensorflow_installed",
-        "//:expect_yaml_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/applications",
         "//tf_keras/datasets",
         "//tf_keras/distribute",
@@ -62,6 +57,11 @@ py_library(
         "//tf_keras/testing_infra:keras_doctest_lib",
         "//tf_keras/testing_infra:test_utils",  # For keras.__internal__ API
         "//tf_keras/utils",
+        "@pypi//h5py",
+        "@pypi//numpy",
+        "@pypi//pydot",
+        "@pypi//pyyaml",
+        "@pypi//scipy",
     ],
 )
 
@@ -70,14 +70,14 @@ py_library(
     srcs = ["backend.py"],
     deps = [
         ":backend_config",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/distribute:distribute_coordinator_utils",
         "//tf_keras/engine:keras_tensor",
         "//tf_keras/utils:control_flow_util",
         "//tf_keras/utils:object_identity",
         "//tf_keras/utils:tf_contextlib",
         "//tf_keras/utils:tf_inspect",
+        "@pypi//numpy",
     ],
 )
 
@@ -85,7 +85,7 @@ py_library(
     name = "backend_config",
     srcs = ["backend_config.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -129,14 +129,14 @@ py_library(
     ],
     deps = [
         ":backend",
-        "//:expect_tensorboard_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/distribute:distributed_file_utils",
         "//tf_keras/distribute:worker_training_state",
         "//tf_keras/protobuf:projector_config_proto_py_pb2",
         "//tf_keras/utils:engine_utils",
         "//tf_keras/utils:mode_keys",
         "//tf_keras/utils:timed_threads",
+        "@pypi//tensorboard_data_server",
     ],
 )
 
@@ -147,9 +147,9 @@ py_library(
     ],
     deps = [
         ":backend",
-        "//:expect_tensorboard_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:engine_utils",
+        "@pypi//tensorboard_data_server",
     ],
 )
 
@@ -171,7 +171,7 @@ py_library(
     ],
     deps = [
         ":backend",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/saving:saving_lib",
         "//tf_keras/utils:engine_utils",
         "//tf_keras/utils:generic_utils",
@@ -207,9 +207,9 @@ py_library(
 #     name = "distribute_utils",
 #     srcs = ["google/distribute_utils.py"],
 #     deps = [
-#         "//:expect_six_installed",
-#         "//:expect_tensorflow_installed",
+#         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//third_party/py/requests",
+#         "@pypi//six",
 #     ],
 # )
 # copybara:uncomment_end
@@ -221,14 +221,14 @@ tf_py_test(
     deps = [
         ":activations",
         ":backend",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_scipy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
         "//tf_keras/layers/activation",
         "//tf_keras/layers/core",
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
+        "@pypi//scipy",
     ],
 )
 
@@ -239,9 +239,9 @@ tf_py_test(
     deps = [
         ":backend",
         ":constraints",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//numpy",
     ],
 )
 
@@ -251,9 +251,9 @@ tf_py_test(
     srcs = ["regularizers_test.py"],
     deps = [
         ":tf_keras",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -268,10 +268,10 @@ tf_py_test(
     deps = [
         ":backend",
         ":losses",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/utils:engine_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -287,10 +287,10 @@ tf_py_test(
     ],
     deps = [
         ":tf_keras",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -305,14 +305,14 @@ tf_py_test(
     deps = [
         ":callbacks",
         ":callbacks_v1",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -324,11 +324,11 @@ tf_py_test(
     deps = [
         ":backend",
         ":engine",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_scipy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
+        "@pypi//scipy",
     ],
 )
 
@@ -339,7 +339,7 @@ tf_py_test(
     deps = [
         ":backend",
         ":backend_config",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -350,7 +350,7 @@ tf_py_test(
 #     srcs = ["google/url_utils_test.py"],
 #     deps = [
 #         ":url_utils",
-#         "//:expect_tensorflow_installed",
+#         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//testing/pymocks:matchers",
 #     ],
 # )
@@ -360,7 +360,7 @@ tf_py_test(
 #     srcs = ["google/distribute_utils_test.py"],
 #     deps = [
 #         ":distribute_utils",
-#         "//:expect_tensorflow_installed",
+#         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//testing/pymocks:matchers",
 #         "//tf_keras/distribute",
 #     ],

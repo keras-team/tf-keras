@@ -7,7 +7,7 @@ def py_test(deps = [], data = [], kernels = [], **kwargs):
     native.py_test(
         deps = select({
             "//conditions:default": deps,
-            "//tf_keras:no_keras_py_deps": [],
+            "//tf_keras:no_keras_py_deps": ["//tf_keras/wheel:pypi_tf_keras_wheel_with_deps"],
         }),
         data = data + kernels,
         **kwargs

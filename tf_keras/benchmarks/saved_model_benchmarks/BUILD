@@ -27,7 +27,7 @@ py_library(
     name = "saved_model_benchmark_util",
     srcs = ["saved_model_benchmark_util.py"],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/benchmarks:profiler_lib",
     ],
 )
@@ -41,7 +41,7 @@ cuda_py_test(
     ],
     deps = [
         ":saved_model_benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -56,7 +56,7 @@ cuda_py_test(
     ],
     deps = [
         ":saved_model_benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -71,7 +71,7 @@ cuda_py_test(
     ],
     deps = [
         ":saved_model_benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -86,7 +86,7 @@ cuda_py_test(
     ],
     deps = [
         ":saved_model_benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -101,7 +101,7 @@ cuda_py_test(
     ],
     deps = [
         ":saved_model_benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -116,7 +116,7 @@ cuda_py_test(
     ],
     deps = [
         ":saved_model_benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -131,7 +131,7 @@ cuda_py_test(
     ],
     deps = [
         ":saved_model_benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -146,7 +146,7 @@ cuda_py_test(
     ],
     deps = [
         ":saved_model_benchmark_util",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:profiler_lib",
     ],

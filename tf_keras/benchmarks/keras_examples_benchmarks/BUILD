@@ -32,7 +32,7 @@ cuda_py_test(
     srcs = ["bidirectional_lstm_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
@@ -44,7 +44,7 @@ cuda_py_test(
     srcs = ["text_classification_transformer_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
@@ -56,7 +56,7 @@ cuda_py_test(
     srcs = ["antirectifier_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
@@ -68,11 +68,11 @@ cuda_py_test(
     srcs = ["mnist_conv_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
+        "@pypi//numpy",
     ],
 )
 
@@ -81,7 +81,7 @@ cuda_py_test(
     srcs = ["mnist_hierarchical_rnn_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
@@ -93,7 +93,7 @@ cuda_py_test(
     srcs = ["mnist_irnn_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
@@ -105,11 +105,11 @@ cuda_py_test(
     srcs = ["reuters_mlp_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
+        "@pypi//numpy",
     ],
 )
 
@@ -118,7 +118,7 @@ cuda_py_test(
     srcs = ["cifar10_cnn_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
@@ -130,7 +130,7 @@ cuda_py_test(
     srcs = ["mnist_conv_custom_training_benchmark_test.py"],
     tags = COMMON_TAGS,
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:distribution_util",

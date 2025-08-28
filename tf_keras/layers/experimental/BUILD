@@ -2,9 +2,9 @@
 # DynamicEmbeddingLayer allows for the continuous updating of the vocabulary and embeddings during
 # the training process.
 
-# Placeholder: load unaliased py_library
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")  # buildifier: disable=same-origin-load
 load("@org_keras//tf_keras:tf_keras.bzl", "distribute_py_test")  # buildifier: disable=same-origin-load
+# Placeholder: load unaliased py_library
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//third_party/py/keras:license"],
@@ -16,9 +16,12 @@ package(
 
 py_library(
     name = "dynamic_lookup",
-    srcs = ["dynamic_lookup.py"],
+    srcs = [
+        "__init__.py",
+        "dynamic_lookup.py",
+    ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
     ],
 )
@@ -31,11 +34,11 @@ tf_py_test(
     tags = ["notpu"],
     deps = [
         ":dynamic_lookup",
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//numpy",
     ],
 )
 
@@ -44,7 +47,7 @@ py_library(
     srcs = ["dynamic_embedding.py"],
     deps = [
         ":dynamic_lookup",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers",
         "//tf_keras/utils",
@@ -57,7 +60,7 @@ tf_py_test(
     tags = ["notpu"],
     deps = [
         ":dynamic_embedding",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:callbacks",
         "//tf_keras/layers",
         "//tf_keras/models",
@@ -77,12 +80,12 @@ distribute_py_test(
     ],
     deps = [
         ":dynamic_embedding",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:callbacks",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
     ],
 )
 
@@ -95,10 +98,11 @@ distribute_py_test(
     ],
     deps = [
         ":dynamic_lookup",
-        "//:expect_absl_installed",  # absl/testing:parameterized
-        "//:expect_numpy_installed",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_utils",
+        "@pypi//absl_py",  # absl/testing:parameterized
+        "@pypi//numpy",
+        "@pypi//portpicker",
     ],
 )

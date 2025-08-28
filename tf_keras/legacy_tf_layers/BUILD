@@ -44,7 +44,7 @@ py_library(
         "//third_party/tf_seq2seq:__pkg__",
     ],
     deps = [
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras/engine:base_layer",
         "//tf_keras/mixed_precision:policy",
@@ -56,7 +56,7 @@ py_library(
     srcs = ["convolutional.py"],
     deps = [
         ":layers_base",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
     ],
 )
@@ -66,7 +66,7 @@ py_library(
     srcs = ["core.py"],
     deps = [
         ":layers_base",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
     ],
 )
@@ -76,7 +76,7 @@ py_library(
     srcs = ["normalization.py"],
     deps = [
         ":layers_base",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers/normalization",
     ],
 )
@@ -86,7 +86,7 @@ py_library(
     srcs = ["pooling.py"],
     deps = [
         ":layers_base",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
     ],
 )
@@ -99,7 +99,7 @@ tf_py_test(
     deps = [
         ":core",
         ":layers_base",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/testing_infra:test_combinations",
@@ -113,7 +113,7 @@ tf_py_test(
     main = "core_test.py",
     deps = [
         ":core",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -125,7 +125,7 @@ tf_py_test(
     main = "convolutional_test.py",
     deps = [
         ":convolutional",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -137,7 +137,7 @@ tf_py_test(
     tags = ["no_rocm"],
     deps = [
         ":pooling",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -151,7 +151,7 @@ cuda_py_test(
         ":convolutional",
         ":layers_base",
         ":normalization",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -164,7 +164,7 @@ tf_py_test(
     deps = [
         ":core",
         ":layers_base",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/testing_infra:test_combinations",
@@ -178,7 +178,7 @@ tf_py_test(
     main = "migration_utils_test.py",
     deps = [
         ":layers",
-        "//:expect_tensorflow_installed",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
         "//tf_keras/engine:input_spec",
         "//tf_keras/testing_infra:test_combinations",
