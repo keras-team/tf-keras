@@ -31,7 +31,7 @@ The build options examples:
 `BUILD_OPTIONS=""`
 
 2. Nightly artifacts:
-`BUILD_OPTIONS=--repo_env=ML_WHEEL_TYPE=nightly --repo_env=ML_WHEEL_BUILD_DATE=$(date +%Y%m%d)`
+`BUILD_OPTIONS=--repo_env=ML_WHEEL_TYPE=nightly --repo_env=ML_WHEEL_BUILD_DATE=$(date +%Y%m%d%H)`
 
 3. Release artifacts:
 `BUILD_OPTIONS=--repo_env=ML_WHEEL_TYPE=release`
