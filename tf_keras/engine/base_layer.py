@@ -3932,6 +3932,17 @@ class BaseRandomLayer(Layer):
         super().build(input_shape)
         self._random_generator._maybe_init()
 
+    def get_config(self):
+        base_config = super().get_config()
+        if (
+            self._random_generator._rng_type
+            == backend.RandomGenerator.RNG_LEGACY_STATEFUL
+        ):
+            return base_config
+
+        config = {"rng_type": self._random_generator._rng_type}
+        return dict(list(base_config.items()) + list(config.items()))
+
     def _trackable_children(self, save_type="checkpoint", **kwargs):
         if save_type == "savedmodel":
             cache = kwargs["cache"]
