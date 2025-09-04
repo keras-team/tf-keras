@@ -65,6 +65,8 @@ def _wheel_impl(ctx):
         )
         args.add("--build-source-package-only", "True")
     output_file = ctx.actions.declare_file(output_path + "/" + name)
+
+    # TODO(ybaturina): Make this directory name dynamic to avoid collisions.
     copied_whl_srcs_dir = ctx.actions.declare_directory("copied_whl_srcs")
     outputs = [copied_whl_srcs_dir, output_file]
     args.add("--whl_dir", output_file.path[:output_file.path.rfind("/")])
