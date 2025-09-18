@@ -2,7 +2,7 @@
 #   Contains the TF-Keras save model API (internal TensorFlow version).
 
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
-# Placeholder: load unaliased py_library
+load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
@@ -38,6 +38,7 @@ py_library(
         "//tf_keras/mixed_precision:autocast_variable",
         "//tf_keras/optimizers",
         "//tf_keras/protobuf:saved_metadata_proto_py_pb2",
+        "//tf_keras/protobuf:versions_proto_py_pb2",
         "//tf_keras/saving/legacy/saved_model",
         "//tf_keras/utils:engine_utils",
         "//tf_keras/utils:metrics_utils",

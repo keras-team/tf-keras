@@ -1,6 +1,6 @@
 """Rules to generate the TensorFlow public API from annotated files."""
 
-# Placeholder: load unaliased PyInfo
+load("@rules_python//python:py_info.bzl", "PyInfo")
 # Placeholder: load if_indexing_source_code
 
 _TARGET_PATTERNS = [

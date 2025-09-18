@@ -2,7 +2,7 @@
 #   Contains the TF-Keras API (internal TensorFlow version).
 
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
-# Placeholder: load unaliased py_library
+load("@rules_python//python:py_library.bzl", "py_library")
 
 # copybara:uncomment_begin(google-only)
 # load("//tools/build_defs/license:license.bzl", "license")

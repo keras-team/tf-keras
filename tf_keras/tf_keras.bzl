@@ -1,10 +1,10 @@
 """Keras common starlark macros."""
 
-# Placeholder: load aliased py_test
+load("@rules_python//python:py_test.bzl", _plain_py_test = "py_test")
 
 # Macro to run Keras py_tests against pip installation.
 def py_test(deps = [], data = [], kernels = [], **kwargs):
-    native.py_test(
+    _plain_py_test(
         deps = select({
             "//conditions:default": deps,
             "//tf_keras:no_keras_py_deps": ["//tf_keras/wheel:pypi_tf_keras_wheel_with_deps"],

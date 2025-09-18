@@ -2,9 +2,9 @@
 #   Implementation of TF-Keras benchmarks.
 
 load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
-# Placeholder: load unaliased py_binary
-# Placeholder: load unaliased py_library
-# Placeholder: load unaliased py_test
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_library.bzl", "py_library")
+load("@rules_python//python:py_test.bzl", "py_test")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],

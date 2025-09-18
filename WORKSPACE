@@ -1,6 +1,7 @@
 workspace(name = "org_keras")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 # Toolchains for ML projects hermetic builds.
 # Details: https://github.com/google-ml-infra/rules_ml_toolchain
@@ -26,11 +27,11 @@ register_toolchains("@rules_ml_toolchain//cc:linux_x86_64_linux_x86_64_cuda")
 
 http_archive(
     name = "xla",
-    sha256 = "5b20a5fd981a23a5dea092f13f9279b5c2e8005b509ac141fb65f22a42ad35a9",
-    strip_prefix = "xla-32b7537aee5a1e9145a6e11fc258347c41d6f5f8",
+    sha256 = "96ffcfd4a52bcb75d34b426f5a26d4e83a4dcf8f05bccf98e60d415a02ac6bca",
+    strip_prefix = "xla-5a2c4befe808fbc894b55747d3c8955852a68ae6",
     urls = [
-      "https://storage.googleapis.com/mirror.tensorflow.org/github.com/openxla/xla/archive/32b7537aee5a1e9145a6e11fc258347c41d6f5f8.tar.gz",
-      "https://github.com/openxla/xla/archive/32b7537aee5a1e9145a6e11fc258347c41d6f5f8.tar.gz",
+      "https://storage.googleapis.com/mirror.tensorflow.org/github.com/openxla/xla/archive/5a2c4befe808fbc894b55747d3c8955852a68ae6.tar.gz",
+      "https://github.com/openxla/xla/archive/5a2c4befe808fbc894b55747d3c8955852a68ae6.tar.gz",
       ],
 )
 
@@ -124,14 +125,12 @@ cuda_configure(name = "local_config_cuda")
 # Needed by protobuf
 http_archive(
     name = "bazel_skylib",
+    sha256 = "bc283cdfcd526a52c3201279cda4bc298652efa898b10b4db0837dc51652756f",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.3.0/bazel-skylib-1.3.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.3.0/bazel-skylib-1.3.0.tar.gz",
+        "https://storage.googleapis.com/mirror.tensorflow.org/github.com/bazelbuild/bazel-skylib/releases/download/1.7.1/bazel-skylib-1.7.1.tar.gz",
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.7.1/bazel-skylib-1.7.1.tar.gz",
     ],
-    sha256 = "74d544d96f4a5bb630d465ca8bbcfe231e3594e5aae57e1edbf17a6eb3ca2506",
 )
-load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
-bazel_skylib_workspace()
 
 # Needed by protobuf
 http_archive(
@@ -147,24 +146,45 @@ bind(
     actual = "@six_archive//:six",
 )
 
-tf_http_archive(
+# Needed by protobuf
+load("@xla//third_party/absl:workspace.bzl", absl = "repo")
+
+absl()
+
+# Needed by protobuf
+http_archive(
+    name = "rules_java",
+    sha256 = "5449ed36d61269579dd9f4b0e532cd131840f285b389b3795ae8b4d717387dd8",
+    urls = [
+        "https://storage.googleapis.com/grpc-bazel-mirror/github.com/bazelbuild/rules_java/releases/download/8.7.0/rules_java-8.7.0.tar.gz",
+        "https://github.com/bazelbuild/rules_java/releases/download/8.7.0/rules_java-8.7.0.tar.gz",
+    ],
+)
+
+load("@rules_java//java:rules_java_deps.bzl", "rules_java_dependencies")
+
+rules_java_dependencies()
+
+maybe(
+    tf_http_archive,
     name = "com_google_protobuf",
     patch_file = ["@xla//third_party/protobuf:protobuf.patch"],
-    sha256 = "f645e6e42745ce922ca5388b1883ca583bafe4366cc74cf35c3c9299005136e2",
-    strip_prefix = "protobuf-5.28.3",
-    urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/refs/tags/v5.28.3.zip"),
+    sha256 = "6e09bbc950ba60c3a7b30280210cd285af8d7d8ed5e0a6ed101c72aff22e8d88",
+    strip_prefix = "protobuf-6.31.1",
+    urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/refs/tags/v6.31.1.zip"),
+    repo_mapping = {
+        "@abseil-cpp": "@com_google_absl",
+        "@protobuf_pip_deps": "@pypi",
+    },
 )
 
 # ZLIB. Need by com_google_protobuf.
-http_archive(
+tf_http_archive(
     name = "zlib",
     build_file = "@com_google_protobuf//:third_party/zlib.BUILD",
-    sha256 = "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30",
-    strip_prefix = "zlib-1.2.13",
-    urls = [
-      "https://storage.googleapis.com/mirror.tensorflow.org/zlib.net/zlib-1.2.13.tar.gz",
-      "https://zlib.net/zlib-1.2.13.tar.gz",
-      ],
+    sha256 = "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23",
+    strip_prefix = "zlib-1.3.1",
+    urls = tf_mirror_urls("https://zlib.net/fossils/zlib-1.3.1.tar.gz"),
 )
 
 

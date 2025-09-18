@@ -1,6 +1,6 @@
 load("@local_config_cuda//cuda:build_defs.bzl", "if_cuda")
-load("@python//:defs.bzl", "compile_pip_requirements")
 load("@python_version_repo//:py_version.bzl", "REQUIREMENTS")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load(
     "@xla//third_party/py:py_import.bzl",
     "py_import",

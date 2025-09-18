@@ -1,8 +1,8 @@
 # Description:
 # Package for TF-Keras.
 
-# Placeholder: load unaliased py_binary
-# Placeholder: load unaliased py_library
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_library.bzl", "py_library")
 load("//tf_keras/api:api_gen.bzl", "generate_apis")
 load("//tf_keras/api:api_init_files.bzl", "KERAS_API_INIT_FILES", "KERAS_API_INIT_FILES_V1")
 

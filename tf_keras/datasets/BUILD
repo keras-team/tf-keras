@@ -1,7 +1,7 @@
 # Description:
 #   Contains the TF-Keras datasets package (internal TensorFlow version).
 
-# Placeholder: load unaliased py_library
+load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],

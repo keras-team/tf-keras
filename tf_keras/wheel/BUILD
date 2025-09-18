@@ -15,7 +15,6 @@
 
 load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 load("@local_config_cuda//cuda:build_defs.bzl", "if_cuda")
-load("@python//:defs.bzl", "compile_pip_requirements")
 load("@python_version_repo//:py_version.bzl", "REQUIREMENTS")
 load("@tf_keras_wheel//:wheel.bzl", "WHEEL_VERSION")
 load("@tf_keras_wheel_version_suffix//:wheel_version_suffix.bzl", "WHEEL_VERSION_SUFFIX")

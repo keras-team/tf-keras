@@ -18,9 +18,9 @@
 
 # buildifier: disable=same-origin-load
 
-# Placeholder: load unaliased py_binary
-# Placeholder: load unaliased py_library
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],

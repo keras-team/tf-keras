@@ -15,7 +15,7 @@
 
 load("@bazel_skylib//rules:common_settings.bzl", "BuildSettingInfo")
 load("@python_version_repo//:py_version.bzl", "HERMETIC_PYTHON_VERSION")
-load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_python//python:py_library.bzl", "py_library")
 load("@tf_keras_wheel//:wheel.bzl", "WHEEL_VERSION")
 load("@tf_keras_wheel_version_suffix//:wheel_version_suffix.bzl", "WHEEL_VERSION_SUFFIX")
 
