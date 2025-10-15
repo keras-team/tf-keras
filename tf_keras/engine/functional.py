@@ -351,25 +351,45 @@ class Functional(training_lib.Model):
         if isinstance(self._nested_inputs, dict):
             # Case where `_nested_inputs` is a plain dict of Inputs.
             names = sorted(self._nested_inputs.keys())
-            return [
-                input_spec.InputSpec(
-                    shape=shape_with_no_batch_size(self._nested_inputs[name]),
-                    allow_last_axis_squeeze=True,
-                    name=name,
+            specs = []
+            for name in names:
+                layer = self._nested_inputs[name]._keras_history.layer
+                optional = (
+                    layer.optional
+                    if isinstance(layer, input_layer_module.InputLayer)
+                    else False
                 )
-                for name in names
-            ]
+                specs.append(
+                    input_spec.InputSpec(
+                        shape=shape_with_no_batch_size(
+                            self._nested_inputs[name]
+                        ),
+                        allow_last_axis_squeeze=True,
+                        name=name,
+                        optional=optional,
+                    )
+                )
+            return specs
         else:
             # Single input, or list / tuple of inputs.
             # The data may be passed as a dict keyed by input name.
-            return [
-                input_spec.InputSpec(
-                    shape=shape_with_no_batch_size(x),
-                    allow_last_axis_squeeze=True,
-                    name=x._keras_history.layer.name,
+            specs = []
+            for x in self.inputs:
+                layer = x._keras_history.layer
+                optional = (
+                    layer.optional
+                    if isinstance(layer, input_layer_module.InputLayer)
+                    else False
                 )
-                for x in self.inputs
-            ]
+                specs.append(
+                    input_spec.InputSpec(
+                        shape=shape_with_no_batch_size(x),
+                        allow_last_axis_squeeze=True,
+                        name=x._keras_history.layer.name,
+                        optional=optional,
+                    )
+                )
+            return specs
 
     @input_spec.setter
     def input_spec(self, value):
@@ -644,7 +664,8 @@ class Functional(training_lib.Model):
         else:
             masks = self._flatten_to_reference_inputs(mask)
         for input_t, mask in zip(inputs, masks):
-            input_t._keras_mask = mask
+            if input_t is not None:
+                input_t._keras_mask = mask
 
         # Dictionary mapping reference tensors to computed tensors.
         tensor_dict = {}

@@ -46,6 +46,9 @@ from tf_keras.utils import tf_utils
 from tf_keras.utils.mode_keys import ModeKeys
 
 # isort: off
+from tensorflow.python.framework.none_tensor import (
+    NoneTensorSpec,
+)
 from tensorflow.python.platform import tf_logging as logging
 
 try:
@@ -2220,9 +2223,9 @@ class Model(training_lib.Model):
                             target,
                             output,
                             output_mask,
-                            weights=sample_weights[i]
-                            if sample_weights
-                            else None,
+                            weights=(
+                                sample_weights[i] if sample_weights else None
+                            ),
                         )
                     )
         return metric_results
@@ -2727,7 +2730,8 @@ class Model(training_lib.Model):
             tf_utils.convert_variables_to_tensors(self.inputs)
         )
         for a, b in zip(flat_inputs, flat_expected_inputs):
-            tf.nest.assert_same_structure(a, b, expand_composites=True)
+            if type(a) is not NoneTensorSpec:
+                tf.nest.assert_same_structure(a, b, expand_composites=True)
 
         if y is not None:
             # Prepare self._sample_weight_modes. List with the same length as

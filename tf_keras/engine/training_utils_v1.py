@@ -694,7 +694,7 @@ def standardize_input_data(
     # Check shapes compatibility.
     if shapes:
         for i in range(len(names)):
-            if shapes[i] is not None:
+            if shapes[i] is not None and data[i] is not None:
                 if tf.is_tensor(data[i]):
                     tensorshape = data[i].shape
                     if not tensorshape:
