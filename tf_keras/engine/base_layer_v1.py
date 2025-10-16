@@ -2186,8 +2186,8 @@ class Layer(base_layer.Layer):
                 else:
                     self._set_dtype_policy(policy.Policy(dtype))
             input_shapes = None
-            if all(hasattr(x, "shape") for x in input_list):
-                input_shapes = tf.nest.map_structure(lambda x: x.shape, inputs)
+            if any(hasattr(x, "shape") for x in input_list):
+                input_shapes = tf_utils.get_shapes(inputs)
             # Only call `build` if the user has manually overridden the build
             # method.
             if not hasattr(self.build, "_is_default"):
