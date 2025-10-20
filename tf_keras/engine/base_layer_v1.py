@@ -461,7 +461,7 @@ class Layer(base_layer.Layer):
             if caching_device is not None:
                 tf_logging.warning(
                     "`caching_device` does not work with mixed precision API. "
-                    "Ignoring user specified `caching_device`."
+                    "Please ignoring user specified `caching_device`."
                 )
                 caching_device = None
 
