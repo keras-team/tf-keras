@@ -58,7 +58,7 @@ class CombinationsTest(tf.test.TestCase):
                 ],
             )
 
-            ts = unittest.makeSuite(ExampleTest)
+            ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
             res = unittest.TestResult()
             ts.run(res)
             self.assertLen(test_params, 6)
@@ -72,7 +72,7 @@ class CombinationsTest(tf.test.TestCase):
                 ],
             )
 
-            ts = unittest.makeSuite(ExampleTest)
+            ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
             res = unittest.TestResult()
             ts.run(res)
             self.assertLen(test_params, 4)
@@ -125,7 +125,7 @@ class CombinationsTest(tf.test.TestCase):
         self.assertNotIsInstance(models[1], keras_models.Sequential)
         self.assertIsInstance(models[2], keras_models.Sequential)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -155,7 +155,7 @@ class CombinationsTest(tf.test.TestCase):
                     (mode, should_run_eagerly, test_utils.get_model_type())
                 )
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -211,7 +211,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertNotIsInstance(models[1], keras.models.Sequential)
         self.assertIsInstance(models[2], keras.models.Sequential)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -267,7 +267,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertNotIsInstance(models[1], keras.models.Sequential)
         self.assertIsInstance(models[2], keras.models.Sequential)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -305,7 +305,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertNotIsInstance(models[0], keras.models.Sequential)
         self.assertNotIsInstance(models[1], keras.models.Sequential)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -341,7 +341,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertFalse(models[0]._is_graph_network)
         self.assertNotIsInstance(models[0], keras.models.Sequential)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -377,7 +377,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
                 ],
             )
 
-            ts = unittest.makeSuite(ExampleTest)
+            ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
             res = unittest.TestResult()
             ts.run(res)
             self.assertLen(l, 6)
@@ -391,7 +391,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
                 ],
             )
 
-            ts = unittest.makeSuite(ExampleTest)
+            ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
             res = unittest.TestResult()
             ts.run(res)
             self.assertLen(l, 4)
@@ -446,7 +446,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertLen(l, len(expected_combinations))
         self.assertEqual(set(l), expected_combinations)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -532,7 +532,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertLen(l, len(expected_combinations))
         self.assertEqual(set(l), expected_combinations)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -588,7 +588,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertLen(l, len(expected_combinations))
         self.assertEqual(set(l), expected_combinations)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -647,7 +647,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertLen(l, len(expected_combinations))
         self.assertEqual(set(l), expected_combinations)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
@@ -706,7 +706,7 @@ class KerasParameterizedTest(test_combinations.TestCase):
         self.assertLen(l, len(expected_combinations))
         self.assertEqual(set(l), expected_combinations)
 
-        ts = unittest.makeSuite(ExampleTest)
+        ts = unittest.TestLoader().loadTestsFromTestCase(ExampleTest)
         res = unittest.TestResult()
         ts.run(res)
 
