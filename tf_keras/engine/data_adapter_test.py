@@ -25,6 +25,7 @@ from tf_keras.engine import data_adapter
 from tf_keras.testing_infra import test_combinations
 from tf_keras.testing_infra import test_utils
 from tf_keras.utils import data_utils
+from tf_keras.utils import dataset_creator
 
 # isort: off
 from tensorflow.python.eager import context
@@ -427,6 +428,26 @@ class TensorLikeDataAdapterTest(DataAdapterTestBase):
         # Check that each elements appears, and only once.
         self.assertAllClose(x, np.sort(second_epoch_data))
 
+    def test_tensor_like_with_none_input(self):
+        x = [np.ones((10, 1), dtype=np.float32), None]
+        y = np.zeros((10, 1), dtype=np.float32)
+        self.assertTrue(data_adapter.TensorLikeDataAdapter.can_handle(x, y))
+        adapter = data_adapter.TensorLikeDataAdapter(
+            x, y, batch_size=2, shuffle=False
+        )
+        dataset = adapter.get_dataset()
+        self.assertEqual(adapter.get_size(), 5)
+        self.assertFalse(adapter.has_partial_batch())
+        self.assertIsNone(adapter.partial_batch_size())
+        for i, batch in enumerate(dataset):
+            x_batch, y_batch, _ = data_adapter.unpack_x_y_sample_weight(batch)
+            self.assertIsInstance(x_batch, tuple)
+            self.assertEqual(x_batch[0].shape, (2, 1))
+            self.assertIsNone(x_batch[1])
+            self.assertEqual(y_batch.shape, (2, 1))
+            if i >= 4:
+                break
+
     @test_combinations.run_all_keras_modes(always_skip_v1=True)
     def test_batch_shuffle_correctness(self):
         num_samples = 100
@@ -787,6 +808,28 @@ class GenericArrayLikeDataAdapterTest(DataAdapterTestBase):
         # Check that each elements appears, and only once.
         self.assertAllClose(x, np.sort(second_epoch_data))
 
+    def test_generic_array_like_with_none_input(self):
+        x = [DummyArrayLike(np.ones((10, 1), dtype=np.float32)), None]
+        y = DummyArrayLike(np.zeros((10, 1), dtype=np.float32))
+        self.assertTrue(
+            data_adapter.GenericArrayLikeDataAdapter.can_handle(x, y)
+        )
+        adapter = data_adapter.GenericArrayLikeDataAdapter(
+            x, y, batch_size=2, shuffle=False
+        )
+        dataset = adapter.get_dataset()
+        self.assertEqual(adapter.get_size(), 5)
+        self.assertFalse(adapter.has_partial_batch())
+        self.assertIsNone(adapter.partial_batch_size())
+        for i, batch in enumerate(dataset):
+            x_batch, y_batch, _ = data_adapter.unpack_x_y_sample_weight(batch)
+            self.assertIsInstance(x_batch, tuple)
+            self.assertEqual(x_batch[0].shape, (2, 1))
+            self.assertIsNone(x_batch[1])
+            self.assertEqual(y_batch.shape, (2, 1))
+            if i >= 4:
+                break
+
     @test_combinations.run_all_keras_modes(always_skip_v1=True)
     def test_batch_shuffle_correctness(self):
         num_samples = 100
@@ -883,6 +926,85 @@ class GenericArrayLikeDataAdapterTest(DataAdapterTestBase):
         self.assertEqual(
             adapter.partial_batch_size(), partial_batch_size or None
         )
+
+
+class CompositeTensorDataAdapterTest(DataAdapterTestBase):
+    def setUp(self):
+        super().setUp()
+        self.adapter_cls = data_adapter.CompositeTensorDataAdapter
+
+    def test_composite_tensor_with_none_input(self):
+        x = [
+            tf.SparseTensor(
+                indices=[[0, 0], [1, 2]], values=[1, 2], dense_shape=[3, 4]
+            ),
+            None,
+        ]
+        y = np.zeros((3, 1), dtype=np.float32)
+        self.assertTrue(
+            data_adapter.CompositeTensorDataAdapter.can_handle(x, y)
+        )
+        adapter = data_adapter.CompositeTensorDataAdapter(
+            x, y, batch_size=2, shuffle=False
+        )
+        dataset = adapter.get_dataset()
+        self.assertEqual(adapter.get_size(), 2)  # 3 samples, batch_size=2 -> 2
+        self.assertTrue(adapter.has_partial_batch())
+        self.assertEqual(adapter.partial_batch_size(), 1)
+
+        data = list(dataset)
+        self.assertEqual(len(data), 2)
+
+        x_batch, y_batch, _ = data_adapter.unpack_x_y_sample_weight(data[0])
+        self.assertIsInstance(x_batch, tuple)
+        self.assertEqual(x_batch[0].dense_shape.numpy().tolist(), [2, 4])
+        self.assertIsNone(x_batch[1])
+        self.assertEqual(y_batch.shape, (2, 1))
+
+        x_batch, y_batch, _ = data_adapter.unpack_x_y_sample_weight(data[1])
+        self.assertIsInstance(x_batch, tuple)
+        self.assertEqual(x_batch[0].dense_shape.numpy().tolist(), [1, 4])
+        self.assertIsNone(x_batch[1])
+        self.assertEqual(y_batch.shape, (1, 1))
+
+
+class DatasetCreatorAdapterTest(DataAdapterTestBase):
+    def setUp(self):
+        super().setUp()
+        self.adapter_cls = data_adapter.DatasetCreatorAdapter
+
+    def test_with_none_input(self):
+        def dataset_fn(input_context=None):
+            del input_context
+            x_0 = np.ones((10, 1), dtype=np.float32)
+            y = np.zeros((10, 1), dtype=np.float32)
+            ds = tf.data.Dataset.from_tensor_slices((x_0, y))
+
+            def map_fn(x0, y):
+                return tf.data.Dataset.from_tensors(((x0, None), y))
+
+            ds = ds.flat_map(map_fn)
+            return ds.batch(2)
+
+        dc = dataset_creator.DatasetCreator(dataset_fn)
+        self.assertTrue(data_adapter.DatasetCreatorAdapter.can_handle(dc))
+        adapter = data_adapter.DatasetCreatorAdapter(
+            dc,
+            y=None,
+            steps=5,
+            distribution_strategy=tf.distribute.get_strategy(),
+        )
+        dataset = adapter.get_dataset()
+        self.assertIsNone(adapter.get_size())
+
+        for i, batch in enumerate(dataset):
+            x_batch, y_batch, _ = data_adapter.unpack_x_y_sample_weight(batch)
+            self.assertIsInstance(x_batch, tuple)
+            self.assertEqual(x_batch[0].shape, (2, 1))
+            self.assertIsNone(x_batch[1])
+            self.assertEqual(y_batch.shape, (2, 1))
+            if i >= 4:
+                break
 
 
 class DatasetAdapterTest(DataAdapterTestBase):

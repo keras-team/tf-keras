@@ -56,6 +56,8 @@ class InputSpec:
         as long as the last axis of the spec is 1.
       name: Expected key corresponding to this input when passing data as
         a dictionary.
+      optional: Boolean, whether the input is optional or not. An optional input
+        can accept `None` values.
 
     Example:
 
@@ -82,6 +84,7 @@ class InputSpec:
         axes=None,
         allow_last_axis_squeeze=False,
         name=None,
+        optional=False,
     ):
         self.dtype = tf.as_dtype(dtype).name if dtype is not None else None
         shape = tf.TensorShape(shape)
@@ -99,6 +102,7 @@ class InputSpec:
         self.min_ndim = min_ndim
         self.name = name
         self.allow_last_axis_squeeze = allow_last_axis_squeeze
+        self.optional = optional
         try:
             axes = axes or {}
             self.axes = {int(k): axes[k] for k in axes}
@@ -204,7 +208,11 @@ def assert_input_compatibility(input_spec, inputs, layer_name):
             inputs = list_inputs
 
     inputs = tf.nest.flatten(inputs)
-    for x in inputs:
+    for _, (x, spec) in enumerate(zip(inputs, input_spec)):
+        if spec is None:
+            continue
+        if x is None and spec.optional:
+            continue
         # Having a shape/dtype is the only commonality of the various
         # tensor-like objects that may be passed. The most common kind of
         # invalid type we are guarding for is a Layer instance (Functional API),
@@ -223,6 +231,8 @@ def assert_input_compatibility(input_spec, inputs, layer_name):
         )
     for input_index, (x, spec) in enumerate(zip(inputs, input_spec)):
         if spec is None:
+            continue
+        if x is None and spec.optional:
             continue
 
         shape = tf.TensorShape(x.shape)

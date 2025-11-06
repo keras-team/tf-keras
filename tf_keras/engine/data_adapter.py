@@ -231,7 +231,7 @@ class TensorLikeDataAdapter(DataAdapter):
                 return True
             return False
 
-        return all(_is_tensor(v) for v in flat_inputs)
+        return all(_is_tensor(v) for v in flat_inputs if v is not None)
 
     def __init__(
         self,
@@ -259,7 +259,7 @@ class TensorLikeDataAdapter(DataAdapter):
         inputs = pack_x_y_sample_weight(x, y, sample_weights)
 
         num_samples = set(
-            int(i.shape[0]) for i in tf.nest.flatten(inputs)
+            int(i.shape[0]) for i in tf.nest.flatten(inputs) if i is not None
         ).pop()
         _check_data_cardinality(inputs)
 
@@ -386,7 +386,7 @@ class TensorLikeDataAdapter(DataAdapter):
 
         def grab_batch(i, data):
             return tf.nest.map_structure(
-                lambda d: tf.gather(d, i, axis=0), data
+                lambda d: tf.gather(d, i, axis=0) if d is not None else d, data
             )
 
         dataset = dataset.map(grab_batch, num_parallel_calls=tf.data.AUTOTUNE)
@@ -459,7 +459,7 @@ class GenericArrayLikeDataAdapter(TensorLikeDataAdapter):
         if not TensorLikeDataAdapter.can_handle(
             x, y
         ) and not CompositeTensorDataAdapter.can_handle(x, y):
-            return all(_is_array_like(v) for v in flat_inputs)
+            return all(_is_array_like(v) for v in flat_inputs if v is not None)
         else:
             return False
 
@@ -496,7 +496,7 @@ class GenericArrayLikeDataAdapter(TensorLikeDataAdapter):
             shape[0] = None
             return tuple(shape)
 
-        flat_dtypes = [inp.dtype for inp in flat_inputs]
+        flat_dtypes = [inp.dtype for inp in flat_inputs if inp is not None]
         contiguous = True
         if self._shuffle and self._shuffle != "batch":
             contiguous = False
@@ -509,15 +509,26 @@ class GenericArrayLikeDataAdapter(TensorLikeDataAdapter):
             # to a Tensor may force it into memory..
             def py_method(ind):
                 def slice_array(data):
+                    if data is None:
+                        return None
                     return training_utils.slice_arrays(
                         data, ind.numpy(), contiguous=contiguous
                     )
 
-                return [slice_array(inp) for inp in flat_inputs]
+                return [
+                    slice_array(inp) for inp in flat_inputs if inp is not None
+                ]
 
-            flat_out = tf.py_function(py_method, [indices], flat_dtypes)
-            for v, original_inp in zip(flat_out, flat_inputs):
-                v.set_shape(dynamic_shape_like(original_inp))
+            results = tf.py_function(py_method, [indices], flat_dtypes)
+            results_it = iter(results)
+            flat_out = []
+            for original_inp in flat_inputs:
+                if original_inp is None:
+                    flat_out.append(None)
+                else:
+                    v = next(results_it)
+                    v.set_shape(dynamic_shape_like(original_inp))
+                    flat_out.append(v)
             return tf.nest.pack_sequence_as(inputs, flat_out)
 
         dataset = indices_dataset.map(
@@ -608,8 +619,10 @@ class CompositeTensorDataAdapter(DataAdapter):
                 return True
             return _is_composite(v)
 
-        return any(_is_composite(v) for v in flat_inputs) and all(
-            _is_tensor_or_composite(v) for v in flat_inputs
+        return any(
+            _is_composite(v) for v in flat_inputs if v is not None
+        ) and all(
+            _is_tensor_or_composite(v) for v in flat_inputs if v is not None
         )
 
     def __init__(
@@ -1944,14 +1957,18 @@ def single_batch_iterator(
 
 
 def _check_data_cardinality(data):
-    num_samples = set(int(i.shape[0]) for i in tf.nest.flatten(data))
+    num_samples = set(
+        int(i.shape[0]) for i in tf.nest.flatten(data) if i is not None
+    )
     if len(num_samples) > 1:
         msg = "Data cardinality is ambiguous:\n"
         for label, single_data in zip(["x", "y", "sample_weight"], data):
             msg += "  {} sizes: {}\n".format(
                 label,
                 ", ".join(
-                    str(i.shape[0]) for i in tf.nest.flatten(single_data)
+                    str(i.shape[0])
+                    for i in tf.nest.flatten(single_data)
+                    if i is not None
                 ),
             )
         msg += "Make sure all arrays contain the same number of samples."

@@ -98,6 +98,8 @@ class InputLayer(base_layer.Layer):
             `tf.TypeSpec` represents the entire batch. When provided, all other
             args except name must be `None`.
         name: Optional name of the layer (string).
+        optional: Boolean, whether the input is optional or not. An optional
+            input can accept `None` values.
     """
 
     @traceback_utils.filter_traceback
@@ -111,6 +113,7 @@ class InputLayer(base_layer.Layer):
         name=None,
         ragged=None,
         type_spec=None,
+        optional=False,
         **kwargs,
     ):
         self._init_input_shape = input_shape
@@ -180,6 +183,7 @@ class InputLayer(base_layer.Layer):
         self.ragged = True if ragged else False
         self.batch_size = batch_size
         self.supports_masking = True
+        self.optional = optional
 
         if isinstance(input_shape, tf.TensorShape):
             input_shape = tuple(input_shape.as_list())
@@ -284,6 +288,7 @@ class InputLayer(base_layer.Layer):
                 "sparse": self.sparse,
                 "ragged": self.ragged,
                 "name": self.name,
+                "optional": self.optional,
             }
         return config
 
@@ -303,6 +308,7 @@ def Input(
     tensor=None,
     ragged=None,
     type_spec=None,
+    optional=False,
     **kwargs,
 ):
     """`Input()` is used to instantiate a TF-Keras tensor.
@@ -341,6 +347,8 @@ def Input(
             [this guide](https://www.tensorflow.org/guide/ragged_tensor).
         type_spec: A `tf.TypeSpec` object to create the input placeholder from.
             When provided, all other args except name must be None.
+        optional: Boolean, whether the input is optional or not. An optional
+            input can accept `None` values.
         **kwargs: deprecated arguments support. Supports `batch_shape` and
             `batch_input_shape`.
 
@@ -415,6 +423,7 @@ def Input(
         "ragged": ragged,
         "input_tensor": tensor,
         "type_spec": type_spec,
+        "optional": optional,
     }
 
     batch_input_shape = kwargs.pop(

@@ -2010,6 +2010,33 @@ class DefaultShapeInferenceBehaviorTest(test_combinations.TestCase):
         self.assertEqual(model.inputs[0]._keras_history.layer.name, "b")
         self.assertEqual(model.inputs[1]._keras_history.layer.name, "a")
 
+    @test_combinations.run_all_keras_modes(always_skip_v1=True)
+    def test_model_with_optional_input(self):
+        class CustomAdd(layers.Layer):
+            def call(self, input_a, input_b=None):
+                if input_b is None:
+                    return input_a
+                return input_a + input_b
+
+        input_a = input_layer_lib.Input(shape=(2,))
+        input_b = input_layer_lib.Input(shape=(2,), optional=True)
+        added = CustomAdd()(input_a, input_b)
+        outputs = layers.Dense(2, activation="relu")(added)
+        model = functional.Functional([input_a, input_b], outputs)
+
+        x1 = np.ones((100, 2))
+        x2 = None
+        y = np.ones((100, 2))
+
+        model.compile(
+            optimizer="sgd",
+            loss="mse",
+            run_eagerly=test_utils.should_run_eagerly(),
+        )
+        model.fit([x1, x2], y, batch_size=2, epochs=1)
+        model.evaluate([x1, x2], y)
+        model.predict([x1, x2])
+
 
 class GraphUtilsTest(tf.test.TestCase):
     def testGetReachableFromInputs(self):
