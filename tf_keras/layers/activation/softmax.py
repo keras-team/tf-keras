@@ -70,6 +70,8 @@ class Softmax(Layer):
     Args:
         axis: Integer, or list of Integers, axis along which the softmax
             normalization is applied.
+        robust_masking: Bool, if true will use a more robust implementation when
+            dealing with masks.
     Call arguments:
         inputs: The inputs, or logits to the softmax layer.
         mask: A boolean mask of the same shape as `inputs`. The mask
@@ -80,23 +82,34 @@ class Softmax(Layer):
         Softmaxed output with the same shape as `inputs`.
     """
 
-    def __init__(self, axis=-1, **kwargs):
+    def __init__(self, axis=-1, robust_masking=False, **kwargs):
         super().__init__(**kwargs)
         self.supports_masking = True
+        self.robust_masking = robust_masking
         self.axis = axis
 
     def call(self, inputs, mask=None):
         if mask is not None:
-            # Since mask is 1.0 for positions we want to keep and 0.0 for masked
-            # positions, this operation will create a tensor which is 0.0 for
-            # positions we want to attend and -1e.9 for masked positions.
-            adder = (1.0 - tf.cast(mask, inputs.dtype)) * (
-                _large_compatible_negative(inputs.dtype)
-            )
+            if self.robust_masking:
+                # We keep the positions where the mask is True or > 0.5, and set
+                # the other (masked) positions to -1e.9.
+                if mask.dtype is not tf.bool:
+                    mask = tf.greater(mask, tf.constant(0.5, dtype=mask.dtype))
+                inputs = tf.where(
+                    mask, inputs, _large_compatible_negative(inputs.dtype)
+                )
+            else:
+                # Since mask is 1.0 for positions we want to keep and 0.0 for
+                # masked positions, this operation will create a tensor which is
+                # 0.0 for positions we want to attend and -1e.9 for masked
+                # positions.
+                adder = (1.0 - tf.cast(mask, inputs.dtype)) * (
+                    _large_compatible_negative(inputs.dtype)
+                )
 
-            # Since we are adding it to the raw scores before the softmax, this
-            # is effectively the same as removing these entirely.
-            inputs += adder
+                # Since we are adding it to the raw scores before the softmax,
+                # this is effectively the same as removing these entirely.
+                inputs += adder
         if isinstance(self.axis, (tuple, list)):
             if len(self.axis) > 1:
                 return tf.exp(
@@ -109,6 +122,8 @@ class Softmax(Layer):
 
     def get_config(self):
         config = {"axis": self.axis}
+        if self.robust_masking:
+            config["robust_masking"] = True
         base_config = super().get_config()
         return dict(list(base_config.items()) + list(config.items()))
 

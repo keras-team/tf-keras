@@ -31,6 +31,14 @@ class SoftmaxTest(test_combinations.TestCase):
             supports_masking=True,
         )
 
+    def test_softmax_robust_masking(self):
+        test_utils.layer_test(
+            keras.layers.Softmax,
+            kwargs={"axis": 1, "robust_masking": True},
+            input_shape=(2, 3, 4),
+            supports_masking=True,
+        )
+
 
 if __name__ == "__main__":
     tf.test.main()

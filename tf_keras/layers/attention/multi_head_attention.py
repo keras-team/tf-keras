@@ -198,6 +198,8 @@ class MultiHeadAttention(Layer):
         activity_regularizer: Regularizer for dense layer activity.
         kernel_constraint: Constraint for dense layer kernels.
         bias_constraint: Constraint for dense layer kernels.
+        softmax_robust_masking: If true will use a more numerically robust
+            masking impl.
 
     Call arguments:
         query: Query `Tensor` of shape `(B, T, dim)`.
@@ -247,6 +249,7 @@ class MultiHeadAttention(Layer):
         activity_regularizer=None,
         kernel_constraint=None,
         bias_constraint=None,
+        softmax_robust_masking=False,
         **kwargs,
     ):
         super().__init__(**kwargs)
@@ -264,6 +267,7 @@ class MultiHeadAttention(Layer):
         self._activity_regularizer = regularizers.get(activity_regularizer)
         self._kernel_constraint = constraints.get(kernel_constraint)
         self._bias_constraint = constraints.get(bias_constraint)
+        self._softmax_robust_masking = softmax_robust_masking
         if attention_axes is not None and not isinstance(
             attention_axes, collections.abc.Sized
         ):
@@ -298,6 +302,7 @@ class MultiHeadAttention(Layer):
             "query_shape": self._query_shape,
             "key_shape": self._key_shape,
             "value_shape": self._value_shape,
+            "softmax_robust_masking": self._softmax_robust_masking,
         }
         base_config = super().get_config()
         return dict(list(base_config.items()) + list(config.items()))
@@ -476,7 +481,9 @@ class MultiHeadAttention(Layer):
             )
         )
         self._softmax = activation.Softmax(
-            axis=norm_axes, dtype=self._dtype_policy
+            axis=norm_axes,
+            robust_masking=self._softmax_robust_masking,
+            dtype=self._dtype_policy,
         )
         self._dropout_layer = regularization.Dropout(
             rate=self._dropout, dtype=self._dtype_policy
