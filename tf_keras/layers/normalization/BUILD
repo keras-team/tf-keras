@@ -17,6 +17,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":batch_normalization",
         ":batch_normalization_v1",
@@ -30,6 +31,7 @@ py_library(
 py_library(
     name = "batch_normalization",
     srcs = ["batch_normalization.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -46,6 +48,7 @@ py_library(
 py_library(
     name = "batch_normalization_v1",
     srcs = ["batch_normalization_v1.py"],
+    strict_deps = False,
     deps = [
         ":batch_normalization",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -55,6 +58,7 @@ py_library(
 py_library(
     name = "group_normalization",
     srcs = ["group_normalization.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
@@ -68,6 +72,7 @@ py_library(
 py_library(
     name = "layer_normalization",
     srcs = ["layer_normalization.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
@@ -81,6 +86,7 @@ py_library(
 py_library(
     name = "unit_normalization",
     srcs = ["unit_normalization.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -90,6 +96,7 @@ py_library(
 py_library(
     name = "spectral_normalization",
     srcs = ["spectral_normalization.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",

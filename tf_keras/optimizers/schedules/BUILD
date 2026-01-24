@@ -16,6 +16,7 @@ py_library(
         "__init__.py",
         "learning_rate_schedule.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:generic_utils",

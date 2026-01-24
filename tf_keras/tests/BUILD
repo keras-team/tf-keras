@@ -126,6 +126,7 @@ py_library(
     srcs = [
         "model_architectures.py",
     ],
+    strict_deps = False,
     deps = [
         "//tf_keras",
     ],
@@ -148,6 +149,7 @@ tf_py_test(
 py_library(
     name = "model_subclassing_test_util",
     srcs = ["model_subclassing_test_util.py"],
+    strict_deps = False,
     deps = [
         "//tf_keras",
         "//tf_keras/testing_infra:test_utils",
@@ -344,6 +346,7 @@ py_library(
         "__init__.py",
         "get_config_samples.py",
     ],
+    strict_deps = False,
     deps = [],
 )
 

@@ -25,6 +25,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":cropping1d",
         ":cropping2d",
@@ -45,6 +46,7 @@ py_library(
 py_library(
     name = "cropping1d",
     srcs = ["cropping1d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -56,6 +58,7 @@ py_library(
 py_library(
     name = "cropping2d",
     srcs = ["cropping2d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -67,6 +70,7 @@ py_library(
 py_library(
     name = "cropping3d",
     srcs = ["cropping3d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -78,6 +82,7 @@ py_library(
 py_library(
     name = "flatten",
     srcs = ["flatten.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -90,6 +95,7 @@ py_library(
 py_library(
     name = "permute",
     srcs = ["permute.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -100,6 +106,7 @@ py_library(
 py_library(
     name = "repeat_vector",
     srcs = ["repeat_vector.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -111,6 +118,7 @@ py_library(
 py_library(
     name = "reshape",
     srcs = ["reshape.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -121,6 +129,7 @@ py_library(
 py_library(
     name = "up_sampling1d",
     srcs = ["up_sampling1d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -132,6 +141,7 @@ py_library(
 py_library(
     name = "up_sampling2d",
     srcs = ["up_sampling2d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -144,6 +154,7 @@ py_library(
 py_library(
     name = "up_sampling3d",
     srcs = ["up_sampling3d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -156,6 +167,7 @@ py_library(
 py_library(
     name = "zero_padding1d",
     srcs = ["zero_padding1d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -168,6 +180,7 @@ py_library(
 py_library(
     name = "zero_padding2d",
     srcs = ["zero_padding2d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -180,6 +193,7 @@ py_library(
 py_library(
     name = "zero_padding3d",
     srcs = ["zero_padding3d.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",

@@ -15,6 +15,7 @@ py_library(
     srcs = [
         "test_combinations.py",
     ],
+    strict_deps = False,
     deps = [
         ":test_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -29,6 +30,7 @@ py_library(
         "__init__.py",
         "test_utils.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -47,6 +49,7 @@ py_library(
 py_library(
     name = "keras_doctest_lib",
     srcs = ["keras_doctest_lib.py"],
+    strict_deps = False,
     deps = [
         "@pypi//numpy",
     ],

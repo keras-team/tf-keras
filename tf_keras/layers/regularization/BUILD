@@ -21,6 +21,7 @@ package(
 py_library(
     name = "regularization",
     srcs = ["__init__.py"],
+    strict_deps = False,
     deps = [
         ":activity_regularization",
         ":alpha_dropout",
@@ -36,6 +37,7 @@ py_library(
 py_library(
     name = "dropout",
     srcs = ["dropout.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -47,6 +49,7 @@ py_library(
 py_library(
     name = "spatial_dropout1d",
     srcs = ["spatial_dropout1d.py"],
+    strict_deps = False,
     deps = [
         ":dropout",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -57,6 +60,7 @@ py_library(
 py_library(
     name = "spatial_dropout2d",
     srcs = ["spatial_dropout2d.py"],
+    strict_deps = False,
     deps = [
         ":dropout",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -68,6 +72,7 @@ py_library(
 py_library(
     name = "spatial_dropout3d",
     srcs = ["spatial_dropout3d.py"],
+    strict_deps = False,
     deps = [
         ":dropout",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -79,6 +84,7 @@ py_library(
 py_library(
     name = "gaussian_dropout",
     srcs = ["gaussian_dropout.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -91,6 +97,7 @@ py_library(
 py_library(
     name = "gaussian_noise",
     srcs = ["gaussian_noise.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -102,6 +109,7 @@ py_library(
 py_library(
     name = "activity_regularization",
     srcs = ["activity_regularization.py"],
+    strict_deps = False,
     deps = [
         "//tf_keras:regularizers",
         "//tf_keras/engine:base_layer",
@@ -111,6 +119,7 @@ py_library(
 py_library(
     name = "alpha_dropout",
     srcs = ["alpha_dropout.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
