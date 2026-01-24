@@ -36,12 +36,14 @@ BECHMARK_TAGS = [
 py_library(
     name = "run_xprof",
     srcs = ["run_xprof.py"],
+    strict_deps = False,
     visibility = ["//visibility:private"],
 )
 
 py_library(
     name = "layer_benchmarks_test_base",
     srcs = ["layer_benchmarks_test_base.py"],
+    strict_deps = False,
     visibility = ["//visibility:private"],
     deps = [
         ":run_xprof",

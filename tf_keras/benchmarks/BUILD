@@ -28,6 +28,7 @@ package(
 # Add all benchmarks related utils here for pip testing dependencies.
 py_library(
     name = "keras_benchmark_lib_pip",
+    strict_deps = False,
     deps = [
         ":benchmark_util",
         ":distribution_util",
@@ -38,6 +39,7 @@ py_library(
 # This lib is mainly for running benchmarks on mlcompass infra.
 py_library(
     name = "profiler_lib",
+    strict_deps = False,
     visibility = [
         "//learning/brain/contrib/keras_benchmark:__subpackages__",
         "//tf_keras:friends",
@@ -94,6 +96,7 @@ py_library(
         "__init__.py",
         "benchmark_util.py",
     ],
+    strict_deps = False,
     deps = [
         ":distribution_util",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
@@ -116,6 +119,7 @@ py_test(
 py_library(
     name = "distribution_util",
     srcs = ["distribution_util.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
     ],

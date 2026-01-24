@@ -25,6 +25,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":activation",
         ":dense",
@@ -49,6 +50,7 @@ py_library(
 py_library(
     name = "activation",
     srcs = ["activation.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -58,6 +60,7 @@ py_library(
 py_library(
     name = "dense",
     srcs = ["dense.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -68,6 +71,7 @@ py_library(
 py_library(
     name = "einsum_dense",
     srcs = ["einsum_dense.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
@@ -81,6 +85,7 @@ py_library(
 py_library(
     name = "embedding",
     srcs = ["embedding.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -97,6 +102,7 @@ py_library(
 py_library(
     name = "lambda",
     srcs = ["lambda_layer.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -106,6 +112,7 @@ py_library(
 py_library(
     name = "masking",
     srcs = ["masking.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -115,6 +122,7 @@ py_library(
 py_library(
     name = "tf_op_layer",
     srcs = ["tf_op_layer.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -129,6 +137,7 @@ py_library(
 py_library(
     name = "identity",
     srcs = ["identity.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",

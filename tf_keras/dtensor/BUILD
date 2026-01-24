@@ -26,6 +26,7 @@ package(
 py_library(
     name = "dtensor",
     srcs = ["__init__.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -64,6 +65,7 @@ tf_py_test(
 py_library(
     name = "layout_map",
     srcs = ["layout_map.py"],
+    strict_deps = False,
     deps = [
         ":dtensor",
         ":lazy_variable",
@@ -92,6 +94,7 @@ tf_py_test(
 py_library(
     name = "integration_test_utils",
     srcs = ["integration_test_utils.py"],
+    strict_deps = False,
     deps = [
         ":dtensor",
         ":layout_map",
@@ -165,6 +168,7 @@ tf_py_test(
 py_library(
     name = "lazy_variable",
     srcs = ["lazy_variable.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -173,6 +177,7 @@ py_library(
 py_library(
     name = "utils",
     srcs = ["utils.py"],
+    strict_deps = False,
     deps = [
         ":dtensor",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -196,6 +201,7 @@ tf_py_test(
 py_library(
     name = "test_util",
     srcs = ["test_util.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//absl_py",  # absl/testing:parameterized

@@ -30,6 +30,7 @@ py_library(
         "training_utils_v1.py",
         "training_v1.py",
     ],
+    strict_deps = False,
     deps = [
         ":base_layer",
         ":base_preprocessing_layer",
@@ -73,6 +74,7 @@ py_library(
 py_library(
     name = "base_layer_utils",
     srcs = ["base_layer_utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -88,6 +90,7 @@ py_library(
         "base_layer.py",
         "base_layer_v1.py",
     ],
+    strict_deps = False,
     deps = [
         ":base_layer_utils",
         ":input_spec",
@@ -117,6 +120,7 @@ py_library(
 py_library(
     name = "input_layer",
     srcs = ["input_layer.py"],
+    strict_deps = False,
     deps = [
         ":base_layer",
         ":keras_tensor",
@@ -132,6 +136,7 @@ py_library(
 py_library(
     name = "functional_utils",
     srcs = ["functional_utils.py"],
+    strict_deps = False,
     deps = [
         ":input_layer",
         ":keras_tensor",
@@ -143,6 +148,7 @@ py_library(
 py_library(
     name = "data_adapter",
     srcs = ["data_adapter.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/distribute",
@@ -155,6 +161,7 @@ py_library(
 py_library(
     name = "input_spec",
     srcs = ["input_spec.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -164,6 +171,7 @@ py_library(
 py_library(
     name = "keras_tensor",
     srcs = ["keras_tensor.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:object_identity",
@@ -175,6 +183,7 @@ py_library(
     srcs = [
         "base_preprocessing_layer.py",
     ],
+    strict_deps = False,
     deps = [
         ":base_layer",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -185,6 +194,7 @@ py_library(
 py_library(
     name = "node",
     srcs = ["node.py"],
+    strict_deps = False,
     deps = [
         ":base_layer_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"

@@ -19,6 +19,7 @@ py_library(
         "__init__.py",
         "export_lib.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
