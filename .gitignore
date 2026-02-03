@@ -17,5 +17,6 @@ __pycache__/
 # Bazel files
 bazel-bin
 bazel-keras
+bazel-tf-keras
 bazel-out
 bazel-testlogs
