@@ -11,12 +11,12 @@ To build the artifacts using Bazel, use the following command:
 
 ```
 # Upgrade requirements lock file
-bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.9 -- --upgrade
+bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.10 -- --upgrade
 
 # Build the artifact
 TAG_FILTERS="-no_oss,-oss_excluded,-oss_serial,-gpu,-benchmark-test,-no_oss_py3,-no_pip,-nopip"
 bazel build \
-  --repo_env=HERMETIC_PYTHON_VERSION=3.9 \
+  --repo_env=HERMETIC_PYTHON_VERSION=3.10 \
   --build_tag_filters="${TAG_FILTERS}" \
   ${BUILD_OPTIONS} \
   -- \
@@ -53,7 +53,7 @@ Additional wheel requirements for the self-built and release builds:
 placed in the `dist` folder as well.
 
 The testing of nightly `tf_keras` wheels doesn't require this
-procedure, because the `requirements_lock_3_9.txt` file has lock information for
+procedure, because the `requirements_lock_3_10.txt` file has lock information for
 `tf-nightly` and `keras-nightly` wheels.
 
 Note that the wheels in the `dist` folder have priority over the versions
@@ -68,7 +68,7 @@ TAG_FILTERS="-no_oss,-oss_excluded,-oss_serial,-gpu,-benchmark-test,-no_oss_py3,
 
 # Wheel sanity test
 bazel test \
-  --repo_env=HERMETIC_PYTHON_VERSION=3.9 \
+  --repo_env=HERMETIC_PYTHON_VERSION=3.10 \
   --build_tag_filters="${TAG_FILTERS}" \
   ${BUILD_OPTIONS} \
   -- \
@@ -78,7 +78,7 @@ bazel test \
 python3 -c "import pip_build;pip_build.convert_keras_imports('tf_keras')"
 
 bazel test \
-    --repo_env=HERMETIC_PYTHON_VERSION=3.9 \
+    --repo_env=HERMETIC_PYTHON_VERSION=3.10 \
     --test_timeout 300,450,1200,3600 \
     --test_output=errors \
     --keep_going \

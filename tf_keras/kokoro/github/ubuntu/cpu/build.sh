@@ -20,9 +20,9 @@ cd "${KOKORO_ROOT}/"
 
 cd "src/github/tf-keras"
 
-bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.9 -- --upgrade
+bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.10 -- --upgrade
 bazel test --test_timeout 300,450,1200,3600 --test_output=errors --keep_going \
-   --repo_env=HERMETIC_PYTHON_VERSION=3.9 \
+   --repo_env=HERMETIC_PYTHON_VERSION=3.10 \
    --build_tests_only \
    --build_tag_filters="-no_oss,-oss_excluded" \
    --test_tag_filters="-no_oss,-oss_excluded" \

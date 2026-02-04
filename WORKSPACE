@@ -46,7 +46,7 @@ load("@xla//third_party/py:python_init_repositories.bzl", "python_init_repositor
 
 python_init_repositories(
     requirements = {
-        "3.9": "//:requirements_lock_3_9.txt",
+        "3.10": "//:requirements_lock_3_10.txt",
     },
     local_wheel_workspaces = ["//:WORKSPACE"],
     local_wheel_dist_folder = "dist",

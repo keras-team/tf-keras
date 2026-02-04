@@ -15,8 +15,8 @@ which bazel
 bazel version
 
 TAG_FILTERS="-no_oss,-oss_excluded,-oss_serial,-gpu,-benchmark-test,-no_oss_py3,-no_pip,-nopip"
-bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.9 -- --upgrade
+bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.10 -- --upgrade
 bazel build \
-    --repo_env=HERMETIC_PYTHON_VERSION=3.9 \
+    --repo_env=HERMETIC_PYTHON_VERSION=3.10 \
     --build_tag_filters="${TAG_FILTERS}" \
     -- //tf_keras/...

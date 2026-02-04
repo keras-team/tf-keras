@@ -30,12 +30,12 @@ TF_GPU_COUNT=4
 TF_TESTS_PER_GPU=8
 LOCAL_TEST_JOBS=32  # TF_GPU_COUNT * TF_TESTS_PER_GPU
 
-bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.9 -- --upgrade
+bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.10 -- --upgrade
 bazel test --test_timeout 300,600,1200,3600 --test_output=errors --keep_going \
-   --repo_env=HERMETIC_PYTHON_VERSION=3.9 \
+   --repo_env=HERMETIC_PYTHON_VERSION=3.10 \
    --build_tests_only \
    --repo_env=TF_CUDA_COMPUTE_CAPABILITIES="${TF_CUDA_COMPUTE_CAPABILITIES}" \
-   --repo_env=HERMETIC_CUDA_VERSION=12.5.1 \
+   --repo_env=HERMETIC_CUDA_VERSION=12.6.0 \
    --repo_env=HERMETIC_CUDNN_VERSION=9.3.0 \
    --config=cuda \
    --test_env=TF_GPU_COUNT=${TF_GPU_COUNT} \
