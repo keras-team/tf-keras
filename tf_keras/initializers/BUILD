@@ -19,6 +19,7 @@ py_library(
         "initializers.py",
         "initializers_v1.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",

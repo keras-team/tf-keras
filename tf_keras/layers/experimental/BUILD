@@ -20,6 +20,7 @@ py_library(
         "__init__.py",
         "dynamic_lookup.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
@@ -45,6 +46,7 @@ tf_py_test(
 py_library(
     name = "dynamic_embedding",
     srcs = ["dynamic_embedding.py"],
+    strict_deps = False,
     deps = [
         ":dynamic_lookup",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"

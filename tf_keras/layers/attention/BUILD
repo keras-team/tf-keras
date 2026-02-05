@@ -23,6 +23,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":additive_attention",
         ":attention_layer",
@@ -33,6 +34,7 @@ py_library(
 py_library(
     name = "multi_head_attention",
     srcs = ["multi_head_attention.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
@@ -50,6 +52,7 @@ py_library(
 py_library(
     name = "base_dense_attention",
     srcs = ["base_dense_attention.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -61,6 +64,7 @@ py_library(
 py_library(
     name = "attention_layer",
     srcs = ["attention.py"],
+    strict_deps = False,
     deps = [
         ":base_dense_attention",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -70,6 +74,7 @@ py_library(
 py_library(
     name = "additive_attention",
     srcs = ["additive_attention.py"],
+    strict_deps = False,
     deps = [
         ":base_dense_attention",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"

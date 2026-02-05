@@ -31,6 +31,7 @@ py_library(
         "translation.py",
         "vae.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
     ],

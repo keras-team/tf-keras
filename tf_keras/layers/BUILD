@@ -25,6 +25,7 @@ py_library(
         "__init__.py",
         "serialization.py",
     ],
+    strict_deps = False,
     deps = [
         ":kernelized",
         ":noise",
@@ -49,6 +50,7 @@ py_library(
 py_library(
     name = "kernelized",
     srcs = ["kernelized.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:base_layer",
@@ -61,6 +63,7 @@ py_library(
 py_library(
     name = "noise",
     srcs = ["noise.py"],
+    strict_deps = False,
     deps = [
         "//tf_keras/layers/regularization:alpha_dropout",
         "//tf_keras/layers/regularization:gaussian_dropout",

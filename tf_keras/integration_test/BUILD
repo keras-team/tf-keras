@@ -224,6 +224,7 @@ distribute_py_test(
 py_library(
     name = "preprocessing_test_utils",
     srcs = ["preprocessing_test_utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
     ],

@@ -24,6 +24,7 @@ py_library(
         "mnist.py",
         "reuters.py",
     ],
+    strict_deps = False,
     visibility = ["//visibility:public"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"

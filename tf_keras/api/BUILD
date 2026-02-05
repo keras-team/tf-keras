@@ -23,6 +23,7 @@ py_library(
         ":tf_keras_python_api_gen_compat_v1",
         ":tf_keras_python_api_gen_compat_v2",
     ],
+    strict_deps = False,
     visibility = ["//visibility:public"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"

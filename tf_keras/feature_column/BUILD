@@ -15,6 +15,7 @@ package(
 py_library(
     name = "feature_column",
     srcs = ["__init__.py"],
+    strict_deps = False,
     deps = [
         ":base_feature_layer",
         ":dense_features",
@@ -26,6 +27,7 @@ py_library(
 py_library(
     name = "base_feature_layer",
     srcs = ["base_feature_layer.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -38,6 +40,7 @@ py_library(
     srcs = [
         "dense_features.py",
     ],
+    strict_deps = False,
     deps = [
         ":base_feature_layer",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -50,6 +53,7 @@ py_library(
     srcs = [
         "dense_features_v2.py",
     ],
+    strict_deps = False,
     deps = [
         ":base_feature_layer",
         ":dense_features",
@@ -85,6 +89,7 @@ tf_py_test(
 py_library(
     name = "sequence_feature_column",
     srcs = ["sequence_feature_column.py"],
+    strict_deps = False,
     deps = [
         ":base_feature_layer",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"

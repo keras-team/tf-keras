@@ -35,6 +35,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":backend",
         ":engine",
@@ -68,6 +69,7 @@ py_library(
 py_library(
     name = "backend",
     srcs = ["backend.py"],
+    strict_deps = False,
     deps = [
         ":backend_config",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -84,6 +86,7 @@ py_library(
 py_library(
     name = "backend_config",
     srcs = ["backend_config.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -96,6 +99,7 @@ py_library(
         "//tf_keras/metrics",
         "//tf_keras/models",
     ],
+    strict_deps = False,
     deps = [
         "//tf_keras/engine",
     ],
@@ -106,6 +110,7 @@ py_library(
     srcs = [
         "activations.py",
     ],
+    strict_deps = False,
     deps = [
         ":backend",
         "//tf_keras/layers/activation",
@@ -117,6 +122,7 @@ py_library(
 py_library(
     name = "base_layer",
     srcs = [],
+    strict_deps = False,
     deps = [
         "//tf_keras/engine:base_layer",
     ],
@@ -127,6 +133,7 @@ py_library(
     srcs = [
         "callbacks.py",
     ],
+    strict_deps = False,
     deps = [
         ":backend",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -145,6 +152,7 @@ py_library(
     srcs = [
         "callbacks_v1.py",
     ],
+    strict_deps = False,
     deps = [
         ":backend",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -158,6 +166,7 @@ py_library(
     srcs = [
         "constraints.py",
     ],
+    strict_deps = False,
     deps = [
         ":backend",
         "//tf_keras/utils:engine_utils",
@@ -169,6 +178,7 @@ py_library(
     srcs = [
         "losses.py",
     ],
+    strict_deps = False,
     deps = [
         ":backend",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -184,6 +194,7 @@ py_library(
     srcs = [
         "regularizers.py",
     ],
+    strict_deps = False,
     deps = [
         ":backend",
         "//tf_keras/utils:engine_utils",
@@ -196,6 +207,7 @@ py_library(
 # py_library(
 #     name = "url_utils",
 #     srcs = ["google/url_utils.py"],
+#     strict_deps = False,
 #     deps = ["//pyglib/contrib/google_ssl"],
 # )
 # copybara:uncomment_end
@@ -206,6 +218,7 @@ py_library(
 # py_library(
 #     name = "distribute_utils",
 #     srcs = ["google/distribute_utils.py"],
+#     strict_deps = False,
 #     deps = [
 #         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//third_party/py/requests",

@@ -25,6 +25,7 @@ py_library(
         "distributed_training_utils.py",
         "distributed_training_utils_v1.py",
     ],
+    strict_deps = False,
     deps = [
         ":distribute_coordinator_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -44,6 +45,7 @@ py_library(
 
 py_library(
     name = "distribute_test_lib_pip",
+    strict_deps = False,
     deps = [
         ":dataset_creator_model_fit_test_base",
         ":distribute_strategy_test_lib",
@@ -59,6 +61,7 @@ py_library(
 py_library(
     name = "optimizer_combinations",
     srcs = ["optimizer_combinations.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/optimizers",
@@ -71,6 +74,7 @@ py_library(
     srcs = [
         "worker_training_state.py",
     ],
+    strict_deps = False,
     deps = [
         ":distributed_file_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -82,11 +86,13 @@ py_library(
 py_library(
     name = "model_collection_base",
     srcs = ["model_collection_base.py"],
+    strict_deps = False,
 )
 
 py_library(
     name = "model_combinations",
     srcs = ["model_combinations.py"],
+    strict_deps = False,
     deps = [
         ":simple_models",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -96,6 +102,7 @@ py_library(
 py_library(
     name = "simple_models",
     srcs = ["simple_models.py"],
+    strict_deps = False,
     deps = [
         ":model_collection_base",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -106,6 +113,7 @@ py_library(
 py_library(
     name = "saved_model_test_base",
     srcs = ["saved_model_test_base.py"],
+    strict_deps = False,
     deps = [
         ":model_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -260,6 +268,7 @@ py_library(
     srcs = [
         "distribute_strategy_test.py",
     ],
+    strict_deps = False,
     deps = [
         ":multi_worker_testing_utils",
         ":optimizer_combinations",
@@ -351,6 +360,7 @@ py_library(
         "keras_rnn_model_correctness_test.py",
         "keras_stateful_lstm_model_correctness_test.py",
     ],
+    strict_deps = False,
     deps = [
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -565,6 +575,7 @@ py_library(
     srcs = [
         "keras_utils_test.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
@@ -676,6 +687,7 @@ py_library(
     srcs = [
         "multi_worker_testing_utils.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
@@ -686,6 +698,7 @@ py_library(
 py_library(
     name = "tpu_strategy_test_utils",
     srcs = ["tpu_strategy_test_utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -843,6 +856,7 @@ py_library(
     srcs = [
         "distributed_file_utils.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -860,6 +874,7 @@ tf_py_test(
 py_library(
     name = "strategy_combinations",
     srcs = ["strategy_combinations.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -868,6 +883,7 @@ py_library(
 py_library(
     name = "test_example",
     srcs = ["test_example.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/legacy_tf_layers:layers",
@@ -879,6 +895,7 @@ py_library(
     srcs = [
         "distribute_coordinator_utils.py",
     ],
+    strict_deps = False,
     deps = ["//:tf_nightly_with_deps"],
 )
 
@@ -887,6 +904,7 @@ py_library(
     srcs = [
         "dataset_creator_model_fit_test_base.py",
     ],
+    strict_deps = False,
     deps = [
         ":multi_worker_testing_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
