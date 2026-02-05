@@ -34,6 +34,7 @@ package(
 py_library(
     name = "mixed_precision_experimental",
     srcs = ["__init__.py"],
+    strict_deps = False,
     deps = [
         ":loss_scale_optimizer",
         ":policy",
@@ -45,6 +46,7 @@ py_library(
     srcs = [
         "policy.py",
     ],
+    strict_deps = False,
     deps = [
         ":device_compatibility_check",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -70,6 +72,7 @@ tf_py_test(
 py_library(
     name = "device_compatibility_check",
     srcs = ["device_compatibility_check.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -90,6 +93,7 @@ py_library(
     srcs = [
         "autocast_variable.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/distribute",
@@ -112,6 +116,7 @@ tf_py_test(
 py_library(
     name = "loss_scale_optimizer",
     srcs = ["loss_scale_optimizer.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/optimizers/legacy:optimizers",
@@ -153,6 +158,7 @@ cuda_py_test(
 py_library(
     name = "test_util",
     srcs = ["test_util.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",

@@ -21,6 +21,7 @@ package(
 py_library(
     name = "merging",
     srcs = ["__init__.py"],
+    strict_deps = False,
     deps = [
         ":add",
         ":average",
@@ -36,6 +37,7 @@ py_library(
 py_library(
     name = "base_merge",
     srcs = ["base_merge.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -47,6 +49,7 @@ py_library(
 py_library(
     name = "add",
     srcs = ["add.py"],
+    strict_deps = False,
     deps = [
         ":base_merge",
     ],
@@ -55,6 +58,7 @@ py_library(
 py_library(
     name = "subtract",
     srcs = ["subtract.py"],
+    strict_deps = False,
     deps = [
         ":base_merge",
         "//tf_keras/utils:tf_utils",
@@ -64,6 +68,7 @@ py_library(
 py_library(
     name = "multiply",
     srcs = ["multiply.py"],
+    strict_deps = False,
     deps = [
         ":base_merge",
     ],
@@ -72,6 +77,7 @@ py_library(
 py_library(
     name = "average",
     srcs = ["average.py"],
+    strict_deps = False,
     deps = [
         ":base_merge",
     ],
@@ -80,6 +86,7 @@ py_library(
 py_library(
     name = "maximum",
     srcs = ["maximum.py"],
+    strict_deps = False,
     deps = [
         ":base_merge",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -89,6 +96,7 @@ py_library(
 py_library(
     name = "minimum",
     srcs = ["minimum.py"],
+    strict_deps = False,
     deps = [
         ":base_merge",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -98,6 +106,7 @@ py_library(
 py_library(
     name = "concatenate",
     srcs = ["concatenate.py"],
+    strict_deps = False,
     deps = [
         ":base_merge",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -109,6 +118,7 @@ py_library(
 py_library(
     name = "dot",
     srcs = ["dot.py"],
+    strict_deps = False,
     deps = [
         ":base_merge",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"

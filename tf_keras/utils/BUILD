@@ -17,6 +17,7 @@ py_library(
         "__init__.py",
         "legacy/__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":audio_dataset",
         ":data_utils",
@@ -38,12 +39,14 @@ py_library(
 py_library(
     name = "control_flow_util",
     srcs = ["control_flow_util.py"],
+    strict_deps = False,
     deps = [],
 )
 
 py_library(
     name = "kpl_test_utils",
     srcs = ["kpl_test_utils.py"],
+    strict_deps = False,
     deps = [
         "//tf_keras",
         "//tf_keras/layers/preprocessing:string_lookup",
@@ -53,6 +56,7 @@ py_library(
 py_library(
     name = "data_utils",
     srcs = ["data_utils.py"],
+    strict_deps = False,
     deps = [
         ":generic_utils",
         ":io_utils",
@@ -66,6 +70,7 @@ py_library(
         "conv_utils.py",
         "losses_utils.py",
     ],
+    strict_deps = False,
     deps = [
         ":data_utils",
         ":io_utils",
@@ -77,6 +82,7 @@ py_library(
 py_library(
     name = "io_utils",
     srcs = ["io_utils.py"],
+    strict_deps = False,
     deps = [
         ":keras_logging",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -86,11 +92,13 @@ py_library(
 py_library(
     name = "keras_logging",
     srcs = ["keras_logging.py"],
+    strict_deps = False,
 )
 
 py_library(
     name = "tf_utils",
     srcs = ["tf_utils.py"],
+    strict_deps = False,
     deps = [
         ":object_identity",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -100,6 +108,7 @@ py_library(
 py_library(
     name = "traceback_utils",
     srcs = ["traceback_utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -110,6 +119,7 @@ py_library(
     srcs = [
         "generic_utils.py",
     ],
+    strict_deps = False,
     deps = [
         ":io_utils",
         ":tf_contextlib",
@@ -124,6 +134,7 @@ py_library(
     srcs = [
         "mode_keys.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -135,6 +146,7 @@ py_library(
         "kernelized_utils.py",
         "layer_utils.py",
     ],
+    strict_deps = False,
     deps = [
         ":engine_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -148,6 +160,7 @@ py_library(
     srcs = [
         "metrics_utils.py",
     ],
+    strict_deps = False,
     deps = [
         ":generic_utils",
         ":tf_utils",
@@ -160,6 +173,7 @@ py_library(
     srcs = [
         "version_utils.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -170,6 +184,7 @@ py_library(
     srcs = [
         "np_utils.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -179,12 +194,14 @@ py_library(
 py_library(
     name = "object_identity",
     srcs = ["object_identity.py"],
+    strict_deps = False,
     deps = [],
 )
 
 py_library(
     name = "tf_contextlib",
     srcs = ["tf_contextlib.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -193,6 +210,7 @@ py_library(
 py_library(
     name = "tf_inspect",
     srcs = ["tf_inspect.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -203,6 +221,7 @@ py_library(
     srcs = [
         "vis_utils.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -213,6 +232,7 @@ py_library(
     srcs = [
         "image_utils.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//pillow",
@@ -224,6 +244,7 @@ py_library(
     srcs = [
         "dataset_creator.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -235,6 +256,7 @@ py_library(
         "dataset_utils.py",
         "image_dataset.py",
     ],
+    strict_deps = False,
     deps = [
         ":image_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -249,6 +271,7 @@ py_library(
         "dataset_utils.py",
         "text_dataset.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -260,6 +283,7 @@ py_library(
     srcs = [
         "timeseries_dataset.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -271,6 +295,7 @@ py_library(
     srcs = [
         "audio_dataset.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -280,6 +305,7 @@ py_library(
 py_library(
     name = "sidecar_evaluator",
     srcs = ["sidecar_evaluator.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//tensorboard_data_server",
@@ -289,6 +315,7 @@ py_library(
 py_library(
     name = "feature_space",
     srcs = ["feature_space.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -299,11 +326,13 @@ py_library(
 py_library(
     name = "timed_threads",
     srcs = ["timed_threads.py"],
+    strict_deps = False,
 )
 
 py_library(
     name = "steps_per_execution_tuning",
     srcs = ["steps_per_execution_tuning.py"],
+    strict_deps = False,
     deps = [
         "@pypi//numpy",
     ],

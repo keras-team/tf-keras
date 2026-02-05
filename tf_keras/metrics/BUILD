@@ -45,6 +45,7 @@ py_library(
         "py_metric.py",
         "regression_metrics.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",

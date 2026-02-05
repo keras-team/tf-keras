@@ -18,6 +18,7 @@ py_library(
         "linear.py",
         "wide_deep.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend_config",

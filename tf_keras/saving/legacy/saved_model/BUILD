@@ -34,11 +34,13 @@ package(
 py_library(
     name = "order_preserving_set",
     srcs = ["order_preserving_set.py"],
+    strict_deps = False,
 )
 
 py_library(
     name = "utils",
     srcs = ["utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer_utils",
@@ -62,6 +64,7 @@ py_library(
         "save_impl.py",
         "serialized_attributes.py",
     ],
+    strict_deps = False,
     deps = [
         ":order_preserving_set",
         ":utils",

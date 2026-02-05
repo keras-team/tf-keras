@@ -20,6 +20,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":discretization",
         ":hashed_crossing",
@@ -39,6 +40,7 @@ py_library(
     srcs = [
         "discretization.py",
     ],
+    strict_deps = False,
     deps = [
         ":preprocessing_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -53,6 +55,7 @@ py_library(
     srcs = [
         "hashing.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine",
@@ -65,6 +68,7 @@ py_library(
     srcs = [
         "hashed_crossing.py",
     ],
+    strict_deps = False,
     deps = [
         ":preprocessing_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -80,6 +84,7 @@ py_library(
     srcs = [
         "image_preprocessing.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -97,6 +102,7 @@ py_library(
     srcs = [
         "index_lookup.py",
     ],
+    strict_deps = False,
     deps = [
         ":category_encoding",
         ":preprocessing_utils",
@@ -112,6 +118,7 @@ py_library(
     srcs = [
         "normalization.py",
     ],
+    strict_deps = False,
     deps = [
         ":preprocessing_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -126,6 +133,7 @@ py_library(
     srcs = [
         "integer_lookup.py",
     ],
+    strict_deps = False,
     deps = [
         ":index_lookup",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -138,6 +146,7 @@ py_library(
     srcs = [
         "text_vectorization.py",
     ],
+    strict_deps = False,
     deps = [
         ":category_encoding",
         ":preprocessing_utils",
@@ -156,6 +165,7 @@ py_library(
     srcs = [
         "category_encoding.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -171,6 +181,7 @@ py_library(
     srcs = [
         "string_lookup.py",
     ],
+    strict_deps = False,
     deps = [
         ":index_lookup",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -183,6 +194,7 @@ py_library(
     srcs = [
         "preprocessing_stage.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine",
@@ -194,6 +206,7 @@ py_library(
 py_library(
     name = "preprocessing_test_utils",
     srcs = ["preprocessing_test_utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -203,6 +216,7 @@ py_library(
 py_library(
     name = "preprocessing_utils",
     srcs = ["preprocessing_utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",

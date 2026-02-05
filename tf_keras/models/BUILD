@@ -15,6 +15,7 @@ package(
 py_library(
     name = "sharpness_aware_minimization",
     srcs = ["sharpness_aware_minimization.py"],
+    strict_deps = False,
     deps = [
         ":cloning",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -27,6 +28,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":cloning",
         ":sharpness_aware_minimization",
@@ -38,6 +40,7 @@ py_library(
     srcs = [
         "cloning.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",

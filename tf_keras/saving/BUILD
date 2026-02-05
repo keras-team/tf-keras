@@ -26,6 +26,7 @@ py_library(
         "pickle_utils.py",
         "saving_api.py",
     ],
+    strict_deps = False,
     deps = [
         ":object_registration",
         ":serialization",
@@ -53,6 +54,7 @@ py_library(
     srcs = [
         "saving_lib.py",
     ],
+    strict_deps = False,
     deps = [
         ":serialization_lib",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -79,6 +81,7 @@ py_library(
     srcs = [
         "object_registration.py",
     ],
+    strict_deps = False,
 )
 
 py_library(
@@ -86,6 +89,7 @@ py_library(
     srcs = [
         "serialization_lib.py",
     ],
+    strict_deps = False,
     deps = [
         ":object_registration",
         ":serialization",
@@ -100,6 +104,7 @@ py_library(
     srcs = [
         "legacy/serialization.py",
     ],
+    strict_deps = False,
     deps = [
         ":object_registration",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
