@@ -146,6 +146,7 @@ py_test(
 py_binary(
     name = "model_memory_profile",
     srcs = ["model_memory_profile.py"],
+    strict_deps = False,
     tags = ["no_oss"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
