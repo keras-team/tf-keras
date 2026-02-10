@@ -196,6 +196,7 @@ py_library(
 # py_library(
 #     name = "url_utils",
 #     srcs = ["google/url_utils.py"],
+#     strict_deps = False,
 #     deps = ["//pyglib/contrib/google_ssl"],
 # )
 # copybara:uncomment_end
@@ -206,6 +207,7 @@ py_library(
 # py_library(
 #     name = "distribute_utils",
 #     srcs = ["google/distribute_utils.py"],
+#     strict_deps = False,
 #     deps = [
 #         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//third_party/py/requests",
