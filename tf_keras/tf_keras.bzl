@@ -9,7 +9,7 @@ def py_test(deps = [], data = [], kernels = [], **kwargs):
             "//conditions:default": deps,
             "//tf_keras:no_keras_py_deps": ["//tf_keras/wheel:pypi_tf_keras_wheel_with_deps"],
         }),
-        strict_deps = False,
+        strict_deps = False,  # copybara:comment
         data = data + kernels,
         **kwargs
     )
