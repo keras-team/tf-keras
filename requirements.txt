@@ -3,6 +3,7 @@
 pandas
 pydot
 scipy
+tensorboard
 tf-nightly
 portpicker
 pyyaml
