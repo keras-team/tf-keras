@@ -207,3 +207,15 @@ def get_pypi_tensorflow_dep():
         is_true = "@pypi//tensorflow",
         is_false = "@pypi//tf_nightly",
     )
+
+def get_pypi_tensorboard_pkg():
+    return _get_pypi_dep_for_release(
+        is_true = "@pypi_tensorboard//:pkg",
+        is_false = "@pypi_tb_nightly//:pkg",
+    )
+
+def get_pypi_tensorboard_dep():
+    return _get_pypi_dep_for_release(
+        is_true = "@pypi//tensorboard",
+        is_false = "@pypi//tb_nightly",
+    )
