@@ -30,9 +30,9 @@ http_archive(
     sha256 = "96ffcfd4a52bcb75d34b426f5a26d4e83a4dcf8f05bccf98e60d415a02ac6bca",
     strip_prefix = "xla-5a2c4befe808fbc894b55747d3c8955852a68ae6",
     urls = [
-      "https://storage.googleapis.com/mirror.tensorflow.org/github.com/openxla/xla/archive/5a2c4befe808fbc894b55747d3c8955852a68ae6.tar.gz",
-      "https://github.com/openxla/xla/archive/5a2c4befe808fbc894b55747d3c8955852a68ae6.tar.gz",
-      ],
+        "https://storage.googleapis.com/mirror.tensorflow.org/github.com/openxla/xla/archive/5a2c4befe808fbc894b55747d3c8955852a68ae6.tar.gz",
+        "https://github.com/openxla/xla/archive/5a2c4befe808fbc894b55747d3c8955852a68ae6.tar.gz",
+    ],
 )
 
 load("@xla//third_party:repo.bzl", "tf_http_archive", "tf_mirror_urls")
@@ -45,19 +45,22 @@ python_init_rules()
 load("@xla//third_party/py:python_init_repositories.bzl", "python_init_repositories")
 
 python_init_repositories(
+    local_wheel_dist_folder = "dist",
+    local_wheel_inclusion_list = [
+        "keras*",
+        "tb-nightly*",
+        "tb_nightly*",
+        "tensorboard*",
+        "tensorflow*",
+        "tf-keras*",
+        "tf-nightly*",
+        "tf_keras*",
+        "tf_nightly*",
+    ],
+    local_wheel_workspaces = ["//:WORKSPACE"],
     requirements = {
         "3.10": "//:requirements_lock_3_10.txt",
     },
-    local_wheel_workspaces = ["//:WORKSPACE"],
-    local_wheel_dist_folder = "dist",
-    local_wheel_inclusion_list = [
-        "tf_keras*",
-        "tf_nightly*",
-        "tf-keras*",
-        "tf-nightly*",
-        "tensorflow*",
-        "keras*",
-    ],
 )
 
 load("@xla//third_party/py:python_init_toolchains.bzl", "python_init_toolchains")
@@ -169,13 +172,13 @@ maybe(
     tf_http_archive,
     name = "com_google_protobuf",
     patch_file = ["@xla//third_party/protobuf:protobuf.patch"],
-    sha256 = "6e09bbc950ba60c3a7b30280210cd285af8d7d8ed5e0a6ed101c72aff22e8d88",
-    strip_prefix = "protobuf-6.31.1",
-    urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/refs/tags/v6.31.1.zip"),
     repo_mapping = {
         "@abseil-cpp": "@com_google_absl",
         "@protobuf_pip_deps": "@pypi",
     },
+    sha256 = "6e09bbc950ba60c3a7b30280210cd285af8d7d8ed5e0a6ed101c72aff22e8d88",
+    strip_prefix = "protobuf-6.31.1",
+    urls = tf_mirror_urls("https://github.com/protocolbuffers/protobuf/archive/refs/tags/v6.31.1.zip"),
 )
 
 # ZLIB. Need by com_google_protobuf.
@@ -187,6 +190,6 @@ tf_http_archive(
     urls = tf_mirror_urls("https://zlib.net/fossils/zlib-1.3.1.tar.gz"),
 )
 
-
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
 protobuf_deps()
