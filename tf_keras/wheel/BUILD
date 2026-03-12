@@ -25,6 +25,8 @@ load(
 load("@xla//third_party/py:python_wheel.bzl", "transitive_py_deps")
 load(
     "//tf_keras/wheel:wheel.bzl",
+    "get_pypi_tensorboard_dep",
+    "get_pypi_tensorboard_pkg",
     "get_pypi_tensorflow_dep",
     "get_pypi_tensorflow_pkg",
     "get_pypi_tf_keras_wheel",
@@ -47,7 +49,7 @@ py_binary(
     deps = [
         ":wheel_sources_library",
         "@pypi//build",
-    ] + [get_pypi_tensorflow_dep()],
+    ] + [get_pypi_tensorflow_dep()] + [get_pypi_tensorboard_dep()],
 )
 
 py_binary(
@@ -337,7 +339,7 @@ tf_keras_source_package(
 py_import(
     name = "pypi_tf_keras_py_import",
     wheel = get_pypi_tf_keras_wheel(),
-    wheel_deps = [get_pypi_tensorflow_pkg()],
+    wheel_deps = [get_pypi_tensorflow_pkg()] + [get_pypi_tensorboard_pkg()],
 )
 
 py_test(
@@ -356,7 +358,7 @@ py_import(
         "@pypi//numpy",
         "@pypi//portpicker",
         "@pypi//scipy",
-    ] + [get_pypi_tensorflow_dep()],
+    ] + [get_pypi_tensorflow_dep()] + [get_pypi_tensorboard_dep()],
 )
 
 # TODO(ybaturina): Uncomment once all python transformations are converted to
