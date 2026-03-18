@@ -25,6 +25,8 @@ load(
 load("@xla//third_party/py:python_wheel.bzl", "transitive_py_deps")
 load(
     "//tf_keras/wheel:wheel.bzl",
+    "get_pypi_tensorboard_dep",
+    "get_pypi_tensorboard_pkg",
     "get_pypi_tensorflow_dep",
     "get_pypi_tensorflow_pkg",
     "get_pypi_tf_keras_wheel",
@@ -54,6 +56,25 @@ py_binary(
     name = "create_wheel_dir_py",
     srcs = ["create_wheel_dir.py"],
     main = "create_wheel_dir.py",
+)
+
+tf_keras_wheel(
+    name = "tf_keras_wheel",
+    py_src_dir = ":wheel_sources",
+)
+
+tf_keras_source_package(
+    name = "tf_keras_source_package",
+    py_src_dir = ":wheel_sources",
+)
+
+py_import(
+    name = "pypi_tf_keras_py_import",
+    wheel = get_pypi_tf_keras_wheel(),
+    deps = [
+        get_pypi_tensorboard_pkg(),
+        get_pypi_tensorflow_pkg(),
+    ],
 )
 
 transitive_py_deps(
@@ -324,22 +345,6 @@ wheel_sources(
     ],
 )
 
-tf_keras_wheel(
-    name = "tf_keras_wheel",
-    py_src_dir = ":wheel_sources",
-)
-
-tf_keras_source_package(
-    name = "tf_keras_source_package",
-    py_src_dir = ":wheel_sources",
-)
-
-py_import(
-    name = "pypi_tf_keras_py_import",
-    wheel = get_pypi_tf_keras_wheel(),
-    wheel_deps = [get_pypi_tensorflow_pkg()],
-)
-
 py_test(
     name = "pypi_tf_keras_wheel_test",
     srcs = ["tf_keras_wheel_test.py"],
@@ -356,7 +361,7 @@ py_import(
         "@pypi//numpy",
         "@pypi//portpicker",
         "@pypi//scipy",
-    ] + [get_pypi_tensorflow_dep()],
+    ] + [get_pypi_tensorflow_dep()] + [get_pypi_tensorboard_dep()],
 )
 
 # TODO(ybaturina): Uncomment once all python transformations are converted to
