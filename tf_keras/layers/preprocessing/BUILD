@@ -262,6 +262,8 @@ distribute_py_test(
         "//tf_keras:backend",
         "//tf_keras/distribute:strategy_combinations",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
+        "//third_party/tensorflow/python/framework:test_lib",
     ],
 )
 
@@ -289,6 +291,7 @@ distribute_py_test(
         "//tf_keras",
         "//tf_keras/distribute:strategy_combinations",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
         "@pypi//portpicker",
     ],
 )
@@ -329,6 +332,7 @@ distribute_py_test(
         "//tf_keras",
         "//tf_keras/distribute:strategy_combinations",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
     ],
 )
 
@@ -362,10 +366,14 @@ distribute_py_test(
     ],
     deps = [
         ":hashing",
+        ":preprocessing_test_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras:backend",
         "//tf_keras/distribute:strategy_combinations",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
+        "//third_party/tensorflow/python/framework:test_lib",
         "@pypi//portpicker",
     ],
 )
@@ -417,10 +425,14 @@ distribute_py_test(
     tpu_tags = ["no_oss"],
     deps = [
         ":index_lookup",
+        ":preprocessing_test_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras:backend",
         "//tf_keras/distribute:strategy_combinations",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
+        "//third_party/tensorflow/python/framework:test_lib",
         "@pypi//portpicker",
     ],
 )
@@ -496,6 +508,7 @@ distribute_py_test(
         "//tf_keras",
         "//tf_keras/distribute:strategy_combinations",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
     ],
 )
 
@@ -535,8 +548,11 @@ distribute_py_test(
         ":text_vectorization",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras:backend",
         "//tf_keras/distribute:strategy_combinations",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
+        "//third_party/tensorflow/python/framework:test_lib",
         "@pypi//portpicker",
     ],
 )

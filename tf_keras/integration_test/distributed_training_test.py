@@ -21,6 +21,7 @@ import glob
 import os
 
 import tensorflow.compat.v2 as tf
+from tf_keras.engine.sequential import Sequential
 
 ds_combinations = tf.__internal__.distribute.combinations
 
@@ -45,45 +46,45 @@ STRATEGIES = [
     tf.__internal__.test.combinations.combine(strategy=STRATEGIES, mode="eager")
 )
 class DistributedTrainingTest(tf.test.TestCase):
-    """Test to demonstrate basic TF-Keras training with a variety of
+  """Test to demonstrate basic TF-Keras training with a variety of
     strategies.
     """
 
-    def testKerasTrainingAPI(self, strategy):
-        if not tf.__internal__.tf2.enabled() and isinstance(
+  def testKerasTrainingAPI(self, strategy):
+    if not tf.__internal__.tf2.enabled() and isinstance(
             strategy, tf.distribute.experimental.ParameterServerStrategy
         ):
-            self.skipTest(
+      self.skipTest(
                 "Parameter Server strategy with dataset creator need to be run "
                 "when eager execution is enabled."
             )
 
-        # A `dataset_fn` is required for `Model.fit` to work across all
-        # strategies.
-        def dataset_fn(input_context):
-            batch_size = input_context.get_per_replica_batch_size(
+    # A `dataset_fn` is required for `Model.fit` to work across all
+    # strategies.
+    def dataset_fn(input_context):
+      batch_size = input_context.get_per_replica_batch_size(
                 global_batch_size=64
             )
-            x = tf.random.uniform((10, 10))
-            y = tf.random.uniform((10,))
-            dataset = (
+      x = tf.random.uniform((10, 10))
+      y = tf.random.uniform((10,))
+      dataset = (
                 tf.data.Dataset.from_tensor_slices((x, y)).shuffle(10).repeat()
             )
-            dataset = dataset.shard(
+      dataset = dataset.shard(
                 input_context.num_input_pipelines,
                 input_context.input_pipeline_id,
             )
-            return dataset.batch(batch_size).prefetch(2)
+      return dataset.batch(batch_size).prefetch(2)
 
-        with strategy.scope():
-            model = tf.keras.Sequential([tf.keras.layers.Dense(10)])
-            optimizer = tf.keras.optimizers.SGD()
-            model.compile(optimizer, loss="mse", steps_per_execution=5)
+    with strategy.scope():
+      model = Sequential([tf.keras.layers.Dense(10)])
+      optimizer = tf.keras.optimizers.SGD()
+      model.compile(optimizer, loss="mse", steps_per_execution=5)
 
-        x = tf.keras.utils.experimental.DatasetCreator(dataset_fn)
+    x = tf.keras.utils.experimental.DatasetCreator(dataset_fn)
 
-        logdir = os.path.join(self.get_temp_dir(), "logdir")
-        model.fit(
+    logdir = os.path.join(self.get_temp_dir(), "logdir")
+    model.fit(
             x,
             epochs=2,
             steps_per_epoch=20,
@@ -96,35 +97,35 @@ class DistributedTrainingTest(tf.test.TestCase):
             ],
         )
 
-        events_got = []
-        for event_file in glob.glob(logdir + "/train/events.out.*"):
-            for event in tf.compat.v1.train.summary_iterator(event_file):
-                if not event.summary:
-                    continue
-                for value in event.summary.value:
-                    if value.tag != "batch_loss":
-                        continue
-                    events_got += [event.step]
+    events_got = []
+    for event_file in glob.glob(logdir + "/train/events.out.*"):
+      for event in tf.compat.v1.train.summary_iterator(event_file):
+        if not event.summary:
+          continue
+        for value in event.summary.value:
+          if value.tag != "batch_loss":
+            continue
+          events_got += [event.step]
 
-        # total steps = epochs * steps_per_epoch
-        events_expected = [5, 10, 15, 20, 25, 30, 35, 40]
+    # total steps = epochs * steps_per_epoch
+    events_expected = [5, 10, 15, 20, 25, 30, 35, 40]
 
-        if isinstance(
+    if isinstance(
             strategy, tf.distribute.experimental.ParameterServerStrategy
         ):
-            # Metrics are not logged with this strategy as they are not
-            # immediately available on batch end
-            events_expected = []
-        if (
+      # Metrics are not logged with this strategy as they are not
+      # immediately available on batch end
+      events_expected = []
+    if (
             strategy.cluster_resolver
             and strategy.cluster_resolver.task_type == "worker"
         ):
-            # The below assertion is run by both chief and workers when using
-            # `tf.distribute.MultiWorkerMirroredStrategy`, but only the chief
-            # will log events.
-            events_expected = []
+      # The below assertion is run by both chief and workers when using
+      # `tf.distribute.MultiWorkerMirroredStrategy`, but only the chief
+      # will log events.
+      events_expected = []
 
-        self.assertEqual(events_got, events_expected)
+    self.assertEqual(events_got, events_expected)
 
 
 if __name__ == "__main__":

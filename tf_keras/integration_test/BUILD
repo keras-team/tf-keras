@@ -198,8 +198,9 @@ distribute_py_test(
         "notsan",  # TODO(b/184542721)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//tf_keras/engine",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -303,8 +304,11 @@ distribute_py_test(
         "notsan",  # TODO(b/184542721)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//tf_keras/engine",
+        "//third_party/py/absl/logging",
+        "//third_party/py/portpicker",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 

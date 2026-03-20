@@ -39,6 +39,11 @@ py_library(
 py_library(
     name = "utils",
     srcs = ["utils.py"],
+    visibility = [
+        "//tf_keras/layers/rnn:__pkg__",
+        "//tf_keras/models:__pkg__",
+        "//tf_keras/saving:__subpackages__",
+    ],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer_utils",

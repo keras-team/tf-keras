@@ -193,7 +193,12 @@ distribute_py_test(
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/applications",
+        "//tf_keras/datasets",
+        "//tf_keras/optimizers",
         "//tf_keras/testing_infra:test_utils",
+        "//third_party/tensorflow/python/ops/losses:losses_impl",
+        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],
 )
@@ -211,6 +216,7 @@ distribute_py_test(
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/metrics",
+        "//third_party/tensorflow/python/framework:test_lib",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],
@@ -234,6 +240,8 @@ distribute_py_test(
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/layers/core",
+        "//tf_keras/optimizers/legacy:optimizers",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],
@@ -252,6 +260,7 @@ distribute_py_test(
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/optimizers/legacy:optimizers",
+        "//third_party/tensorflow/python/distribute:values",
         "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
@@ -290,8 +299,13 @@ distribute_py_test(
         "requires-mem:28g",  # spawns multiple processes.
     ],
     deps = [
-        ":distribute_strategy_test_lib",
-        ":keras_correctness_test_lib",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/engine",
+        "//tf_keras/layers/core",
+        "//tf_keras/optimizers/legacy:optimizers",
+        "//tf_keras/premade_models",
+        "//tf_keras/utils:dataset_creator",
+        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],
 )
@@ -339,6 +353,7 @@ distribute_py_test(
         ":distribute_strategy_test_lib",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:callbacks",
+        "//tf_keras/optimizers/legacy:optimizers",
     ],
 )
 
@@ -353,11 +368,19 @@ py_library(
         "keras_stateful_lstm_model_correctness_test.py",
     ],
     deps = [
+        ":distribute",
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:backend",
-        "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/layers/rnn:gru",
+        "//tf_keras/layers/rnn:gru_v1",
+        "//tf_keras/layers/rnn:lstm",
+        "//tf_keras/layers/rnn:lstm_v1",
+        "//tf_keras/mixed_precision:policy",
+        "//tf_keras/optimizers/legacy:optimizers",
+        "//tf_keras/testing_infra:test_utils",
+        "//tf_keras/utils:data_utils",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
@@ -451,6 +474,7 @@ distribute_py_test(
     ],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/engine:base_layer",
         "//tf_keras/metrics",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
@@ -513,7 +537,9 @@ distribute_py_test(
     ],
     deps = [
         ":saved_model_test_base",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/saving",
+        "//tf_keras/testing_infra:test_utils",
     ],
 )
 
@@ -553,10 +579,14 @@ distribute_py_test(
         "notsan",
     ],
     deps = [
+        ":distribute",
         ":distribute_strategy_test_lib",
         ":keras_test_lib",
         ":optimizer_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras",
+        "//tf_keras:losses",
+        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],
 )
@@ -567,8 +597,12 @@ py_library(
         "keras_utils_test.py",
     ],
     deps = [
+        ":distribute",
+        ":distribute_strategy_test_lib",
+        ":optimizer_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras:losses",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
@@ -599,7 +633,8 @@ distribute_py_test(
         ":optimizer_combinations",
         ":test_example",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
-        "//tf_keras/layers",
+        "//tf_keras/layers/core",
+        "//tf_keras/optimizers/legacy:optimizers",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
@@ -706,8 +741,10 @@ distribute_py_test(
         "nomultivm",  # TODO(b/170502145)
     ],
     deps = [
+        ":model_combinations",
         ":saved_model_test_base",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/testing_infra:test_utils",
     ],
 )
 
@@ -727,6 +764,7 @@ distribute_py_test(
         ":saved_model_test_base",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/saving",
+        "//tf_keras/testing_infra:test_utils",
     ],
 )
 
@@ -743,7 +781,9 @@ distribute_py_test(
         ":multi_worker_testing_utils",
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras",
         "//tf_keras/engine:base_layer",
+        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
         "@pypi//portpicker",
     ],
