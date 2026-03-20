@@ -15,6 +15,7 @@
 
 """Utilities for file download and caching."""
 
+
 import functools
 import hashlib
 import multiprocessing.dummy
@@ -33,10 +34,10 @@ import weakref
 import zipfile
 from abc import abstractmethod
 from contextlib import closing
+from urllib.parse import urlsplit
 
 import numpy as np
 import tensorflow.compat.v2 as tf
-from six.moves.urllib.parse import urlsplit
 
 from tf_keras.utils import io_utils
 from tf_keras.utils import tf_inspect

@@ -120,8 +120,9 @@ tpu_py_test(
     disable_mlir_bridge = False,
     tags = ["no_oss"],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//third_party/py/absl/flags",
+        "//third_party/py/tensorflow:tensorflow_core",
+        "//third_party/tensorflow/python/framework:test_lib",
     ],
 )
 
