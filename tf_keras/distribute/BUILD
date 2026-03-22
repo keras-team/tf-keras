@@ -149,6 +149,7 @@ distribute_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/optimizers/legacy:optimizers",
+        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
