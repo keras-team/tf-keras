@@ -33,6 +33,7 @@ py_library(
 py_binary(
     name = "extractor_wrapper",
     srcs = ["extractor_wrapper.py"],
+    strict_deps = False,
     visibility = ["//visibility:public"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/tensorflow/python/tools/api/generator2/extractor"
@@ -43,6 +44,7 @@ py_binary(
 py_binary(
     name = "generator_wrapper",
     srcs = ["generator_wrapper.py"],
+    strict_deps = False,
     visibility = ["//visibility:public"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/tensorflow/python/tools/api/generator2/generator"

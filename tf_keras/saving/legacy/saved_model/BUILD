@@ -125,6 +125,7 @@ tf_py_test(
 py_binary(
     name = "create_test_saved_model",
     srcs = ["create_test_saved_model.py"],
+    strict_deps = False,
     tags = ["no_oss"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
