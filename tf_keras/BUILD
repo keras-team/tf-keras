@@ -35,6 +35,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    lazy_imports = True,
     deps = [
         ":backend",
         ":engine",
