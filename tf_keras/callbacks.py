@@ -24,6 +24,9 @@ import os
 import re
 import sys
 import time
+import urllib.request
+import urllib.parse
+import urllib.error
 
 import numpy as np
 import tensorflow.compat.v2 as tf
@@ -43,15 +46,11 @@ from tf_keras.utils.mode_keys import ModeKeys
 from tf_keras.utils.timed_threads import TimedThread
 
 # isort: off
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 from tensorflow.python.util import deprecation
 from tensorflow.python.util.tf_export import keras_export
 from tensorflow.tools.docs import doc_controls
 
-try:
-    import requests
-except ImportError:
-    requests = None
 
 
 # Note: `configure_callbacks` is only used in TF1.
@@ -2215,8 +2214,6 @@ class RemoteMonitor(Callback):
         self.send_as_json = send_as_json
 
     def on_epoch_end(self, epoch, logs=None):
-        if requests is None:
-            raise ImportError("RemoteMonitor requires the `requests` library.")
         logs = logs or {}
         send = {}
         send["epoch"] = epoch
@@ -2228,18 +2225,22 @@ class RemoteMonitor(Callback):
                 send[k] = v.item()
             else:
                 send[k] = v
+
         try:
             if self.send_as_json:
-                requests.post(
-                    self.root + self.path, json=send, headers=self.headers
-                )
+                data = json.dumps(send).encode("utf-8")
+                headers = self.headers or {}
+                headers["Content-Type"] = "application/json"
             else:
-                requests.post(
-                    self.root + self.path,
-                    {self.field: json.dumps(send)},
-                    headers=self.headers,
-                )
-        except requests.exceptions.RequestException:
+                data = urllib.parse.urlencode({self.field: json.dumps(send)}).encode("utf-8")
+                headers = self.headers or {}
+
+            req = urllib.request.Request(
+                self.root + self.path, data=data, headers=headers, method="POST"
+            )
+            with urllib.request.urlopen(req) as response:
+                pass
+        except urllib.error.URLError:
             logging.warning(
                 "Warning: could not reach RemoteMonitor root server at "
                 + str(self.root)

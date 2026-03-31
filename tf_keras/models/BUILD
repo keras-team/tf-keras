@@ -84,7 +84,7 @@ distribute_py_test(
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/optimizers",
-        "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],

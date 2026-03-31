@@ -25,7 +25,7 @@ from tf_keras.utils import layer_utils
 from tf_keras.utils import tf_utils
 
 # isort: off
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 from tensorflow.python.util.tf_export import keras_export
 
 INT = utils.INT

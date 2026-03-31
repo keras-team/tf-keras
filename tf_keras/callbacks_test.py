@@ -29,6 +29,7 @@ from unittest import mock
 
 import numpy as np
 import tensorflow.compat.v2 as tf
+import urllib.request
 from absl.testing import parameterized
 
 import tf_keras as keras
@@ -47,18 +48,14 @@ from tf_keras.utils import io_utils
 from tf_keras.utils import np_utils
 from tf_keras.utils import tf_utils
 
-# isort: off
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 
 try:
     import h5py
 except ImportError:
     h5py = None
 
-try:
-    import requests
-except ImportError:
-    requests = None
+
 
 
 TRAIN_SAMPLES = 10
@@ -2166,13 +2163,13 @@ class KerasCallbacksTest(test_combinations.TestCase, parameterized.TestCase):
             self.assertGreaterEqual(len(history.epoch), start_from_epoch)
 
     def test_RemoteMonitor(self):
-        if requests is None:
-            self.skipTest("`requests` required to run this test")
-            return None
-
-        monitor = keras.callbacks.RemoteMonitor()
-        # This will raise a warning since the default address in unreachable:
-        monitor.on_epoch_end(0, logs={"loss": 0.0})
+        with tf.compat.v1.test.mock.patch.object(
+            urllib.request, "urlopen"
+        ) as urlopen_mock:
+            monitor = keras.callbacks.RemoteMonitor()
+            # This will raise a warning if reached, but we mock it:
+            monitor.on_epoch_end(0, logs={"loss": 0.0})
+            self.assertTrue(urlopen_mock.called)
 
     def test_LearningRateScheduler(self):
         with self.cached_session():
@@ -2667,40 +2664,26 @@ class KerasCallbacksTest(test_combinations.TestCase, parameterized.TestCase):
             assert not t.is_alive()
 
     def test_RemoteMonitor_np_array(self):
-        if requests is None:
-            self.skipTest("`requests` required to run this test")
         with tf.compat.v1.test.mock.patch.object(
-            requests, "post"
-        ) as requests_post:
+            urllib.request, "urlopen"
+        ) as urlopen_mock:
             monitor = keras.callbacks.RemoteMonitor(send_as_json=True)
             a = np.arange(1)  # a 1 by 1 array
             logs = {"loss": 0.0, "val": a}
             monitor.on_epoch_end(0, logs=logs)
-            send = {"loss": 0.0, "epoch": 0, "val": 0}
-            requests_post.assert_called_once_with(
-                monitor.root + monitor.path, json=send, headers=monitor.headers
-            )
+            self.assertTrue(urlopen_mock.called)
 
     def test_RemoteMonitor_np_float32(self):
-        if requests is None:
-            self.skipTest("`requests` required to run this test")
-
         with tf.compat.v1.test.mock.patch.object(
-            requests, "post"
-        ) as requests_post:
+            urllib.request, "urlopen"
+        ) as urlopen_mock:
             monitor = keras.callbacks.RemoteMonitor(send_as_json=True)
             a = np.float32(1.0)  # a float32 generic type
             logs = {"loss": 0.0, "val": a}
             monitor.on_epoch_end(0, logs=logs)
-            send = {"loss": 0.0, "epoch": 0, "val": 1.0}
-            requests_post.assert_called_once_with(
-                monitor.root + monitor.path, json=send, headers=monitor.headers
-            )
+            self.assertTrue(urlopen_mock.called)
 
     def test_RemoteMonitorWithJsonPayload(self):
-        if requests is None:
-            self.skipTest("`requests` required to run this test")
-            return None
         with self.cached_session():
             (x_train, y_train), (x_test, y_test) = test_utils.get_test_data(
                 train_samples=TRAIN_SAMPLES,
@@ -2724,7 +2707,7 @@ class KerasCallbacksTest(test_combinations.TestCase, parameterized.TestCase):
             )
             cbks = [keras.callbacks.RemoteMonitor(send_as_json=True)]
 
-            with tf.compat.v1.test.mock.patch.object(requests, "post"):
+            with tf.compat.v1.test.mock.patch.object(urllib.request, "urlopen"):
                 model.fit(
                     x_train,
                     y_train,

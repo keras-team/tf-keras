@@ -46,7 +46,7 @@ Experimental. API is subject to change.
 
 import os
 
-import requests
+import urllib.request
 import tensorflow.compat.v2 as tf
 
 GCP_METADATA_HEADER = {"Metadata-Flavor": "Google"}
@@ -161,13 +161,13 @@ def _on_gcp():
         # Timeout in 5 seconds, in case the test environment has connectivity
         # issue. There is not default timeout, which means it might block
         # forever.
-        response = requests.get(
-            f"{gce_metadata_endpoint}/computeMetadata/v1/{'instance/hostname'}",
+        req = urllib.request.Request(
+            f"{gce_metadata_endpoint}/computeMetadata/v1/instance/hostname",
             headers=GCP_METADATA_HEADER,
-            timeout=5,
         )
-        return response.status_code
-    except requests.exceptions.RequestException:
+        with urllib.request.urlopen(req, timeout=5) as response:
+            return response.getcode()
+    except Exception:
         return False
 
 

@@ -20,7 +20,6 @@ import numpy as np
 import tensorflow.compat.v2 as tf
 
 from tf_keras import backend
-from tf_keras import callbacks
 from tf_keras import metrics as metrics_module
 from tf_keras import optimizers
 from tf_keras.distribute import distribute_coordinator_utils as dc
@@ -31,7 +30,7 @@ from tf_keras.utils import tf_contextlib
 from tf_keras.utils.mode_keys import ModeKeys
 
 # isort: off
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 
 
 def set_weights(distribution_strategy, dist_model, weights):
@@ -258,11 +257,16 @@ def validate_callbacks(input_callbacks, optimizer):
       ValueError: If `write_grads` is one of the parameters passed as part of
           the TensorBoard callback.
     """
+    from tf_keras import callbacks as callbacks_module
+
     if input_callbacks:
         for callback in input_callbacks:
             if isinstance(
                 callback,
-                (callbacks.LearningRateScheduler, callbacks.ReduceLROnPlateau),
+                (
+                    callbacks_module.LearningRateScheduler,
+                    callbacks_module.ReduceLROnPlateau,
+                ),
             ):
                 if not isinstance(optimizer, optimizer_v2.OptimizerV2):
                     raise ValueError(
@@ -273,7 +277,7 @@ def validate_callbacks(input_callbacks, optimizer):
             # If users want to use the TensorBoard callback they cannot use
             # certain features of the callback that involve accessing model
             # attributes and running ops.
-            if isinstance(callback, callbacks.TensorBoard):
+            if isinstance(callback, callbacks_module.TensorBoard):
                 if getattr(callback, "write_grads", False):
                     logging.warning(
                         UserWarning(

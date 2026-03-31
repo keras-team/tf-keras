@@ -132,11 +132,21 @@ py_library(
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/distribute:distributed_file_utils",
         "//tf_keras/distribute:worker_training_state",
+        "//tf_keras/optimizers",
+        "//tf_keras/optimizers/schedules:learning_rate_schedule",
         "//tf_keras/protobuf:projector_config_proto_py_pb2",
-        "//tf_keras/utils:engine_utils",
+        "//tf_keras/utils:data_utils",
+        "//tf_keras/utils:generic_utils",
+        "//tf_keras/utils:io_utils",
         "//tf_keras/utils:mode_keys",
+        "//tf_keras/utils:tf_utils",
         "//tf_keras/utils:timed_threads",
-        "@pypi//tensorboard_data_server",
+        "//tf_keras/utils:version_utils",
+        "//third_party/py/absl/logging",
+        "//third_party/tensorflow/python/util:core",
+        "//third_party/tensorflow/python/util:deprecation",
+        "//third_party/tensorflow/tools/docs:doc_controls",
+        "@pypi//numpy",
     ],
 )
 
@@ -210,8 +220,6 @@ py_library(
 #     strict_deps = False,
 #     deps = [
 #         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
-#         "//third_party/py/requests",
-#         "@pypi//six",
 #     ],
 # )
 # copybara:uncomment_end
@@ -288,9 +296,20 @@ tf_py_test(
         "notsan",
     ],
     deps = [
+        ":callbacks",
         ":tf_keras",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/engine",
+        "//tf_keras/layers",
+        "//tf_keras/optimizers",
+        "//tf_keras/optimizers/legacy:optimizers",
+        "//tf_keras/optimizers/schedules:learning_rate_schedule",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
+        "//tf_keras/utils:io_utils",
+        "//tf_keras/utils:np_utils",
+        "//tf_keras/utils:tf_utils",
+        "//third_party/py/absl/logging",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],

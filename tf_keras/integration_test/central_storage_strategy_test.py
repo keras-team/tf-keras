@@ -20,6 +20,7 @@ from absl.testing import parameterized
 # isort: off
 from tensorflow.compat.v2.__internal__.distribute import combinations
 from tf_keras.utils import kpl_test_utils
+import tf_keras as keras
 
 
 # TODO(b/182278926): Combine this test with other strategies.
@@ -39,8 +40,8 @@ class CentralStorageStrategyTest(tf.test.TestCase, parameterized.TestCase):
                 label_mapper,
             ) = test_utils_obj.define_kpls_for_training(use_adapt)
             model = test_utils_obj.define_model()
-            optimizer = tf.keras.optimizers.RMSprop(learning_rate=0.1)
-            accuracy = tf.keras.metrics.Accuracy()
+            optimizer = keras.optimizers.RMSprop(learning_rate=0.1)
+            accuracy = keras.metrics.Accuracy()
 
             def dataset_fn(_):
                 return test_utils_obj.dataset_fn(feature_mapper, label_mapper)

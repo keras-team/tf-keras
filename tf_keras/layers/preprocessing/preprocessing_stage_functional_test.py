@@ -21,9 +21,11 @@ import tensorflow.compat.v2 as tf
 
 from tf_keras.engine import base_preprocessing_layer
 from tf_keras.engine.input_layer import Input
-from tf_keras.layers import convolutional
-from tf_keras.layers import core
-from tf_keras.layers import merging
+from tf_keras.layers.convolutional.conv2d import Conv2D
+from tf_keras.layers.core.lambda_layer import Lambda
+from tf_keras.layers.merging.add import Add
+from tf_keras.layers.reshaping.zero_padding2d import ZeroPadding2D
+
 from tf_keras.layers.preprocessing import image_preprocessing
 from tf_keras.layers.preprocessing import normalization
 from tf_keras.layers.preprocessing import preprocessing_stage
@@ -33,9 +35,10 @@ from tf_keras.testing_infra import test_combinations
 
 class PL(base_preprocessing_layer.PreprocessingLayer):
     def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.adapt_time = None
         self.adapt_count = 0
-        super().__init__(**kwargs)
+        self.stateful = True
 
     def adapt(self, data, reset_state=True):
         self.adapt_time = time.time()
@@ -161,10 +164,10 @@ class PreprocessingStageTest(
         x2 = Input(shape=(3, 5), name="x2")
 
         # dimension will mismatch if x1 incorrectly placed.
-        x1_sum = core.Lambda(
+        x1_sum = Lambda(
             lambda x: tf.reduce_sum(x, axis=-1, keepdims=True)
         )(x1)
-        x2_sum = core.Lambda(lambda x: tf.reduce_sum(x, axis=-1))(x2)
+        x2_sum = Lambda(lambda x: tf.reduce_sum(x, axis=-1))(x2)
 
         l0 = PLMerge()
         y = l0([x0, x1_sum])
@@ -405,13 +408,13 @@ class PreprocessingStageTest(
         x1 = Input(shape=(10, 10, 3))
         x2 = Input(shape=(10, 10, 3))
 
-        y0 = merging.Add()([x0, x1])
+        y0 = Add()([x0, x1])
         y1 = image_preprocessing.CenterCrop(8, 8)(x2)
-        y1 = convolutional.ZeroPadding2D(padding=1)(y1)
+        y1 = ZeroPadding2D(padding=1)(y1)
 
-        z = merging.Add()([y0, y1])
+        z = Add()([y0, y1])
         z = normalization.Normalization()(z)
-        z = convolutional.Conv2D(4, 3)(z)
+        z = Conv2D(4, 3)(z)
 
         stage = preprocessing_stage.FunctionalPreprocessingStage(
             [x0, x1, x2], z
