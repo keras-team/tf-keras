@@ -34,15 +34,6 @@ from tf_keras.layers import reshaping as reshaping_layer_lib
 from tf_keras.testing_infra import test_utils
 
 # isort: off
-from tensorboard.plugins.histogram import (
-    summary_v2 as histogram_summary_v2,
-)
-from tensorboard.plugins.image import (
-    summary_v2 as image_summary_v2,
-)
-from tensorboard.plugins.scalar import (
-    summary_v2 as scalar_summary_v2,
-)
 from tensorflow.python.eager.context import (
     set_soft_device_placement,
 )
@@ -79,7 +70,7 @@ class LayerForScalarSummary(base_layer.Layer):
 
     def call(self, x):
         # Add summary scalar using compat v2 implementation.
-        scalar_summary_v2.scalar("custom_scalar_summary_v2", tf.reduce_sum(x))
+        tf.summary.scalar("custom_scalar_summary_v2", tf.reduce_sum(x))
         return x
 
 
@@ -88,8 +79,7 @@ class LayerForImageSummary(base_layer.Layer):
 
     def call(self, x):
         # Add summary image using compat v2 implementation.
-        image_summary_v2.image("custom_image_summary_v2", x)
-
+        tf.summary.image("custom_image_summary_v2", x)
         return x
 
 
@@ -98,8 +88,7 @@ class LayerForHistogramSummary(base_layer.Layer):
 
     def call(self, x):
         # Add summary histogram using compat v2 implementation.
-        histogram_summary_v2.histogram("custom_histogram_summary_v2", x)
-
+        tf.summary.histogram("custom_histogram_summary_v2", x)
         return x
 
 
@@ -305,7 +294,7 @@ class AutoOutsideCompilationWithKerasTest(tf.test.TestCase):
                 del labels
                 logits = model(features)
                 with tf.summary.record_if(True), writer.as_default():
-                    scalar_summary_v2.scalar(
+                    tf.summary.scalar(
                         "logits",
                         tf.reduce_sum(logits),
                         step=model.optimizer.iterations,

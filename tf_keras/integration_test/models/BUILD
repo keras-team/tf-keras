@@ -33,5 +33,9 @@ py_library(
     ],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/saving:serialization_lib",
+        "@pypi//numpy",
     ],
 )

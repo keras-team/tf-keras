@@ -26,7 +26,7 @@ from tf_keras.optimizers.legacy import gradient_descent
 from tensorflow.python.distribute.cluster_resolver import (
     SimpleClusterResolver,
 )
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 from tensorflow.python.training.server_lib import (
     ClusterSpec,
 )

@@ -21,7 +21,7 @@ import tensorflow.compat.v2 as tf
 from tf_keras.layers.preprocessing import index_lookup
 
 # isort: off
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 from tensorflow.python.util.tf_export import keras_export
 
 

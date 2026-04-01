@@ -20,6 +20,7 @@ import tensorflow.compat.v2 as tf
 from tf_keras.engine import base_preprocessing_layer
 from tf_keras.engine import functional
 from tf_keras.engine import sequential
+from tf_keras.utils import generic_utils
 from tf_keras.utils import tf_utils
 
 
@@ -92,9 +93,12 @@ class PreprocessingStage(
                 current_layer_data = data.map(map_fn)
             else:
                 current_layer_data = map_fn(data)
-            self.layers[current_layer_index].adapt(
-                current_layer_data, reset_state=reset_state
-            )
+
+            layer = self.layers[current_layer_index]
+            adapt_kwargs = {}
+            if generic_utils.has_arg(layer.adapt, "reset_state"):
+                adapt_kwargs["reset_state"] = reset_state
+            layer.adapt(current_layer_data, **adapt_kwargs)
 
 
 # Functional methods should take precedence.
@@ -237,8 +241,11 @@ class FunctionalPreprocessingStage(
                     tf.__internal__.nest.list_to_tuple(*args)
                 )
 
-                if node.layer.stateful and hasattr(node.layer, "adapt"):
-                    node.layer.adapt(args, reset_state=reset_state)
+                if hasattr(node.layer, "adapt"):
+                    adapt_kwargs = {}
+                    if generic_utils.has_arg(node.layer.adapt, "reset_state"):
+                        adapt_kwargs["reset_state"] = reset_state
+                    node.layer.adapt(args, **adapt_kwargs)
 
                 map_fn = build_map_fn(node, args, kwargs)
                 outputs = args.map(map_fn)

@@ -29,7 +29,7 @@ from tf_keras.optimizers.legacy import gradient_descent
 from tf_keras.utils import dataset_creator
 
 # isort: off
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 
 
 class DatasetCreatorModelFitTestBase(tf.test.TestCase, parameterized.TestCase):

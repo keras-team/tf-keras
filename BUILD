@@ -47,7 +47,6 @@ py_import(
         "@pypi_opt_einsum//:pkg",
         "@pypi_packaging//:pkg",
         "@pypi_protobuf//:pkg",
-        "@pypi_requests//:pkg",
         "@pypi_tensorboard//:pkg",
         "@pypi_termcolor//:pkg",
         "@pypi_typing_extensions//:pkg",

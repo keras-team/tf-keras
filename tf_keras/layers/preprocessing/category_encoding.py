@@ -23,7 +23,7 @@ from tf_keras.layers.preprocessing import preprocessing_utils as utils
 from tf_keras.utils import layer_utils
 
 # isort: off
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 from tensorflow.python.util.tf_export import keras_export
 
 INT = utils.INT
@@ -121,9 +121,7 @@ class CategoryEncoding(base_layer.Layer):
         # max_tokens is an old name for the num_tokens arg we continue to
         # support because of usage.
         if "max_tokens" in kwargs:
-            logging.warning(
-                "max_tokens is deprecated, please use num_tokens instead."
-            )
+            logging.warning("max_tokens is deprecated, please use num_tokens instead.")
             num_tokens = kwargs["max_tokens"]
             del kwargs["max_tokens"]
 

@@ -19,7 +19,7 @@ import time
 import numpy as np
 import tensorflow.compat.v2 as tf
 from absl.testing import parameterized
-from tensorflow.python.platform import tf_logging as logging
+from absl import logging
 
 import tf_keras as keras
 from tf_keras.metrics import base_metric
