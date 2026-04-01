@@ -16,9 +16,12 @@ py_library(
     name = "sharpness_aware_minimization",
     srcs = ["sharpness_aware_minimization.py"],
     deps = [
-        ":cloning",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/engine",
         "//tf_keras/engine:data_adapter",
+        "//tf_keras/saving:object_registration",
+        "//tf_keras/saving:serialization_lib",
+        "//third_party/tensorflow/python/util:core",
     ],
 )
 
@@ -30,6 +33,8 @@ py_library(
     deps = [
         ":cloning",
         ":sharpness_aware_minimization",
+        "//tf_keras/engine",
+        "//tf_keras/saving",
     ],
 )
 
@@ -43,11 +48,16 @@ py_library(
         "//tf_keras:backend",
         "//tf_keras/engine",
         "//tf_keras/engine:base_layer",
+        "//tf_keras/engine:input_layer",
         "//tf_keras/metrics",
         "//tf_keras/optimizers",
-        "//tf_keras/saving",
+        "//tf_keras/saving:object_registration",
+        "//tf_keras/saving:serialization",
+        "//tf_keras/saving/legacy/saved_model:utils",
         "//tf_keras/utils:generic_utils",
         "//tf_keras/utils:version_utils",
+        "//third_party/tensorflow/python/platform:tf_logging",
+        "//third_party/tensorflow/python/util:core",
     ],
 )
 
@@ -61,9 +71,14 @@ tf_py_test(
         "notsan",  # b/67509773
     ],
     deps = [
+        ":models",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras:backend",
+        "//tf_keras/metrics",
+        "//tf_keras/optimizers",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
@@ -73,6 +88,7 @@ distribute_py_test(
     name = "sharpness_aware_minimization_test",
     size = "medium",
     srcs = ["sharpness_aware_minimization_test.py"],
+    main = "sharpness_aware_minimization_test.py",
     shard_count = 8,
     tags = [
         "multi_gpu",
@@ -84,7 +100,7 @@ distribute_py_test(
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/optimizers",
-        "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],
