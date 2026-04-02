@@ -5,7 +5,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    # default_applicable_licenses = ["//tf_keras:license"],
     # TODO(scottzhu): Remove non-keras deps from TF.
     default_visibility = ["//tf_keras:friends"],
     licenses = ["notice"],
@@ -17,6 +17,7 @@ py_library(
         "__init__.py",
         "legacy/__init__.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":audio_dataset",
         ":data_utils",
@@ -31,6 +32,7 @@ py_library(
         ":text_dataset",
         ":timed_threads",
         ":timeseries_dataset",
+        ":version_utils",
         ":vis_utils",
     ],
 )
@@ -38,12 +40,14 @@ py_library(
 py_library(
     name = "control_flow_util",
     srcs = ["control_flow_util.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [],
 )
 
 py_library(
     name = "kpl_test_utils",
     srcs = ["kpl_test_utils.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//tf_keras",
         "//tf_keras/layers/preprocessing:string_lookup",
@@ -53,6 +57,7 @@ py_library(
 py_library(
     name = "data_utils",
     srcs = ["data_utils.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":generic_utils",
         ":io_utils",
@@ -66,6 +71,7 @@ py_library(
         "conv_utils.py",
         "losses_utils.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":data_utils",
         ":io_utils",
@@ -77,6 +83,7 @@ py_library(
 py_library(
     name = "io_utils",
     srcs = ["io_utils.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":keras_logging",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -86,11 +93,13 @@ py_library(
 py_library(
     name = "keras_logging",
     srcs = ["keras_logging.py"],
+    # copybara:uncomment # strict_deps = False,
 )
 
 py_library(
     name = "tf_utils",
     srcs = ["tf_utils.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":object_identity",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -100,6 +109,7 @@ py_library(
 py_library(
     name = "traceback_utils",
     srcs = ["traceback_utils.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -110,6 +120,7 @@ py_library(
     srcs = [
         "generic_utils.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":io_utils",
         ":tf_contextlib",
@@ -124,6 +135,7 @@ py_library(
     srcs = [
         "mode_keys.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -135,6 +147,7 @@ py_library(
         "kernelized_utils.py",
         "layer_utils.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":engine_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -148,6 +161,7 @@ py_library(
     srcs = [
         "metrics_utils.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":generic_utils",
         ":tf_utils",
@@ -160,6 +174,7 @@ py_library(
     srcs = [
         "version_utils.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -170,6 +185,7 @@ py_library(
     srcs = [
         "np_utils.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -179,12 +195,14 @@ py_library(
 py_library(
     name = "object_identity",
     srcs = ["object_identity.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [],
 )
 
 py_library(
     name = "tf_contextlib",
     srcs = ["tf_contextlib.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -193,6 +211,7 @@ py_library(
 py_library(
     name = "tf_inspect",
     srcs = ["tf_inspect.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -203,6 +222,7 @@ py_library(
     srcs = [
         "vis_utils.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -213,6 +233,7 @@ py_library(
     srcs = [
         "image_utils.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//pillow",
@@ -224,6 +245,7 @@ py_library(
     srcs = [
         "dataset_creator.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -235,6 +257,7 @@ py_library(
         "dataset_utils.py",
         "image_dataset.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         ":image_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -249,6 +272,7 @@ py_library(
         "dataset_utils.py",
         "text_dataset.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -260,6 +284,7 @@ py_library(
     srcs = [
         "timeseries_dataset.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -271,6 +296,7 @@ py_library(
     srcs = [
         "audio_dataset.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//numpy",
@@ -280,6 +306,7 @@ py_library(
 py_library(
     name = "sidecar_evaluator",
     srcs = ["sidecar_evaluator.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "@pypi//tensorboard_data_server",
@@ -289,6 +316,7 @@ py_library(
 py_library(
     name = "feature_space",
     srcs = ["feature_space.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -299,11 +327,13 @@ py_library(
 py_library(
     name = "timed_threads",
     srcs = ["timed_threads.py"],
+    # copybara:uncomment # strict_deps = False,
 )
 
 py_library(
     name = "steps_per_execution_tuning",
     srcs = ["steps_per_execution_tuning.py"],
+    # copybara:uncomment # strict_deps = False,
     deps = [
         "@pypi//numpy",
     ],
@@ -315,6 +345,7 @@ tf_py_test(
     deps = [
         ":steps_per_execution_tuning",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -325,11 +356,12 @@ tf_py_test(
     srcs = ["sidecar_evaluator_test.py"],
     deps = [
         ":sidecar_evaluator",
+        # "//third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -339,6 +371,7 @@ tf_py_test(
     deps = [
         ":dataset_creator",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/distribute:multi_worker_testing_utils",
         "//tf_keras/engine",
         "//tf_keras/layers/core",
@@ -353,10 +386,11 @@ tf_py_test(
     timeout = "moderate",
     srcs = ["dataset_utils_test.py"],
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -371,10 +405,11 @@ tf_py_test(
         "optonly",  # times out
     ],
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -384,9 +419,10 @@ tf_py_test(
     srcs = ["generic_utils_test.py"],
     deps = [
         ":generic_utils",
+        # "//third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -396,10 +432,11 @@ tf_py_test(
     srcs = ["version_utils_test.py"],
     deps = [
         ":version_utils",
+        # "//third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -411,6 +448,7 @@ tf_py_test(
         ":tf_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -421,13 +459,14 @@ tf_py_test(
     srcs = ["composite_tensor_support_test.py"],
     shard_count = 8,
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:engine",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -442,11 +481,12 @@ tf_py_test(
     deps = [
         ":io_utils",
         ":keras_logging",
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -460,6 +500,7 @@ tf_py_test(
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:backend",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/dtensor",
         "//tf_keras/dtensor:layout_map",
         "//tf_keras/dtensor:test_util",
@@ -472,11 +513,12 @@ tf_py_test(
     size = "small",
     srcs = ["np_utils_test.py"],
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -486,8 +528,9 @@ tf_py_test(
     srcs = ["kernelized_utils_test.py"],
     deps = [
         ":layer_utils",
+        # "//third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -500,10 +543,11 @@ tf_py_test(
         "no_oss",  # TODO(b/318174391)
     ],
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -517,11 +561,12 @@ tf_py_test(
     ],
     deps = [
         ":image_utils",
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -530,10 +575,11 @@ tf_py_test(
     size = "small",
     srcs = ["conv_utils_test.py"],
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -542,10 +588,11 @@ tf_py_test(
     size = "small",
     srcs = ["metrics_utils_test.py"],
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -556,6 +603,7 @@ tf_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -567,6 +615,7 @@ tf_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -578,6 +627,7 @@ tf_py_test(
         ":image_dataset",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "@pypi//numpy",
     ],
@@ -591,6 +641,7 @@ tf_py_test(
         ":text_dataset",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
     ],
 )
@@ -602,6 +653,7 @@ tf_py_test(
     deps = [
         ":timeseries_dataset",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "@pypi//numpy",
@@ -615,6 +667,7 @@ tf_py_test(
     deps = [
         ":audio_dataset",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "@pypi//numpy",
@@ -628,6 +681,7 @@ tf_py_test(
     deps = [
         ":audio_dataset",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "@pypi//numpy",
@@ -642,6 +696,7 @@ tf_py_test(
     deps = [
         ":feature_space",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "@pypi//numpy",
@@ -657,6 +712,7 @@ tf_py_test(
         ":timed_threads",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
     ],

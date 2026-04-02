@@ -5,7 +5,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    # default_applicable_licenses = ["//tf_keras:license"],
     # TODO(scottzhu): Remove non-keras deps from TF.
     default_visibility = [
         "//tf_keras:friends",
@@ -28,16 +28,21 @@ py_library(
         "optimizer_v2.py",
         "rmsprop.py",
     ],
+    # copybara:uncomment # strict_deps = False,
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras:backend_config",
         "//tf_keras/engine:base_layer_utils",
         "//tf_keras/initializers",
         "//tf_keras/optimizers:utils",
         "//tf_keras/optimizers/schedules:learning_rate_schedule",
+        "//tf_keras/utils:generic_utils",
         "//tf_keras/utils:layer_utils",
+        "//tf_keras/utils:tf_inspect",
         "//tf_keras/utils:tf_utils",
+        "@pypi//numpy",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        # "//third_party/tensorflow/python/util:core",
     ],
 )
 
@@ -48,8 +53,11 @@ cuda_py_test(
     shard_count = 4,
     deps = [
         ":optimizers",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/optimizers/schedules:learning_rate_schedule",
         "//tf_keras/testing_infra:test_combinations",
+        # "//third_party/py/absl/testing:parameterized",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -64,8 +72,13 @@ cuda_py_test(
     ],
     deps = [
         ":optimizers",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/optimizers",
+        "//tf_keras/optimizers/schedules:learning_rate_schedule",
         "//tf_keras/testing_infra:test_combinations",
+        # "//third_party/py/absl/testing:parameterized",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        # "//third_party/tensorflow/compiler/jit",
     ],
 )
 
@@ -78,8 +91,10 @@ cuda_py_test(
     tags = ["no_rocm"],
     deps = [
         ":optimizers",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
+        # "//third_party/py/absl/testing:parameterized",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -91,8 +106,10 @@ cuda_py_test(
     # TODO(b/168527439): invalid resource variable reference on GPU for TFRT.
     deps = [
         ":optimizers",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
+        # "//third_party/py/absl/testing:parameterized",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -104,6 +121,7 @@ cuda_py_test(
     deps = [
         ":optimizers",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -114,8 +132,11 @@ cuda_py_test(
     shard_count = 4,
     deps = [
         ":optimizers",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/optimizers/schedules:learning_rate_schedule",
         "//tf_keras/testing_infra:test_combinations",
+        # "//third_party/py/absl/testing:parameterized",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -127,6 +148,7 @@ cuda_py_test(
     deps = [
         ":optimizers",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
     ],
 )
 
@@ -140,10 +162,23 @@ cuda_py_test(
     ],
     deps = [
         ":optimizers",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras:backend",
+        "//tf_keras:callbacks",
+        "//tf_keras:losses",
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/engine",
+        "//tf_keras/engine:input_layer",
+        "//tf_keras/layers/core",
+        "//tf_keras/layers/regularization",
+        "//tf_keras/optimizers",
+        "//tf_keras/optimizers/schedules:learning_rate_schedule",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//tf_keras/testing_infra:test_utils",
+        "//tf_keras/utils:np_utils",
+        # "//third_party/py/absl/testing:parameterized",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        # "//third_party/tensorflow/python/framework:test_lib",
     ],
 )
 
@@ -155,8 +190,12 @@ cuda_py_test(
     # TODO(b/168527439): invalid resource variable reference on GPU for TFRT.
     deps = [
         ":optimizers",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/optimizers/schedules:learning_rate_schedule",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//tf_keras/testing_infra:test_utils",
+        # "//third_party/py/absl/testing:parameterized",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        # "//third_party/tensorflow/python/framework:test_lib",
     ],
 )

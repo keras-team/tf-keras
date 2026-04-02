@@ -23,7 +23,7 @@ load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    # default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         "//tf_keras/layers/rnn:__pkg__",
         "//tf_keras/saving:__subpackages__",
@@ -34,11 +34,18 @@ package(
 py_library(
     name = "order_preserving_set",
     srcs = ["order_preserving_set.py"],
+    # copybara:uncomment # strict_deps = False,
 )
 
 py_library(
     name = "utils",
     srcs = ["utils.py"],
+    # copybara:uncomment # strict_deps = False,
+    visibility = [
+        "//tf_keras/layers/rnn:__pkg__",
+        "//tf_keras/models:__pkg__",
+        "//tf_keras/saving:__subpackages__",
+    ],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer_utils",
@@ -62,6 +69,13 @@ py_library(
         "save_impl.py",
         "serialized_attributes.py",
     ],
+    # copybara:uncomment # strict_deps = False,
+    visibility = [
+        "//tf_keras/layers/preprocessing:__pkg__",
+        "//tf_keras/layers/rnn:__pkg__",
+        "//tf_keras/saving:__subpackages__",
+        "//tf_keras/tests:__pkg__",
+    ],
     deps = [
         ":order_preserving_set",
         ":utils",
@@ -79,11 +93,12 @@ tf_py_test(
         "no_windows",  # b/158005583
     ],
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -93,11 +108,12 @@ tf_py_test(
     srcs = ["json_utils_test.py"],
     deps = [
         ":saved_model",
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -114,24 +130,26 @@ tf_py_test(
         "notsan",  #TODO(b/181771982): it is flaky
     ],
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
 py_binary(
     name = "create_test_saved_model",
     srcs = ["create_test_saved_model.py"],
+    # copybara:uncomment # strict_deps = False,
     tags = ["no_oss"],
     deps = [
+        # "//third_party/py/absl:app",
+        "//third_party/py/absl/flags",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:regularizers",
         "//tf_keras/testing_infra:test_utils",
-        "//third_party/py/absl/flags",
-        "@pypi//absl_py",  # absl:app
     ],
 )
 
@@ -142,5 +160,6 @@ tf_py_test(
     tags = ["no_oss"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
     ],
 )

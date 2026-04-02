@@ -13,7 +13,7 @@ load("@rules_python//python:py_library.bzl", "py_library")
 # copybara:uncomment_end
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    # default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         "//learning/brain/distribute/experimental/auto_distribute:__pkg__",
         "//learning/brain/distribute/python:__subpackages__",
@@ -26,6 +26,7 @@ package(
 py_library(
     name = "dtensor",
     srcs = ["__init__.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -40,6 +41,7 @@ tf_py_test(
         ":test_util",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/initializers",
         "//tf_keras/utils:tf_utils",
         "@pypi//numpy",
@@ -55,6 +57,7 @@ tf_py_test(
         ":dtensor",
         ":test_util",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers",
         "//tf_keras/utils:tf_utils",
         "@pypi//numpy",
@@ -64,6 +67,7 @@ tf_py_test(
 py_library(
     name = "layout_map",
     srcs = ["layout_map.py"],
+    # strict_deps = False,
     deps = [
         ":dtensor",
         ":lazy_variable",
@@ -82,6 +86,7 @@ tf_py_test(
         ":test_util",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers",
         "//tf_keras/models",
         "//tf_keras/utils:tf_utils",
@@ -92,6 +97,7 @@ tf_py_test(
 py_library(
     name = "integration_test_utils",
     srcs = ["integration_test_utils.py"],
+    # strict_deps = False,
     deps = [
         ":dtensor",
         ":layout_map",
@@ -112,11 +118,12 @@ tf_py_test(
     deps = [
         ":dtensor",
         ":test_util",
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/metrics",
         "//tf_keras/utils:tf_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -155,6 +162,7 @@ tf_py_test(
         ":test_util",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:losses",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers",
         "//tf_keras/models",
         "//tf_keras/optimizers",
@@ -165,6 +173,7 @@ tf_py_test(
 py_library(
     name = "lazy_variable",
     srcs = ["lazy_variable.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -173,6 +182,7 @@ py_library(
 py_library(
     name = "utils",
     srcs = ["utils.py"],
+    # strict_deps = False,
     deps = [
         ":dtensor",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -186,20 +196,22 @@ tf_py_test(
         ":dtensor",
         ":test_util",
         ":utils",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
-        "//tf_keras/layers",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        # "//third_party/py/absl/testing:parameterized",
         "@pypi//numpy",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/layers",
     ],
 )
 
 py_library(
     name = "test_util",
     srcs = ["test_util.py"],
+    # strict_deps = False,
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
-        "@pypi//absl_py",  # absl/testing:parameterized
+        # "//third_party/py/absl/testing:parameterized",
         "@pypi//numpy",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
 )
 
@@ -212,6 +224,7 @@ tf_py_test(
         ":test_util",
         "//tf_keras",
         "//tf_keras:backend",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers",
         "//tf_keras/models",
         "//tf_keras/utils:tf_utils",
@@ -231,7 +244,7 @@ tf_py_test(
 #     deps = [
 #         ":integration_test_utils",
 #         ":test_util",
-#         "@pypi//absl_py",  # absl/testing:parameterized
+#         # "//third_party/py/absl/testing:parameterized",
 #         "@pypi//numpy",
 #         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//tf_keras:backend",
@@ -239,7 +252,7 @@ tf_py_test(
 #         "//tf_keras/optimizers",
 #         "//tf_keras/utils:tf_utils",
 #         "//third_party/tensorflow/dtensor/python/tests:test_util",
-#         "//third_party/tensorflow/python/distribute/experimental:mirrored_strategy",
+#         # "//third_party/tensorflow/python/distribute/experimental:mirrored_strategy",
 #     ],
 # )
 # copybara:uncomment_end
