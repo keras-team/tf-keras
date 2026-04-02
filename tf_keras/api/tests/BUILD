@@ -3,7 +3,7 @@
 load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = ["//tf_keras/api:__subpackages__"],
     licenses = ["notice"],  # Apache 2.0
 )
@@ -29,11 +29,11 @@ tf_py_test(
         "no_windows",  # Bugs due to some paths.
     ],
     deps = [
+        "@pypi//six",
         "//third_party/py/tensorflow",
-        "//third_party/tensorflow/python/lib/io:file_io",
+        # "//third_party/tensorflow/python/lib/io:file_io",
         "//third_party/tensorflow/tools/api/lib:python_object_to_proto_visitor",
         "//third_party/tensorflow/tools/common:public_api",
         "//third_party/tensorflow/tools/common:traverse",
-        "@pypi//six",
     ],
 )

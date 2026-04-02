@@ -4,7 +4,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         "//tf_keras:friends",
     ],
@@ -18,6 +18,7 @@ py_library(
         "linear.py",
         "wide_deep.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend_config",

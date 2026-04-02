@@ -21,11 +21,9 @@ import tensorflow.compat.v2 as tf
 
 from tf_keras import backend
 from tf_keras import callbacks
-from tf_keras import metrics as metrics_module
 from tf_keras import optimizers
 from tf_keras.distribute import distribute_coordinator_utils as dc
 from tf_keras.distribute import distributed_training_utils as dist_utils
-from tf_keras.engine import training_utils_v1
 from tf_keras.optimizers.legacy import optimizer_v2
 from tf_keras.utils import tf_contextlib
 from tf_keras.utils.mode_keys import ModeKeys
@@ -660,6 +658,8 @@ def _prepare_feed_values(model, inputs, targets, sample_weights, mode):
     Returns:
       Feed values for the model in the given mode.
     """
+    from tf_keras.engine import training_utils_v1
+
     strategy = model._distribution_strategy
     inputs, targets, sample_weights = _get_input_from_iterator(inputs, model)
     if backend.is_tpu_strategy(strategy):
@@ -764,6 +764,7 @@ def _build_network_on_replica(model, mode, inputs=None, targets=None):
     # Need to do imports here since we run into a circular dependency error.
     from tf_keras import models
     from tf_keras.engine import sequential
+    import tf_keras.metrics as metrics_module
 
     # We rely on the internal methods to avoid having share_weights weights in
     # the public API.
@@ -828,6 +829,7 @@ def _clone_and_build_model(model, mode, inputs=None, targets=None):
     # We need to set the import here since we run into a circular dependency
     # error.
     from tf_keras import models
+    import tf_keras.metrics as metrics_module
 
     cloned_model = models.clone_model(model, input_tensors=inputs)
 

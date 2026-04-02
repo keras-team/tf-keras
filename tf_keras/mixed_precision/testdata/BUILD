@@ -2,7 +2,7 @@
 #   Contains checkpoints and SavedModels for testing purposes.
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = ["//tf_keras:friends"],
     licenses = ["notice"],
 )

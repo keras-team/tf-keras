@@ -4,7 +4,7 @@
 load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = ["//visibility:public"],
     licenses = ["notice"],
 )
@@ -33,7 +33,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -45,7 +44,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -57,7 +55,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -69,7 +66,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
         "@pypi//numpy",
@@ -82,7 +78,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -94,7 +89,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -106,7 +100,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
         "@pypi//numpy",
@@ -119,7 +112,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:profiler_lib",
     ],
@@ -131,7 +123,6 @@ cuda_py_test(
     tags = COMMON_TAGS,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
         "//tf_keras/benchmarks:distribution_util",
         "//tf_keras/benchmarks:profiler_lib",

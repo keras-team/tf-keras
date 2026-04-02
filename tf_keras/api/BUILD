@@ -7,7 +7,7 @@ load("//tf_keras/api:api_gen.bzl", "generate_apis")
 load("//tf_keras/api:api_init_files.bzl", "KERAS_API_INIT_FILES", "KERAS_API_INIT_FILES_V1")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         "//tf_keras:friends",
         "//third_party/py/tensorflow:__subpackages__",
@@ -23,6 +23,7 @@ py_library(
         ":tf_keras_python_api_gen_compat_v1",
         ":tf_keras_python_api_gen_compat_v2",
     ],
+    # copybara:uncomment strict_deps = False,
     visibility = ["//visibility:public"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -33,20 +34,22 @@ py_library(
 py_binary(
     name = "extractor_wrapper",
     srcs = ["extractor_wrapper.py"],
+    # copybara:uncomment strict_deps = False,
     visibility = ["//visibility:public"],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/tensorflow/python/tools/api/generator2/extractor"
-        "@pypi//absl_py",  # absl:app
+        "# //third_party/py/absl:app",
+        "//:tf_nightly_with_deps",  # # "//third_party/tensorflow/python/tools/api/generator2/extractor",
     ],
 )
 
 py_binary(
     name = "generator_wrapper",
     srcs = ["generator_wrapper.py"],
+    # copybara:uncomment strict_deps = False,
     visibility = ["//visibility:public"],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/tensorflow/python/tools/api/generator2/generator"
-        "@pypi//absl_py",  # absl:app
+        "# //third_party/py/absl:app",
+        "//:tf_nightly_with_deps",  # # "//third_party/tensorflow/python/tools/api/generator2/generator",
     ],
 )
 

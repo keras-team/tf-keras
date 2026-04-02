@@ -5,13 +5,13 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     # TODO(scottzhu): Remove non-keras deps from TF.
     default_visibility = [
         "//tf_keras:friends",
-        "//third_party/tensorflow/python/distribute:__pkg__",
-        "//third_party/tensorflow/python/feature_column:__pkg__",
-        "//third_party/tensorflow/python/trackable:__pkg__",
+        # "//third_party/tensorflow/python/distribute:__pkg__",
+        # "//third_party/tensorflow/python/feature_column:__pkg__",
+        # "//third_party/tensorflow/python/trackable:__pkg__",
         "//third_party/tensorflow/tools/pip_package:__pkg__",
     ],
     licenses = ["notice"],
@@ -25,6 +25,7 @@ py_library(
         "__init__.py",
         "serialization.py",
     ],
+    strict_deps = False,
     deps = [
         ":kernelized",
         ":noise",
@@ -49,6 +50,7 @@ py_library(
 py_library(
     name = "kernelized",
     srcs = ["kernelized.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:base_layer",
@@ -61,6 +63,7 @@ py_library(
 py_library(
     name = "noise",
     srcs = ["noise.py"],
+    strict_deps = False,
     deps = [
         "//tf_keras/layers/regularization:alpha_dropout",
         "//tf_keras/layers/regularization:gaussian_dropout",
@@ -74,11 +77,11 @@ tf_py_test(
     srcs = ["tensorflow_op_layer_test.py"],
     shard_count = 3,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/saving",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -88,10 +91,10 @@ tf_py_test(
     srcs = ["subclassed_layers_test.py"],
     shard_count = 3,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -101,10 +104,10 @@ tf_py_test(
     size = "small",
     srcs = ["serialization_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -113,13 +116,13 @@ tf_py_test(
     size = "small",
     srcs = ["kernelized_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":layers",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:backend",
         "//tf_keras/initializers",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )

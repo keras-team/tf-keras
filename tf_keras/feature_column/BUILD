@@ -2,11 +2,11 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         "//tf_keras:friends",
-        "//third_party/tensorflow/python/feature_column:__subpackages__",  # For unit testing
-        "//third_party/tensorflow/python/tpu:__subpackages__",  # For unit testing
+        # "//third_party/tensorflow/python/feature_column:__subpackages__",  # For unit testing
+        # "//third_party/tensorflow/python/tpu:__subpackages__",  # For unit testing
         "//third_party/tensorflow_decision_forests:__subpackages__",  # for DenseFeatures
     ],
     licenses = ["notice"],
@@ -15,6 +15,7 @@ package(
 py_library(
     name = "feature_column",
     srcs = ["__init__.py"],
+    strict_deps = False,
     deps = [
         ":base_feature_layer",
         ":dense_features",
@@ -26,6 +27,7 @@ py_library(
 py_library(
     name = "base_feature_layer",
     srcs = ["base_feature_layer.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -38,6 +40,7 @@ py_library(
     srcs = [
         "dense_features.py",
     ],
+    strict_deps = False,
     deps = [
         ":base_feature_layer",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -50,6 +53,7 @@ py_library(
     srcs = [
         "dense_features_v2.py",
     ],
+    strict_deps = False,
     deps = [
         ":base_feature_layer",
         ":dense_features",
@@ -85,6 +89,7 @@ tf_py_test(
 py_library(
     name = "sequence_feature_column",
     srcs = ["sequence_feature_column.py"],
+    strict_deps = False,
     deps = [
         ":base_feature_layer",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -96,11 +101,11 @@ tf_py_test(
     name = "sequence_feature_column_test",
     srcs = ["sequence_feature_column_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":sequence_feature_column",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 

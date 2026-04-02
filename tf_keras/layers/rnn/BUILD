@@ -6,7 +6,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")  # buildifier: disable=s
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         "//tf_keras:friends",
         "//third_party/tensorflow_models/official/projects/residual_mobilenet/modeling/backbones:__pkg__",
@@ -17,6 +17,7 @@ package(
 py_library(
     name = "rnn",
     srcs = ["__init__.py"],
+    strict_deps = False,
     deps = [
         ":abstract_rnn_cell",
         ":base_rnn",
@@ -42,6 +43,7 @@ py_library(
 py_library(
     name = "rnn_utils",
     srcs = ["rnn_utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:control_flow_util",
@@ -51,6 +53,7 @@ py_library(
 py_library(
     name = "abstract_rnn_cell",
     srcs = ["abstract_rnn_cell.py"],
+    strict_deps = False,
     deps = [
         ":rnn_utils",
         "//tf_keras/engine:base_layer",
@@ -60,6 +63,7 @@ py_library(
 py_library(
     name = "dropout_rnn_cell_mixin",
     srcs = ["dropout_rnn_cell_mixin.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -69,6 +73,7 @@ py_library(
 py_library(
     name = "gru_lstm_utils",
     srcs = ["gru_lstm_utils.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -77,6 +82,7 @@ py_library(
 py_library(
     name = "gru",
     srcs = ["gru.py"],
+    strict_deps = False,
     deps = [
         ":base_rnn",
         ":dropout_rnn_cell_mixin",
@@ -97,6 +103,7 @@ py_library(
 py_library(
     name = "gru_v1",
     srcs = ["gru_v1.py"],
+    strict_deps = False,
     deps = [
         ":base_rnn",
         ":gru",
@@ -112,6 +119,7 @@ py_library(
 py_library(
     name = "lstm",
     srcs = ["lstm.py"],
+    strict_deps = False,
     deps = [
         ":base_rnn",
         ":dropout_rnn_cell_mixin",
@@ -132,6 +140,7 @@ py_library(
 py_library(
     name = "lstm_v1",
     srcs = ["lstm_v1.py"],
+    strict_deps = False,
     deps = [
         ":base_rnn",
         ":lstm",
@@ -147,6 +156,7 @@ py_library(
 py_library(
     name = "stacked_rnn_cells",
     srcs = ["stacked_rnn_cells.py"],
+    strict_deps = False,
     deps = [
         ":rnn_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -160,6 +170,7 @@ py_library(
 py_library(
     name = "base_rnn",
     srcs = ["base_rnn.py"],
+    strict_deps = False,
     deps = [
         ":dropout_rnn_cell_mixin",
         ":rnn_utils",
@@ -177,6 +188,7 @@ py_library(
 py_library(
     name = "simple_rnn",
     srcs = ["simple_rnn.py"],
+    strict_deps = False,
     deps = [
         ":base_rnn",
         ":dropout_rnn_cell_mixin",
@@ -196,6 +208,7 @@ py_library(
 py_library(
     name = "base_conv_rnn",
     srcs = ["base_conv_rnn.py"],
+    strict_deps = False,
     deps = [
         ":base_rnn",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -212,6 +225,7 @@ py_library(
 py_library(
     name = "base_conv_lstm",
     srcs = ["base_conv_lstm.py"],
+    strict_deps = False,
     deps = [
         ":base_conv_rnn",
         ":dropout_rnn_cell_mixin",
@@ -229,6 +243,7 @@ py_library(
 py_library(
     name = "conv_lstm1d",
     srcs = ["conv_lstm1d.py"],
+    strict_deps = False,
     deps = [
         ":base_conv_lstm",
     ],
@@ -237,6 +252,7 @@ py_library(
 py_library(
     name = "conv_lstm2d",
     srcs = ["conv_lstm2d.py"],
+    strict_deps = False,
     deps = [
         ":base_conv_lstm",
     ],
@@ -245,6 +261,7 @@ py_library(
 py_library(
     name = "conv_lstm3d",
     srcs = ["conv_lstm3d.py"],
+    strict_deps = False,
     deps = [
         ":base_conv_lstm",
     ],
@@ -253,6 +270,7 @@ py_library(
 py_library(
     name = "base_cudnn_rnn",
     srcs = ["base_cudnn_rnn.py"],
+    strict_deps = False,
     deps = [
         ":base_rnn",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -264,6 +282,7 @@ py_library(
 py_library(
     name = "cudnn_lstm",
     srcs = ["cudnn_lstm.py"],
+    strict_deps = False,
     deps = [
         ":base_cudnn_rnn",
         ":gru_lstm_utils",
@@ -277,6 +296,7 @@ py_library(
 py_library(
     name = "cudnn_gru",
     srcs = ["cudnn_gru.py"],
+    strict_deps = False,
     deps = [
         ":base_cudnn_rnn",
         ":gru_lstm_utils",
@@ -290,6 +310,7 @@ py_library(
 py_library(
     name = "cell_wrappers",
     srcs = ["cell_wrappers.py"],
+    strict_deps = False,
     deps = [
         ":abstract_rnn_cell",
         ":lstm",
@@ -302,6 +323,7 @@ py_library(
 py_library(
     name = "legacy_cell_wrappers",
     srcs = ["legacy_cell_wrappers.py"],
+    strict_deps = False,
     deps = [
         ":cell_wrappers",
         ":legacy_cells",
@@ -312,6 +334,7 @@ py_library(
 py_library(
     name = "legacy_cells",
     srcs = ["legacy_cells.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
@@ -327,6 +350,7 @@ py_library(
 py_library(
     name = "base_wrapper",
     srcs = ["base_wrapper.py"],
+    strict_deps = False,
     deps = [
         "//tf_keras/engine:base_layer",
         "//tf_keras/utils:generic_utils",
@@ -336,6 +360,7 @@ py_library(
 py_library(
     name = "bidirectional",
     srcs = ["bidirectional.py"],
+    strict_deps = False,
     deps = [
         ":base_wrapper",
         ":rnn_utils",
@@ -352,6 +377,7 @@ py_library(
 py_library(
     name = "time_distributed",
     srcs = ["time_distributed.py"],
+    strict_deps = False,
     deps = [
         ":base_wrapper",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -373,13 +399,13 @@ cuda_py_test(
         "no_oss",  # TODO(b/277925387)
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":gru",
         ":lstm",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -393,13 +419,13 @@ cuda_py_test(
         "no_oss",  # TODO(b/277925387)
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":gru_lstm_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -413,6 +439,7 @@ tf_py_test(
         "notsan",  # http://b/62136390
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":gru",
         ":gru_v1",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -420,7 +447,6 @@ tf_py_test(
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -435,13 +461,13 @@ cuda_py_test(
         "notsan",  # TODO(b/170954246)
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":gru_lstm_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -456,6 +482,7 @@ tf_py_test(
         "notsan",  # http://b/62189182
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":lstm",
         ":lstm_v1",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -463,7 +490,6 @@ tf_py_test(
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -477,6 +503,7 @@ tf_py_test(
         "notsan",  # TODO(b/170870794)
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":gru",
         ":gru_v1",
         ":legacy_cells",
@@ -488,7 +515,6 @@ tf_py_test(
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:generic_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -500,11 +526,11 @@ tf_py_test(
     shard_count = 4,
     tags = ["notsan"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -515,11 +541,11 @@ tf_py_test(
     srcs = ["conv_lstm_test.py"],
     shard_count = 8,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -534,12 +560,12 @@ cuda_py_test(
         "no_windows_gpu",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -553,6 +579,7 @@ tf_py_test(
         "notsan",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":cell_wrappers",
         ":legacy_cells",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -560,7 +587,6 @@ tf_py_test(
         "//tf_keras/legacy_tf_layers:layers_base",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/utils:generic_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -571,11 +597,11 @@ tf_py_test(
     srcs = ["legacy_cell_wrappers_test.py"],
     shard_count = 4,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":legacy_cell_wrappers",
         ":legacy_cells",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -585,9 +611,9 @@ tf_py_test(
     srcs = ["base_wrapper_test.py"],
     shard_count = 4,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -601,6 +627,7 @@ tf_py_test(
         "notsan",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":cell_wrappers",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
@@ -609,7 +636,6 @@ tf_py_test(
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:generic_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -624,11 +650,11 @@ tf_py_test(
         "notsan",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
