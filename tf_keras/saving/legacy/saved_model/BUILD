@@ -62,6 +62,11 @@ py_library(
         "save_impl.py",
         "serialized_attributes.py",
     ],
+    visibility = [
+        "//tf_keras/layers/preprocessing:__pkg__",
+        "//tf_keras/layers/rnn:__pkg__",
+        "//tf_keras/saving:__subpackages__",
+    ],
     deps = [
         ":order_preserving_set",
         ":utils",

@@ -14,6 +14,8 @@
 # ==============================================================================
 """Preprocessing stage."""
 
+import inspect
+
 import numpy as np
 import tensorflow.compat.v2 as tf
 
@@ -237,8 +239,14 @@ class FunctionalPreprocessingStage(
                     tf.__internal__.nest.list_to_tuple(*args)
                 )
 
-                if node.layer.stateful and hasattr(node.layer, "adapt"):
-                    node.layer.adapt(args, reset_state=reset_state)
+                if hasattr(node.layer, "adapt"):
+                    adapt_kwargs = inspect.signature(
+                        node.layer.adapt
+                    ).parameters
+                    if "reset_state" in adapt_kwargs:
+                        node.layer.adapt(args, reset_state=reset_state)
+                    else:
+                        node.layer.adapt(args)
 
                 map_fn = build_map_fn(node, args, kwargs)
                 outputs = args.map(map_fn)

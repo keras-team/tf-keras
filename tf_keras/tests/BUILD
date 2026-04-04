@@ -56,11 +56,22 @@ tpu_py_test(
     disable_mlir_bridge = False,
     tags = ["no_oss"],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras",
+        "//tf_keras:callbacks",
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/distribute:distribute_strategy_test_lib",
-        "@pypi//tensorboard_data_server",
+        "//tf_keras/engine",
+        "//tf_keras/engine:base_layer",
+        "//tf_keras/layers/convolutional",
+        "//tf_keras/layers/core",
+        "//tf_keras/layers/pooling",
+        "//tf_keras/layers/regularization",
+        "//tf_keras/layers/reshaping",
+        "//tf_keras/testing_infra:test_utils",
+        "//third_party/py/absl/flags",
+        "//third_party/py/tensorflow:tensorflow_core",
+        "//third_party/tensorflow/python/eager:context",
+        "//third_party/tensorflow/python/framework:test_lib",
+        "@pypi//numpy",
     ],
 )
 
