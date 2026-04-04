@@ -199,6 +199,7 @@ distribute_py_test(
     ],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "//tf_keras",
         "//tf_keras/api:tf_keras_api",
     ],
 )
@@ -305,6 +306,8 @@ distribute_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/absl/logging",
+        "//third_party/py/portpicker",
     ],
 )
 
