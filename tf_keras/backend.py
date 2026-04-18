@@ -306,7 +306,7 @@ def clear_session():
             gradient_dict = ops._gradient_registry._registry
             
             orphaned_gradients = [
-                name for name in gradient_dict.keys() 
+                name for name in list(gradient_dict.keys())
                 if isinstance(name, str) and name.startswith("CustomGradient")
             ]
             
