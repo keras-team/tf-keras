@@ -1,3 +1,5 @@
+# isort: skip_file
+# fmt: off
 # Copyright 2020 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +19,15 @@
 import collections
 import os
 
+from absl import flags
 import numpy as np
 import tensorflow.compat.v2 as tf
-from absl import flags
-
+from tensorflow.python.eager.context import (
+    set_soft_device_placement,
+)
+from tensorflow.python.framework import (
+    test_util as tf_test_utils,
+)
 from tf_keras import callbacks
 from tf_keras.distribute import distribute_strategy_test
 from tf_keras.engine import base_layer
@@ -32,23 +39,6 @@ from tf_keras.layers import pooling as pool_layer_lib
 from tf_keras.layers import regularization as regularization_layer_lib
 from tf_keras.layers import reshaping as reshaping_layer_lib
 from tf_keras.testing_infra import test_utils
-
-# isort: off
-from tensorboard.plugins.histogram import (
-    summary_v2 as histogram_summary_v2,
-)
-from tensorboard.plugins.image import (
-    summary_v2 as image_summary_v2,
-)
-from tensorboard.plugins.scalar import (
-    summary_v2 as scalar_summary_v2,
-)
-from tensorflow.python.eager.context import (
-    set_soft_device_placement,
-)
-from tensorflow.python.framework import (
-    test_util as tf_test_utils,
-)
 
 NUM_CLASSES = 4
 
@@ -79,7 +69,7 @@ class LayerForScalarSummary(base_layer.Layer):
 
     def call(self, x):
         # Add summary scalar using compat v2 implementation.
-        scalar_summary_v2.scalar("custom_scalar_summary_v2", tf.reduce_sum(x))
+        tf.summary.scalar("custom_scalar_summary_v2", tf.reduce_sum(x))
         return x
 
 
@@ -88,7 +78,7 @@ class LayerForImageSummary(base_layer.Layer):
 
     def call(self, x):
         # Add summary image using compat v2 implementation.
-        image_summary_v2.image("custom_image_summary_v2", x)
+        tf.summary.image("custom_image_summary_v2", x)
 
         return x
 
@@ -98,7 +88,7 @@ class LayerForHistogramSummary(base_layer.Layer):
 
     def call(self, x):
         # Add summary histogram using compat v2 implementation.
-        histogram_summary_v2.histogram("custom_histogram_summary_v2", x)
+        tf.summary.histogram("custom_histogram_summary_v2", x)
 
         return x
 
@@ -190,9 +180,8 @@ class AutoOutsideCompilationWithKerasTest(tf.test.TestCase):
                 for v in e.summary.value:
                     event_counts[v.tag] += 1
 
-        event_counts = dict(
-            event_counts
-        )  # Avoid defaultdict type in repr below.
+        event_counts = dict(event_counts)
+        # Avoid defaultdict type in repr below.
         # Populate a count of 0 for tags that were expected but not found.
         actual_event_counts = {
             tag: event_counts.get(tag, 0) for tag in expected_event_counts
@@ -200,8 +189,8 @@ class AutoOutsideCompilationWithKerasTest(tf.test.TestCase):
         self.assertEqual(
             expected_event_counts,
             actual_event_counts,
-            msg="expected counts not found; all event counts: %r"
-            % event_counts,
+            msg="expected counts not found; "
+            "all event counts: %r" % event_counts,
         )
 
     def testV2SummaryWithKerasSequentialModel(self):
@@ -237,9 +226,9 @@ class AutoOutsideCompilationWithKerasTest(tf.test.TestCase):
             # every 2 batches, we should see total of 5 event logs for each
             # summary.
             expected_event_counts = {
-                "sequential/layer_for_histogram_summary/custom_histogram_summary_v2": 5  # noqa: E501
-                if enable_histograms
-                else 0,
+                "sequential/layer_for_histogram_summary/custom_histogram_summary_v2": (  # noqa: E501
+                    5 if enable_histograms else 0  # noqa: E501
+                ),
                 "sequential/layer_for_image_summary/custom_image_summary_v2": 5,
             }
             self.validate_recorded_sumary_file(
@@ -276,16 +265,11 @@ class AutoOutsideCompilationWithKerasTest(tf.test.TestCase):
             # every 2 batches, we should see total of 5 event logs for each
             # summary.
             expected_event_counts = {
-                (
-                    "custom_model/layer_for_scalar_summary/"
-                    "custom_scalar_summary_v2"
-                ): 5,
+                "custom_model/layer_for_scalar_summary/custom_scalar_summary_v2": 5,  # noqa: E501
                 (
                     "custom_model/layer_for_histogram_summary/"
                     "custom_histogram_summary_v2"
-                ): 5
-                if enable_histograms
-                else 0,
+                ): (5 if enable_histograms else 0),
             }
             self.validate_recorded_sumary_file(
                 event_files, expected_event_counts
@@ -305,7 +289,7 @@ class AutoOutsideCompilationWithKerasTest(tf.test.TestCase):
                 del labels
                 logits = model(features)
                 with tf.summary.record_if(True), writer.as_default():
-                    scalar_summary_v2.scalar(
+                    tf.summary.scalar(
                         "logits",
                         tf.reduce_sum(logits),
                         step=model.optimizer.iterations,

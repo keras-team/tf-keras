@@ -21,10 +21,10 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")  # buildifier: disable=s
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         # TODO(scottzhu): Remove these two deps and convert the test to integration test.
-        "//third_party/tensorflow/python/distribute:__pkg__",  # For collective_all_reduce_strategy_test
+        # "//third_party/tensorflow/python/distribute:__pkg__",  # For collective_all_reduce_strategy_test
         "//tf_keras:friends",
         "//third_party/tensorflow/tools/pip_package:__pkg__",
     ],
@@ -34,6 +34,7 @@ package(
 py_library(
     name = "mixed_precision_experimental",
     srcs = ["__init__.py"],
+    strict_deps = False,
     deps = [
         ":loss_scale_optimizer",
         ":policy",
@@ -45,6 +46,7 @@ py_library(
     srcs = [
         "policy.py",
     ],
+    strict_deps = False,
     deps = [
         ":device_compatibility_check",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -70,6 +72,7 @@ tf_py_test(
 py_library(
     name = "device_compatibility_check",
     srcs = ["device_compatibility_check.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -90,6 +93,7 @@ py_library(
     srcs = [
         "autocast_variable.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/distribute",
@@ -101,22 +105,23 @@ tf_py_test(
     size = "medium",
     srcs = ["autocast_variable_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":autocast_variable",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
         "//tf_keras/optimizers/legacy:optimizers",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
 py_library(
     name = "loss_scale_optimizer",
     srcs = ["loss_scale_optimizer.py"],
+    strict_deps = False,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/utils:generic_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -139,6 +144,7 @@ cuda_py_test(
     size = "small",
     srcs = ["mixed_precision_graph_rewrite_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":loss_scale_optimizer",
         ":policy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -146,13 +152,13 @@ cuda_py_test(
         "//tf_keras/optimizers/legacy:optimizers",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
 py_library(
     name = "test_util",
     srcs = ["test_util.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
@@ -168,11 +174,11 @@ cuda_py_test(
         "no_windows",  # b/139083295: bfloat16 tests fail on Windows
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":test_util",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -190,11 +196,11 @@ cuda_py_test(
         "no_windows",  # b/139083295: bfloat16 tests fail on Windows
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":test_util",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -207,9 +213,9 @@ cuda_py_test(
         "no_rocm",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )

@@ -5,7 +5,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         # Remove this deps to integration test.
         "//tf_keras:friends",
@@ -36,6 +36,7 @@ py_library(
         "vgg19.py",
         "xception.py",
     ],
+    strict_deps = False,
     visibility = ["//visibility:public"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -63,10 +64,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -83,10 +84,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -106,10 +107,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -125,10 +126,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -143,10 +144,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -161,10 +162,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -179,10 +180,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -197,10 +198,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -215,10 +216,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -233,10 +234,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -251,10 +252,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -269,10 +270,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -287,10 +288,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -305,10 +306,10 @@ tf_py_test(
         "no_pip",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -324,10 +325,10 @@ tf_py_test(
         "no_pip",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -343,10 +344,10 @@ tf_py_test(
         "no_pip",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -362,10 +363,10 @@ tf_py_test(
         "no_pip",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -380,10 +381,10 @@ tf_py_test(
         "no_pip",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -398,10 +399,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -416,10 +417,10 @@ tf_py_test(
         "requires-net:external",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/preprocessing",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -429,10 +430,10 @@ tf_py_test(
     srcs = ["imagenet_utils_test.py"],
     shard_count = 2,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":applications",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )

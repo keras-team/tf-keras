@@ -5,7 +5,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = ["//visibility:public"],
     licenses = ["notice"],
 )
@@ -36,12 +36,14 @@ BECHMARK_TAGS = [
 py_library(
     name = "run_xprof",
     srcs = ["run_xprof.py"],
+    strict_deps = False,
     visibility = ["//visibility:private"],
 )
 
 py_library(
     name = "layer_benchmarks_test_base",
     srcs = ["layer_benchmarks_test_base.py"],
+    strict_deps = False,
     visibility = ["//visibility:private"],
     deps = [
         ":run_xprof",
@@ -57,7 +59,8 @@ tf_py_test(
     deps = [
         ":layer_benchmarks_test_base",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras/api:tf_keras_api",
         "//tf_keras/benchmarks:benchmark_util",
+        # "//third_party/tensorflow/compiler/jit:xla_cpu_jit",
+        # "//third_party/tensorflow/compiler/jit:xla_gpu_jit",
     ],
 )

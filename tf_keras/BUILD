@@ -9,7 +9,7 @@ load("@rules_python//python:py_library.bzl", "py_library")
 # copybara:uncomment_end
 
 package(
-    # copybara:uncomment default_applicable_licenses = [":license"],
+    default_applicable_licenses = [":license"],
     default_visibility = [":friends"],
     licenses = ["notice"],
 )
@@ -35,6 +35,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    # copybara:uncomment strict_deps = False,
     deps = [
         ":backend",
         ":engine",
@@ -48,6 +49,7 @@ py_library(
         "//tf_keras/layers/rnn:legacy_cell_wrappers",
         "//tf_keras/layers/rnn:legacy_cells",
         "//tf_keras/legacy_tf_layers:layers",
+        "//tf_keras/metrics",
         "//tf_keras/mixed_precision:mixed_precision_experimental",
         "//tf_keras/models",
         "//tf_keras/optimizers",
@@ -68,6 +70,7 @@ py_library(
 py_library(
     name = "backend",
     srcs = ["backend.py"],
+    # copybara:uncomment strict_deps = False,
     deps = [
         ":backend_config",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -84,6 +87,7 @@ py_library(
 py_library(
     name = "backend_config",
     srcs = ["backend_config.py"],
+    # copybara:uncomment strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
     ],
@@ -96,6 +100,7 @@ py_library(
         "//tf_keras/metrics",
         "//tf_keras/models",
     ],
+    # copybara:uncomment strict_deps = False,
     deps = [
         "//tf_keras/engine",
     ],
@@ -106,6 +111,7 @@ py_library(
     srcs = [
         "activations.py",
     ],
+    # copybara:uncomment strict_deps = False,
     deps = [
         ":backend",
         "//tf_keras/layers/activation",
@@ -117,6 +123,7 @@ py_library(
 py_library(
     name = "base_layer",
     srcs = [],
+    # copybara:uncomment strict_deps = False,
     deps = [
         "//tf_keras/engine:base_layer",
     ],
@@ -127,6 +134,7 @@ py_library(
     srcs = [
         "callbacks.py",
     ],
+    # copybara:uncomment strict_deps = False,
     deps = [
         ":backend",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -136,6 +144,7 @@ py_library(
         "//tf_keras/utils:engine_utils",
         "//tf_keras/utils:mode_keys",
         "//tf_keras/utils:timed_threads",
+        "//tf_keras/utils:version_utils",
         "@pypi//tensorboard_data_server",
     ],
 )
@@ -145,6 +154,7 @@ py_library(
     srcs = [
         "callbacks_v1.py",
     ],
+    # copybara:uncomment strict_deps = False,
     deps = [
         ":backend",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -158,6 +168,7 @@ py_library(
     srcs = [
         "constraints.py",
     ],
+    # copybara:uncomment strict_deps = False,
     deps = [
         ":backend",
         "//tf_keras/utils:engine_utils",
@@ -169,6 +180,7 @@ py_library(
     srcs = [
         "losses.py",
     ],
+    # copybara:uncomment strict_deps = False,
     deps = [
         ":backend",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -184,6 +196,7 @@ py_library(
     srcs = [
         "regularizers.py",
     ],
+    # copybara:uncomment strict_deps = False,
     deps = [
         ":backend",
         "//tf_keras/utils:engine_utils",
@@ -196,7 +209,7 @@ py_library(
 # py_library(
 #     name = "url_utils",
 #     srcs = ["google/url_utils.py"],
-#     strict_deps = False,
+#     # copybara:uncomment strict_deps = False,
 #     deps = ["//pyglib/contrib/google_ssl"],
 # )
 # copybara:uncomment_end
@@ -207,7 +220,7 @@ py_library(
 # py_library(
 #     name = "distribute_utils",
 #     srcs = ["google/distribute_utils.py"],
-#     strict_deps = False,
+#     # copybara:uncomment strict_deps = False,
 #     deps = [
 #         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
 #         "//third_party/py/requests",
@@ -221,6 +234,7 @@ tf_py_test(
     size = "small",
     srcs = ["activations_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":activations",
         ":backend",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -228,7 +242,6 @@ tf_py_test(
         "//tf_keras/layers/activation",
         "//tf_keras/layers/core",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
         "@pypi//scipy",
     ],
@@ -252,10 +265,10 @@ tf_py_test(
     size = "medium",
     srcs = ["regularizers_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":tf_keras",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -288,10 +301,10 @@ tf_py_test(
         "notsan",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":tf_keras",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -305,6 +318,7 @@ tf_py_test(
         "notsan",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":callbacks",
         ":callbacks_v1",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -313,7 +327,6 @@ tf_py_test(
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "//tf_keras/utils:np_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -324,11 +337,11 @@ tf_py_test(
     srcs = ["backend_test.py"],
     shard_count = 4,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":backend",
         ":engine",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
         "@pypi//scipy",
     ],

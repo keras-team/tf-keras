@@ -5,11 +5,11 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     # TODO(scottzhu): Remove non-keras deps from TF.
     default_visibility = [
         "//tf_keras:friends",
-        "//third_party/tensorflow/python/distribute:__pkg__",
+        # "//third_party/tensorflow/python/distribute:__pkg__",
     ],
     licenses = ["notice"],
 )
@@ -26,10 +26,12 @@ py_library(
         "pickle_utils.py",
         "saving_api.py",
     ],
+    strict_deps = False,
     deps = [
         ":object_registration",
         ":serialization",
         ":serialization_lib",
+        "@pypi//h5py",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
         "//tf_keras:losses",
@@ -43,8 +45,8 @@ py_library(
         "//tf_keras/utils:engine_utils",
         "//tf_keras/utils:metrics_utils",
         "//tf_keras/utils:mode_keys",
-        "@pypi//h5py",
         "@pypi//pyyaml",
+        # "//third_party/tensorflow/core/platform/cloud:gcs_file_system",
     ],
 )
 
@@ -53,6 +55,7 @@ py_library(
     srcs = [
         "saving_lib.py",
     ],
+    strict_deps = False,
     deps = [
         ":serialization_lib",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -66,11 +69,11 @@ tf_py_test(
     size = "medium",
     srcs = ["saving_lib_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/utils:generic_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -79,6 +82,7 @@ py_library(
     srcs = [
         "object_registration.py",
     ],
+    strict_deps = False,
 )
 
 py_library(
@@ -86,6 +90,7 @@ py_library(
     srcs = [
         "serialization_lib.py",
     ],
+    strict_deps = False,
     deps = [
         ":object_registration",
         ":serialization",
@@ -100,6 +105,7 @@ py_library(
     srcs = [
         "legacy/serialization.py",
     ],
+    strict_deps = False,
     deps = [
         ":object_registration",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -128,10 +134,10 @@ tf_py_test(
         "notsan",  # TODO(b/170870790)
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -142,10 +148,10 @@ tf_py_test(
     srcs = ["legacy/losses_serialization_test.py"],
     shard_count = 4,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -156,10 +162,10 @@ tf_py_test(
     srcs = ["pickle_utils_test.py"],
     shard_count = 4,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -175,10 +181,10 @@ tf_py_test(
         "no_windows",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -192,10 +198,10 @@ tf_py_test(
         "no_pip",  # TODO(b/202022379)
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -206,10 +212,10 @@ tf_py_test(
     srcs = ["legacy/saving_utils_test.py"],
     tags = ["notsan"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -219,10 +225,10 @@ tf_py_test(
     size = "small",
     srcs = ["serialization_lib_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/saving:serialization",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )

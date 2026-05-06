@@ -5,13 +5,13 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
-        "//tf_keras:friends",
         "//third_party/py/tensorflow_gnn:__subpackages__",
-        "//third_party/tensorflow/python/distribute:__pkg__",
-        "//third_party/tensorflow/python/feature_column:__pkg__",
-        "//third_party/tensorflow/python/trackable:__pkg__",
+        "//tf_keras:friends",
+        # "//third_party/tensorflow/python/distribute:__pkg__",
+        # "//third_party/tensorflow/python/feature_column:__pkg__",
+        # "//third_party/tensorflow/python/trackable:__pkg__",
         "//third_party/tensorflow/tools/pip_package:__pkg__",
         "//third_party/tensorflow_models/official/projects/residual_mobilenet/modeling/backbones:__pkg__",
     ],
@@ -23,6 +23,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":additive_attention",
         ":attention_layer",
@@ -33,6 +34,7 @@ py_library(
 py_library(
     name = "multi_head_attention",
     srcs = ["multi_head_attention.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:constraints",
@@ -50,6 +52,7 @@ py_library(
 py_library(
     name = "base_dense_attention",
     srcs = ["base_dense_attention.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -61,6 +64,7 @@ py_library(
 py_library(
     name = "attention_layer",
     srcs = ["attention.py"],
+    strict_deps = False,
     deps = [
         ":base_dense_attention",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -70,6 +74,7 @@ py_library(
 py_library(
     name = "additive_attention",
     srcs = ["additive_attention.py"],
+    strict_deps = False,
     deps = [
         ":base_dense_attention",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -80,10 +85,10 @@ tf_py_test(
     name = "multi_head_attention_test",
     srcs = ["multi_head_attention_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -93,11 +98,11 @@ tf_py_test(
     size = "medium",
     srcs = ["base_dense_attention_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":base_dense_attention",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -107,11 +112,11 @@ tf_py_test(
     size = "medium",
     srcs = ["attention_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/layers/core",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -121,12 +126,12 @@ tf_py_test(
     size = "medium",
     srcs = ["additive_attention_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/mixed_precision:policy",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )

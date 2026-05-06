@@ -8,7 +8,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tpu_py_test")  # buildifier: disable=
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
         "//tf_keras:friends",
         "//third_party/tensorflow/tools/pip_package:__pkg__",
@@ -20,9 +20,10 @@ tf_py_test(
     name = "forwardprop_test",
     srcs = ["forwardprop_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -32,6 +33,7 @@ tf_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -41,6 +43,7 @@ tf_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -51,9 +54,9 @@ cuda_py_test(
         "no_oss",  # TODO(keras-team): Fails in OSS due to reference to `tf.keras`
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/testing:parameterized",
         "//tf_keras/api:tf_keras_api",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -64,8 +67,8 @@ tf_py_test(
         "no_oss",  # TODO(keras-team): Fails in OSS cpu tests due to lazy loading of `keras` module.
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -75,6 +78,7 @@ tf_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -84,6 +88,7 @@ tf_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -92,8 +97,10 @@ cuda_py_test(
     srcs = ["gradient_checkpoint_test.py"],
     tags = ["no_oss"],  # TODO(b/249526796)
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "//third_party/py/tensorflow:tensorflow_core",
         "//tf_keras/api:tf_keras_api",
+        # "//third_party/tensorflow/python/framework:test_lib",
+        # "//third_party/tensorflow/python/platform:client_testlib",
     ],
 )
 
@@ -106,10 +113,10 @@ cuda_py_test(
         "no_windows_gpu",  # TODO(b/130551176)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/testing:parameterized",
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/utils:kpl_test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -122,7 +129,8 @@ tpu_py_test(
     deps = [
         "//third_party/py/absl/flags",
         "//third_party/py/tensorflow:tensorflow_core",
-        "//third_party/tensorflow/python/framework:test_lib",
+        "//tf_keras/api:tf_keras_api",
+        # "//third_party/tensorflow/python/framework:test_lib",
     ],
 )
 
@@ -139,9 +147,10 @@ tf_py_test(
         "notsan",  # TODO(b/156029134)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/logging",
+        "# //third_party/py/absl/testing:parameterized",
         "//tf_keras/api:tf_keras_api",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//third_party/py/tensorflow:tensorflow_core",
         "@pypi//portpicker",
     ],
 )
@@ -157,10 +166,10 @@ distribute_py_test(
         "nomultivm",  # TODO(b/170502145)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/testing:parameterized",
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/distribute:strategy_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -175,10 +184,10 @@ distribute_py_test(
         "notap",  # b/216629693
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/testing:parameterized",
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        "//third_party/py/tensorflow:tensorflow_core",
         "@pypi//numpy",
         "@pypi//portpicker",
     ],
@@ -198,8 +207,8 @@ distribute_py_test(
         "notsan",  # TODO(b/184542721)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -216,8 +225,9 @@ distribute_py_test(
         "notsan",  # TODO(b/184542721)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/logging",
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
         "@pypi//portpicker",
     ],
 )
@@ -225,8 +235,10 @@ distribute_py_test(
 py_library(
     name = "preprocessing_test_utils",
     srcs = ["preprocessing_test_utils.py"],
+    # copybara:uncomment strict_deps = False,
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -245,8 +257,8 @@ distribute_py_test(
     ],
     deps = [
         ":preprocessing_test_utils",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -265,8 +277,8 @@ distribute_py_test(
     ],
     deps = [
         ":preprocessing_test_utils",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -285,8 +297,8 @@ distribute_py_test(
     ],
     deps = [
         ":preprocessing_test_utils",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -303,8 +315,10 @@ distribute_py_test(
         "notsan",  # TODO(b/184542721)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/logging",
         "//tf_keras/api:tf_keras_api",
+        "//third_party/py/portpicker",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -312,9 +326,12 @@ tf_py_test(
     name = "custom_object_saving_test",
     srcs = ["custom_object_saving_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/api:tf_keras_api",
-        "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
+        "//tf_keras/utils",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -326,12 +343,15 @@ tf_py_test(
         "notsan",  # TODO(b/156029134)
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
-        "//tf_keras",
-        "//tf_keras/api:tf_keras_api",
-        "//tf_keras/testing_infra:test_combinations",
         "@pypi//numpy",
         "@pypi//portpicker",
+        "//third_party/py/tensorflow:tensorflow_core",
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/engine",
+        "//tf_keras/layers",
+        "//tf_keras/metrics",
+        "//tf_keras/testing_infra:test_combinations",
+        # "//third_party/tensorflow/python/distribute:multi_process_runner",
     ],
 )
 
@@ -344,10 +364,12 @@ tf_py_test(
         "no_oss",  # TODO(keras-team): Fails in OSS due to reference to `tf.keras`
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/testing:parameterized",
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/integration_test/models",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -360,10 +382,12 @@ tf_py_test(
         "no_oss",  # TODO(keras-team): Fails in OSS.
     ],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "# //third_party/py/absl/testing:parameterized",
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/integration_test/models",
         "//tf_keras/testing_infra:test_combinations",
+        "//tf_keras/testing_infra:test_utils",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -373,10 +397,14 @@ tf_py_test(
     srcs = ["py_metric_test.py"],
     shard_count = 2,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
+        "//tf_keras:losses",
         "//tf_keras/api:tf_keras_api",
+        "//tf_keras/layers",
         "//tf_keras/metrics",
         "//tf_keras/testing_infra:test_combinations",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )
 
@@ -385,11 +413,12 @@ tf_py_test(
     size = "medium",
     srcs = ["extension_type_test.py"],
     deps = [
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras",
         "//tf_keras/api:tf_keras_api",
         "//tf_keras/engine",
         "//tf_keras/engine:input_layer",
         "//tf_keras/saving",
+        "//tf_keras/testing_infra:test_utils",
+        "//third_party/py/tensorflow:tensorflow_core",
     ],
 )

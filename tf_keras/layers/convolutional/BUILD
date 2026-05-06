@@ -5,7 +5,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = ["//tf_keras:__subpackages__"],
     licenses = ["notice"],
 )
@@ -15,6 +15,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    strict_deps = False,
     deps = [
         ":conv1d",
         ":conv1d_transpose",
@@ -47,6 +48,7 @@ py_library(
 py_library(
     name = "base_conv",
     srcs = ["base_conv.py"],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
@@ -62,6 +64,7 @@ py_library(
 py_library(
     name = "conv1d",
     srcs = ["conv1d.py"],
+    strict_deps = False,
     deps = [
         ":base_conv",
         "//tf_keras:activations",
@@ -75,6 +78,7 @@ py_library(
 py_library(
     name = "conv2d",
     srcs = ["conv2d.py"],
+    strict_deps = False,
     deps = [
         ":base_conv",
         "//tf_keras:activations",
@@ -88,6 +92,7 @@ py_library(
 py_library(
     name = "conv3d",
     srcs = ["conv3d.py"],
+    strict_deps = False,
     deps = [
         ":base_conv",
         "//tf_keras:activations",
@@ -101,6 +106,7 @@ py_library(
 py_library(
     name = "conv1d_transpose",
     srcs = ["conv1d_transpose.py"],
+    strict_deps = False,
     deps = [
         ":conv1d",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -118,6 +124,7 @@ py_library(
 py_library(
     name = "conv2d_transpose",
     srcs = ["conv2d_transpose.py"],
+    strict_deps = False,
     deps = [
         ":conv2d",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -136,6 +143,7 @@ py_library(
 py_library(
     name = "conv3d_transpose",
     srcs = ["conv3d_transpose.py"],
+    strict_deps = False,
     deps = [
         ":conv3d",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -153,6 +161,7 @@ py_library(
 py_library(
     name = "base_separable_conv",
     srcs = ["base_separable_conv.py"],
+    strict_deps = False,
     deps = [
         ":base_conv",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -168,6 +177,7 @@ py_library(
 py_library(
     name = "separable_conv1d",
     srcs = ["separable_conv1d.py"],
+    strict_deps = False,
     deps = [
         ":base_separable_conv",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -182,6 +192,7 @@ py_library(
 py_library(
     name = "separable_conv2d",
     srcs = ["separable_conv2d.py"],
+    strict_deps = False,
     deps = [
         ":base_separable_conv",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -196,6 +207,7 @@ py_library(
 py_library(
     name = "base_depthwise_conv",
     srcs = ["base_depthwise_conv.py"],
+    strict_deps = False,
     deps = [
         ":base_conv",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -210,6 +222,7 @@ py_library(
 py_library(
     name = "depthwise_conv1d",
     srcs = ["depthwise_conv1d.py"],
+    strict_deps = False,
     deps = [
         ":base_depthwise_conv",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -221,6 +234,7 @@ py_library(
 py_library(
     name = "depthwise_conv2d",
     srcs = ["depthwise_conv2d.py"],
+    strict_deps = False,
     deps = [
         ":base_depthwise_conv",
         "//tf_keras:backend",
@@ -235,11 +249,11 @@ cuda_py_test(
     srcs = ["conv_test.py"],
     shard_count = 8,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -249,11 +263,11 @@ cuda_py_test(
     size = "medium",
     srcs = ["conv_transpose_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
@@ -264,11 +278,11 @@ cuda_py_test(
     srcs = ["depthwise_conv_test.py"],
     shard_count = 8,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -277,11 +291,11 @@ cuda_py_test(
     size = "medium",
     srcs = ["separable_conv_test.py"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )

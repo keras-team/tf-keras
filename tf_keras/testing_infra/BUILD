@@ -5,7 +5,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = ["//tf_keras:friends"],
     licenses = ["notice"],
 )
@@ -15,11 +15,12 @@ py_library(
     srcs = [
         "test_combinations.py",
     ],
+    strict_deps = False,
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":test_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -29,6 +30,7 @@ py_library(
         "__init__.py",
         "test_utils.py",
     ],
+    strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -47,6 +49,7 @@ py_library(
 py_library(
     name = "keras_doctest_lib",
     srcs = ["keras_doctest_lib.py"],
+    strict_deps = False,
     deps = [
         "@pypi//numpy",
     ],
@@ -61,9 +64,9 @@ tf_py_test(
         "notsan",
     ],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":keras_doctest_lib",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
-        "@pypi//absl_py",  # absl/testing:parameterized
     ],
 )
 
@@ -73,11 +76,11 @@ tf_py_test(
     srcs = ["test_combinations_test.py"],
     tags = ["notsan"],
     deps = [
+        "# //third_party/py/absl/testing:parameterized",
         ":test_combinations",
         ":test_utils",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
-        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//numpy",
     ],
 )
