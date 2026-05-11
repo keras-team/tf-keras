@@ -7,13 +7,13 @@ load("@org_keras//tf_keras:tf_keras.bzl", "tf_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    # default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = [
-        "//tf_keras:friends",
         "//third_party/py/tensorflow_gnn:__subpackages__",
-        "//third_party/tensorflow/python/distribute:__pkg__",
-        "//third_party/tensorflow/python/feature_column:__pkg__",
-        "//third_party/tensorflow/python/trackable:__pkg__",
+        "//tf_keras:friends",
+        # "//third_party/tensorflow/python/distribute:__pkg__",
+        # "//third_party/tensorflow/python/feature_column:__pkg__",
+        # "//third_party/tensorflow/python/trackable:__pkg__",
         "//third_party/tensorflow/tools/pip_package:__pkg__",
         "//third_party/tensorflow_models/official/projects/residual_mobilenet/modeling/backbones:__pkg__",
     ],
@@ -25,6 +25,7 @@ py_library(
     srcs = [
         "__init__.py",
     ],
+    # strict_deps = False,
     deps = [
         ":activation",
         ":dense",
@@ -49,6 +50,7 @@ py_library(
 py_library(
     name = "activation",
     srcs = ["activation.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -58,6 +60,7 @@ py_library(
 py_library(
     name = "dense",
     srcs = ["dense.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -68,6 +71,7 @@ py_library(
 py_library(
     name = "einsum_dense",
     srcs = ["einsum_dense.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:activations",
@@ -81,6 +85,7 @@ py_library(
 py_library(
     name = "embedding",
     srcs = ["embedding.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -97,6 +102,7 @@ py_library(
 py_library(
     name = "lambda",
     srcs = ["lambda_layer.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -106,6 +112,7 @@ py_library(
 py_library(
     name = "masking",
     srcs = ["masking.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -115,6 +122,7 @@ py_library(
 py_library(
     name = "tf_op_layer",
     srcs = ["tf_op_layer.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
@@ -129,6 +137,7 @@ py_library(
 py_library(
     name = "identity",
     srcs = ["identity.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/engine:base_layer",
@@ -141,11 +150,12 @@ tf_py_test(
     srcs = ["core_test.py"],
     shard_count = 3,
     deps = [
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -154,12 +164,13 @@ tf_py_test(
     srcs = ["einsum_dense_test.py"],
     deps = [
         ":einsum_dense",
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -170,6 +181,7 @@ cuda_py_test(
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/mixed_precision:policy",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",

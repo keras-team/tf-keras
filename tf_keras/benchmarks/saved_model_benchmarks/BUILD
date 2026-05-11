@@ -5,7 +5,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "cuda_py_test")
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//tf_keras:license"],
+    # default_applicable_licenses = ["//tf_keras:license"],
     default_visibility = ["//visibility:public"],
     licenses = ["notice"],
 )
@@ -26,6 +26,7 @@ package(
 py_library(
     name = "saved_model_benchmark_util",
     srcs = ["saved_model_benchmark_util.py"],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_no_contrib"
         "//tf_keras/benchmarks:profiler_lib",

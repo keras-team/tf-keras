@@ -7,7 +7,7 @@ load("@org_keras//tf_keras:tf_keras.bzl", "distribute_py_test")  # buildifier: d
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
-    # copybara:uncomment default_applicable_licenses = ["//third_party/py/keras:license"],
+    # default_applicable_licenses = ["//third_party/py/keras:license"],
     default_visibility = [
         "//tf_keras:friends",
     ],
@@ -20,6 +20,7 @@ py_library(
         "__init__.py",
         "dynamic_lookup.py",
     ],
+    # strict_deps = False,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/layers",
@@ -36,6 +37,7 @@ tf_py_test(
         ":dynamic_lookup",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/testing_infra:test_utils",
         "@pypi//numpy",
@@ -45,6 +47,7 @@ tf_py_test(
 py_library(
     name = "dynamic_embedding",
     srcs = ["dynamic_embedding.py"],
+    # strict_deps = False,
     deps = [
         ":dynamic_lookup",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
@@ -62,6 +65,7 @@ tf_py_test(
         ":dynamic_embedding",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:callbacks",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/layers",
         "//tf_keras/models",
         "//tf_keras/testing_infra:test_combinations",
@@ -80,12 +84,13 @@ distribute_py_test(
     ],
     deps = [
         ":dynamic_embedding",
+        # "//third_party/py/absl/testing:parameterized",
+        "@pypi//numpy",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
         "//tf_keras:callbacks",
+        "//tf_keras/api:tf_keras_api",
         "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
-        "@pypi//numpy",
     ],
 )
 
@@ -98,11 +103,12 @@ distribute_py_test(
     ],
     deps = [
         ":dynamic_lookup",
-        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
-        "//tf_keras",
-        "//tf_keras/testing_infra:test_utils",
-        "@pypi//absl_py",  # absl/testing:parameterized
+        # "//third_party/py/absl/testing:parameterized",
         "@pypi//numpy",
         "@pypi//portpicker",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "//tf_keras",
+        "//tf_keras/api:tf_keras_api",
+        "//tf_keras/testing_infra:test_utils",
     ],
 )
