@@ -193,7 +193,12 @@ distribute_py_test(
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras",
+        "//tf_keras/applications",
+        "//tf_keras/datasets",
+        "//tf_keras/optimizers",
         "//tf_keras/testing_infra:test_utils",
+        "//third_party/tensorflow/python/ops/losses:losses_impl",
+        "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],
 )
@@ -211,6 +216,7 @@ distribute_py_test(
         ":strategy_combinations",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/metrics",
+        "//third_party/tensorflow/python/framework:test_lib",
         "@pypi//absl_py",  # absl/testing:parameterized
         "@pypi//portpicker",
     ],
