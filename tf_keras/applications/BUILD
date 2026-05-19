@@ -36,6 +36,7 @@ py_library(
         "vgg19.py",
         "xception.py",
     ],
+    lazy_imports = True,
     visibility = ["//visibility:public"],
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
