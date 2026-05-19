@@ -17,6 +17,7 @@ py_library(
         "__init__.py",
         "legacy/__init__.py",
     ],
+    lazy_imports = True,
     deps = [
         ":audio_dataset",
         ":data_utils",
@@ -289,6 +290,7 @@ py_library(
 py_library(
     name = "feature_space",
     srcs = ["feature_space.py"],
+    lazy_imports = True,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras:backend",
