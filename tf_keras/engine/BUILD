@@ -30,6 +30,7 @@ py_library(
         "training_utils_v1.py",
         "training_v1.py",
     ],
+    lazy_imports = True,
     deps = [
         ":base_layer",
         ":base_preprocessing_layer",
@@ -88,6 +89,7 @@ py_library(
         "base_layer.py",
         "base_layer_v1.py",
     ],
+    lazy_imports = True,
     deps = [
         ":base_layer_utils",
         ":input_spec",
@@ -164,6 +166,7 @@ py_library(
 py_library(
     name = "keras_tensor",
     srcs = ["keras_tensor.py"],
+    lazy_imports = True,
     deps = [
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:object_identity",
