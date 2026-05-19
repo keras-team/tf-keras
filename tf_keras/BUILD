@@ -68,6 +68,7 @@ py_library(
 py_library(
     name = "backend",
     srcs = ["backend.py"],
+    lazy_imports = True,
     deps = [
         ":backend_config",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
