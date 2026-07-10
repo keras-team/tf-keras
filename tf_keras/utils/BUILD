@@ -62,6 +62,9 @@ py_library(
         ":generic_utils",
         ":io_utils",
         ":tf_inspect",
+        "@pypi//numpy",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        # "//third_party/tensorflow/python/util:core",
     ],
 )
 

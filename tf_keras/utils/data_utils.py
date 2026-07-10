@@ -25,6 +25,7 @@ import queue
 import random
 import shutil
 import tarfile
+import tempfile
 import threading
 import time
 import typing
@@ -275,6 +276,10 @@ def get_file(
     datadir_base = os.path.expanduser(cache_dir)
     if not os.access(datadir_base, os.W_OK):
         datadir_base = os.path.join("/tmp", ".keras")
+        if os.path.exists(datadir_base):
+            stat = os.stat(datadir_base)
+            if stat.st_uid != os.getuid():
+                datadir_base = tempfile.mkdtemp(prefix="keras_")
     datadir = os.path.join(datadir_base, cache_subdir)
     _makedirs_exist_ok(datadir)
 
