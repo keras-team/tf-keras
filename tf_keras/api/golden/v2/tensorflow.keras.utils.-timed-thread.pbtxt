@@ -3,6 +3,14 @@ tf_class {
   is_instance: "<class \'tf_keras.utils.timed_threads.TimedThread\'>"
   is_instance: "<class \'object\'>"
   member_method {
+    name: "__enter__"
+    argspec: "args=[\'self\'], varargs=None, keywords=None, defaults=None"
+  }
+  member_method {
+    name: "__exit__"
+    argspec: "args=[\'self\'], varargs=args, keywords=kwargs, defaults=None"
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'interval\'], varargs=None, keywords=kwargs, defaults=None"
   }

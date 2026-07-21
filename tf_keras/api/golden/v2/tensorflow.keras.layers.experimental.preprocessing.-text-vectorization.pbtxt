@@ -133,6 +133,10 @@ tf_class {
     mtype: "<class \'property\'>"
   }
   member_method {
+    name: "__call__"
+    argspec: "args=[\'self\'], varargs=args, keywords=kwargs, defaults=None"
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'max_tokens\', \'standardize\', \'split\', \'ngrams\', \'output_mode\', \'output_sequence_length\', \'pad_to_max_tokens\', \'vocabulary\', \'idf_weights\', \'sparse\', \'ragged\', \'encoding\'], varargs=None, keywords=kwargs, defaults=[\'None\', \'lower_and_strip_punctuation\', \'whitespace\', \'None\', \'int\', \'None\', \'False\', \'None\', \'None\', \'False\', \'False\', \'utf-8\'], "
   }
@@ -199,6 +203,7 @@ tf_class {
   member_method {
     name: "from_config"
     argspec: "args=[\'cls\', \'config\'], varargs=None, keywords=None, defaults=None"
+    method_kind: CLASS
   }
   member_method {
     name: "get_build_config"

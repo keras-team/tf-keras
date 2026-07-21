@@ -7,6 +7,10 @@ tf_class {
     argspec: "args=[\'self\', \'callbacks\', \'add_history\', \'add_progbar\', \'model\'], varargs=None, keywords=params, defaults=[\'None\', \'False\', \'False\', \'None\'], "
   }
   member_method {
+    name: "__iter__"
+    argspec: "args=[\'self\'], varargs=None, keywords=None, defaults=None"
+  }
+  member_method {
     name: "append"
     argspec: "args=[\'self\', \'callback\'], varargs=None, keywords=None, defaults=None"
   }

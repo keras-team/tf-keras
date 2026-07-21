@@ -4,6 +4,10 @@ tf_class {
   is_instance: "<class \'tf_keras.regularizers.Regularizer\'>"
   is_instance: "<class \'object\'>"
   member_method {
+    name: "__call__"
+    argspec: "args=[\'self\', \'inputs\'], varargs=None, keywords=None, defaults=None"
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'factor\', \'mode\'], varargs=None, keywords=None, defaults=[\'0.01\', \'rows\'], "
   }

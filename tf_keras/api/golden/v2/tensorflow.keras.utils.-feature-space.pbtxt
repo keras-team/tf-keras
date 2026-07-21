@@ -128,6 +128,10 @@ tf_class {
     mtype: "<class \'property\'>"
   }
   member_method {
+    name: "__call__"
+    argspec: "args=[\'self\', \'data\'], varargs=None, keywords=None, defaults=None"
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'features\', \'output_mode\', \'crosses\', \'crossing_dim\', \'hashing_dim\', \'num_discretization_bins\'], varargs=None, keywords=None, defaults=[\'concat\', \'None\', \'32\', \'32\', \'32\'], "
   }
@@ -186,10 +190,12 @@ tf_class {
   member_method {
     name: "cross"
     argspec: "args=[\'cls\', \'feature_names\', \'crossing_dim\', \'output_mode\'], varargs=None, keywords=None, defaults=[\'one_hot\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "feature"
     argspec: "args=[\'cls\', \'dtype\', \'preprocessor\', \'output_mode\'], varargs=None, keywords=None, defaults=None"
+    method_kind: CLASS
   }
   member_method {
     name: "finalize_state"
@@ -198,22 +204,27 @@ tf_class {
   member_method {
     name: "float"
     argspec: "args=[\'cls\', \'name\'], varargs=None, keywords=None, defaults=[\'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "float_discretized"
     argspec: "args=[\'cls\', \'num_bins\', \'bin_boundaries\', \'output_mode\', \'name\'], varargs=None, keywords=None, defaults=[\'None\', \'one_hot\', \'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "float_normalized"
     argspec: "args=[\'cls\', \'name\'], varargs=None, keywords=None, defaults=[\'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "float_rescaled"
     argspec: "args=[\'cls\', \'scale\', \'offset\', \'name\'], varargs=None, keywords=None, defaults=[\'1.0\', \'0.0\', \'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "from_config"
     argspec: "args=[\'cls\', \'config\'], varargs=None, keywords=None, defaults=None"
+    method_kind: CLASS
   }
   member_method {
     name: "get_build_config"
@@ -262,10 +273,12 @@ tf_class {
   member_method {
     name: "integer_categorical"
     argspec: "args=[\'cls\', \'max_tokens\', \'num_oov_indices\', \'output_mode\', \'name\'], varargs=None, keywords=None, defaults=[\'None\', \'1\', \'one_hot\', \'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "integer_hashed"
     argspec: "args=[\'cls\', \'num_bins\', \'output_mode\', \'name\'], varargs=None, keywords=None, defaults=[\'one_hot\', \'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "load_own_variables"
@@ -286,10 +299,12 @@ tf_class {
   member_method {
     name: "string_categorical"
     argspec: "args=[\'cls\', \'max_tokens\', \'num_oov_indices\', \'output_mode\', \'name\'], varargs=None, keywords=None, defaults=[\'None\', \'1\', \'one_hot\', \'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "string_hashed"
     argspec: "args=[\'cls\', \'num_bins\', \'output_mode\', \'name\'], varargs=None, keywords=None, defaults=[\'one_hot\', \'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "with_name_scope"

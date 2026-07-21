@@ -5,6 +5,14 @@ tf_class {
   is_instance: "<class \'tf_keras.callbacks.Callback\'>"
   is_instance: "<class \'object\'>"
   member_method {
+    name: "__enter__"
+    argspec: "args=[\'self\'], varargs=None, keywords=None, defaults=None"
+  }
+  member_method {
+    name: "__exit__"
+    argspec: "args=[\'self\'], varargs=args, keywords=kwargs, defaults=None"
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'dynamic_embedding_layer\', \'interval\'], varargs=None, keywords=None, defaults=None"
   }

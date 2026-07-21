@@ -138,6 +138,10 @@ tf_class {
     mtype: "<class \'property\'>"
   }
   member_method {
+    name: "__call__"
+    argspec: "args=[\'self\', \'inputs\', \'initial_state\', \'constants\'], varargs=None, keywords=kwargs, defaults=[\'None\', \'None\'], "
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'units\', \'kernel_initializer\', \'recurrent_initializer\', \'bias_initializer\', \'kernel_regularizer\', \'recurrent_regularizer\', \'bias_regularizer\', \'activity_regularizer\', \'kernel_constraint\', \'recurrent_constraint\', \'bias_constraint\', \'return_sequences\', \'return_state\', \'go_backwards\', \'stateful\'], varargs=None, keywords=kwargs, defaults=[\'glorot_uniform\', \'orthogonal\', \'zeros\', \'None\', \'None\', \'None\', \'None\', \'None\', \'None\', \'None\', \'False\', \'False\', \'False\', \'False\'], "
   }

@@ -128,6 +128,10 @@ tf_class {
     mtype: "<class \'property\'>"
   }
   member_method {
+    name: "__call__"
+    argspec: "args=[\'self\'], varargs=args, keywords=kwargs, defaults=None"
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'alpha_initializer\', \'alpha_regularizer\', \'alpha_constraint\', \'shared_axes\'], varargs=None, keywords=kwargs, defaults=[\'zeros\', \'None\', \'None\', \'None\'], "
   }

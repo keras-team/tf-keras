@@ -4,6 +4,10 @@ tf_class {
   is_instance: "<class \'tf_keras.constraints.Constraint\'>"
   is_instance: "<class \'object\'>"
   member_method {
+    name: "__call__"
+    argspec: "args=[\'self\', \'w\'], varargs=None, keywords=None, defaults=None"
+  }
+  member_method {
     name: "__init__"
   }
   member_method {

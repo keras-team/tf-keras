@@ -132,6 +132,10 @@ tf_class {
     mtype: "<class \'property\'>"
   }
   member_method {
+    name: "__call__"
+    argspec: "args=[\'self\', \'inputs\', \'initial_state\', \'constants\'], varargs=None, keywords=kwargs, defaults=[\'None\', \'None\'], "
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'cell\', \'return_sequences\', \'return_state\', \'go_backwards\', \'stateful\', \'unroll\', \'time_major\'], varargs=None, keywords=kwargs, defaults=[\'False\', \'False\', \'False\', \'False\', \'False\', \'False\'], "
   }
@@ -190,6 +194,7 @@ tf_class {
   member_method {
     name: "from_config"
     argspec: "args=[\'cls\', \'config\', \'custom_objects\'], varargs=None, keywords=None, defaults=[\'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "get_build_config"

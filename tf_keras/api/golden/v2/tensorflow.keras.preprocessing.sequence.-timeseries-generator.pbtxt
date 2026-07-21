@@ -4,8 +4,20 @@ tf_class {
   is_instance: "<class \'tf_keras.utils.data_utils.Sequence\'>"
   is_instance: "<class \'object\'>"
   member_method {
+    name: "__getitem__"
+    argspec: "args=[\'self\', \'index\'], varargs=None, keywords=None, defaults=None"
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'data\', \'targets\', \'length\', \'sampling_rate\', \'stride\', \'start_index\', \'end_index\', \'shuffle\', \'reverse\', \'batch_size\'], varargs=None, keywords=None, defaults=[\'1\', \'1\', \'0\', \'None\', \'False\', \'False\', \'128\'], "
+  }
+  member_method {
+    name: "__iter__"
+    argspec: "args=[\'self\'], varargs=None, keywords=None, defaults=None"
+  }
+  member_method {
+    name: "__len__"
+    argspec: "args=[\'self\'], varargs=None, keywords=None, defaults=None"
   }
   member_method {
     name: "get_config"

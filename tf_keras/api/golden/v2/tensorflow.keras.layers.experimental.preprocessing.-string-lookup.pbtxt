@@ -134,6 +134,10 @@ tf_class {
     mtype: "<class \'property\'>"
   }
   member_method {
+    name: "__call__"
+    argspec: "args=[\'self\'], varargs=args, keywords=kwargs, defaults=None"
+  }
+  member_method {
     name: "__init__"
     argspec: "args=[\'self\', \'max_tokens\', \'num_oov_indices\', \'mask_token\', \'oov_token\', \'vocabulary\', \'idf_weights\', \'encoding\', \'invert\', \'output_mode\', \'sparse\', \'pad_to_max_tokens\'], varargs=None, keywords=kwargs, defaults=[\'None\', \'1\', \'None\', \'[UNK]\', \'None\', \'None\', \'utf-8\', \'False\', \'int\', \'False\', \'False\'], "
   }
