@@ -214,10 +214,12 @@ tf_class {
   member_method {
     name: "from_tensor"
     argspec: "args=[\'cls\', \'tensor\'], varargs=None, keywords=None, defaults=None"
+    method_kind: CLASS
   }
   member_method {
     name: "from_type_spec"
     argspec: "args=[\'cls\', \'type_spec\', \'name\'], varargs=None, keywords=None, defaults=[\'None\'], "
+    method_kind: CLASS
   }
   member_method {
     name: "get_shape"
