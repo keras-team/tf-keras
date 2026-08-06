@@ -161,7 +161,7 @@ the installation.
     ```
 
     ```shell
-    curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
+    curl https://releases.bazel.build/bazel-release.pub.gpg | sudo apt-key add -
     ```
 
     ```shell
