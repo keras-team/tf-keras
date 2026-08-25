@@ -118,7 +118,7 @@ class BatchNormalizationDTensorTest(test_util.DTensorBaseTest):
         normal_strategy_result = self._run_bn_training_with_strategy(
             normal_strategy, value_fn, bn_layer_0, run_kwargs
         )
-        if training and not synchronized and renorm:
+        if training and renorm:
             # This is an unsupported case at the moment.
             with self.assertRaisesRegex(NotImplementedError, "not supported"):
                 self._run_bn_training_with_strategy(

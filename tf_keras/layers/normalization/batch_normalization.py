@@ -1585,12 +1585,7 @@ def _expand_tensor_with_local_replica_group(inputs):
 def _raise_for_non_sync_bn_with_renorm_and_dtensor_strategy(
     synchronized, training, renorm
 ):
-    if (
-        utils.running_with_dtensor_strategy()
-        and not synchronized
-        and training == True
-        and renorm
-    ):
+    if utils.running_with_dtensor_strategy() and training == True and renorm:
         raise NotImplementedError(
             "Renorm for BatchNormalization under DTensor based distribution "
             "strategy is not supported at the moment. Please file a feature "
