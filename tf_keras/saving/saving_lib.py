@@ -14,6 +14,7 @@
 # ==============================================================================
 """Python-based idempotent model-saving functionality."""
 
+import collections.abc
 import datetime
 import io
 import json
@@ -30,6 +31,7 @@ import tf_keras as keras
 from tf_keras import losses
 from tf_keras.engine import base_layer
 from tf_keras.optimizers import optimizer
+from tf_keras.saving import h5_utils
 from tf_keras.saving.serialization_lib import ObjectSharingScope
 from tf_keras.saving.serialization_lib import deserialize_keras_object
 from tf_keras.saving.serialization_lib import serialize_keras_object
@@ -575,6 +577,28 @@ class DiskIOStore:
             tf.io.gfile.rmtree(self.tmp_dir)
 
 
+class H5Entry(collections.abc.Mapping):
+    """Read-only mapping of a trackable's saved variables.
+
+    Exposes the operations the variable store is documented to support, and
+    resolves every element through `h5_utils.safe_get_h5_dataset`, so a saved
+    model cannot point a variable at a file on the host or at a dataset whose
+    declared shape dwarfs what it actually stores.
+    """
+
+    def __init__(self, group):
+        self._group = group
+
+    def __getitem__(self, name):
+        return h5_utils.safe_get_h5_dataset(self._group, name)
+
+    def __iter__(self):
+        return iter(self._group)
+
+    def __len__(self):
+        return len(self._group)
+
+
 class H5IOStore:
     def __init__(self, root_path, archive=None, mode="r"):
         """Numerical variable store backed by HDF5.
@@ -605,11 +629,18 @@ class H5IOStore:
         return self.h5_file.create_group(path).create_group("vars")
 
     def get(self, path):
+        # A saved model is untrusted data, so variables are read through
+        # `H5Entry`, which rejects datasets that would read the host
+        # filesystem or force an unbounded allocation.
         if not path:
-            return self.h5_file["vars"]
-        if path in self.h5_file and "vars" in self.h5_file[path]:
-            return self.h5_file[path]["vars"]
-        return {}
+            return H5Entry(h5_utils.safe_get_h5_group(self.h5_file, "vars"))
+        try:
+            path_group = h5_utils.safe_get_h5_group(self.h5_file, path)
+            vars_group = h5_utils.safe_get_h5_group(path_group, "vars")
+        except KeyError:
+            # A trackable with no saved variables, as before.
+            return {}
+        return H5Entry(vars_group)
 
     def close(self):
         self.h5_file.close()
