@@ -28,6 +28,7 @@ py_library(
     ],
     # copybara:uncomment strict_deps = False,
     deps = [
+        ":h5_utils",
         ":object_registration",
         ":serialization",
         ":serialization_lib",
@@ -57,10 +58,23 @@ py_library(
     ],
     # copybara:uncomment strict_deps = False,
     deps = [
+        ":h5_utils",
         ":serialization_lib",
         "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
         "//tf_keras/utils:generic_utils",
         "//tf_keras/utils:io_utils",
+    ],
+)
+
+tf_py_test(
+    name = "h5_utils_test",
+    size = "small",
+    srcs = ["h5_utils_test.py"],
+    deps = [
+        ":h5_utils",
+        "//:tf_nightly_with_deps",  # "//third_party/py/tensorflow:tensorflow_core"
+        "@pypi//h5py",
+        "@pypi//numpy",
     ],
 )
 
@@ -75,6 +89,17 @@ tf_py_test(
         "//tf_keras/testing_infra:test_combinations",
         "//tf_keras/utils:generic_utils",
         "@pypi//absl_py",  # absl/testing:parameterized
+    ],
+)
+
+py_library(
+    name = "h5_utils",
+    srcs = [
+        "h5_utils.py",
+    ],
+    # copybara:uncomment strict_deps = False,
+    deps = [
+        "@pypi//h5py",
     ],
 )
 

@@ -19,6 +19,7 @@ import os
 import tensorflow.compat.v2 as tf
 
 from tf_keras import backend
+from tf_keras.saving import h5_utils
 from tf_keras.saving import object_registration
 from tf_keras.saving.legacy import hdf5_format
 from tf_keras.saving.legacy import saving_utils
@@ -484,7 +485,7 @@ def load_weights(
         model._assert_weights_created()
         with h5py.File(filepath, "r") as f:
             if "layer_names" not in f.attrs and "model_weights" in f:
-                f = f["model_weights"]
+                f = h5_utils.safe_get_h5_group(f, "model_weights")
             if by_name:
                 hdf5_format.load_weights_from_hdf5_group_by_name(
                     f, model, skip_mismatch
