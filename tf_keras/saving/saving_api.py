@@ -23,6 +23,7 @@ import tensorflow.compat.v2 as tf
 from tensorflow.python.util.tf_export import keras_export
 
 from tf_keras.saving import saving_lib
+from tf_keras.saving import serialization_lib
 from tf_keras.saving.legacy import save as legacy_sm_saving_lib
 from tf_keras.saving.legacy import saving_utils
 from tf_keras.utils import io_utils
@@ -298,12 +299,27 @@ def load_model(
             )
 
         # Legacy case.
-        return legacy_sm_saving_lib.load_model(
-            local_filepath,
-            custom_objects=custom_objects,
-            compile=compile,
-            **kwargs,
+        # `safe_mode` isn't threaded through the legacy loader's own
+        # signature, so propagate it via SafeModeScope, the same
+        # mechanism the .keras (v3) path above relies on. Without this,
+        # Lambda-layer deserialization inside the legacy path never sees
+        # the caller's safe_mode value.
+        #
+        # Resolve against an outer scope first, matching how
+        # deserialize_keras_object resolves it on the v3 path, so an
+        # active outer SafeModeScope (e.g. from enable_unsafe_deserialization())
+        # isn't silently overridden by this function's own safe_mode default.
+        safe_scope_arg = serialization_lib.in_safe_mode()
+        resolved_safe_mode = (
+            safe_scope_arg if safe_scope_arg is not None else safe_mode
         )
+        with serialization_lib.SafeModeScope(resolved_safe_mode):
+            return legacy_sm_saving_lib.load_model(
+                local_filepath,
+                custom_objects=custom_objects,
+                compile=compile,
+                **kwargs,
+            )
 
 
 def save_weights(model, filepath, overwrite=True, **kwargs):
