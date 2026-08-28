@@ -204,6 +204,87 @@ class TestGetFile(tf.test.TestCase):
                 "test.txt", origin, file_hash=hashval
             )
 
+    def test_is_link_in_dir(self):
+        base_dir = data_utils._resolve_path(self.get_temp_dir())
+
+        def make_tarinfo(name, linkname, is_symlink):
+            return type(
+                "TarInfo",
+                (object,),
+                {
+                    "name": name,
+                    "linkname": linkname,
+                    "issym": lambda self=None: is_symlink,
+                    "islnk": lambda self=None: not is_symlink,
+                },
+            )()
+
+        # Hard links.
+        self.assertTrue(
+            data_utils._is_link_in_dir(
+                make_tarinfo("file.txt", "file.txt", False), base_dir
+            )
+        )
+        self.assertFalse(
+            data_utils._is_link_in_dir(
+                make_tarinfo("file.txt", "../file.txt", False), base_dir
+            )
+        )
+        self.assertFalse(
+            data_utils._is_link_in_dir(
+                make_tarinfo("../file.txt", "file.txt", False), base_dir
+            )
+        )
+
+        # Symlinks.
+        self.assertTrue(
+            data_utils._is_link_in_dir(
+                make_tarinfo("folder/foo.txt", "../file.txt", True), base_dir
+            )
+        )
+        self.assertFalse(
+            data_utils._is_link_in_dir(
+                make_tarinfo("../foo.txt", "file.txt", True), base_dir
+            )
+        )
+        self.assertFalse(
+            data_utils._is_link_in_dir(
+                make_tarinfo("folder/foo.txt", "../../file.txt", True), base_dir
+            )
+        )
+
+    def test_filter_safe_paths_hardlink_external_target(self):
+        base_dir = data_utils._resolve_path(self.get_temp_dir())
+        tar_path = os.path.join(base_dir, "test.tar")
+
+        target_file = os.path.join(base_dir, "target.txt")
+        with open(target_file, "w") as f:
+            f.write("safe content")
+
+        with tarfile.open(tar_path, "w") as tar:
+            # Malicious hardlink: in-dir name, but external linkname.
+            malicious_hardlink = tarfile.TarInfo(name="app_hook")
+            malicious_hardlink.type = tarfile.LNKTYPE
+            malicious_hardlink.linkname = "/etc/passwd"
+            tar.addfile(malicious_hardlink)
+
+            # Malicious hardlink: external name, in-dir linkname.
+            malicious_hardlink_2 = tarfile.TarInfo(name="../escaped_hook")
+            malicious_hardlink_2.type = tarfile.LNKTYPE
+            malicious_hardlink_2.linkname = "target.txt"
+            tar.addfile(malicious_hardlink_2)
+
+            # Valid member.
+            valid_info = tarfile.TarInfo(name="safe_file.txt")
+            tar.addfile(valid_info)
+
+        with tarfile.open(tar_path, "r") as tar:
+            safe_members = list(
+                data_utils._filter_safe_paths(tar, base_dir=base_dir)
+            )
+            member_names = [m.name for m in safe_members]
+            self.assertEqual(member_names, ["safe_file.txt"])
+
 
 class TestSequence(keras.utils.data_utils.Sequence):
     def __init__(self, shape, value=1.0):

@@ -24,7 +24,6 @@ import tensorflow.compat.v2 as tf
 from tf_keras import backend
 from tf_keras.optimizers import optimizer as optimizer_base
 from tf_keras.optimizers import optimizer_v1
-from tf_keras.saving import h5_utils
 from tf_keras.saving import object_registration
 from tf_keras.saving.legacy import model_config as model_config_lib
 from tf_keras.saving.legacy import saving_utils
@@ -206,9 +205,7 @@ def load_model_from_hdf5(filepath, custom_objects=None, compile=True):
         )
 
         # set weights
-        load_weights_from_hdf5_group(
-            h5_utils.safe_get_h5_group(f, "model_weights"), model
-        )
+        load_weights_from_hdf5_group(f["model_weights"], model)
 
         if compile:
             # instantiate optimizer
@@ -709,13 +706,12 @@ def load_optimizer_weights_from_hdf5_group(hdf5_group):
     Returns:
         data: List of optimizer weight names.
     """
-    weights_group = h5_utils.safe_get_h5_group(hdf5_group, "optimizer_weights")
+    weights_group = hdf5_group["optimizer_weights"]
     optimizer_weight_names = load_attributes_from_hdf5_group(
         weights_group, "weight_names"
     )
     return [
-        h5_utils.safe_get_h5_dataset(weights_group, weight_name)
-        for weight_name in optimizer_weight_names
+        weights_group[weight_name] for weight_name in optimizer_weight_names
     ]
 
 
@@ -778,10 +774,7 @@ def load_subset_weights_from_hdf5_group(f):
             and weights file.
     """
     weight_names = load_attributes_from_hdf5_group(f, "weight_names")
-    return [
-        np.asarray(h5_utils.safe_get_h5_dataset(f, weight_name))
-        for weight_name in weight_names
-    ]
+    return [np.asarray(f[weight_name]) for weight_name in weight_names]
 
 
 def load_weights_from_hdf5_group(f, model):
@@ -817,7 +810,7 @@ def load_weights_from_hdf5_group(f, model):
     layer_names = load_attributes_from_hdf5_group(f, "layer_names")
     filtered_layer_names = []
     for name in layer_names:
-        g = h5_utils.safe_get_h5_group(f, name)
+        g = f[name]
         weight_names = load_attributes_from_hdf5_group(g, "weight_names")
         if weight_names:
             filtered_layer_names.append(name)
@@ -833,7 +826,7 @@ def load_weights_from_hdf5_group(f, model):
     # which provides a speedup in TensorFlow.
     weight_value_tuples = []
     for k, name in enumerate(layer_names):
-        g = h5_utils.safe_get_h5_group(f, name)
+        g = f[name]
         layer = filtered_layers[k]
         symbolic_weights = _legacy_weights(layer)
         weight_values = load_subset_weights_from_hdf5_group(g)
@@ -854,7 +847,7 @@ def load_weights_from_hdf5_group(f, model):
             model._trainable_weights + model._non_trainable_weights
         )
         weight_values = load_subset_weights_from_hdf5_group(
-            h5_utils.safe_get_h5_group(f, "top_level_model_weights")
+            f["top_level_model_weights"]
         )
         if len(weight_values) != len(symbolic_weights):
             raise ValueError(
@@ -913,7 +906,7 @@ def load_weights_from_hdf5_group_by_name(f, model, skip_mismatch=False):
     # which provides a speedup in TensorFlow.
     weight_value_tuples = []
     for k, name in enumerate(layer_names):
-        g = h5_utils.safe_get_h5_group(f, name)
+        g = f[name]
         weight_values = load_subset_weights_from_hdf5_group(g)
         for layer in index.get(name, []):
             symbolic_weights = _legacy_weights(layer)
@@ -967,7 +960,7 @@ def load_weights_from_hdf5_group_by_name(f, model, skip_mismatch=False):
             model._trainable_weights + model._non_trainable_weights
         )
         weight_values = load_subset_weights_from_hdf5_group(
-            h5_utils.safe_get_h5_group(f, "top_level_model_weights")
+            f["top_level_model_weights"]
         )
 
         if len(weight_values) != len(symbolic_weights):

@@ -110,25 +110,45 @@ def _resolve_path(path):
 
 
 def _is_path_in_dir(path, base_dir):
-    return _resolve_path(os.path.join(base_dir, path)).startswith(base_dir)
+    resolved = _resolve_path(os.path.join(base_dir, path))
+    try:
+        return os.path.commonpath([resolved, base_dir]) == base_dir
+    except ValueError:
+        return False
 
 
 def _is_link_in_dir(info, base):
-    tip = _resolve_path(os.path.join(base, os.path.dirname(info.name)))
-    return _is_path_in_dir(info.linkname, base_dir=tip)
+    if info.islnk():
+        # Hard links resolve relative to the root. Verify both the link
+        # location and target location.
+        return _is_path_in_dir(info.name, base) and _is_path_in_dir(
+            info.linkname, base
+        )
+
+    # Symlinks resolve relative to the directory of their destination.
+    if not _is_path_in_dir(info.name, base):
+        return False
+    destination = _resolve_path(os.path.join(base, info.name))
+    link = _resolve_path(
+        os.path.join(os.path.dirname(destination), info.linkname)
+    )
+    try:
+        return os.path.commonpath([link, base]) == base
+    except ValueError:
+        return False
 
 
-def _filter_safe_paths(members):
-    base_dir = _resolve_path(".")
+def _filter_safe_paths(members, base_dir="."):
+    base_dir = _resolve_path(base_dir)
     for finfo in members:
         valid_path = False
-        if _is_path_in_dir(finfo.name, base_dir):
-            valid_path = True
-            yield finfo
-        elif finfo.issym() or finfo.islnk():
+        if finfo.issym() or finfo.islnk():
             if _is_link_in_dir(finfo, base_dir):
                 valid_path = True
                 yield finfo
+        elif _is_path_in_dir(finfo.name, base_dir):
+            valid_path = True
+            yield finfo
         if not valid_path:
             warnings.warn(
                 "Skipping invalid path during archive extraction: "
@@ -179,7 +199,8 @@ def _extract_archive(file_path, path=".", archive_format="auto"):
                     else:
                         # Tar archive, perhaps unsafe. Filter paths.
                         archive.extractall(
-                            path, members=_filter_safe_paths(archive)
+                            path,
+                            members=_filter_safe_paths(archive, base_dir=path),
                         )
                 except (tarfile.TarError, RuntimeError, KeyboardInterrupt):
                     if os.path.exists(path):
