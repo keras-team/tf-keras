@@ -298,12 +298,20 @@ def load_model(
             )
 
         # Legacy case.
-        return legacy_sm_saving_lib.load_model(
-            local_filepath,
-            custom_objects=custom_objects,
-            compile=compile,
-            **kwargs,
-        )
+        # Establish the safe-mode scope so that `safe_mode` is honored on the
+        # legacy (`.h5`/SavedModel) path too. Without this, the legacy loader
+        # never enters a `SafeModeScope`, `in_safe_mode()` defaults to falsy,
+        # and unsafe `Lambda` deserialization runs even when `safe_mode=True`.
+        # Imported lazily to avoid a circular import at module load time.
+        from tf_keras.saving.serialization_lib import SafeModeScope
+
+        with SafeModeScope(safe_mode):
+            return legacy_sm_saving_lib.load_model(
+                local_filepath,
+                custom_objects=custom_objects,
+                compile=compile,
+                **kwargs,
+            )
 
 
 def save_weights(model, filepath, overwrite=True, **kwargs):
