@@ -1205,11 +1205,14 @@ class NetworkConstructionTest(test_combinations.TestCase):
     @test_combinations.generate(
         test_combinations.times(
             test_combinations.keras_mode_combinations(),
+            test_combinations.combine(
+                constant_type=["tensor", "numpy", "list", "scalar"]
+            ),
             test_combinations.combine(share_already_used_layer=[True, False]),
         )
     )
     def test_call_kwarg_derived_from_keras_layer_and_first_arg_is_constant(
-        self, share_already_used_layer
+        self, constant_type, share_already_used_layer
     ):
         class IdentityLayer(layers.Layer):
             def call(self, x):
@@ -1233,7 +1236,16 @@ class NetworkConstructionTest(test_combinations.TestCase):
             # this case.
             training_lib.Model([input2], identity_layer(input2))
 
-        outputs = MaybeAdd()(3.0, x2=identity_layer(input2))
+        if constant_type == "tensor":
+            constant_value = tf.fill((1, 10), 3.0)
+        elif constant_type == "numpy":
+            constant_value = np.full((1, 10), 3.0, dtype=np.float32)
+        elif constant_type == "list":
+            constant_value = [3.0] * 10
+        else:
+            constant_value = 3.0
+
+        outputs = MaybeAdd()(constant_value, x2=identity_layer(input2))
         model = training_lib.Model([input2], outputs)
         model.compile("sgd", "mse", run_eagerly=test_utils.should_run_eagerly())
         history = model.fit(
@@ -1242,12 +1254,18 @@ class NetworkConstructionTest(test_combinations.TestCase):
         # Check that second input was correctly added to first.
         self.assertEqual(history.history["loss"][0], 0.0)
 
-        model = training_lib.Model.from_config(
-            model.get_config(),
+        model_json = model.to_json()
+        model = models.model_from_json(
+            model_json,
             custom_objects={
                 "MaybeAdd": MaybeAdd,
                 "IdentityLayer": IdentityLayer,
             },
+        )
+        self.assertEqual(
+            model_json,
+            model.to_json(),
+            "Model config serialization/deserialization is not idempotent.",
         )
         model.compile("sgd", "mse", run_eagerly=test_utils.should_run_eagerly())
         history = model.fit(

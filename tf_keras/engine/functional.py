@@ -1443,13 +1443,19 @@ def reconstruct_from_config(config, custom_objects=None, created_layers=None):
                 assert len(input_data) >= 3
                 const_val = input_data[2]
                 if (
-                    isinstance(const_val, tuple)
+                    # A JSON round trip turns the serialized tuple into a list.
+                    isinstance(const_val, (tuple, list))
                     and len(const_val) == 2
                     and const_val[0] == node_module._COMPOSITE_TYPE
                 ):
                     # It is a composite tensor.
                     input_tensors.append(json_utils.decode(const_val[1]))
                 else:
+                    # NumPy arrays and TF tensors (constants) are serialized as
+                    # lists. However, `tf.nest` doesn't handle them as an atom.
+                    # We need to repackage them as a single tensor.
+                    if isinstance(const_val, (tuple, list)):
+                        const_val = tf.constant(const_val)
                     input_tensors.append(const_val)
         input_tensors = tf.nest.pack_sequence_as(node_data, input_tensors)
         # Call layer on its inputs, thus creating the node
