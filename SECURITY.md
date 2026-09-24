@@ -1,4 +1,14 @@
 ## Security vulnerability reports
 
-Since Keras 2 is the high-level API of TensorFlow 2, Keras 2 follows the same security practices as TensorFlow.
-For details on guidelines on vulnerabilities and how to report them, you can refer to [Using TensorFlow Securely](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md).
+Keras 2 (`tf-keras`) is deprecated in favor of [Keras
+3](https://github.com/keras-team/keras), the actively maintained multi-backend
+implementation of Keras supporting JAX, PyTorch, and TensorFlow. **We do not
+backport security fixes from Keras 3 to `tf-keras` / Keras 2.** Users are
+strongly encouraged to [migrate to Keras
+3](https://keras.io/guides/migrating_to_keras_3/) to receive ongoing security
+updates and fixes. For security practices and vulnerability reporting in Keras
+3, please refer to the [Keras 3 Security
+Policy](https://github.com/keras-team/keras/blob/master/SECURITY.md).
+
+For other TensorFlow-related reports, please see [TensorFlow's security
+policy](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md).
