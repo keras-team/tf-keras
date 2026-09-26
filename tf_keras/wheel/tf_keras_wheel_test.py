@@ -43,6 +43,8 @@ def test_wheel(expected_version):
     logging.info("Try to import packages at runtime...")
     import tf_keras  # pylint: disable=g-import-not-at-top
 
+    logging.info("Checking tf_keras version: %s", tf_keras.__version__)
+
     for package_name in packages_to_check:
         try:
             if "." in package_name:
