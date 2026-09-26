@@ -14,6 +14,7 @@
 # ==============================================================================
 """Tests for serialization_lib."""
 
+import os
 import json
 
 import numpy as np
@@ -197,6 +198,25 @@ class SerializationLibTest(tf.test.TestCase, parameterized.TestCase):
         y1 = lmbda(x)
         y2 = new_lmbda(x)
         self.assertAllClose(y1, y2, atol=1e-5)
+
+    def test_function_gadget_blocked_in_safe_mode(self):
+        # A `Lambda` layer's `function` config can name any module/callable;
+        # resolving one from a non-Keras module (e.g. `os.system`) under
+        # safe_mode is an arbitrary-code-execution vector and must be blocked.
+        gadget = {
+            "class_name": "function",
+            "config": "system",
+            "module": "os",
+            "registered_name": "system",
+        }
+        with serialization_lib.SafeModeScope(safe_mode=True):
+            with self.assertRaisesRegex(ValueError, "arbitrary code execution"):
+                serialization_lib.deserialize_keras_object(gadget)
+        # With safe_mode disabled, resolution proceeds (documented escape hatch).
+        with serialization_lib.SafeModeScope(safe_mode=False):
+            self.assertIs(
+                serialization_lib.deserialize_keras_object(gadget), os.system
+            )
 
     def test_tensorspec(self):
         inputs = keras.Input(type_spec=tf.TensorSpec((2, 2), tf.float32))

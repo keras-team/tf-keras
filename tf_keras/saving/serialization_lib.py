@@ -789,6 +789,26 @@ def _retrieve_class_or_fn(
                 if obj is not None:
                     return obj
 
+        # Under safe mode, restrict module resolution to TF-Keras / TensorFlow
+        # modules. Importing an arbitrary module here (e.g. `os`, `subprocess`,
+        # `builtins`) and fetching a symbol from it is an arbitrary-code-execution
+        # vector, because a `Lambda` layer's `function` can name any
+        # module/callable. Legitimate built-in symbols are already resolved
+        # above; only the arbitrary-import fall-through is blocked.
+        if in_safe_mode():
+            safe_root = module.split(".", 1)[0]
+            if safe_root not in ("keras", "tf_keras", "tensorflow", "numpy"):
+                raise ValueError(
+                    f"Requested the deserialization of a `{obj_type}` from "
+                    f"module `{module}`, which is not an allowed TF-Keras / "
+                    "TensorFlow module. This carries a potential risk of "
+                    "arbitrary code execution and thus it is disallowed when "
+                    "`safe_mode=True` (the default). If you trust the source of "
+                    "the saved model, you can pass `safe_mode=False` to the "
+                    "loading function. "
+                    f"Full object config: {full_config}"
+                )
+
         # Otherwise, attempt to retrieve the class object given the `module`
         # and `class_name`. Import the module, find the class.
         try:
