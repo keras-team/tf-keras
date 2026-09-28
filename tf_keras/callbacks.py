@@ -1894,7 +1894,7 @@ class BackupAndRestore(Callback):
         # TrainingState is used to manage the training state needed for
         # failure-recovery of a worker in training.
 
-        if self.model._distribution_strategy and not isinstance(
+        if self.model.distribute_strategy and not isinstance(
             self.model.distribute_strategy, self._supported_strategies
         ):
             raise NotImplementedError(
