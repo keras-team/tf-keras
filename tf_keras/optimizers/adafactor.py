@@ -40,7 +40,7 @@ class Adafactor(optimizer.Optimizer):
     The default argument setup is based on the original paper (see reference).
     When gradients are of dimension > 2, Adafactor optimizer will delete the
     last 2 dimensions separately in its accumulator variables.
-
+    
     Args:
         learning_rate: Initial value for the learning rate:
             either a floating point value,
