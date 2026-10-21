@@ -229,6 +229,9 @@ class EmbeddingTest(test_combinations.TestCase):
         self.assertAllClose(output.dense_shape, expected_output.dense_shape)
 
     @test_combinations.run_all_keras_modes(always_skip_v1=True)
+    @test_utils.run_without_tensor_float_32(
+        "Fails on sm90 where TF32 is the default"
+    )
     def test_use_one_hot(self):
         batch = 8
         input_length = 10

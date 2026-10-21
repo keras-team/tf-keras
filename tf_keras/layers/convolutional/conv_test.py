@@ -494,6 +494,9 @@ class GroupedConvTest(test_combinations.TestCase):
         ("Conv2D", keras.layers.Conv2D, (32, 12, 12, 32)),
         ("Conv3D", keras.layers.Conv3D, (32, 12, 12, 12, 32)),
     )
+    @test_utils.run_without_tensor_float_32(
+        "Fails on sm90 where TF32 is the default"
+    )
     def test_group_conv(self, layer_cls, input_shape):
         if tf.test.is_gpu_available(cuda_only=True):
             with test_utils.use_gpu():
