@@ -381,6 +381,7 @@ class SidecarEvaluatorModelExport(ModelCheckpoint):
     )
     sidecar_evaluator.start()
     # Model weights are saved if evaluator deems it's the best seen so far.
+    ```
 
     Args:
         export_filepath: Path where best models should be saved by this
