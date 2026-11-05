@@ -446,9 +446,10 @@ class TestDirectoryIterator(test_combinations.TestCase):
                 im_class = count % num_classes
                 # rotate subfolders
                 classpaths = paths[im_class]
+                ext = "tif" if im.mode == "I" else "png"
                 filename = os.path.join(
                     classpaths[count % len(classpaths)],
-                    f"image-{count}.png",
+                    f"image-{count}.{ext}",
                 )
                 filenames.append(filename)
                 im.save(os.path.join(tmpdir.full_path, filename))
@@ -509,8 +510,9 @@ class TestDirectoryIterator(test_combinations.TestCase):
         count = 0
         for test_images in all_test_images:
             for im in test_images:
-                filename = os.path.join(tmpdir, "class-1", f"image-{count}.png")
-                im.save(filename)
+                ext = "tif" if im.mode == "I" else "png"
+                filename = f"image-{count}.{ext}"
+                im.save(os.path.join(tmpdir, "class-1", filename))
                 count += 1
 
         # create iterator
@@ -567,9 +569,10 @@ class TestDirectoryIterator(test_combinations.TestCase):
                 im_class = count % num_classes
                 # rotate subfolders
                 classpaths = paths[im_class]
+                ext = "tif" if im.mode == "I" else "png"
                 filename = os.path.join(
                     classpaths[count % len(classpaths)],
-                    f"image-{count}.png",
+                    f"image-{count}.{ext}",
                 )
                 filenames.append(filename)
                 im.save(os.path.join(tmpdir.full_path, filename))
