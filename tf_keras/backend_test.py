@@ -1790,7 +1790,7 @@ class BackendNNOpsTest(tf.test.TestCase, parameterized.TestCase):
         # 3D NHC case
         val = np.random.random((10, 5, 3))
         x = backend.variable(val)
-        mean, var = tf.nn.moments(x, (0, 1), None, None, False)
+        mean, var = tf.nn.moments(x, (0, 1), keepdims=False)
         normed = backend.batch_normalization(
             x, mean, var, beta, gamma, axis=-1, epsilon=1e-3
         )
@@ -1799,7 +1799,7 @@ class BackendNNOpsTest(tf.test.TestCase, parameterized.TestCase):
         # 4D NHWC case
         val = np.random.random((10, 5, 5, 3))
         x = backend.variable(val)
-        mean, var = tf.nn.moments(x, (0, 1, 2), None, None, False)
+        mean, var = tf.nn.moments(x, (0, 1, 2), keepdims=False)
         normed = backend.batch_normalization(
             x, mean, var, beta, gamma, axis=-1, epsilon=1e-3
         )
@@ -1810,7 +1810,7 @@ class BackendNNOpsTest(tf.test.TestCase, parameterized.TestCase):
             # Eager CPU kernel for NCHW does not exist.
             val = np.random.random((10, 3, 5, 5))
             x = backend.variable(val)
-            mean, var = tf.nn.moments(x, (0, 2, 3), None, None, False)
+            mean, var = tf.nn.moments(x, (0, 2, 3), keepdims=False)
             normed = backend.batch_normalization(
                 x, mean, var, beta, gamma, axis=1, epsilon=1e-3
             )
