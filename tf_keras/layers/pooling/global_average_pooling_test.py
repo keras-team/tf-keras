@@ -55,6 +55,13 @@ class GlobalAveragePoolingTest(tf.test.TestCase, parameterized.TestCase):
         output = model.predict(model_input)
         self.assertAllClose(output[0], model_input[0, 0, :])
 
+    def test_global_average_pooling_1d_with_empty_batch_and_mask(self):
+        inputs = np.random.random((0, 3, 4)).astype("float32")
+        mask = np.ones((0, 3), dtype="bool")
+        layer = keras.layers.GlobalAveragePooling1D()
+        output = layer(inputs, mask)
+        self.assertAllEqual(output.shape, (0, 4))
+
     def test_global_average_pooling_1d_with_ragged(self):
         ragged_data = tf.ragged.constant(
             [[[1.0, 1.0], [2.0, 2.0], [3.0, 3.0]], [[1.0, 1.0], [2.0, 2.0]]],
