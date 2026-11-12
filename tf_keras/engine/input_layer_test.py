@@ -409,7 +409,9 @@ class InputLayerTest(test_combinations.TestCase):
             model = functional.Functional(x, core.Lambda(lambda_fn)(x))
 
             # And that the model works
-            two_tensors = TwoTensors(tf.ones((1, 2, 3)) * 2.0, tf.ones(1, 2, 3))
+            two_tensors = TwoTensors(
+                tf.ones((1, 2, 3)) * 2.0, tf.ones((1, 2, 3))
+            )
             self.assertAllEqual(model(two_tensors), lambda_fn(two_tensors))
 
             # Test serialization / deserialization
