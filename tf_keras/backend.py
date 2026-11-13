@@ -296,6 +296,28 @@ def clear_session():
         # step_containers.
         context.context().clear_kernel_cache()
 
+    # Clear dynamically generated custom gradients from the global registry.
+    # This severs the circular reference between the registry and Keras FuncGraphs,
+    # allowing Python's garbage collector to safely reclaim memory.
+    try:
+        from tensorflow.python.framework import ops
+        
+        if hasattr(ops, '_gradient_registry') and hasattr(ops._gradient_registry, '_registry'):
+            gradient_dict = ops._gradient_registry._registry
+            
+            orphaned_gradients = [
+                name for name in list(gradient_dict.keys())
+                if isinstance(name, str) and name.startswith("CustomGradient")
+            ]
+            
+            for name in orphaned_gradients:
+                try:
+                    del gradient_dict[name]
+                except KeyError:
+                    pass
+    except Exception:
+        pass
+
 
 # Inject the clear_session function to keras_deps to remove the dependency
 # from TFLite to TF-Keras.
