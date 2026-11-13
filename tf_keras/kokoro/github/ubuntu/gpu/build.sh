@@ -27,8 +27,8 @@ TF_CUDA_COMPUTE_CAPABILITIES="sm_60,sm_70,sm_80,sm_89,compute_90"
 tag_filters="gpu,-no_gpu,-nogpu,-benchmark-test,-no_oss,-oss_excluded,-oss_serial,-no_gpu_presubmit"
 # There are only 4 GPU available on the local test machine.
 TF_GPU_COUNT=4
-TF_TESTS_PER_GPU=8
-LOCAL_TEST_JOBS=32  # TF_GPU_COUNT * TF_TESTS_PER_GPU
+TF_TESTS_PER_GPU=4
+LOCAL_TEST_JOBS=16  # TF_GPU_COUNT * TF_TESTS_PER_GPU
 
 bazel run requirements.update --repo_env=HERMETIC_PYTHON_VERSION=3.10 -- --upgrade
 bazel test --test_timeout 300,600,1200,3600 --test_output=errors --keep_going \
@@ -40,6 +40,7 @@ bazel test --test_timeout 300,600,1200,3600 --test_output=errors --keep_going \
    --config=cuda \
    --test_env=TF_GPU_COUNT=${TF_GPU_COUNT} \
    --test_env=TF_TESTS_PER_GPU=${TF_TESTS_PER_GPU} \
+   --test_env=TF_FORCE_GPU_ALLOW_GROWTH=true \
    --build_tag_filters="${tag_filters}" \
    --test_tag_filters="${tag_filters}" \
    --run_under=@org_keras//tf_keras/tools/gpu_build:parallel_gpu_execute \

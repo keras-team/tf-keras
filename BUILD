@@ -21,8 +21,11 @@ compile_pip_requirements(
 )
 
 py_import(
+    # Release branch: tests run against the TensorFlow release this tf-keras
+    # release pairs with. The target keeps its name to avoid changing every
+    # BUILD file that depends on it.
     name = "tf_nightly_with_deps",
-    wheel = "@pypi//tf_nightly:whl",
+    wheel = "@pypi//tensorflow:whl",
     wheel_deps = if_cuda([
         "@pypi_nvidia_cublas_cu12//:pkg",
         "@pypi_nvidia_cuda_cupti_cu12//:pkg",
@@ -36,6 +39,7 @@ py_import(
         "@pypi_nvidia_cusparse_cu12//:pkg",
         "@pypi_nvidia_nccl_cu12//:pkg",
         "@pypi_nvidia_nvjitlink_cu12//:pkg",
+        "@pypi_nvidia_nvshmem_cu12//:pkg",
     ]),
     deps = [
         "@pypi_absl_py//:pkg",
