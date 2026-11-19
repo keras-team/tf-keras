@@ -244,7 +244,7 @@ class ExportArchive(tf.__internal__.tracking.AutoTrackable):
             decorated_fn = tf.function(fn, input_signature=input_signature)
             self._endpoint_signatures[name] = input_signature
         else:
-            if isinstance(fn, tf.types.experimental.GenericFunction):
+            if isinstance(fn, tf.types.experimental.PolymorphicFunction):
                 if not fn._list_all_concrete_functions():
                     raise ValueError(
                         f"The provided tf.function '{fn}' "
